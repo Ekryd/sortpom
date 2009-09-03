@@ -5,12 +5,18 @@ import java.io.OutputStream;
 
 import sortpom.util.FileUtil;
 
+/**
+ * Makes sure that all newlines are stored in the same way.
+ *
+ * @author Bjorn
+ *
+ */
 public class NewlineOutputStream extends OutputStream {
 	private final OutputStream wrappedStream;
 	private boolean lastWasCarrageReturn = false;
 	private final char[] lineSeparator;
-	private final static int CARRAGE_RETURN = '\r';
-	private final static int NEWLINE = '\n';
+	private static final int CARRAGE_RETURN = '\r';
+	private static final int NEWLINE = '\n';
 
 	public NewlineOutputStream(final FileUtil fileUtil, final OutputStream wrappedStream) {
 		this.lineSeparator = fileUtil.getLineSeparator().toCharArray();

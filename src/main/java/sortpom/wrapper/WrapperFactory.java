@@ -11,12 +11,9 @@ import org.jdom.Element;
  */
 public interface WrapperFactory {
 
-	/**
-	 * @param properties
-	 */
-	public void initialize();
-
 	WrapperOperations create(final Element rootElement);
 
 	<T extends Content> Wrapper<T> create(final T content);
+
+	void initialize();
 }

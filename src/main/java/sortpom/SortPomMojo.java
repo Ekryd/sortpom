@@ -50,16 +50,16 @@ public class SortPomMojo extends AbstractMojo {
 	private String encoding;
 
 	/**
-	 * Encoding for the files
+	 * Line separator for sorted pom. Can be either \n, \r or \r\n
 	 *
 	 * @parameter expression="${sort.lineSeparator}" default-value="${line.separator}"
 	 */
 	private String lineSeparatorString;
 
 	/**
-	 * Encoding for the files
+	 * Custom sort order file
 	 *
-	 * @parameter expression="${sort.defaultOrderFileName}"
+	 * @parameter expression="${sort.sortOrderFile}"
 	 */
 	private File defaultOrderFileName;
 

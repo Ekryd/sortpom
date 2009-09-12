@@ -13,6 +13,7 @@ import org.jdom.JDOMException;
 import se.mine.mindif.Context;
 import se.mine.mindif.Dependency;
 import sortpom.util.FileUtil;
+import sortpom.util.LineSeparator;
 
 /**
  *
@@ -44,23 +45,23 @@ public class SortPomMojo extends AbstractMojo {
 	/**
 	 * Encoding for the files
 	 *
-	 * @parameter expression="${sort.encoding}" default-value="${project.build.sourceEncoding}"
+	 * @parameter expression="${sort.encoding}" default-value="UTF-8"
 	 */
 	private String encoding;
 
 	/**
 	 * Encoding for the files
 	 *
-	 * @parameter expression="${sort.encoding}" default-value="${line.separator}"
+	 * @parameter expression="${sort.lineSeparator}" default-value="${line.separator}"
 	 */
-	private String lineSeparator;
+	private String lineSeparatorString;
 
 	/**
 	 * Encoding for the files
 	 *
-	 * @parameter expression="${sort.defaultOrderFileName}" default-value="defaultOrder.xml"
+	 * @parameter expression="${sort.defaultOrderFileName}"
 	 */
-	private String defaultOrderFileName;
+	private File defaultOrderFileName;
 
 	@Dependency
 	private FileUtil fileUtil;
@@ -71,14 +72,12 @@ public class SortPomMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		new Context().inject(this);
-		if (encoding == null || encoding.trim().length() == 0) {
-			encoding = "UTF-8";
-		}
-		fileUtil.setup(pomFile, backupFileExtension, encoding, defaultOrderFileName, lineSeparator);
+		final LineSeparator lineSeparator = new LineSeparator(lineSeparatorString);
+		fileUtil.setup(pomFile, backupFileExtension, encoding, defaultOrderFileName);
 		getLog().info("Sorting file " + pomFile.getAbsolutePath());
 
 		String xml = fileUtil.getPomFileContent();
-		String sortedXml = getSortedXml(xml);
+		String sortedXml = getSortedXml(lineSeparator, xml);
 		if (xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""))) {
 			getLog().info("Pomfile is already sorted, exiting");
 			return;
@@ -99,7 +98,7 @@ public class SortPomMojo extends AbstractMojo {
 		}
 	}
 
-	private String getSortedXml(final String xml) throws MojoExecutionException {
+	private String getSortedXml(final LineSeparator lineSeparator, final String xml) throws MojoExecutionException {
 		ByteArrayInputStream originalXmlInputStream = null;
 		ByteArrayOutputStream sortedXmlOutputStream = null;
 		try {
@@ -107,7 +106,7 @@ public class SortPomMojo extends AbstractMojo {
 			xmlProcessor.setOriginalXml(originalXmlInputStream);
 			xmlProcessor.sortXml();
 			sortedXmlOutputStream = new ByteArrayOutputStream();
-			xmlProcessor.getSortedXml(sortedXmlOutputStream);
+			xmlProcessor.getSortedXml(lineSeparator, sortedXmlOutputStream);
 			return sortedXmlOutputStream.toString(fileUtil.getEncoding());
 		} catch (JDOMException e) {
 			throw new MojoExecutionException("Could not sort pomfiles content: " + xml, e);

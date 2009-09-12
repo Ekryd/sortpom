@@ -11,6 +11,7 @@ import org.jdom.Content;
 import org.jdom.Element;
 
 import sortpom.util.FileUtil;
+import sortpom.util.LineSeparator;
 import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.AlfabeticalSortedWrapper;
 import sortpom.wrapper.GroupWrapper;
@@ -60,7 +61,7 @@ public class XmlProcessorTest extends TestCase {
 		final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
 		final XmlProcessor xmlProcessor = new XmlProcessor();
 		final FileUtil fileUtil = new FileUtil();
-		fileUtil.setup(null, null, "UTF-8", "defaultOrder.xml", "\r\n");
+		fileUtil.setup(null, null, "UTF-8", null);
 		WrapperFactory wrapperFactory = new WrapperFactoryImpl();
 		if (sortAlfabeticalOnly) {
 			wrapperFactory = new WrapperFactory() {
@@ -93,7 +94,8 @@ public class XmlProcessorTest extends TestCase {
 		xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
 		xmlProcessor.sortXml();
 		final ByteArrayOutputStream sortedXmlOutputStream = new ByteArrayOutputStream();
-		xmlProcessor.getSortedXml(sortedXmlOutputStream);
+		LineSeparator lineSeparator = new LineSeparator("\r\n");
+		xmlProcessor.getSortedXml(lineSeparator, sortedXmlOutputStream);
 		final String expected = IOUtils.toString(new FileInputStream(expectedFileName), UTF_8);
 		String actual = sortedXmlOutputStream.toString(UTF_8);
 		// final int startIndex = 280;

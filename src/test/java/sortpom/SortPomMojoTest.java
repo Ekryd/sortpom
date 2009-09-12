@@ -61,8 +61,8 @@ public class SortPomMojoTest extends TestCase {
 			reflectionHelper.setField("createBackupFile", true);
 			reflectionHelper.setField("backupFileExtension", testPomBackupExtension);
 			reflectionHelper.setField("encoding", UTF_8);
-			reflectionHelper.setField("defaultOrderFileName", "defaultOrder.xml");
-			reflectionHelper.setField("lineSeparator", "\r\n");
+			reflectionHelper.setField("defaultOrderFileName", null);
+			reflectionHelper.setField("lineSeparatorString", "\r\n");
 			sortPomMojo.execute();
 			assertTrue(testpom.exists());
 			assertTrue(backupFile.exists());

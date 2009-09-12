@@ -44,6 +44,17 @@
       <version>1.5.8</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.cheesymock</groupId>
+      <artifactId>cheesymock</artifactId>
+      <version>1.1.5-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+    	<groupId>cglib</groupId>
+    	<artifactId>cglib</artifactId>
+    	<version>2.2</version>
+    	<scope>test</scope>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -265,6 +276,10 @@
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
   <repositories>
+    <repository>
+      <id>googlecode.cheesymock</id>
+      <url>http://cheesymock.googlecode.com/svn/repo</url>
+    </repository>
     <repository>
       <id>googlecode.mindi-f</id>
       <url>http://mindi-f.googlecode.com/svn/repo</url>

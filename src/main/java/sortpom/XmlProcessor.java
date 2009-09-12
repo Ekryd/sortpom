@@ -13,6 +13,7 @@ import org.jdom.output.XMLOutputter;
 
 import se.mine.mindif.Dependency;
 import sortpom.util.FileUtil;
+import sortpom.util.LineSeparator;
 import sortpom.wrapper.WrapperFactory;
 import sortpom.wrapper.WrapperFactoryImpl;
 import sortpom.wrapper.WrapperOperations;
@@ -34,14 +35,14 @@ public class XmlProcessor {
 
 	private Document newDocument;
 
-	public void getSortedXml(final OutputStream sortedXml) throws IOException {
+	public void getSortedXml(final LineSeparator lineSeparator, final OutputStream sortedXml) throws IOException {
 		XMLOutputter outputter = new XMLOutputter();
 		final Format prettyFormat = Format.getPrettyFormat();
 		prettyFormat.setExpandEmptyElements(true);
 		prettyFormat.setEncoding(fileUtil.getEncoding());
-		prettyFormat.setLineSeparator(fileUtil.getLineSeparator());
+		prettyFormat.setLineSeparator(lineSeparator.toString());
 		outputter.setFormat(prettyFormat);
-		OutputStream outputStream = new NewlineOutputStream(fileUtil, sortedXml);
+		OutputStream outputStream = new NewlineOutputStream(lineSeparator.toString(), sortedXml);
 		outputter.output(newDocument, outputStream);
 	}
 

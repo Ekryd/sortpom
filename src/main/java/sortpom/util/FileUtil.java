@@ -17,11 +17,11 @@ import org.apache.maven.plugin.MojoExecutionException;
  *
  */
 public class FileUtil {
+	private final static String DEFAULT_SORT_ORDER_FILENAME = "defaultOrder.xml";
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;
-	private String defaultOrderFileName;
-	private String lineSeparator;
+	private File defaultOrderFileName;
 
 	public void backupFile() throws MojoExecutionException {
 		final String newName = pomFile.getAbsolutePath() + backupFileExtension;
@@ -46,8 +46,12 @@ public class FileUtil {
 	public String getDefaultSortOrderXml() {
 		InputStream inputStream = null;
 		try {
-			URL resource = this.getClass().getClassLoader().getResource(defaultOrderFileName);
-			inputStream = resource.openStream();
+			if (defaultOrderFileName == null) {
+				URL resource = this.getClass().getClassLoader().getResource(DEFAULT_SORT_ORDER_FILENAME);
+				inputStream = resource.openStream();
+			} else {
+				inputStream = new FileInputStream(defaultOrderFileName);
+			}
 			return IOUtils.toString(inputStream, encoding);
 		} catch (IOException ioex) {
 			throw new RuntimeException(ioex);
@@ -58,10 +62,6 @@ public class FileUtil {
 
 	public String getEncoding() {
 		return encoding;
-	}
-
-	public String getLineSeparator() {
-		return lineSeparator;
 	}
 
 	public String getPomFileContent() throws MojoExecutionException {
@@ -94,12 +94,11 @@ public class FileUtil {
 	 * @param encoding
 	 */
 	public void setup(final File pomFile, final String backupFileExtension, final String encoding,
-			final String defaultOrderFileName, final String lineSeparator) {
+			final File defaultOrderFileName) {
 		this.pomFile = pomFile;
 		this.backupFileExtension = backupFileExtension;
 		this.encoding = encoding;
 		this.defaultOrderFileName = defaultOrderFileName;
-		this.lineSeparator = lineSeparator;
 	}
 
 }

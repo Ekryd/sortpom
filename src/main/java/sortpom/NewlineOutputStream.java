@@ -3,8 +3,6 @@ package sortpom;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import sortpom.util.FileUtil;
-
 /**
  * Makes sure that all newlines are stored in the same way.
  *
@@ -18,8 +16,8 @@ public class NewlineOutputStream extends OutputStream {
 	private static final int CARRAGE_RETURN = '\r';
 	private static final int NEWLINE = '\n';
 
-	public NewlineOutputStream(final FileUtil fileUtil, final OutputStream wrappedStream) {
-		this.lineSeparator = fileUtil.getLineSeparator().toCharArray();
+	public NewlineOutputStream(final String lineSeparator, final OutputStream wrappedStream) {
+		this.lineSeparator = lineSeparator.toCharArray();
 		this.wrappedStream = wrappedStream;
 	}
 

@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 import sortpom.util.ReflectionHelper;
 
@@ -41,7 +41,7 @@ public class SortPomMojoTest extends TestCase {
 	}
 
 	private void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
-			throws IOException, NoSuchFieldException, IllegalAccessException, MojoExecutionException {
+			throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
 		final String testPomFileName = "src/test/resources/testpom.xml";
 		final File testpom = new File(testPomFileName);
 		final String testPomBackupExtension = ".testExtension";

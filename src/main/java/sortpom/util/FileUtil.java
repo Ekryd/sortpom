@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 
 /**
  * Used to interface with file system
@@ -23,11 +23,11 @@ public class FileUtil {
 	private String encoding;
 	private File defaultOrderFileName;
 
-	public void backupFile() throws MojoExecutionException {
+	public void backupFile() throws MojoFailureException {
 		final String newName = pomFile.getAbsolutePath() + backupFileExtension;
 		final File backupFile = new File(newName);
 		if (backupFile.exists() && !backupFile.delete()) {
-			throw new MojoExecutionException("Could not remove old backup file, filename: " + newName);
+			throw new MojoFailureException("Could not remove old backup file, filename: " + newName);
 		}
 		FileInputStream source = null;
 		FileOutputStream newFile = null;
@@ -36,7 +36,7 @@ public class FileUtil {
 			newFile = new FileOutputStream(backupFile);
 			IOUtils.copy(source, newFile);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Could not create backup file to filename: " + newName, e);
+			throw new MojoFailureException("Could not create backup file to filename: " + newName, e);
 		} finally {
 			IOUtils.closeQuietly(newFile);
 			IOUtils.closeQuietly(source);
@@ -64,25 +64,25 @@ public class FileUtil {
 		return encoding;
 	}
 
-	public String getPomFileContent() throws MojoExecutionException {
+	public String getPomFileContent() throws MojoFailureException {
 		InputStream inputStream = null;
 		try {
 			inputStream = new FileInputStream(pomFile);
 			return IOUtils.toString(inputStream, encoding);
 		} catch (IOException ioex) {
-			throw new MojoExecutionException("Could not read pomfile: " + pomFile.getAbsolutePath(), ioex);
+			throw new MojoFailureException("Could not read pomfile: " + pomFile.getAbsolutePath(), ioex);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
 	}
 
-	public void savePomFile(final String sortedXml) throws MojoExecutionException {
+	public void savePomFile(final String sortedXml) throws MojoFailureException {
 		FileOutputStream saveFile = null;
 		try {
 			saveFile = new FileOutputStream(pomFile);
 			IOUtils.write(sortedXml, saveFile, encoding);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Could not save sorted pomfile: " + pomFile, e);
+			throw new MojoFailureException("Could not save sorted pomfile: " + pomFile, e);
 		} finally {
 			IOUtils.closeQuietly(saveFile);
 		}

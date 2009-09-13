@@ -25,12 +25,17 @@ public class XmlProcessorTest extends TestCase {
 
 	private static final String UTF_8 = "UTF-8";
 
-	public final void testSortXmlCharacterToAlfabetical() throws Exception {
+	public final void testSortXmlAttributes() throws Exception {
+		testInputAndExpected("src/test/resources/Attribute_input.xml", "src/test/resources/Attribute_expected.xml",
+				false);
+	}
+
+	public final void testSortXmlCharacter() throws Exception {
 		testInputAndExpected("src/test/resources/Character_input.xml", "src/test/resources/Character_expected.xml",
 				false);
 	}
 
-	public final void testSortXmlComplexToAlfabetical() throws Exception {
+	public final void testSortXmlComplex() throws Exception {
 		testInputAndExpected("src/test/resources/Complex_input.xml", "src/test/resources/Complex_expected.xml", false);
 	}
 
@@ -39,8 +44,8 @@ public class XmlProcessorTest extends TestCase {
 	}
 
 	public final void testSortXmlFullToAlfabetical() throws Exception {
-		testInputAndExpected("src/test/resources/full_unsorted_input.xml", "src/test/resources/full_expected.xml",
-				false);
+		testInputAndExpected("src/test/resources/full_unsorted_input.xml", "src/test/resources/full_alfa_input.xml",
+				true);
 	}
 
 	public final void testSortXmlMultilineComment() throws Exception {
@@ -86,8 +91,9 @@ public class XmlProcessorTest extends TestCase {
 				}
 
 			};
+		} else {
+			new ReflectionHelper(wrapperFactory).setField(fileUtil);
 		}
-		new ReflectionHelper(wrapperFactory).setField(fileUtil);
 		wrapperFactory.initialize();
 		new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
 		new ReflectionHelper(xmlProcessor).setField(fileUtil);

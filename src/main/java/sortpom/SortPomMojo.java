@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.JDOMException;
 
 import se.mine.mindif.Context;
@@ -70,7 +70,7 @@ public class SortPomMojo extends AbstractMojo {
 	private XmlProcessor xmlProcessor;
 
 	@Override
-	public void execute() throws MojoExecutionException {
+	public void execute() throws MojoFailureException {
 		new Context().inject(this);
 		final LineSeparator lineSeparator = new LineSeparator(lineSeparatorString);
 		fileUtil.setup(pomFile, backupFileExtension, encoding, defaultOrderFileName);
@@ -86,10 +86,10 @@ public class SortPomMojo extends AbstractMojo {
 		saveSortedPomFile(sortedXml);
 	}
 
-	private void createBackupFile() throws MojoExecutionException {
+	private void createBackupFile() throws MojoFailureException {
 		if (createBackupFile) {
 			if (backupFileExtension.trim().length() == 0) {
-				throw new MojoExecutionException("Could not create backup file, extension name was empty");
+				throw new MojoFailureException("Could not create backup file, extension name was empty");
 			}
 			fileUtil.backupFile();
 			getLog().info(
@@ -98,7 +98,7 @@ public class SortPomMojo extends AbstractMojo {
 		}
 	}
 
-	private String getSortedXml(final LineSeparator lineSeparator, final String xml) throws MojoExecutionException {
+	private String getSortedXml(final LineSeparator lineSeparator, final String xml) throws MojoFailureException {
 		ByteArrayInputStream originalXmlInputStream = null;
 		ByteArrayOutputStream sortedXmlOutputStream = null;
 		try {
@@ -109,9 +109,9 @@ public class SortPomMojo extends AbstractMojo {
 			xmlProcessor.getSortedXml(lineSeparator, sortedXmlOutputStream);
 			return sortedXmlOutputStream.toString(fileUtil.getEncoding());
 		} catch (JDOMException e) {
-			throw new MojoExecutionException("Could not sort pomfiles content: " + xml, e);
+			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);
 		} catch (IOException e) {
-			throw new MojoExecutionException("Could not sort pomfiles content: " + xml, e);
+			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);
 		} finally {
 			IOUtils.closeQuietly(originalXmlInputStream);
 			IOUtils.closeQuietly(sortedXmlOutputStream);
@@ -119,7 +119,7 @@ public class SortPomMojo extends AbstractMojo {
 
 	}
 
-	private void saveSortedPomFile(final String sortedXml) throws MojoExecutionException {
+	private void saveSortedPomFile(final String sortedXml) throws MojoFailureException {
 		fileUtil.savePomFile(sortedXml);
 		getLog().info("Saved sorted pomfile to " + pomFile.getAbsolutePath());
 	}

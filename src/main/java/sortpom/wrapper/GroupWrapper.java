@@ -74,7 +74,9 @@ public class GroupWrapper implements WrapperOperations {
 		if (elementContent != null) {
 			elementContent.getContent().setAttributes(getSortedAttributes(elementContent));
 		}
-
+		for (WrapperOperations child : children) {
+			child.sortStructureAttributes();
+		}
 	}
 
 	@Override

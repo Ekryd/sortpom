@@ -4,14 +4,33 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion />
+	<!-- Parent -->
+	<parent>
+		<groupId />
+		<artifactId />
+		<version />
+		<relativePath />
+	</parent>
 
 	<!-- The Basics -->
 	<groupId />
 	<artifactId />
 	<version />
+	<packaging />
+
+	<!-- Description -->
 	<name />
 	<description />
-	<packaging />
+
+	<!-- Properties -->
+	<properties />
+
+	<!-- Modules -->
+	<modules>
+		<module />
+	</modules>
+
+	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
 			<groupId />
@@ -30,12 +49,6 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	<parent>
-		<groupId />
-		<artifactId />
-		<version />
-		<relativePath />
-	</parent>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -55,18 +68,20 @@
 				</exclusions>
 			</dependency>
 		</dependencies>
-
 	</dependencyManagement>
-	<modules>
-		<module />
-	</modules>
-	<properties />
 
 	<!-- Build Settings -->
 	<build>
 		<defaultGoal />
 		<directory />
 		<finalName />
+
+		<!-- Directories -->
+		<sourceDirectory />
+		<scriptSourceDirectory />
+		<testSourceDirectory />
+		<outputDirectory />
+		<testOutputDirectory />
 		<filters>
 			<filter />
 		</filters>
@@ -178,11 +193,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<sourceDirectory />
-		<scriptSourceDirectory />
-		<testSourceDirectory />
-		<outputDirectory />
-		<testOutputDirectory />
 		<extensions>
 			<extension>
 				<groupId />
@@ -293,10 +303,6 @@
 		</mailingList>
 	</mailingLists>
 	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
 	</scm>
 	<prerequisites>
 		<maven />
@@ -388,6 +394,10 @@
 					<missing />
 				</file>
 			</activation>
+			<properties />
+			<modules>
+				<module />
+			</modules>
 			<build>
 				<defaultGoal />
 				<directory />
@@ -504,9 +514,6 @@
 					</plugins>
 				</pluginManagement>
 			</build>
-			<modules>
-				<module />
-			</modules>
 			<repositories>
 				<repository>
 					<releases>
@@ -635,7 +642,6 @@
 				<status />
 			</distributionManagement>
 			<reports />
-			<properties />
 		</profile>
 	</profiles>
 	<reports />

@@ -16,6 +16,16 @@ public class SortPomMojoTest extends TestCase {
 
 	private static final String UTF_8 = "UTF-8";
 
+	public final void testSortDifferentClassPath() throws Exception {
+		testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", new File(
+				"difforder/differentOrder.xml"));
+	}
+
+	public final void testSortDifferentRelativePath() throws Exception {
+		testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", new File(
+				"src/test/resources/difforder/differentOrder.xml"));
+	}
+
 	public final void testSortXmlCharacterToAlfabetical() throws Exception {
 		testFiles("/Character_input.xml", "/Character_expected.xml");
 	}
@@ -42,6 +52,12 @@ public class SortPomMojoTest extends TestCase {
 
 	private void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
 			throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+		testFiles(inputResourceFileName, expectedResourceFileName, null);
+	}
+
+	private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,
+			final File defaultOrderFileName) throws IOException, NoSuchFieldException, IllegalAccessException,
+			MojoFailureException {
 		final String testPomFileName = "src/test/resources/testpom.xml";
 		final File testpom = new File(testPomFileName);
 		final String testPomBackupExtension = ".testExtension";
@@ -61,7 +77,7 @@ public class SortPomMojoTest extends TestCase {
 			reflectionHelper.setField("createBackupFile", true);
 			reflectionHelper.setField("backupFileExtension", testPomBackupExtension);
 			reflectionHelper.setField("encoding", UTF_8);
-			reflectionHelper.setField("defaultOrderFileName", null);
+			reflectionHelper.setField("defaultOrderFileName", defaultOrderFileName);
 			reflectionHelper.setField("lineSeparatorString", "\r\n");
 			sortPomMojo.execute();
 			assertTrue(testpom.exists());

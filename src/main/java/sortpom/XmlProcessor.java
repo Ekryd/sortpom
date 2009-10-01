@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -44,6 +45,7 @@ public class XmlProcessor {
 		outputter.setFormat(prettyFormat);
 		OutputStream outputStream = new NewlineOutputStream(lineSeparator.toString(), sortedXml);
 		outputter.output(newDocument, outputStream);
+		IOUtils.closeQuietly(outputStream);
 	}
 
 	public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {

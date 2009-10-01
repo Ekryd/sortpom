@@ -4,9 +4,21 @@ import java.util.Arrays;
 
 import org.apache.maven.plugin.MojoFailureException;
 
+/**
+ * Encapsulates LineSeparation logic.
+ *
+ * @author bjorn
+ *
+ */
 public class LineSeparator {
 	private final String string;
 
+	/**
+	 * Creates a line separator and makes sure that it is either &#92;n, &#92;r or &#92;r&#92;n
+	 *
+	 * @param lineSeparatorString
+	 * @throws MojoFailureException
+	 */
 	public LineSeparator(final String lineSeparatorString) throws MojoFailureException {
 		string = lineSeparatorString.replaceAll("\\\\r", "\r").replaceAll("\\\\n", "\n");
 		if (isIllegalString()) {

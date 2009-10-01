@@ -2,6 +2,7 @@ package sortpom.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +18,7 @@ import org.apache.maven.plugin.MojoFailureException;
  *
  */
 public class FileUtil {
-	private final static String DEFAULT_SORT_ORDER_FILENAME = "defaultOrder.xml";
+	private static final String DEFAULT_SORT_ORDER_FILENAME = "defaultOrder.xml";
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;
@@ -50,7 +51,7 @@ public class FileUtil {
 				URL resource = this.getClass().getClassLoader().getResource(DEFAULT_SORT_ORDER_FILENAME);
 				inputStream = resource.openStream();
 			} else {
-				inputStream = new FileInputStream(defaultOrderFileName);
+				inputStream = getFileFromRelativeOrClassPath();
 			}
 			return IOUtils.toString(inputStream, encoding);
 		} catch (IOException ioex) {
@@ -101,4 +102,23 @@ public class FileUtil {
 		this.defaultOrderFileName = defaultOrderFileName;
 	}
 
+	private InputStream getFileFromRelativeOrClassPath() throws IOException {
+		InputStream inputStream;
+		try {
+			inputStream = new FileInputStream(defaultOrderFileName);
+		} catch (FileNotFoundException fnfex) {
+			// try classpath
+			try {
+				URL resource = this.getClass().getClassLoader().getResource(defaultOrderFileName.getPath());
+				if (resource == null) {
+					throw new IOException("Cannot find resource");
+				}
+				inputStream = resource.openStream();
+			} catch (IOException e1) {
+				throw new FileNotFoundException(String.format("Could not find %s or %s in classpath",
+						defaultOrderFileName.getAbsolutePath(), defaultOrderFileName.getPath()));
+			}
+		}
+		return inputStream;
+	}
 }

@@ -54,14 +54,14 @@ public class SortPomMojo extends AbstractMojo {
 	 *
 	 * @parameter expression="${sort.lineSeparator}" default-value="${line.separator}"
 	 */
-	private String lineSeparatorString;
+	private String lineSeparator;
 
 	/**
 	 * Custom sort order file
 	 *
 	 * @parameter expression="${sort.sortOrderFile}"
 	 */
-	private File defaultOrderFileName;
+	private String sortOrderFile;
 
 	@Dependency
 	private FileUtil fileUtil;
@@ -72,12 +72,12 @@ public class SortPomMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoFailureException {
 		new Context().inject(this);
-		final LineSeparator lineSeparator = new LineSeparator(lineSeparatorString);
-		fileUtil.setup(pomFile, backupFileExtension, encoding, defaultOrderFileName);
+		final LineSeparator lineSeparatorInstance = new LineSeparator(lineSeparator);
+		fileUtil.setup(pomFile, backupFileExtension, encoding, sortOrderFile);
 		getLog().info("Sorting file " + pomFile.getAbsolutePath());
 
 		String xml = fileUtil.getPomFileContent();
-		String sortedXml = getSortedXml(lineSeparator, xml);
+		String sortedXml = getSortedXml(lineSeparatorInstance, xml);
 		if (xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""))) {
 			getLog().info("Pomfile is already sorted, exiting");
 			return;

@@ -22,7 +22,7 @@ public class FileUtil {
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;
-	private File defaultOrderFileName;
+	private String defaultOrderFileName;
 
 	public void backupFile() throws MojoFailureException {
 		final String newName = pomFile.getAbsolutePath() + backupFileExtension;
@@ -95,7 +95,7 @@ public class FileUtil {
 	 * @param encoding
 	 */
 	public void setup(final File pomFile, final String backupFileExtension, final String encoding,
-			final File defaultOrderFileName) {
+			final String defaultOrderFileName) {
 		this.pomFile = pomFile;
 		this.backupFileExtension = backupFileExtension;
 		this.encoding = encoding;
@@ -109,14 +109,14 @@ public class FileUtil {
 		} catch (FileNotFoundException fnfex) {
 			// try classpath
 			try {
-				URL resource = this.getClass().getClassLoader().getResource(defaultOrderFileName.getPath());
+				URL resource = this.getClass().getClassLoader().getResource(defaultOrderFileName);
 				if (resource == null) {
 					throw new IOException("Cannot find resource");
 				}
 				inputStream = resource.openStream();
 			} catch (IOException e1) {
-				throw new FileNotFoundException(String.format("Could not find %s or %s in classpath",
-						defaultOrderFileName.getAbsolutePath(), defaultOrderFileName.getPath()));
+				throw new FileNotFoundException(String.format("Could not find %s or %s in classpath", new File(
+						defaultOrderFileName).getAbsolutePath(), defaultOrderFileName));
 			}
 		}
 		return inputStream;

@@ -71,6 +71,8 @@ public class SortPomMojo extends AbstractMojo {
     private final FileUtil fileUtil;
 
     private final XmlProcessor xmlProcessor;
+    private static final int MAX_INDENT_SPACES = 255;
+    private static final int INDENT_TAB = -1;
 
     public SortPomMojo() {
         fileUtil = new FileUtil();
@@ -111,12 +113,15 @@ public class SortPomMojo extends AbstractMojo {
     }
 
     private String getIndentCharacters() throws MojoFailureException {
-        if (nrOfIndentSpace == 0)
+        if (nrOfIndentSpace == 0) {
             return "";
-        if (nrOfIndentSpace == -1)
+        }
+        if (nrOfIndentSpace == INDENT_TAB) {
             return "\t";
-        if (nrOfIndentSpace < -1 || nrOfIndentSpace > 255)
+        }
+        if (nrOfIndentSpace < INDENT_TAB || nrOfIndentSpace > MAX_INDENT_SPACES) {
             throw new MojoFailureException("nrOfIndentSpace cannot be below -1 or above 255: " + nrOfIndentSpace);
+        }
         char[] chars = new char[nrOfIndentSpace];
         Arrays.fill(chars, ' ');
         return new String(chars);

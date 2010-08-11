@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * @author Bjorn
+ * Mojo (Maven plugin) that sorts the pomfile for a maven project.
+ *
+ * @author Bjorn Ekryd
  * @goal sort
  */
 public class SortPomMojo extends AbstractMojo {
@@ -41,7 +43,7 @@ public class SortPomMojo extends AbstractMojo {
     private String backupFileExtension;
 
     /**
-     * Encoding for the files
+     * Encoding for the files.
      *
      * @parameter expression="${sort.encoding}" default-value="UTF-8"
      */
@@ -62,29 +64,49 @@ public class SortPomMojo extends AbstractMojo {
     private int nrOfIndentSpace;
 
     /**
-     * Custom sort order file
+     * Custom sort order file.
      *
      * @parameter expression="${sort.sortOrderFile}"
      */
     private String sortOrderFile;
 
+    /** The fileutility. */
     private final FileUtil fileUtil;
 
+    /** The xml processor. */
     private final XmlProcessor xmlProcessor;
+
     private static final int MAX_INDENT_SPACES = 255;
+
+    /** Indicates that a tab character should be used instead of spaces. */
     private static final int INDENT_TAB = -1;
 
+
+    /**
+     * Instantiates a new sort pom mojo and initiates dependencies to other classes.
+     */
     public SortPomMojo() {
         fileUtil = new FileUtil();
         final WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
         xmlProcessor = new XmlProcessor(wrapperFactory, fileUtil);
     }
 
+    /**
+     * Execute plugin.
+     *
+     * @throws MojoFailureException the mojo failure exception
+     * @see org.apache.maven.plugin.Mojo#execute()
+     */
     @Override
     public void execute() throws MojoFailureException {
         sortPom();
     }
 
+    /**
+     * Sorts the pomfile.
+     *
+     * @throws MojoFailureException the mojo failure exception
+     */
     private void sortPom() throws MojoFailureException {
         final LineSeparator lineSeparatorInstance = new LineSeparator(lineSeparator);
         fileUtil.setup(pomFile, backupFileExtension, encoding, sortOrderFile);
@@ -100,6 +122,11 @@ public class SortPomMojo extends AbstractMojo {
         saveSortedPomFile(sortedXml);
     }
 
+    /**
+     * Creates the backup file for pom.
+     *
+     * @throws MojoFailureException the mojo failure exception
+     */
     private void createBackupFile() throws MojoFailureException {
         if (createBackupFile) {
             if (backupFileExtension.trim().length() == 0) {
@@ -112,6 +139,12 @@ public class SortPomMojo extends AbstractMojo {
         }
     }
 
+    /**
+     * Gets the indent characters from parameter.
+     *
+     * @return the indent characters
+     * @throws MojoFailureException the mojo failure exception
+     */
     private String getIndentCharacters() throws MojoFailureException {
         if (nrOfIndentSpace == 0) {
             return "";
@@ -127,6 +160,15 @@ public class SortPomMojo extends AbstractMojo {
         return new String(chars);
     }
 
+
+    /**
+     * Sorts the incoming xml.
+     *
+     * @param lineSeparator the line separator
+     * @param xml the xml that should be sorted.
+     * @return the sorted xml
+     * @throws MojoFailureException the mojo failure exception
+     */
     private String getSortedXml(final LineSeparator lineSeparator, final String xml) throws MojoFailureException {
         ByteArrayInputStream originalXmlInputStream = null;
         ByteArrayOutputStream sortedXmlOutputStream = null;
@@ -148,6 +190,12 @@ public class SortPomMojo extends AbstractMojo {
 
     }
 
+    /**
+     * Saves the sorted pom file.
+     *
+     * @param sortedXml the sorted xml
+     * @throws MojoFailureException the mojo failure exception
+     */
     private void saveSortedPomFile(final String sortedXml) throws MojoFailureException {
         fileUtil.savePomFile(sortedXml);
         getLog().info("Saved sorted pomfile to " + pomFile.getAbsolutePath());

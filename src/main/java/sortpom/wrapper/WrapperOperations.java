@@ -5,9 +5,9 @@ import java.util.List;
 import org.jdom.Content;
 
 /**
- * Specificerar ett antal övergripande funktioner som arbetar mot en struktur av Wrappers
+ * Specifies a number of operations that work with wrapper structures.
  *
- * @author Bjorn
+ * @author Bjorn Ekryd
  *
  */
 public interface WrapperOperations {
@@ -18,6 +18,9 @@ public interface WrapperOperations {
 
 	List<Content> getWrappedStructure();
 
+	/**
+	 * Sorts the attributes of the xml elements
+	 */
 	void sortStructureAttributes();
 
 	void sortStructureElements();

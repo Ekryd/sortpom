@@ -15,12 +15,13 @@ public class SortPomMojoTest extends TestCase {
     private static final String UTF_8 = "UTF-8";
 
     public final void testSortDifferentClassPath() throws Exception {
-        testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml", 2);
+        testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml", 2,
+                false, false);
     }
 
     public final void testSortDifferentRelativePath() throws Exception {
         testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml",
-                "src/test/resources/difforder/differentOrder.xml", 2);
+                "src/test/resources/difforder/differentOrder.xml", 2, false, false);
     }
 
     public final void testSortXmlCharacterToAlfabetical() throws Exception {
@@ -48,16 +49,25 @@ public class SortPomMojoTest extends TestCase {
     }
 
     public final void testSortWithIndent() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", null, 4);
+        testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", null, 4, false, false);
+    }
+
+    public final void testSortWithDependencySortSimple() throws Exception {
+        testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml", null, 2, true, true);
+    }
+
+    public final void testSortWithDependencySortFull() throws Exception {
+        testFiles("/SortDep_input.xml", "/SortDep_expected.xml", null, 2, true, true);
     }
 
     private void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        testFiles(inputResourceFileName, expectedResourceFileName, null, 2);
+        testFiles(inputResourceFileName, expectedResourceFileName, null, 2, false, false);
     }
 
     private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,
-                           final String defaultOrderFileName, int nrOfIndentSpace) throws IOException, NoSuchFieldException, IllegalAccessException,
+            final String defaultOrderFileName, final int nrOfIndentSpace, final boolean sortDependencies,
+            final boolean sortPlugins) throws IOException, NoSuchFieldException, IllegalAccessException,
             MojoFailureException {
         final String testPomFileName = "src/test/resources/testpom.xml";
         final File testpom = new File(testPomFileName);
@@ -81,6 +91,8 @@ public class SortPomMojoTest extends TestCase {
             reflectionHelper.setField("sortOrderFile", defaultOrderFileName);
             reflectionHelper.setField("lineSeparator", "\r\n");
             reflectionHelper.setField("nrOfIndentSpace", nrOfIndentSpace);
+            reflectionHelper.setField("sortDependencies", sortDependencies);
+            reflectionHelper.setField("sortPlugins", sortPlugins);
             sortPomMojo.execute();
             assertTrue(testpom.exists());
             assertTrue(backupFile.exists());

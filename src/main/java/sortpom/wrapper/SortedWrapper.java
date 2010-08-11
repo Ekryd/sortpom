@@ -4,13 +4,13 @@ import org.jdom.Content;
 import org.jdom.Element;
 
 /**
- * En wrapper som låter sitt element bli sorterat i enligt en förutbestämd angiven ordning
- *
- * @author Bjorn
+ * A wrapper that contains an element. The element is sorted according to a predetermined order.
+ * 
+ * @author Bjorn Ekryd
  */
 public class SortedWrapper implements Wrapper<Element> {
-    private final int sortOrder;
-    private Element element;
+    protected final int sortOrder;
+    private final Element element;
 
     /**
      * @param element
@@ -30,10 +30,8 @@ public class SortedWrapper implements Wrapper<Element> {
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         if (wrapper instanceof SortedWrapper) {
             return ((SortedWrapper) wrapper).sortOrder > sortOrder;
-
-        } else {
-            return true;
         }
+        return true;
     }
 
     @Override

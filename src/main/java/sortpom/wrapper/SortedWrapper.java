@@ -9,7 +9,7 @@ import org.jdom.Element;
  * @author Bjorn Ekryd
  */
 public class SortedWrapper implements Wrapper<Element> {
-    protected final int sortOrder;
+    private final int sortOrder;
     private final Element element;
 
     /**
@@ -53,6 +53,10 @@ public class SortedWrapper implements Wrapper<Element> {
     @Override
     public boolean isResortable() {
         return true;
+    }
+
+    protected int getSortOrder() {
+        return sortOrder;
     }
 
 }

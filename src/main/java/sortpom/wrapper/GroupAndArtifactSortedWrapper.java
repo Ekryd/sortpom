@@ -29,7 +29,7 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         if (wrapper instanceof GroupAndArtifactSortedWrapper) {
             GroupAndArtifactSortedWrapper other = (GroupAndArtifactSortedWrapper) wrapper;
             // Continue if sortorder are equal
-            if (other.sortOrder != sortOrder) {
+            if (other.getSortOrder() != getSortOrder()) {
                 return super.isBefore(wrapper);
             }
             int compare = compareStrings(groupId, other.groupId);
@@ -42,16 +42,6 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         return super.isBefore(wrapper);
     }
 
-    private int compareStrings(final String s1, final String s2) {
-        if (s1 == null) {
-            return -1;
-        }
-        if (s2 == null) {
-            return 1;
-        }
-        return s1.compareToIgnoreCase(s2);
-    }
-
     @Override
     public boolean isBiggerSortOrder(final Wrapper<? extends Content> wrapper) {
         if (wrapper == null) {
@@ -60,7 +50,7 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         if (wrapper instanceof GroupAndArtifactSortedWrapper) {
             GroupAndArtifactSortedWrapper other = (GroupAndArtifactSortedWrapper) wrapper;
             // Continue if sortorder are equal
-            if (other.sortOrder != sortOrder) {
+            if (other.getSortOrder() != getSortOrder()) {
                 return super.isBefore(wrapper);
             }
             int compare = compareStrings(groupId, other.groupId);
@@ -71,5 +61,15 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
             return compare > 0;
         }
         return super.isBiggerSortOrder(wrapper);
+    }
+
+    private int compareStrings(final String s1, final String s2) {
+        if (s1 == null) {
+            return -1;
+        }
+        if (s2 == null) {
+            return 1;
+        }
+        return s1.compareToIgnoreCase(s2);
     }
 }

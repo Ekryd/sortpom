@@ -5,6 +5,7 @@
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion />
 
+	<!-- Parent -->
 	<parent>
 		<groupId />
 		<artifactId />
@@ -12,71 +13,16 @@
 		<relativePath />
 	</parent>
 
+	<!-- The Basics -->
 	<groupId />
 	<artifactId />
 	<version />
 	<packaging />
-
+	
+	<!-- Description -->
 	<name />
 	<description />
-	<url />
-	<inceptionYear />
-	<organization>
-		<name />
-		<url />
-	</organization>
-	<licenses>
-		<license>
-			<name />
-			<url />
-			<distribution />
-			<comments />
-		</license>
-	</licenses>
-
-	<developers>
-		<developer>
-			<id />
-			<name />
-			<email />
-			<url />
-			<organization />
-			<organizationUrl />
-			<roles>
-				<role />
-			</roles>
-			<timezone />
-			<properties />
-		</developer>
-	</developers>
-	<contributors>
-		<contributor>
-			<name />
-			<email />
-			<url />
-			<organization />
-			<organizationUrl />
-			<roles>
-				<role />
-			</roles>
-			<timezone />
-			<properties />
-		</contributor>
-	</contributors>
-
-	<mailingLists>
-		<mailingList>
-			<name />
-			<subscribe />
-			<unsubscribe />
-			<post />
-			<archive />
-			<otherArchives>
-				<otherArchive />
-			</otherArchives>
-		</mailingList>
-	</mailingLists>
-
+	
 	<prerequisites>
 		<maven />
 	</prerequisites>
@@ -84,61 +30,6 @@
 	<modules>
 		<module />
 	</modules>
-
-	<scm>
-		<connection />
-		<developerConnection />
-		<tag />
-		<url />
-	</scm>
-	<issueManagement>
-		<system />
-		<url />
-	</issueManagement>
-	<ciManagement>
-		<system />
-		<url />
-		<notifiers>
-			<notifier>
-				<type />
-				<address />
-				<sendOnError />
-				<sendOnFailure />
-				<sendOnSuccess />
-				<sendOnWarning />
-				<configuration />
-			</notifier>
-		</notifiers>
-	</ciManagement>
-	<distributionManagement>
-		<repository>
-			<uniqueVersion />
-			<id />
-			<name />
-			<url />
-			<layout />
-		</repository>
-		<snapshotRepository>
-			<uniqueVersion />
-			<id />
-			<name />
-			<url />
-			<layout />
-		</snapshotRepository>
-		<site>
-			<id />
-			<name />
-			<url />
-		</site>
-		<relocation>
-			<groupId />
-			<artifactId />
-			<version />
-			<message />
-		</relocation>
-		<downloadUrl />
-		<status />
-	</distributionManagement>
 
 	<properties />
 
@@ -181,47 +72,19 @@
 		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<releases>
-				<enabled />
-				<updatePolicy />
-				<checksumPolicy />
-			</releases>
-			<snapshots>
-				<enabled />
-				<updatePolicy />
-				<checksumPolicy />
-			</snapshots>
-			<id />
-			<name />
-			<url />
-			<layout />
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<releases>
-				<enabled />
-				<updatePolicy />
-				<checksumPolicy />
-			</releases>
-			<snapshots>
-				<enabled />
-				<updatePolicy />
-				<checksumPolicy />
-			</snapshots>
-			<id />
-			<name />
-			<url />
-			<layout />
-		</pluginRepository>
-	</pluginRepositories>
-
+	<!-- Build Settings -->
 	<build>
 		<defaultGoal />
 		<directory />
 		<finalName />
+
+		<!-- Directories -->
+		<sourceDirectory />
+		<scriptSourceDirectory />
+		<testSourceDirectory />
+		<outputDirectory />
+		<testOutputDirectory />
+
 		<filters>
 			<filter />
 		</filters>
@@ -333,11 +196,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<sourceDirectory />
-		<scriptSourceDirectory />
-		<testSourceDirectory />
-		<outputDirectory />
-		<testOutputDirectory />
 		<extensions>
 			<extension>
 				<groupId />
@@ -371,6 +229,157 @@
 	</reporting>
 	<reports />
 
+	<!-- More Project Information -->
+	<url />
+	<inceptionYear />
+	<organization>
+		<name />
+		<url />
+	</organization>
+	<licenses>
+		<license>
+			<name />
+			<url />
+			<distribution />
+			<comments />
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id />
+			<name />
+			<email />
+			<url />
+			<organization />
+			<organizationUrl />
+			<roles>
+				<role />
+			</roles>
+			<timezone />
+			<properties />
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name />
+			<email />
+			<url />
+			<organization />
+			<organizationUrl />
+			<roles>
+				<role />
+			</roles>
+			<timezone />
+			<properties />
+		</contributor>
+	</contributors>
+	<mailingLists>
+		<mailingList>
+			<name />
+			<subscribe />
+			<unsubscribe />
+			<post />
+			<archive />
+			<otherArchives>
+				<otherArchive />
+			</otherArchives>
+		</mailingList>
+	</mailingLists>
+
+	<!-- Environment Settings -->
+	<scm>
+		<connection />
+		<developerConnection />
+		<tag />
+		<url />
+	</scm>
+	<issueManagement>
+		<system />
+		<url />
+	</issueManagement>
+	<ciManagement>
+		<system />
+		<url />
+		<notifiers>
+			<notifier>
+				<type />
+				<address />
+				<sendOnError />
+				<sendOnFailure />
+				<sendOnSuccess />
+				<sendOnWarning />
+				<configuration />
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<repositories>
+		<repository>
+			<releases>
+				<enabled />
+				<updatePolicy />
+				<checksumPolicy />
+			</releases>
+			<snapshots>
+				<enabled />
+				<updatePolicy />
+				<checksumPolicy />
+			</snapshots>
+			<id />
+			<name />
+			<url />
+			<layout />
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<releases>
+				<enabled />
+				<updatePolicy />
+				<checksumPolicy />
+			</releases>
+			<snapshots>
+				<enabled />
+				<updatePolicy />
+				<checksumPolicy />
+			</snapshots>
+			<id />
+			<name />
+			<url />
+			<layout />
+		</pluginRepository>
+	</pluginRepositories>
+
+	<distributionManagement>
+		<repository>
+			<uniqueVersion />
+			<id />
+			<name />
+			<url />
+			<layout />
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion />
+			<id />
+			<name />
+			<url />
+			<layout />
+		</snapshotRepository>
+		<site>
+			<id />
+			<name />
+			<url />
+		</site>
+		<relocation>
+			<groupId />
+			<artifactId />
+			<version />
+			<message />
+		</relocation>
+		<downloadUrl />
+		<status />
+	</distributionManagement>
+	
 	<profiles>
 		<profile>
 			<id />
@@ -395,35 +404,6 @@
 			<modules>
 				<module />
 			</modules>
-			<distributionManagement>
-				<repository>
-					<uniqueVersion />
-					<id />
-					<name />
-					<url />
-					<layout />
-				</repository>
-				<snapshotRepository>
-					<uniqueVersion />
-					<id />
-					<name />
-					<url />
-					<layout />
-				</snapshotRepository>
-				<site>
-					<id />
-					<name />
-					<url />
-				</site>
-				<relocation>
-					<groupId />
-					<artifactId />
-					<version />
-					<message />
-				</relocation>
-				<downloadUrl />
-				<status />
-			</distributionManagement>
 			<properties />
 			<dependencyManagement>
 				<dependencies>
@@ -463,42 +443,6 @@
 					</exclusions>
 				</dependency>
 			</dependencies>
-			<repositories>
-				<repository>
-					<releases>
-						<enabled />
-						<updatePolicy />
-						<checksumPolicy />
-					</releases>
-					<snapshots>
-						<enabled />
-						<updatePolicy />
-						<checksumPolicy />
-					</snapshots>
-					<id />
-					<name />
-					<url />
-					<layout />
-				</repository>
-			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<releases>
-						<enabled />
-						<updatePolicy />
-						<checksumPolicy />
-					</releases>
-					<snapshots>
-						<enabled />
-						<updatePolicy />
-						<checksumPolicy />
-					</snapshots>
-					<id />
-					<name />
-					<url />
-					<layout />
-				</pluginRepository>
-			</pluginRepositories>
 			<build>
 				<defaultGoal />
 				<directory />
@@ -639,6 +583,71 @@
 				</plugins>
 			</reporting>
 			<reports />
+			<repositories>
+				<repository>
+					<releases>
+						<enabled />
+						<updatePolicy />
+						<checksumPolicy />
+					</releases>
+					<snapshots>
+						<enabled />
+						<updatePolicy />
+						<checksumPolicy />
+					</snapshots>
+					<id />
+					<name />
+					<url />
+					<layout />
+				</repository>
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<releases>
+						<enabled />
+						<updatePolicy />
+						<checksumPolicy />
+					</releases>
+					<snapshots>
+						<enabled />
+						<updatePolicy />
+						<checksumPolicy />
+					</snapshots>
+					<id />
+					<name />
+					<url />
+					<layout />
+				</pluginRepository>
+			</pluginRepositories>
+			<distributionManagement>
+				<repository>
+					<uniqueVersion />
+					<id />
+					<name />
+					<url />
+					<layout />
+				</repository>
+				<snapshotRepository>
+					<uniqueVersion />
+					<id />
+					<name />
+					<url />
+					<layout />
+				</snapshotRepository>
+				<site>
+					<id />
+					<name />
+					<url />
+				</site>
+				<relocation>
+					<groupId />
+					<artifactId />
+					<version />
+					<message />
+				</relocation>
+				<downloadUrl />
+				<status />
+			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

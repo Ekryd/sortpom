@@ -17,7 +17,7 @@ import java.net.URL;
  * @author Bjorn
  */
 public class FileUtil {
-    private static final String DEFAULT_SORT_ORDER_FILENAME = "defaultOrder.xml";
+    private static final String DEFAULT_SORT_ORDER_FILENAME = "defaultOrderJune2008.xml";
     private File pomFile;
     private String backupFileExtension;
     private String encoding;

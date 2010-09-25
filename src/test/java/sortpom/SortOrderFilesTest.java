@@ -10,59 +10,31 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class SortPomMojoTest extends TestCase {
+public class SortOrderFilesTest extends TestCase {
 
     private static final String UTF_8 = "UTF-8";
 
-    public final void testSortDifferentClassPath() throws Exception {
-        testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml", 2,
-                false, false);
+    public final void testSortDifferentOrder() throws Exception {
+        testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml");
     }
 
-    public final void testSortDifferentRelativePath() throws Exception {
-        testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml",
-                "src/test/resources/difforder/differentOrder.xml", 2, false, false);
+    public final void testSortOldOrder() throws Exception {
+        testFiles("/full_unsorted_input.xml", "/full_expected.xml", "oldDefaultOrder.xml");
     }
 
-    public final void testSortXmlCharacterToAlfabetical() throws Exception {
-        testFiles("/Character_input.xml", "/Character_expected.xml");
+    public final void testSortAltOrder() throws Exception {
+        testFiles("/full_unsorted_input.xml", "/full_alt_expected.xml", "altDefaultOrder.xml");
     }
 
-    public final void testSortXmlComplexToAlfabetical() throws Exception {
-        testFiles("/Complex_input.xml", "/Complex_expected.xml");
+    public final void testSortDefaultOrder() throws Exception {
+        testFiles("/full_unsorted_input.xml", "/full_default_expected.xml", "defaultOrderJune2008.xml");
     }
 
-    public final void testSortXmlFullFromAlfabeticalOrder() throws Exception {
-        testFiles("/full_alfa_input.xml", "/full_expected.xml");
-    }
 
-    public final void testSortXmlFullToAlfabetical() throws Exception {
-        testFiles("/full_unsorted_input.xml", "/full_expected.xml");
-    }
-
-    public final void testSortXmlReal1() throws Exception {
-        testFiles("/Real1_input.xml", "/Real1_expected.xml");
-    }
-
-    public final void testSortXmlSimple() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected.xml");
-    }
-
-    public final void testSortWithIndent() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", "oldDefaultOrder.xml", 4, false, false);
-    }
-
-    public final void testSortWithDependencySortSimple() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml", "oldDefaultOrder.xml", 2, true, true);
-    }
-
-    public final void testSortWithDependencySortFull() throws Exception {
-        testFiles("/SortDep_input.xml", "/SortDep_expected.xml", "oldDefaultOrder.xml", 2, true, true);
-    }
-
-    private void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
+    private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,
+            final String defaultOrderFileName)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        testFiles(inputResourceFileName, expectedResourceFileName, "oldDefaultOrder.xml", 2, false, false);
+        testFiles(inputResourceFileName, expectedResourceFileName, defaultOrderFileName, 2, false, false);
     }
 
     private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,

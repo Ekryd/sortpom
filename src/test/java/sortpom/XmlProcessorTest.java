@@ -59,7 +59,7 @@ public class XmlProcessorTest extends TestCase {
         final FileUtil fileUtil = new FileUtil();
         WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
         final XmlProcessor xmlProcessor = new XmlProcessor(wrapperFactory, fileUtil);
-        fileUtil.setup(null, null, "UTF-8", null);
+        fileUtil.setup(null, null, "UTF-8", "oldDefaultOrder.xml");
         if (sortAlfabeticalOnly) {
             wrapperFactory = new WrapperFactory() {
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <!-- The Basics
+		This is a multiline komment-->
+  <groupId>sortpom</groupId>
+  <artifactId>sortpom</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>cheesymock</groupId>
+      <artifactId>cheesymock</artifactId>
+      <version>1.2-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <!-- JUnit 3, not 4 -->
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <properties>
+    <compileSource>1.6</compileSource>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <!-- Build Settings -->
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <resources>
+      <resource>
+        <directory>src\main\resources</directory>
+      </resource>
+      <resource>
+        <directory>src\main\bin</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <!-- From property -->
+          <source>${compileSource}</source>
+          <target>${compileSource}</target>
+        </configuration>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <phase>validate</phase>
+            <configuration>
+              <outputDirectory>${basedir}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/bin</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <configLocation>src/test/resources/checkstyle_checks.xml</configLocation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+  <!-- More Project Information -->
+  <name>SortPom</name>
+  <description>Sorts the pomfile</description>
+  <url></url>
+  <inceptionYear></inceptionYear>
+  <licenses></licenses>
+  <organization></organization>
+  <developers></developers>
+  <contributors></contributors>
+  <!-- Environment Settings -->
+  <issueManagement></issueManagement>
+  <ciManagement></ciManagement>
+  <mailingLists></mailingLists>
+  <scm></scm>
+  <prerequisites></prerequisites>
+  <repositories>
+    <repository>
+      <id>mvnsearch</id>
+      <url>http://www.mvnsearch.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>datanucleus</id>
+      <url>http://www.datanucleus.org/downloads/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <!-- Last Comment -->
+</project>
+

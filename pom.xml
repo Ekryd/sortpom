@@ -3,8 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-plugin</artifactId>
-  <version>0.3.1</version>
+  <version>1.0.0</version>
   <packaging>maven-plugin</packaging>
+  <name>SortPom Plugin</name>
+  <description>A Maven plugin that sorts the pom.xml file.</description>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compileSource>1.6</compileSource>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>cglib</groupId>
@@ -52,10 +58,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <compileSource>1.6</compileSource>
-  </properties>
   <build>
     <defaultGoal>install</defaultGoal>
     <resources>
@@ -244,8 +246,6 @@
       </plugin>
     </plugins>
   </reporting>
-  <name>SortPom Plugin</name>
-  <description>A Maven plugin that sorts the pom.xml file.</description>
   <url>http://code.google.com/p/sortpom/</url>
   <inceptionYear>2009</inceptionYear>
   <licenses>
@@ -269,16 +269,16 @@
       <timezone>+1</timezone>
     </developer>
   </developers>
-  <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/sortpom/issues/list</url>
-  </issueManagement>
   <scm>
     <connection>scm:svn:http://sortpom.googlecode.com/svn/trunk/</connection>
     <developerConnection>scm:svn:https://sortpom.googlecode.com/svn/trunk/</developerConnection>
     <tag>HEAD</tag>
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/sortpom/issues/list</url>
+  </issueManagement>
   <repositories>
     <repository>
       <id>googlecode.cheesymock</id>

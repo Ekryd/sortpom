@@ -3,27 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>0.3.2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
-  <name>SortPom Plugin</name>
-  <description>A Maven plugin that sorts the pom.xml file.</description>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <compileSource>1.6</compileSource>
-  </properties>
   <dependencies>
-    <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.code.cheesymock</groupId>
-      <artifactId>cheesymock</artifactId>
-      <version>1.1.5</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
@@ -32,7 +14,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.2</version>
+      <version>4.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -58,6 +40,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compileSource>1.6</compileSource>
+  </properties>
   <build>
     <defaultGoal>install</defaultGoal>
     <resources>
@@ -91,6 +77,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
         <configuration>
           <excludes>
             <exclude>*.cmd</exclude>
@@ -184,7 +171,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>versions-maven-plugin</artifactId>
-        <version>1.0</version>
+        <version>1.2</version>
         <executions>
           <execution>
             <id>show-plugin-versions</id>
@@ -218,6 +205,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.2</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -246,6 +234,8 @@
       </plugin>
     </plugins>
   </reporting>
+  <name>SortPom Plugin</name>
+  <description>A Maven plugin that sorts the pom.xml file.</description>
   <url>http://code.google.com/p/sortpom/</url>
   <inceptionYear>2009</inceptionYear>
   <licenses>
@@ -269,22 +259,16 @@
       <timezone>+1</timezone>
     </developer>
   </developers>
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/sortpom/issues/list</url>
+  </issueManagement>
   <scm>
     <connection>scm:svn:http://sortpom.googlecode.com/svn/trunk/</connection>
     <developerConnection>scm:svn:https://sortpom.googlecode.com/svn/trunk/</developerConnection>
     <tag>HEAD</tag>
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
-  <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/sortpom/issues/list</url>
-  </issueManagement>
-  <repositories>
-    <repository>
-      <id>googlecode.cheesymock</id>
-      <url>http://cheesymock.googlecode.com/svn/repo</url>
-    </repository>
-  </repositories>
   <distributionManagement>
     <repository>
       <uniqueVersion>false</uniqueVersion>

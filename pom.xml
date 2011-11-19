@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-plugin</artifactId>
-  <version>0.3.2</version>
+  <version>0.4.0</version>
   <packaging>maven-plugin</packaging>
   <dependencies>
     <dependency>
@@ -168,6 +168,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.4</version>
         <executions>
           <execution>
             <id>sign-artifacts</id>
@@ -179,13 +180,6 @@
         </executions>
       </plugin>
     </plugins>
-    <extensions>
-      <extension>
-        <groupId>org.jvnet.wagon-svn</groupId>
-        <artifactId>wagon-svn</artifactId>
-        <version>1.9</version>
-      </extension>
-    </extensions>
   </build>
   <reporting>
     <plugins>
@@ -264,12 +258,5 @@
     <tag>HEAD</tag>
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>googlecode</id>
-      <url>svn:https://sortpom.googlecode.com/svn/repo</url>
-    </repository>
-  </distributionManagement>
 </project>
 

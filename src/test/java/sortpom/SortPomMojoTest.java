@@ -49,20 +49,20 @@ public class SortPomMojoTest extends TestCase {
     }
 
     public final void testSortWithIndent() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", "oldDefaultOrder.xml", 4, false, false);
+        testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", "default_0_4_0.xml", 4, false, false);
     }
 
     public final void testSortWithDependencySortSimple() throws Exception {
-        testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml", "oldDefaultOrder.xml", 2, true, true);
+        testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml", "default_0_4_0.xml", 2, true, true);
     }
 
     public final void testSortWithDependencySortFull() throws Exception {
-        testFiles("/SortDep_input.xml", "/SortDep_expected.xml", "oldDefaultOrder.xml", 2, true, true);
+        testFiles("/SortDep_input.xml", "/SortDep_expected.xml", "default_0_4_0.xml", 2, true, true);
     }
 
     private void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        testFiles(inputResourceFileName, expectedResourceFileName, "oldDefaultOrder.xml", 2, false, false);
+        testFiles(inputResourceFileName, expectedResourceFileName, "default_0_4_0.xml", 2, false, false);
     }
 
     private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,

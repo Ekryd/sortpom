@@ -12,7 +12,7 @@ import org.apache.maven.plugin.*;
  * @author Bjorn
  */
 public class FileUtil {
-	private static final String DEFAULT_SORT_ORDER_FILENAME = "oldDefaultOrder.xml";
+	private static final String DEFAULT_SORT_ORDER_FILENAME = "default_0_4_0.xml";
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;

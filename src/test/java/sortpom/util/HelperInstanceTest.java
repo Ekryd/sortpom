@@ -1,10 +1,13 @@
 package sortpom.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
+import org.junit.*;
 
 @SuppressWarnings("unused")
-public class HelperInstanceTest extends TestCase {
+public class HelperInstanceTest {
 
+	@Test
 	public void testForceInstantiate() throws Exception {
 		assertNotNull(HelperInstance.instantiateForced(Class1.class));
 		assertNotNull(HelperInstance.instantiateForced(Class2.class));
@@ -13,13 +16,11 @@ public class HelperInstanceTest extends TestCase {
 	}
 
 	private static class Class1 {
-		private Class1() {
-		}
+		private Class1() {}
 	}
 
 	private static class Class2 {
-		private Class2(final int a) {
-		}
+		private Class2(final int a) {}
 	}
 
 	private static class Class3 {

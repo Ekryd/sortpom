@@ -1,39 +1,44 @@
 package sortpom.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.*;
+import org.junit.*;
 
-public class LineSeparatorTest extends TestCase {
+public class LineSeparatorTest {
+	@Test
 	public void testCharInput() throws MojoFailureException {
-		assertEquals("\n", new LineSeparator("\n").toString());
-		assertEquals("\r", new LineSeparator("\r").toString());
-		assertEquals("\r\n", new LineSeparator("\r\n").toString());
+		assertEquals("\n", new LineSeparatorUtil("\n").toString());
+		assertEquals("\r", new LineSeparatorUtil("\r").toString());
+		assertEquals("\r\n", new LineSeparatorUtil("\r\n").toString());
 	}
 
+	@Test
 	public void testFailedInput1() throws MojoFailureException {
 		try {
-			new LineSeparator("\nn").toString();
+			new LineSeparatorUtil("\nn").toString();
 			fail();
 		} catch (MojoFailureException ex) {
-			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 110]", ex
-					.getMessage());
+			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 110]",
+					ex.getMessage());
 		}
 	}
 
+	@Test
 	public void testFailedInput2() throws MojoFailureException {
 		try {
-			new LineSeparator("\n\n").toString();
+			new LineSeparatorUtil("\n\n").toString();
 			fail();
 		} catch (MojoFailureException ex) {
-			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 10]", ex
-					.getMessage());
+			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 10]",
+					ex.getMessage());
 		}
 	}
 
+	@Test
 	public void testFailedInput3() throws MojoFailureException {
 		try {
-			new LineSeparator("gurka").toString();
+			new LineSeparatorUtil("gurka").toString();
 			fail();
 		} catch (MojoFailureException ex) {
 			assertEquals(
@@ -42,25 +47,28 @@ public class LineSeparatorTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testFailedInput4() throws MojoFailureException {
 		try {
-			new LineSeparator("").toString();
+			new LineSeparatorUtil("").toString();
 			fail();
 		} catch (MojoFailureException ex) {
-			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were []", ex
-					.getMessage());
+			assertEquals("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were []",
+					ex.getMessage());
 		}
 	}
 
+	@Test
 	public void testMixedInput() throws MojoFailureException {
-		assertEquals("\r\n", new LineSeparator("\\r\n").toString());
-		assertEquals("\r\n", new LineSeparator("\r\\n").toString());
+		assertEquals("\r\n", new LineSeparatorUtil("\\r\n").toString());
+		assertEquals("\r\n", new LineSeparatorUtil("\r\\n").toString());
 	}
 
+	@Test
 	public void testStringInput() throws MojoFailureException {
-		assertEquals("\n", new LineSeparator("\\n").toString());
-		assertEquals("\r", new LineSeparator("\\r").toString());
-		assertEquals("\r\n", new LineSeparator("\\r\\n").toString());
+		assertEquals("\n", new LineSeparatorUtil("\\n").toString());
+		assertEquals("\r", new LineSeparatorUtil("\\r").toString());
+		assertEquals("\r\n", new LineSeparatorUtil("\\r\\n").toString());
 	}
 
 }

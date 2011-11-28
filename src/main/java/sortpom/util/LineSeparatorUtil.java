@@ -10,7 +10,7 @@ import org.apache.maven.plugin.MojoFailureException;
  * @author bjorn
  *
  */
-public class LineSeparator {
+public class LineSeparatorUtil {
 	private final String string;
 
 	/**
@@ -19,7 +19,7 @@ public class LineSeparator {
 	 * @param lineSeparatorString
 	 * @throws MojoFailureException
 	 */
-	public LineSeparator(final String lineSeparatorString) throws MojoFailureException {
+	public LineSeparatorUtil(final String lineSeparatorString) throws MojoFailureException {
 		string = lineSeparatorString.replaceAll("\\\\r", "\r").replaceAll("\\\\n", "\n");
 		if (isIllegalString()) {
 			throw new MojoFailureException(
@@ -28,12 +28,13 @@ public class LineSeparator {
 		}
 	}
 
+	private boolean isIllegalString() {
+		return !(string.equals("\n") || string.equals("\r") || string.equals("\r\n"));
+	}
+
 	@Override
 	public String toString() {
 		return string;
 	}
 
-	private boolean isIllegalString() {
-		return !(string.equals("\n") || string.equals("\r") || string.equals("\r\n"));
-	}
 }

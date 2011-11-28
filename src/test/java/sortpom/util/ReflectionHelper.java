@@ -1,19 +1,12 @@
 package sortpom.util;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.lang.reflect.*;
+import java.util.*;
 
 /**
- * This class is used to set protected fields in classes and access private constructors.
- *
+ * This class is used to set protected fields in classes and access private
+ * constructors.
+ * 
  */
 public final class ReflectionHelper {
 	private static final String SETTER_PREFIX;
@@ -31,19 +24,22 @@ public final class ReflectionHelper {
 
 	/**
 	 * Instantiates a new reflection helper.
-	 *
-	 * @param instance the instance
+	 * 
+	 * @param instance
+	 *            the instance
 	 */
 	public ReflectionHelper(final Object instance) {
 		this.instance = instance;
 	}
 
 	/**
-	 * Instantiate the first constructor found and set dummy values directly on the fields.
-	 * This method will try all constructors until it finds one that works.
-	 *
-	 * @param clazz the clazz to instantiate
-	 *
+	 * Instantiate the first constructor found and set dummy values directly on
+	 * the fields. This method will try all constructors until it finds one that
+	 * works.
+	 * 
+	 * @param clazz
+	 *            the clazz to instantiate
+	 * 
 	 * @return the new instance
 	 */
 	public static <T extends Object> T forceWithDummyValues(final Class<T> clazz) {
@@ -54,9 +50,10 @@ public final class ReflectionHelper {
 
 	/**
 	 * Instantiate private empty constructor.
-	 *
-	 * @param clazz the clazz to instantiate
-	 *
+	 * 
+	 * @param clazz
+	 *            the clazz to instantiate
+	 * 
 	 * @return the new instance
 	 */
 	public static <T> T instantiatePrivateConstructor(final Class<T> clazz) {
@@ -65,9 +62,10 @@ public final class ReflectionHelper {
 
 	/**
 	 * Create new JavaBean with dummy values using setter methods.
-	 *
-	 * @param clazz the clazz to instantiate
-	 *
+	 * 
+	 * @param clazz
+	 *            the clazz to instantiate
+	 * 
 	 * @return the new instance
 	 */
 	public static <T extends Object> T instantiateWithDummyValues(final Class<T> clazz) {
@@ -92,7 +90,7 @@ public final class ReflectionHelper {
 
 	/**
 	 * Gets the contined object of the ReflectionHelper.
-	 *
+	 * 
 	 * @return single instance of ReflectionHelper
 	 */
 	public Object getInstance() {
@@ -100,54 +98,40 @@ public final class ReflectionHelper {
 	}
 
 	/**
-	 * Sets a private or protected field for an object. This method uses type-matchning to set the field.
-	 * This method can be used if a class only has one field of the specified type.
-	 *
-	 * @param fieldValue The value that the field should be set to.
-	 * @throws IllegalAccessException Thrown if the field is final
+	 * Sets a private or protected field for an object. This method uses
+	 * type-matchning to set the field. This method can be used if a class only
+	 * has one field of the specified type.
+	 * 
+	 * @param fieldValue
+	 *            The value that the field should be set to.
+	 * @throws IllegalAccessException
+	 *             Thrown if the field is final
 	 */
 	public void setField(final Object fieldValue) throws IllegalAccessException {
-		Class<? extends Object> instanceClass = getInstance().getClass();
-		Class<? extends Object> valueClass = fieldValue.getClass();
-		Field[] fields = instanceClass.getDeclaredFields();
-		List<Field> fieldMatches = new ArrayList<Field>();
-		for (Field field : fields) {
-			if (field.getType().isAssignableFrom(valueClass)) {
-				fieldMatches.add(field);
-			}
-		}
-		if (fieldMatches.size() == 0) {
-			throw new IllegalArgumentException(String.format("Cannot find field for %s %s", valueClass, fieldValue));
-		}
-		if (fieldMatches.size() != 1) {
-			throw new IllegalArgumentException(String.format("Found %s matches for field %s %s", fieldMatches.size(),
-					valueClass, fieldValue));
-		}
-
-		Field field = fieldMatches.get(0);
-		boolean memento = field.isAccessible();
-		field.setAccessible(true);
-		field.set(getInstance(), fieldValue);
-		field.setAccessible(memento);
+		FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldValue.getClass());
+		fieldHelper.getField().set(getInstance(), fieldValue);
+		fieldHelper.restoreAccessibleState();
 	}
 
 	/**
-	 * Sets a named private or protected field for an object. Use the type-matching setter if possible.
-	 * This method can be used if a class only has more than one field of the specified type.
-	 *
-	 * @param fieldName The name of the field
-	 * @param fieldValue The value that the field should be set to.
-	 * @throws NoSuchFieldException Thrown if the fieldname is incorrect
-	 * @throws IllegalAccessException Thrown if the field is final
+	 * Sets a named private or protected field for an object. Use the
+	 * type-matching setter if possible. This method can be used if a class only
+	 * has more than one field of the specified type.
+	 * 
+	 * @param fieldName
+	 *            The name of the field
+	 * @param fieldValue
+	 *            The value that the field should be set to.
+	 * @throws NoSuchFieldException
+	 *             Thrown if the fieldname is incorrect
+	 * @throws IllegalAccessException
+	 *             Thrown if the field is final
 	 */
 	public void setField(final String fieldName, final Object fieldValue) throws NoSuchFieldException,
 			IllegalAccessException {
-		Class<? extends Object> clazz = getInstance().getClass();
-		Field field = clazz.getDeclaredField(fieldName);
-		boolean memento = field.isAccessible();
-		field.setAccessible(true);
-		field.set(getInstance(), fieldValue);
-		field.setAccessible(memento);
+		FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldName);
+		fieldHelper.getField().set(getInstance(), fieldValue);
+		fieldHelper.restoreAccessibleState();
 	}
 
 	private Object createDummyValue(final ParameterizedType genericParameterType, final Class<?> clazz,
@@ -170,8 +154,8 @@ public final class ReflectionHelper {
 				collection.add(value);
 				return collection;
 			}
-			throw new RuntimeException(String.format("%s %s must use simple generics. Ie List<String>", clazz
-					.getSimpleName(), genericParameterType));
+			throw new RuntimeException(String.format("%s %s must use simple generics. Ie List<String>",
+					clazz.getSimpleName(), genericParameterType));
 		}
 		if (Set.class == clazz) {
 			Type[] actualTypeArguments = genericParameterType.getActualTypeArguments();
@@ -228,8 +212,8 @@ public final class ReflectionHelper {
 		for (Field field : fields) {
 			String propertyName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 			Type type = field.getGenericType();
-			Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null, field
-					.getType(), propertyName);
+			Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null,
+					field.getType(), propertyName);
 			try {
 				field.setAccessible(true);
 				field.set(obj, value);
@@ -254,6 +238,22 @@ public final class ReflectionHelper {
 				}
 			}
 		}
+	}
+
+	public Object getField(String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException,
+			IllegalAccessException {
+		FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldName);
+		Object returnValue = fieldHelper.getField().get(getInstance());
+		fieldHelper.restoreAccessibleState();
+		return returnValue;
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T getField(Class<T> fieldClass) throws IllegalArgumentException, IllegalAccessException {
+		FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldClass);
+		Object returnValue = fieldHelper.getField().get(getInstance());
+		fieldHelper.restoreAccessibleState();
+		return (T) returnValue;
 	}
 
 }

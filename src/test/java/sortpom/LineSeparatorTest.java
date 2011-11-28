@@ -1,20 +1,19 @@
 package sortpom;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import static org.junit.Assert.*;
 
-import junit.framework.TestCase;
+import java.io.*;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.maven.plugin.MojoFailureException;
+import org.apache.commons.io.*;
+import org.apache.maven.plugin.*;
+import org.junit.*;
 
-import sortpom.util.ReflectionHelper;
+import sortpom.util.*;
 
-public class LineSeparatorTest extends TestCase {
+public class LineSeparatorTest {
 	private static final String UTF_8 = "UTF-8";
 
+	@Test
 	public void testDummy() {
 
 	}

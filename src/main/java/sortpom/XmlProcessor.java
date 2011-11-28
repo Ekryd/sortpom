@@ -1,96 +1,105 @@
 package sortpom;
 
-import org.apache.commons.io.IOUtils;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
-import sortpom.util.FileUtil;
-import sortpom.util.LineSeparator;
-import sortpom.wrapper.WrapperFactory;
-import sortpom.wrapper.WrapperOperations;
+import java.io.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import org.apache.commons.io.*;
+import org.apache.maven.plugin.*;
+import org.jdom.*;
+import org.jdom.input.*;
+import org.jdom.output.*;
+
+import sortpom.util.*;
+import sortpom.wrapper.*;
 
 /**
  * Creates xml structure and sorts it.
- *
+ * 
  * @author Bjorn Ekryd
  */
 public class XmlProcessor {
+	private final WrapperFactory factory;
 
-    private Document document;
+	private Document originalDocument;
+	private Document newDocument;
+	private String encoding;
+	private LineSeparatorUtil lineSeparatorUtil;
+	private String indentCharacters;
 
-    private final WrapperFactory factory;
+	public XmlProcessor(WrapperFactory factory) {
+		this.factory = factory;
+	}
 
-    private final FileUtil fileUtil;
+	/**
+	 * Setup default configuration
+	 * 
+	 * @throws MojoFailureException
+	 */
+	public void setup(PluginParameters pluginParameters) throws MojoFailureException {
+		this.indentCharacters = pluginParameters.indentCharacters;
+		this.lineSeparatorUtil = new LineSeparatorUtil(pluginParameters.lineSeparator);
+		this.encoding = pluginParameters.encoding;
+	}
 
-    private Document newDocument;
+	/**
+	 * Puts the sorted xml on the outputstream. XXX: This is a mighty sucky
+	 * implementation.
+	 * 
+	 * @param lineSeparatorUtil
+	 *            the line separator
+	 * @param indentCharacters
+	 *            the indent
+	 * @param sortedXml
+	 *            the sorted xml
+	 * @return the sorted xml
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public void getSortedXml(final OutputStream sortedXml) throws IOException {
+		XMLOutputter outputter = new XMLOutputter();
+		outputter.setFormat(createPrettyFormat());
+		OutputStream outputStream = new NewlineOutputStream(lineSeparatorUtil.toString(), sortedXml);
+		outputter.output(newDocument, outputStream);
+		IOUtils.closeQuietly(outputStream);
+	}
 
-    /**
-     * Instantiates a new xml processor.
-     *
-     * @param factory the factory
-     * @param fileUtil the file util
-     */
-    public XmlProcessor(WrapperFactory factory, FileUtil fileUtil) {
-        this.factory = factory;
-        this.fileUtil = fileUtil;
-    }
+	private Format createPrettyFormat() {
+		final Format prettyFormat = Format.getPrettyFormat();
+		prettyFormat.setExpandEmptyElements(true);
+		prettyFormat.setEncoding(encoding);
+		prettyFormat.setLineSeparator(lineSeparatorUtil.toString());
+		prettyFormat.setIndent(indentCharacters);
+		return prettyFormat;
+	}
 
-    /**
-     * Puts the sorted xml on the outputstream. XXX: This is a mighty sucky implementation.
-     *
-     * @param lineSeparator the line separator
-     * @param indent the indent
-     * @param sortedXml the sorted xml
-     * @return the sorted xml
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public void getSortedXml(final LineSeparator lineSeparator, final String indent, final OutputStream sortedXml) throws IOException {
-        XMLOutputter outputter = new XMLOutputter();
-        final Format prettyFormat = Format.getPrettyFormat();
-        prettyFormat.setExpandEmptyElements(true);
-        prettyFormat.setEncoding(fileUtil.getEncoding());
-        prettyFormat.setLineSeparator(lineSeparator.toString());
-        prettyFormat.setIndent(indent);
-        outputter.setFormat(prettyFormat);
-        OutputStream outputStream = new NewlineOutputStream(lineSeparator.toString(), sortedXml);
-        outputter.output(newDocument, outputStream);
-        IOUtils.closeQuietly(outputStream);
-    }
+	/**
+	 * Sets the original xml that should be sorted. Builds a dom document of the
+	 * xml.
+	 * 
+	 * @param originalXml
+	 *            the new original xml
+	 * @throws JDOMException
+	 *             the jDOM exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
+		SAXBuilder parser = new SAXBuilder();
+		originalDocument = parser.build(originalXml);
+	}
 
-
-    /**
-     * Sets the original xml that should be sorted. Builds a dom document of the xml.
-     *
-     * @param originalXml the new original xml
-     * @throws JDOMException the jDOM exception
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
-    public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
-        SAXBuilder parser = new SAXBuilder();
-        document = parser.build(originalXml);
-    }
-
-
-    /**
-     * Creates a new dom document that contains the sorted xml.
-     */
-    public void sortXml() {
-        newDocument = (Document) document.clone();
-        final Element rootElement = document.getRootElement();
-        factory.initialize();
-        WrapperOperations rootWrapper = factory.create(rootElement);
-        rootWrapper.createWrappedStructure(factory);
-        rootWrapper.detachStructure();
-        rootWrapper.sortStructureAttributes();
-        rootWrapper.sortStructureElements();
-        newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
-    }
+	/**
+	 * Creates a new dom document that contains the sorted xml.
+	 */
+	public void sortXml() {
+		newDocument = (Document) originalDocument.clone();
+		final Element rootElement = originalDocument.getRootElement();
+		factory.initialize();
+		WrapperOperations rootWrapper = factory.create(rootElement);
+		rootWrapper.createWrappedStructure(factory);
+		rootWrapper.detachStructure();
+		rootWrapper.sortStructureAttributes();
+		rootWrapper.sortStructureElements();
+		newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
+	}
 
 }

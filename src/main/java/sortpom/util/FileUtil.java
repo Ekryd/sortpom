@@ -6,6 +6,8 @@ import java.net.*;
 import org.apache.commons.io.*;
 import org.apache.maven.plugin.*;
 
+import sortpom.*;
+
 /**
  * Used to interface with file system
  * 
@@ -17,6 +19,14 @@ public class FileUtil {
 	private String backupFileExtension;
 	private String encoding;
 	private String defaultOrderFileName;
+
+	/** Initializes the class with sortpom parameters. */
+	public void setup(PluginParameters parameters) {
+		this.pomFile = parameters.pomFile;
+		this.backupFileExtension = parameters.backupFileExtension;
+		this.encoding = parameters.encoding;
+		this.defaultOrderFileName = parameters.sortOrderFile;
+	}
 
 	/**
 	 * Saves a backup of the pomfile before sorting.
@@ -66,15 +76,6 @@ public class FileUtil {
 	}
 
 	/**
-	 * Return the chosen encoding
-	 * 
-	 * @return
-	 */
-	public String getEncoding() {
-		return encoding;
-	}
-
-	/**
 	 * Loads the pomfile that will be sorted.
 	 * 
 	 * @return
@@ -110,22 +111,6 @@ public class FileUtil {
 		}
 	}
 
-	/**
-	 * Initializes the class with sortpom arguments.
-	 * 
-	 * @param pomFile
-	 * @param backupFileExtension
-	 * @param encoding
-	 * @param defaultOrderFileName
-	 */
-	public void setup(final File pomFile, final String backupFileExtension, final String encoding,
-			final String defaultOrderFileName) {
-		this.pomFile = pomFile;
-		this.backupFileExtension = backupFileExtension;
-		this.encoding = encoding;
-		this.defaultOrderFileName = defaultOrderFileName;
-	}
-
 	private InputStream getFileFromRelativeOrClassPath() throws IOException {
 		InputStream inputStream;
 		try {
@@ -145,4 +130,9 @@ public class FileUtil {
 		}
 		return inputStream;
 	}
+
+	public byte[] getDefaultSortOrderXmlBytes() throws UnsupportedEncodingException {
+		return getDefaultSortOrderXml().getBytes(encoding);
+	}
+
 }

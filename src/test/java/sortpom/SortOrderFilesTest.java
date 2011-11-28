@@ -1,30 +1,35 @@
 package sortpom;
 
-import java.io.*;
+import static org.junit.Assert.*;
 
-import junit.framework.*;
+import java.io.*;
 
 import org.apache.commons.io.*;
 import org.apache.maven.plugin.*;
+import org.junit.*;
 
 import sortpom.util.*;
 
-public class SortOrderFilesTest extends TestCase {
+public class SortOrderFilesTest {
 
 	private static final String UTF_8 = "UTF-8";
 
+	@Test
 	public final void testSortDifferentOrder() throws Exception {
 		testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml");
 	}
 
+	@Test
 	public final void testSortOldOrder() throws Exception {
 		testFiles("/full_unsorted_input.xml", "/full_expected.xml", "default_0_4_0.xml");
 	}
 
+	@Test
 	public final void testSortAltOrder() throws Exception {
 		testFiles("/full_unsorted_input.xml", "/full_alt_expected.xml", "custom_1.xml");
 	}
 
+	@Test
 	public final void testSortDefaultOrder() throws Exception {
 		testFiles("/full_unsorted_input.xml", "/full_default_expected.xml", "recommended_2008_06.xml");
 	}

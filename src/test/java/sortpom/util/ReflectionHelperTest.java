@@ -1,15 +1,19 @@
 package sortpom.util;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
+import org.junit.*;
 
 @SuppressWarnings("unused")
-public class ReflectionHelperTest extends TestCase {
+public class ReflectionHelperTest {
 
+	@Test
 	public void testConstructor() throws Exception {
 		Instance3 instance = ReflectionHelper.instantiatePrivateConstructor(ReflectionHelperTest.Instance3.class);
 		assertNotNull(instance);
 	}
 
+	@Test
 	public void testSetField() throws Exception {
 		FieldClass class1 = new FieldClass();
 		Instance1 instance = new Instance1();
@@ -18,6 +22,7 @@ public class ReflectionHelperTest extends TestCase {
 		assertEquals(class1, instance.getFieldInterface());
 	}
 
+	@Test
 	public void testSetField2() throws Exception {
 		FieldClass class1 = new FieldClass();
 		Instance0 instance = new Instance0();
@@ -30,6 +35,7 @@ public class ReflectionHelperTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetField3() throws Exception {
 		FieldClass class1 = new FieldClass();
 		Instance2 instance = new Instance2();
@@ -42,6 +48,7 @@ public class ReflectionHelperTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetNamedField() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
 			IllegalAccessException {
 		FieldClass class1 = new FieldClass();
@@ -51,6 +58,7 @@ public class ReflectionHelperTest extends TestCase {
 		assertEquals(class1, instance.getFieldInterface());
 	}
 
+	@Test
 	public void testSetNamedField2() throws Exception {
 		FieldClass class1 = new FieldClass();
 		Instance0 instance = new Instance0();
@@ -63,6 +71,7 @@ public class ReflectionHelperTest extends TestCase {
 		}
 	}
 
+	@Test
 	public void testSetNamedField3() throws Exception {
 		FieldClass class1 = new FieldClass();
 		Instance2 instance = new Instance2();

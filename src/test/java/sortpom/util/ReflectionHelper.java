@@ -42,7 +42,7 @@ public final class ReflectionHelper {
 	 * 
 	 * @return the new instance
 	 */
-	public static <T extends Object> T forceWithDummyValues(final Class<T> clazz) {
+	public static <T> T forceWithDummyValues(final Class<T> clazz) {
 		T newInstance = HelperInstance.instantiateForced(clazz);
 		new ReflectionHelper(newInstance).fillWithDummyFields();
 		return newInstance;
@@ -68,7 +68,7 @@ public final class ReflectionHelper {
 	 * 
 	 * @return the new instance
 	 */
-	public static <T extends Object> T instantiateWithDummyValues(final Class<T> clazz) {
+	public static <T> T instantiateWithDummyValues(final Class<T> clazz) {
 		T instance = HelperInstance.instantiate(clazz);
 		new ReflectionHelper(instance).fillWithDummyProperties();
 		return instance;

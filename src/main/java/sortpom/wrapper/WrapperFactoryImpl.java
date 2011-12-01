@@ -18,16 +18,15 @@ import sortpom.util.*;
  */
 public class WrapperFactoryImpl implements WrapperFactory {
 
-	/** How much the sortorder index should increase for each element type */
+	/** How much the sort order index should increase for each element type */
 	private static final int SORT_ORDER_INCREMENT = 100;
 
-	/** Startvalue for sortorder index. */
+	/** Start value for sort order index. */
 	private static final int SORT_ORDER_BASE = 1000;
 
-	/** Contains sortorder element names and their index. */
+	/** Contains sort order element names and their index. */
 	private final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
 
-	/** The fileutility. */
 	private final FileUtil fileUtil;
 
 	private boolean sortDependencies;
@@ -99,7 +98,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	}
 
 	/**
-	 * Creates sortorder map from choosen sortorder.
+	 * Creates sort order map from chosen sort order.
 	 * 
 	 * @see sortpom.wrapper.WrapperFactory#initialize()
 	 */

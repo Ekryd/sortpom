@@ -61,8 +61,9 @@ public class XmlProcessorTest {
 
 	private void testInputAndExpected(final String inputFileName, final String expectedFileName,
 			final boolean sortAlfabeticalOnly) throws Exception {
-		PluginParameters pluginParameters = new PluginParameters(null, false, ".bak", "UTF-8", "\r\n", "  ",
-				"default_0_4_0.xml", false, false);
+		PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(null).setBackupInfo(false, ".bak")
+				.setFormatting("UTF-8", "\r\n", "  ").setSortOrder("default_0_4_0.xml", null)
+				.setSortEntities(false, false).createPluginParameters();
 		final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
 		final FileUtil fileUtil = new FileUtil();
 		WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
@@ -74,7 +75,7 @@ public class XmlProcessorTest {
 
 				@Override
 				public WrapperOperations create(final Element rootElement) {
-					return new GroupWrapper(new AlfabeticalSortedWrapper(rootElement));
+					return new GroupWrapper(new AlphabeticalSortedWrapper(rootElement));
 				}
 
 				@SuppressWarnings("unchecked")
@@ -82,7 +83,7 @@ public class XmlProcessorTest {
 				public <T extends Content> Wrapper<T> create(final T content) {
 					if (content instanceof Element) {
 						Element element = (Element) content;
-						return (Wrapper<T>) new AlfabeticalSortedWrapper(element);
+						return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
 					}
 					return new UnsortedWrapper<T>(content);
 				}

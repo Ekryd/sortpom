@@ -28,7 +28,7 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         if (wrapper instanceof GroupAndArtifactSortedWrapper) {
             GroupAndArtifactSortedWrapper other = (GroupAndArtifactSortedWrapper) wrapper;
-            // Continue if sortorder are equal
+            // Continue if sort order are equal
             if (other.getSortOrder() != getSortOrder()) {
                 return super.isBefore(wrapper);
             }

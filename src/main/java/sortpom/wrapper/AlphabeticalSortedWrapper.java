@@ -4,17 +4,14 @@ import org.jdom.Content;
 import org.jdom.Element;
 
 /**
- * En wrapper som låter sitt element bli sorterat i alfabetisk ordning
+ * En wrapper lets its element be sorted in alphabetical order
  *
  * @author Bjorn
  */
-public class AlfabeticalSortedWrapper implements Wrapper<Element> {
-    private Element element;
+public class AlphabeticalSortedWrapper implements Wrapper<Element> {
+    private final Element element;
 
-    /**
-     * @param element
-     */
-    public AlfabeticalSortedWrapper(final Element element) {
+    public AlphabeticalSortedWrapper(final Element element) {
         this.element = element;
     }
 
@@ -25,8 +22,8 @@ public class AlfabeticalSortedWrapper implements Wrapper<Element> {
 
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
-        return wrapper instanceof AlfabeticalSortedWrapper
-                && ((AlfabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) >= 0;
+        return wrapper instanceof AlphabeticalSortedWrapper
+                && ((AlphabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) >= 0;
     }
 
     @Override
@@ -34,10 +31,10 @@ public class AlfabeticalSortedWrapper implements Wrapper<Element> {
         if (wrapper == null) {
             return true;
         }
-        if (!(wrapper instanceof AlfabeticalSortedWrapper)) {
+        if (!(wrapper instanceof AlphabeticalSortedWrapper)) {
             return false;
         }
-        return ((AlfabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) <= 0;
+        return ((AlphabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) <= 0;
     }
 
     @Override

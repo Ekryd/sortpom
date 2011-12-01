@@ -12,6 +12,7 @@ import sortpom.util.*;
  * @author Bjorn Ekryd
  * @goal sort
  */
+@SuppressWarnings({ "UnusedDeclaration" })
 public class SortPomMojo extends AbstractMojo {
 	/**
 	 * This is the File instance that refers to the location of the POM that
@@ -61,6 +62,13 @@ public class SortPomMojo extends AbstractMojo {
 	/**
 	 * Custom sort order file.
 	 * 
+	 * @parameter expression="${sort.predefinedSortOrder}"
+	 */
+	private String predefinedSortOrder;
+
+	/**
+	 * Custom sort order file.
+	 * 
 	 * @parameter expression="${sort.sortOrderFile}"
 	 */
 	private String sortOrderFile;
@@ -98,8 +106,11 @@ public class SortPomMojo extends AbstractMojo {
 
 	void setup() throws MojoFailureException {
 		String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
-		PluginParameters pluginParameters = new PluginParameters(pomFile, createBackupFile, backupFileExtension,
-				encoding, lineSeparator, indentCharacters, sortOrderFile, sortDependencies, sortPlugins);
+		PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(pomFile)
+				.setBackupInfo(createBackupFile, backupFileExtension)
+				.setFormatting(encoding, lineSeparator, indentCharacters)
+				.setSortOrder(sortOrderFile, predefinedSortOrder).setSortEntities(sortDependencies, sortPlugins)
+				.createPluginParameters();
 		sortPomImpl.setup(getLog(), pluginParameters);
 	}
 

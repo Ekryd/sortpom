@@ -6,7 +6,7 @@ import java.util.Comparator;
 import org.jdom.Attribute;
 
 /**
- * Komparator för xml-attribut på ett xml-element.
+ * Compares two attributes for an xml element.
  *
  * @author Bjorn
  *

@@ -55,7 +55,7 @@ public class SortedWrapper implements Wrapper<Element> {
         return true;
     }
 
-    protected int getSortOrder() {
+    int getSortOrder() {
         return sortOrder;
     }
 

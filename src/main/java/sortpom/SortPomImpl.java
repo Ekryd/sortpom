@@ -28,8 +28,6 @@ public class SortPomImpl {
 	 * Instantiates a new sort pom mojo and initiates dependencies to other
 	 * classes.
 	 * 
-	 * @param sortPomMojo
-	 *            logger instance
 	 */
 	public SortPomImpl() {
 		fileUtil = new FileUtil();
@@ -67,8 +65,6 @@ public class SortPomImpl {
 	/**
 	 * Sorts the incoming xml.
 	 * 
-	 * @param lineSeparator
-	 *            the line separator
 	 * @param xml
 	 *            the xml that should be sorted.
 	 * @return the sorted xml

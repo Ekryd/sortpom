@@ -4,7 +4,7 @@ import org.jdom.Content;
 import org.jdom.Element;
 
 /**
- * En wrapper som låter sitt element vara osorterat.
+ * A wrapper that lets is element be unsorted
  *
  * @author Bjorn
  * @param <T>
@@ -14,7 +14,7 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
     /**
      * The content.
      */
-    private T content;
+    private final T content;
 
     /**
      * Instantiates a new unsorted wrapper.

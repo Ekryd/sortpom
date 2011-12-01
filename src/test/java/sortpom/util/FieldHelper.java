@@ -3,16 +3,16 @@ package sortpom.util;
 import java.lang.reflect.*;
 import java.util.*;
 
-public class FieldHelper {
+class FieldHelper {
 	private boolean accessibleState;
 	private final Field field;
 
-	public FieldHelper(Class<? extends Object> instanceClass, String fieldName) throws SecurityException,
+	public FieldHelper(Class<?> instanceClass, String fieldName) throws SecurityException,
 			NoSuchFieldException {
 		field = instanceClass.getDeclaredField(fieldName);
 	}
 
-	public FieldHelper(Class<? extends Object> instanceClass, Class<? extends Object> valueClass) {
+	public FieldHelper(Class<?> instanceClass, Class<?> valueClass) {
 		Field[] fields = instanceClass.getDeclaredFields();
 		List<Field> fieldMatches = new ArrayList<Field>();
 		for (Field field : fields) {

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GroupWrapper implements WrapperOperations {
     private Wrapper<Element> elementContent;
-    private List<Wrapper<? extends Content>> otherContentList = new ArrayList<Wrapper<? extends Content>>();
+    private final List<Wrapper<? extends Content>> otherContentList = new ArrayList<Wrapper<? extends Content>>();
     private final List<GroupWrapper> children = new ArrayList<GroupWrapper>();
 
     private static final AttributeComparator ATTRIBUTE_COMPARATOR = new AttributeComparator();

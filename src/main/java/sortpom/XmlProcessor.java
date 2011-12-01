@@ -44,10 +44,6 @@ public class XmlProcessor {
 	 * Puts the sorted xml on the outputstream. XXX: This is a mighty sucky
 	 * implementation.
 	 * 
-	 * @param lineSeparatorUtil
-	 *            the line separator
-	 * @param indentCharacters
-	 *            the indent
 	 * @param sortedXml
 	 *            the sorted xml
 	 * @return the sorted xml

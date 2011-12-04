@@ -16,22 +16,24 @@ public class SortOrderFilesTest {
 
 	@Test
 	public final void testSortDifferentOrder() throws Exception {
-		testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml", "difforder/differentOrder.xml");
+		testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml",
+				"difforder/differentOrder.xml");
 	}
 
 	@Test
 	public final void testSortOldOrder() throws Exception {
-		testFiles("/full_unsorted_input.xml", "/full_expected.xml", "default_0_4_0.xml");
+		testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_0_4_0.xml", "default_0_4_0.xml");
 	}
 
 	@Test
 	public final void testSortAltOrder() throws Exception {
-		testFiles("/full_unsorted_input.xml", "/full_alt_expected.xml", "custom_1.xml");
+		testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_custom_1.xml", "custom_1.xml");
 	}
 
 	@Test
 	public final void testSortDefaultOrder() throws Exception {
-		testFiles("/full_unsorted_input.xml", "/full_default_expected.xml", "recommended_2008_06.xml");
+		testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_recommended_2008_06.xml",
+				"recommended_2008_06.xml");
 	}
 
 	private void testFiles(final String inputResourceFileName, final String expectedResourceFileName,

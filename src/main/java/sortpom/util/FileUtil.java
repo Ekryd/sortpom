@@ -14,7 +14,8 @@ import sortpom.*;
  * @author Bjorn
  */
 public class FileUtil {
-	private static final String DEFAULT_SORT_ORDER_FILENAME = "default_1_0_0.xml";
+	private static final String DEFAULT_SORT_ORDER_FILENAME = "default_1_0_0";
+	private static final String XML_FILE_EXTENSION = ".xml";
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;
@@ -103,11 +104,12 @@ public class FileUtil {
 	private String getDefaultSortOrderXml() {
 		InputStream inputStream = null;
 		try {
-			if (defaultOrderFileName == null) {
-				URL resource = this.getClass().getClassLoader().getResource(DEFAULT_SORT_ORDER_FILENAME);
-				inputStream = resource.openStream();
-			} else {
+			if (defaultOrderFileName != null) {
 				inputStream = getFileFromRelativeOrClassPath();
+			} else if (predefinedSortOrder != null) {
+				inputStream = getPredefinedSortOrder(predefinedSortOrder);
+			} else {
+				inputStream = getPredefinedSortOrder(DEFAULT_SORT_ORDER_FILENAME);
 			}
 			return IOUtils.toString(inputStream, encoding);
 		} catch (IOException ioex) {
@@ -135,6 +137,19 @@ public class FileUtil {
 			}
 		}
 		return inputStream;
+	}
+
+	private InputStream getPredefinedSortOrder(String predefinedSortOrder) {
+		URL resource = this.getClass().getClassLoader().getResource(predefinedSortOrder + XML_FILE_EXTENSION);
+		if (resource == null) {
+			throw new IllegalArgumentException(String.format("Cannot find %s among the predefined plugin resources",
+					predefinedSortOrder + XML_FILE_EXTENSION));
+		}
+		try {
+			return resource.openStream();
+		} catch (IOException ioex) {
+			throw new RuntimeException(ioex);
+		}
 	}
 
 }

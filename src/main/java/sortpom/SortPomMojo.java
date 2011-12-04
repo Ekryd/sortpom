@@ -60,7 +60,7 @@ public class SortPomMojo extends AbstractMojo {
 	private int nrOfIndentSpace;
 
 	/**
-	 * Custom sort order file.
+	 * Choose between a number of predefined sort order files.
 	 * 
 	 * @parameter expression="${sort.predefinedSortOrder}"
 	 */

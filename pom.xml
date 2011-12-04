@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  <!-- Basics -->
   <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
+  <name>SortPom Plugin</name>
+  <description>A Maven plugin that sorts the pom.xml file.</description>
+  <!-- Build -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compileSource>1.6</compileSource>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>commons-io</groupId>
@@ -44,26 +57,29 @@
       <artifactId>mockito-all</artifactId>
       <version>1.8.5</version>
     </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <compileSource>1.6</compileSource>
-  </properties>
   <build>
     <defaultGoal>install</defaultGoal>
-    <resources>
-      <resource>
-        <directory>src/main/bin</directory>
-      </resource>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.google.code.sortpom</groupId>
+          <artifactId>maven-sortpom-plugin</artifactId>
+          <configuration>
+            <createBackupFile>false</createBackupFile>
+            <predefinedSortOrder>custom_1</predefinedSortOrder>
+            <lineSeparator>\n</lineSeparator>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -128,6 +144,7 @@
       </plugin>
     </plugins>
   </build>
+  <!-- Reports -->
   <reporting>
     <plugins>
       <plugin>
@@ -170,8 +187,7 @@
       </plugin>
     </plugins>
   </reporting>
-  <name>SortPom Plugin</name>
-  <description>A Maven plugin that sorts the pom.xml file.</description>
+  <!-- Misc -->
   <url>http://code.google.com/p/sortpom/</url>
   <inceptionYear>2009</inceptionYear>
   <licenses>
@@ -195,18 +211,19 @@
       <timezone>+1</timezone>
     </developer>
   </developers>
-  <issueManagement>
-    <system>Google Code</system>
-    <url>http://code.google.com/p/sortpom/issues/list</url>
-  </issueManagement>
   <scm>
     <connection>scm:svn:http://sortpom.googlecode.com/svn/trunk/</connection>
     <developerConnection>scm:svn:https://sortpom.googlecode.com/svn/trunk/</developerConnection>
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/sortpom/issues/list</url>
+  </issueManagement>
+  <!-- Profiles -->
   <profiles>
     <profile>
-      <id>distrubution</id>
+      <id>distribution</id>
       <activation>
         <property>
           <name>!dev</name>

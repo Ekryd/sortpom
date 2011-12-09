@@ -12,7 +12,6 @@ import sortpom.util.*;
  * @author Bjorn Ekryd
  * @goal sort
  */
-@SuppressWarnings({ "UnusedDeclaration" })
 public class SortPomMojo extends AbstractMojo {
 	/**
 	 * This is the File instance that refers to the location of the POM that

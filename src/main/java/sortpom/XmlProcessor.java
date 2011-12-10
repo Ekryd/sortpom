@@ -24,6 +24,7 @@ public class XmlProcessor {
 	private String encoding;
 	private LineSeparatorUtil lineSeparatorUtil;
 	private String indentCharacters;
+	private boolean expandEmptyElements;
 
 	public XmlProcessor(WrapperFactory factory) {
 		this.factory = factory;
@@ -38,29 +39,32 @@ public class XmlProcessor {
 		this.indentCharacters = pluginParameters.indentCharacters;
 		this.lineSeparatorUtil = new LineSeparatorUtil(pluginParameters.lineSeparator);
 		this.encoding = pluginParameters.encoding;
+		this.expandEmptyElements = pluginParameters.expandEmptyElements;
 	}
 
 	/**
-	 * Puts the sorted xml on the outputstream. XXX: This is a mighty sucky
-	 * implementation.
+	 * Returns the sorted xml as an outputstream.
 	 * 
 	 * @param sortedXml
 	 *            the sorted xml
+	 * @return
 	 * @return the sorted xml
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	public void getSortedXml(final OutputStream sortedXml) throws IOException {
+	public ByteArrayOutputStream getSortedXml() throws IOException {
+		ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
 		XMLOutputter outputter = new XMLOutputter();
 		outputter.setFormat(createPrettyFormat());
 		OutputStream outputStream = new NewlineOutputStream(lineSeparatorUtil.toString(), sortedXml);
 		outputter.output(newDocument, outputStream);
 		IOUtils.closeQuietly(outputStream);
+		return sortedXml;
 	}
 
 	private Format createPrettyFormat() {
 		final Format prettyFormat = Format.getPrettyFormat();
-		prettyFormat.setExpandEmptyElements(true);
+		prettyFormat.setExpandEmptyElements(expandEmptyElements);
 		prettyFormat.setEncoding(encoding);
 		prettyFormat.setLineSeparator(lineSeparatorUtil.toString());
 		prettyFormat.setIndent(indentCharacters);

@@ -59,6 +59,14 @@ public class SortPomMojo extends AbstractMojo {
 	private int nrOfIndentSpace;
 
 	/**
+	 * If empty xml elements should be expanded or not. Example:
+	 * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
+	 * 
+	 * @parameter expression="${sort.expandEmptyElements}" default-value="true"
+	 */
+	private boolean expandEmptyElements;
+
+	/**
 	 * Choose between a number of predefined sort order files.
 	 * 
 	 * @parameter expression="${sort.predefinedSortOrder}"
@@ -107,7 +115,7 @@ public class SortPomMojo extends AbstractMojo {
 		String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
 		PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(pomFile)
 				.setBackupInfo(createBackupFile, backupFileExtension)
-				.setFormatting(encoding, lineSeparator, indentCharacters)
+				.setFormatting(encoding, lineSeparator, indentCharacters, expandEmptyElements)
 				.setSortOrder(sortOrderFile, predefinedSortOrder).setSortEntities(sortDependencies, sortPlugins)
 				.createPluginParameters();
 		sortPomImpl.setup(getLog(), pluginParameters);

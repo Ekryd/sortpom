@@ -101,6 +101,7 @@ public class SortPomMojoTest {
 			reflectionHelper.setField("encoding", UTF_8);
 			reflectionHelper.setField("sortOrderFile", defaultOrderFileName);
 			reflectionHelper.setField("lineSeparator", "\r\n");
+			reflectionHelper.setField("expandEmptyElements", true);
 			reflectionHelper.setField("nrOfIndentSpace", nrOfIndentSpace);
 			reflectionHelper.setField("sortDependencies", sortDependencies);
 			reflectionHelper.setField("sortPlugins", sortPlugins);

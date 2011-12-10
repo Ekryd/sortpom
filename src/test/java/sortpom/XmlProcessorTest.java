@@ -62,7 +62,7 @@ public class XmlProcessorTest {
 	private void testInputAndExpected(final String inputFileName, final String expectedFileName,
 			final boolean sortAlfabeticalOnly) throws Exception {
 		PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(null).setBackupInfo(false, ".bak")
-				.setFormatting("UTF-8", "\r\n", "  ").setSortOrder("default_0_4_0.xml", null)
+				.setFormatting("UTF-8", "\r\n", "  ", true).setSortOrder("default_0_4_0.xml", null)
 				.setSortEntities(false, false).createPluginParameters();
 		final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
 		final FileUtil fileUtil = new FileUtil();
@@ -99,8 +99,7 @@ public class XmlProcessorTest {
 		new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
 		xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
 		xmlProcessor.sortXml();
-		final ByteArrayOutputStream sortedXmlOutputStream = new ByteArrayOutputStream();
-		xmlProcessor.getSortedXml(sortedXmlOutputStream);
+		final ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml();
 		final String expected = IOUtils.toString(new FileInputStream(expectedFileName), UTF_8);
 		String actual = sortedXmlOutputStream.toString(UTF_8);
 		assertEquals(expected, actual);

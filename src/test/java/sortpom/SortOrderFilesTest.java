@@ -10,8 +10,6 @@ import org.apache.maven.plugin.*;
 import org.junit.*;
 import org.junit.rules.*;
 
-import sortpom.util.*;
-
 public class SortOrderFilesTest {
 
 	private static final String UTF_8 = "UTF-8";
@@ -98,19 +96,12 @@ public class SortOrderFilesTest {
 				assertTrue(testpom.delete());
 			}
 			FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-			SortPomMojo sortPomMojo = new SortPomMojo();
-			final ReflectionHelper reflectionHelper = new ReflectionHelper(sortPomMojo);
-			reflectionHelper.setField("pomFile", testpom);
-			reflectionHelper.setField("createBackupFile", true);
-			reflectionHelper.setField("backupFileExtension", testPomBackupExtension);
-			reflectionHelper.setField("encoding", UTF_8);
-			reflectionHelper.setField("sortOrderFile", defaultOrderFileName);
-			reflectionHelper.setField("lineSeparator", "\n");
-			reflectionHelper.setField("nrOfIndentSpace", nrOfIndentSpace);
-			reflectionHelper.setField("sortDependencies", sortDependencies);
-			reflectionHelper.setField("sortPlugins", sortPlugins);
-			reflectionHelper.setField("predefinedSortOrder", predefinedSortOrder);
-			sortPomMojo.execute();
+			SortPomImpl sortPomImpl = new SortPomImpl();
+			sortPomImpl.setup(createDummyMojo().getLog(),
+					new PluginParametersBuilder().setPomFile(testpom).setBackupInfo(true, testPomBackupExtension)
+							.setFormatting(UTF_8, "\n", "  ", true).setSortEntities(sortDependencies, sortPlugins)
+							.setSortOrder(defaultOrderFileName, predefinedSortOrder).createPluginParameters());
+			sortPomImpl.sortPom();
 			assertTrue(testpom.exists());
 			assertTrue(backupFile.exists());
 			inputStream1 = new FileInputStream(backupFile);
@@ -136,5 +127,16 @@ public class SortOrderFilesTest {
 				backupFile.delete();
 			}
 		}
+	}
+
+	private AbstractMojo createDummyMojo() {
+		return new AbstractMojo() {
+
+			@Override
+			public void execute() throws MojoExecutionException, MojoFailureException {
+				// TODO Auto-generated method stub
+
+			}
+		};
 	}
 }

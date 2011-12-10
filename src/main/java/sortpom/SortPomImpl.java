@@ -78,8 +78,7 @@ public class SortPomImpl {
 			originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(pluginParameters.encoding));
 			xmlProcessor.setOriginalXml(originalXmlInputStream);
 			xmlProcessor.sortXml();
-			sortedXmlOutputStream = new ByteArrayOutputStream();
-			xmlProcessor.getSortedXml(sortedXmlOutputStream);
+			sortedXmlOutputStream = xmlProcessor.getSortedXml();
 			return sortedXmlOutputStream.toString(pluginParameters.encoding);
 		} catch (JDOMException e) {
 			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);

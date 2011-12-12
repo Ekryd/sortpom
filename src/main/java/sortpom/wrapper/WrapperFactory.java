@@ -4,7 +4,7 @@ import org.jdom.Content;
 import org.jdom.Element;
 
 /**
- * Creates wrappers around xml fragements.
+ * Creates wrappers around xml fragments.
  *
  * @author Bjorn Ekryd
  *

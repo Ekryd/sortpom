@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Grupperar ihop ett antal wrappers, så att dom kan sorteras som en klump.
+ * Aggregates a number of wrappers, so that they can be sorted as a group.
  *
  * @author Bjorn
  */

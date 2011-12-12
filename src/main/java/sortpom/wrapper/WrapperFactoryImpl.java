@@ -122,7 +122,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	}
 
 	/**
-	 * Processes the choosen sortorder. Adds sortorder element and sort index to
+	 * Processes the chosen sortorder. Adds sortorder element and sort index to
 	 * a map.
 	 * 
 	 * @param element
@@ -133,7 +133,6 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	void addElementsSortOrderMap(final Element element, int sortOrder) {
 		final String deepName = getDeepName(element);
 		elementNameSortOrderMap.put(deepName, sortOrder);
-		// System.out.println(deepName + " : " + sortOrder);
 		final ArrayList<Element> castToChildElementList = castToChildElementList(element);
 		// Increments the sortorder index for each element
 		for (Element child : castToChildElementList) {

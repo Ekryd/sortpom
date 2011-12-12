@@ -8,13 +8,13 @@ import java.io.*;
  * @author Bjorn
  * 
  */
-public class LineSepartorOutputStream extends OutputStream {
+public class LineSeparatorOutputStream extends OutputStream {
 	private static final int NEWLINE = '\n';
 	private final OutputStream wrappedStream;
 	private final char[] lineSeparator;
 	private boolean wasNewLine = false;
 
-	public LineSepartorOutputStream(final String lineSeparator, final OutputStream streamWithNewlinesAsLineSeparator) {
+	public LineSeparatorOutputStream(final String lineSeparator, final OutputStream streamWithNewlinesAsLineSeparator) {
 		this.lineSeparator = lineSeparator.toCharArray();
 		this.wrappedStream = streamWithNewlinesAsLineSeparator;
 	}

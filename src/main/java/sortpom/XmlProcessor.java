@@ -43,20 +43,16 @@ public class XmlProcessor {
 	}
 
 	/**
-	 * Returns the sorted xml as an outputstream.
-	 * 
-	 * @param sortedXml
-	 *            the sorted xml
-	 * @return
+	 * Returns the sorted xml as an OutputStream.
+	 *
 	 * @return the sorted xml
 	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
 	 */
 	public ByteArrayOutputStream getSortedXml() throws IOException {
 		ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
 		XMLOutputter outputter = new XMLOutputter();
 		outputter.setFormat(createPrettyFormat());
-		OutputStream outputStream = new LineSepartorOutputStream(lineSeparatorUtil.toString(), sortedXml);
+		OutputStream outputStream = new LineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
 		outputter.output(newDocument, outputStream);
 		IOUtils.closeQuietly(outputStream);
 		return sortedXml;

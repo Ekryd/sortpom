@@ -2,18 +2,12 @@ package sortpom;
 
 import static org.junit.Assert.*;
 
-import org.apache.maven.plugin.*;
 import org.jdom.*;
 import org.junit.*;
 
 import sortpom.util.*;
 
 public class LineSeparatorTest {
-	@Test(expected = MojoFailureException.class)
-	public void wrongLineSeparatorShouldResultInException() throws Exception {
-		new LineSeparatorUtil("*");
-	}
-
 	@Test
 	public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);

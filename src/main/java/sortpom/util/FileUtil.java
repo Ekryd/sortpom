@@ -44,7 +44,7 @@ public class FileUtil {
 		createBackupFile();
 	}
 
-	private void createFileHandle() {
+	void createFileHandle() {
 		newName = pomFile.getAbsolutePath() + backupFileExtension;
 		backupFile = new File(newName);
 	}
@@ -100,7 +100,7 @@ public class FileUtil {
 			saveFile = new FileOutputStream(pomFile);
 			IOUtils.write(sortedXml, saveFile, encoding);
 		} catch (IOException e) {
-			throw new MojoFailureException("Could not save sorted pomfile: " + pomFile, e);
+			throw new MojoFailureException("Could not save sorted pomfile: " + pomFile.getAbsolutePath(), e);
 		} finally {
 			IOUtils.closeQuietly(saveFile);
 		}

@@ -56,7 +56,7 @@ public class XmlProcessor {
 		ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
 		XMLOutputter outputter = new XMLOutputter();
 		outputter.setFormat(createPrettyFormat());
-		OutputStream outputStream = new NewlineOutputStream(lineSeparatorUtil.toString(), sortedXml);
+		OutputStream outputStream = new LineSepartorOutputStream(lineSeparatorUtil.toString(), sortedXml);
 		outputter.output(newDocument, outputStream);
 		IOUtils.closeQuietly(outputStream);
 		return sortedXml;
@@ -66,7 +66,7 @@ public class XmlProcessor {
 		final Format prettyFormat = Format.getPrettyFormat();
 		prettyFormat.setExpandEmptyElements(expandEmptyElements);
 		prettyFormat.setEncoding(encoding);
-		prettyFormat.setLineSeparator(lineSeparatorUtil.toString());
+		prettyFormat.setLineSeparator("\n");
 		prettyFormat.setIndent(indentCharacters);
 		return prettyFormat;
 	}

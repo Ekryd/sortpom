@@ -21,6 +21,8 @@ public class FileUtil {
 	private String encoding;
 	private String defaultOrderFileName;
 	private String predefinedSortOrder;
+	private String newName;
+	private File backupFile;
 
 	/** Initializes the class with sortpom parameters. */
 	public void setup(PluginParameters parameters) {
@@ -37,11 +39,23 @@ public class FileUtil {
 	 * @throws MojoFailureException
 	 */
 	public void backupFile() throws MojoFailureException {
-		final String newName = pomFile.getAbsolutePath() + backupFileExtension;
-		final File backupFile = new File(newName);
+		createFileHandle();
+		checkBackupFileAccess();
+		createBackupFile();
+	}
+
+	private void createFileHandle() {
+		newName = pomFile.getAbsolutePath() + backupFileExtension;
+		backupFile = new File(newName);
+	}
+
+	private void checkBackupFileAccess() throws MojoFailureException {
 		if (backupFile.exists() && !backupFile.delete()) {
 			throw new MojoFailureException("Could not remove old backup file, filename: " + newName);
 		}
+	}
+
+	private void createBackupFile() throws MojoFailureException {
 		FileInputStream source = null;
 		FileOutputStream newFile = null;
 		try {

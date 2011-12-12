@@ -14,7 +14,7 @@ public class ExpandEmptyElementTest {
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
 		String actual = xmlProcessor.getSortedXml().toString("UTF-8");
-		Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n\n", actual);
+		Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
 	}
 
 	@Test
@@ -25,7 +25,7 @@ public class ExpandEmptyElementTest {
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
 		String actual = xmlProcessor.getSortedXml().toString("UTF-8");
-		Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n\n", actual);
+		Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
 	}
 
 	private Document createXmlFragment() {

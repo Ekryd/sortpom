@@ -4,8 +4,6 @@ import org.junit.*;
 
 public class SortOrderTest {
 
-	private static final String UTF_8 = "UTF-8";
-
 	@Test
 	public final void testSortDifferentClassPath() throws Exception {
 		SortOrderFilesUtil.testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml",

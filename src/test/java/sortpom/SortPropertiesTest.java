@@ -5,8 +5,6 @@ import org.junit.rules.*;
 
 public class SortPropertiesTest {
 
-	private static final String UTF_8 = "UTF-8";
-
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 

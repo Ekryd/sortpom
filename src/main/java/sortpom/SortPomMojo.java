@@ -95,7 +95,8 @@ public class SortPomMojo extends AbstractMojo {
 	private boolean sortPlugins;
 
 	/**
-	 * Should pom properties be sorted alphabetically.
+	 * Should the Maven pom properties be sorted alphabetically. Affects both
+	 * project/properties and project/profiles/profile/properties
 	 * 
 	 * @parameter expression="${sort.sortProperties}" default-value="false"
 	 */

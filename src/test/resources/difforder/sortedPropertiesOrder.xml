@@ -26,7 +26,6 @@
 	<properties>
 		<project.build.sourceEncoding/>
 		<compileSource/>
-		<another/>
 	</properties>
 
 	<!-- Modules -->

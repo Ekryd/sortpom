@@ -11,9 +11,10 @@ public class PluginParametersBuilder {
 	private String indentCharacters;
 	private boolean expandEmptyElements;
 	private String predefinedSortOrder;
-	private String sortOrderFile;
+	private String customSortOrderFile;
 	private boolean sortDependencies;
 	private boolean sortPlugins;
+	private boolean sortProperties;
 
 	public PluginParametersBuilder setPomFile(final File pomFile) {
 		this.pomFile = pomFile;
@@ -35,21 +36,23 @@ public class PluginParametersBuilder {
 		return this;
 	}
 
-	public PluginParametersBuilder setSortOrder(final String sortOrderFile, final String predefinedSortOrder) {
-		this.sortOrderFile = sortOrderFile;
+	public PluginParametersBuilder setSortOrder(final String customSortOrderFile, final String predefinedSortOrder) {
+		this.customSortOrderFile = customSortOrderFile;
 		this.predefinedSortOrder = predefinedSortOrder;
 		return this;
 	}
 
-	public PluginParametersBuilder setSortEntities(final boolean sortDependencies, final boolean sortPlugins) {
+	public PluginParametersBuilder setSortEntities(final boolean sortDependencies, final boolean sortPlugins,
+			final boolean sortProperties) {
 		this.sortDependencies = sortDependencies;
 		this.sortPlugins = sortPlugins;
+		this.sortProperties = sortProperties;
 		return this;
 	}
 
 	public PluginParameters createPluginParameters() {
 		return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
-				indentCharacters, expandEmptyElements, predefinedSortOrder, sortOrderFile, sortDependencies,
-				sortPlugins);
+				indentCharacters, expandEmptyElements, predefinedSortOrder, customSortOrderFile, sortDependencies,
+				sortPlugins, sortProperties);
 	}
 }

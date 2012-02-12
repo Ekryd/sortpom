@@ -21,8 +21,11 @@ public class SortPomImpl {
 	private final FileUtil fileUtil;
 	private final XmlProcessor xmlProcessor;
 	private final WrapperFactoryImpl wrapperFactory;
-	private PluginParameters pluginParameters;
 	private Log log;
+	private File pomFile;
+	private String encoding;
+	private boolean createBackupFile;
+	private String backupFileExtension;
 
 	/**
 	 * Instantiates a new sort pom mojo and initiates dependencies to other
@@ -37,10 +40,13 @@ public class SortPomImpl {
 
 	public void setup(Log log, PluginParameters pluginParameters) throws MojoFailureException {
 		this.log = log;
-		this.pluginParameters = pluginParameters;
 		fileUtil.setup(pluginParameters);
 		wrapperFactory.setup(pluginParameters);
 		xmlProcessor.setup(pluginParameters);
+		pomFile = pluginParameters.pomFile;
+		encoding = pluginParameters.encoding;
+		createBackupFile = pluginParameters.createBackupFile;
+		backupFileExtension = pluginParameters.backupFileExtension;
 	}
 
 	/**
@@ -50,7 +56,7 @@ public class SortPomImpl {
 	 *             the mojo failure exception
 	 */
 	void sortPom() throws MojoFailureException {
-		log.info("Sorting file " + pluginParameters.pomFile.getAbsolutePath());
+		log.info("Sorting file " + pomFile.getAbsolutePath());
 
 		String originalXml = fileUtil.getPomFileContent();
 		String sortedXml = getSortedXml(originalXml);
@@ -75,11 +81,11 @@ public class SortPomImpl {
 		ByteArrayInputStream originalXmlInputStream = null;
 		ByteArrayOutputStream sortedXmlOutputStream = null;
 		try {
-			originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(pluginParameters.encoding));
+			originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding));
 			xmlProcessor.setOriginalXml(originalXmlInputStream);
 			xmlProcessor.sortXml();
 			sortedXmlOutputStream = xmlProcessor.getSortedXml();
-			return sortedXmlOutputStream.toString(pluginParameters.encoding);
+			return sortedXmlOutputStream.toString(encoding);
 		} catch (JDOMException e) {
 			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);
 		} catch (IOException e) {
@@ -102,13 +108,13 @@ public class SortPomImpl {
 	 *             the mojo failure exception
 	 */
 	private void createBackupFile() throws MojoFailureException {
-		if (pluginParameters.createBackupFile) {
-			if (pluginParameters.backupFileExtension.trim().length() == 0) {
+		if (createBackupFile) {
+			if (backupFileExtension.trim().length() == 0) {
 				throw new MojoFailureException("Could not create backup file, extension name was empty");
 			}
 			fileUtil.backupFile();
-			log.info("Saved backup of " + pluginParameters.pomFile.getAbsolutePath() + " to "
-					+ pluginParameters.pomFile.getAbsolutePath() + pluginParameters.backupFileExtension);
+			log.info("Saved backup of " + pomFile.getAbsolutePath() + " to " + pomFile.getAbsolutePath()
+					+ backupFileExtension);
 		}
 	}
 
@@ -122,7 +128,7 @@ public class SortPomImpl {
 	 */
 	private void saveSortedPomFile(final String sortedXml) throws MojoFailureException {
 		fileUtil.savePomFile(sortedXml);
-		log.info("Saved sorted pomfile to " + pluginParameters.pomFile.getAbsolutePath());
+		log.info("Saved sorted pomfile to " + pomFile.getAbsolutePath());
 	}
 
 }

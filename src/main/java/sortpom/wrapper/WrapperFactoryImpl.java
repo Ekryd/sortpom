@@ -14,6 +14,8 @@ import sortpom.util.*;
  * Concrete implementation of a wrapper factory that sorts xml according to
  * sortorder from fileutil.
  * 
+ * Thank you Christian Haelg for your sortProperties patch.
+ * 
  * @author Bjorn Ekryd
  */
 public class WrapperFactoryImpl implements WrapperFactory {
@@ -30,8 +32,8 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	private final FileUtil fileUtil;
 
 	private boolean sortDependencies;
-
 	private boolean sortPlugins;
+	private boolean sortProperties;
 
 	/**
 	 * Instantiates a new wrapper factory impl.
@@ -47,54 +49,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	public void setup(PluginParameters pluginParameters) {
 		this.sortDependencies = pluginParameters.sortDependencies;
 		this.sortPlugins = pluginParameters.sortPlugins;
-	}
-
-	/**
-	 * @see sortpom.wrapper.WrapperFactory#create(org.jdom.Element)
-	 */
-	@Override
-	public WrapperOperations create(final Element rootElement) {
-		return new GroupWrapper(create((Content) rootElement));
-	}
-
-	/**
-	 * @see sortpom.wrapper.WrapperFactory#create(org.jdom.Content)
-	 */
-	@Override
-	public <T extends Content> Wrapper<T> create(final T content) {
-		if (content instanceof Element) {
-			Element element = (Element) content;
-			String deepName = getDeepName(element);
-			if (elementNameSortOrderMap.containsKey(deepName)) {
-				if ((sortDependencies && isDependencyElement(element)) || sortPlugins && isPluginElement(element)) {
-					return createGroupAndArtifactSortedElement(element, deepName);
-				}
-				return createSortedWrapper(element, deepName);
-			}
-		}
-		return new UnsortedWrapper<T>(content);
-	}
-
-	private boolean isDependencyElement(final Element element) {
-		if (element.getName().equals("dependency")) {
-			Parent parent = element.getParent();
-			if (parent != null && parent instanceof Element) {
-				Element parentElement = (Element) parent;
-				return parentElement.getName().equals("dependencies");
-			}
-		}
-		return false;
-	}
-
-	private boolean isPluginElement(final Element element) {
-		if (element.getName().equals("plugin")) {
-			Parent parent = element.getParent();
-			if (parent != null && parent instanceof Element) {
-				Element parentElement = (Element) parent;
-				return parentElement.getName().equals("plugins");
-			}
-		}
-		return false;
+		this.sortProperties = pluginParameters.sortProperties;
 	}
 
 	/**
@@ -106,12 +61,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	public void initialize() {
 		ByteArrayInputStream inputStream = null;
 		try {
-			// properties.load(new
-			// StringReader(FILE_TEMPLATE.fetchAsString("sortorder_elements.properties")));
-			SAXBuilder parser = new SAXBuilder();
-			inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
-			Document document = parser.build(inputStream);
-			addElementsSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
+			inputStream = putSortOrderFileElementsInSortingMap(inputStream);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} catch (JDOMException e) {
@@ -121,14 +71,80 @@ public class WrapperFactoryImpl implements WrapperFactory {
 		}
 	}
 
+	private ByteArrayInputStream putSortOrderFileElementsInSortingMap(ByteArrayInputStream inputStream)
+			throws UnsupportedEncodingException, JDOMException, IOException {
+		inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
+		SAXBuilder parser = new SAXBuilder();
+		Document document = parser.build(inputStream);
+		addElementsSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
+		return inputStream;
+	}
+
+	/**
+	 * @see sortpom.wrapper.WrapperFactory#createFromRootElement(org.jdom.Element)
+	 */
+	@Override
+	public WrapperOperations createFromRootElement(final Element rootElement) {
+		return new GroupWrapper(create((Content) rootElement));
+	}
+
+	/**
+	 * @see sortpom.wrapper.WrapperFactory#create(org.jdom.Content)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends Content> Wrapper<T> create(final T content) {
+		if (content instanceof Element) {
+			Wrapper<Element> wrapper = createElementWrapper((Element) content);
+			return (Wrapper<T>) wrapper;
+		}
+		return new UnsortedWrapper<T>(content);
+	}
+
+	private Wrapper<Element> createElementWrapper(final Element element) {
+		String deepName = getDeepName(element);
+		boolean sortedBySortOrderFile = elementNameSortOrderMap.containsKey(deepName);
+		if (sortedBySortOrderFile) {
+			if (isDependencyElement(element)) {
+				return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.get(deepName));
+			}
+			if (isPluginElement(element)) {
+				return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.get(deepName));
+			}
+			return new SortedWrapper(element, elementNameSortOrderMap.get(deepName));
+		}
+		if (isPropertyElement(deepName, element)) {
+			return new AlphabeticalSortedWrapper(element);
+		}
+		return new UnsortedWrapper<Element>(element);
+	}
+
+	private boolean isDependencyElement(final Element element) {
+		if (!sortDependencies) {
+			return false;
+		}
+		return isElementName(element, "dependency") && isElementParentName(element, "dependencies");
+	}
+
+	private boolean isPluginElement(final Element element) {
+		if (!sortPlugins) {
+			return false;
+		}
+		return isElementName(element, "plugin") && isElementParentName(element, "plugins");
+	}
+
+	private boolean isPropertyElement(String deepName, final Element element) {
+		if (!sortProperties) {
+			return false;
+		}
+		boolean inTheRightPlace = deepName.startsWith("/project/properties/")
+				|| deepName.startsWith("/project/profiles/profile/properties/");
+		return inTheRightPlace && isElementParentName(element, "properties");
+	}
+
 	/**
 	 * Processes the chosen sortorder. Adds sortorder element and sort index to
 	 * a map.
-	 * 
-	 * @param element
-	 *            the element
-	 * @param sortOrder
-	 *            the sort order
 	 */
 	void addElementsSortOrderMap(final Element element, int sortOrder) {
 		final String deepName = getDeepName(element);
@@ -144,37 +160,10 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	/**
 	 * Performs getChildren for an element and casts the result to ArrayList of
 	 * Elements.
-	 * 
-	 * @param element
-	 *            the element
-	 * @return the array list
 	 */
 	@SuppressWarnings("unchecked")
 	private ArrayList<Element> castToChildElementList(final Element element) {
 		return new ArrayList<Element>(element.getChildren());
-	}
-
-	/**
-	 * Creates sorted wrapper around an element and casts the result to generic
-	 * Wrapper.
-	 * 
-	 * @param <T>
-	 *            the generic type
-	 * @param element
-	 *            the element
-	 * @param deepName
-	 *            the deep name
-	 * @return the wrapper
-	 */
-	@SuppressWarnings("unchecked")
-	private <T extends Content> Wrapper<T> createSortedWrapper(final Element element, final String deepName) {
-		return (Wrapper<T>) new SortedWrapper(element, elementNameSortOrderMap.get(deepName));
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T extends Content> Wrapper<T> createGroupAndArtifactSortedElement(final Element element,
-			final String deepName) {
-		return (Wrapper<T>) new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.get(deepName));
 	}
 
 	private String getDeepName(final Element element) {
@@ -185,4 +174,15 @@ public class WrapperFactoryImpl implements WrapperFactory {
 				.append(element.getName()).toString();
 	}
 
+	private boolean isElementName(Element element, String name) {
+		return element.getName().equals(name);
+	}
+
+	private boolean isElementParentName(Element element, String name) {
+		Parent parent = element.getParent();
+		if (parent != null && parent instanceof Element) {
+			return isElementName((Element) parent, name);
+		}
+		return false;
+	}
 }

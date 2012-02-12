@@ -17,6 +17,7 @@ public class SortOrderFilesUtil {
 	private final String defaultOrderFileName;
 	private final boolean sortDependencies;
 	private final boolean sortPlugins;
+	private final boolean sortProperties;
 	private final String predefinedSortOrder;
 	private final String lineSeparator;
 	private String testPomFileName;
@@ -34,7 +35,7 @@ public class SortOrderFilesUtil {
 			final String expectedResourceFileName, final String defaultOrderFileName) throws IOException,
 			NoSuchFieldException, IllegalAccessException, MojoFailureException {
 		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				defaultOrderFileName, 2, false, false, "", "\n");
+				defaultOrderFileName, 2, false, false, "", "\n", false);
 		sortOrderFilesUtil.setup();
 		sortOrderFilesUtil.performTest();
 	}
@@ -43,7 +44,7 @@ public class SortOrderFilesUtil {
 			final String expectedResourceFileName, final String predefinedSortOrder) throws IOException,
 			NoSuchFieldException, IllegalAccessException, MojoFailureException {
 		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				null, 2, false, false, predefinedSortOrder, "\n");
+				null, 2, false, false, predefinedSortOrder, "\n", false);
 		sortOrderFilesUtil.setup();
 		sortOrderFilesUtil.performTest();
 	}
@@ -51,25 +52,25 @@ public class SortOrderFilesUtil {
 	public static void testFilesDefaultOrder(final String inputResourceFileName, final String expectedResourceFileName)
 			throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
 		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				"default_0_4_0.xml", 2, false, false, "", "\r\n");
+				"default_0_4_0.xml", 2, false, false, "", "\r\n", false);
 		sortOrderFilesUtil.setup();
 		sortOrderFilesUtil.performTest();
 	}
 
 	public static void testFiles(String inputResourceFileName, String expectedResourceFileName,
 			String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-			String predefinedSortOrder, String lineSeparator) throws IOException, NoSuchFieldException,
-			IllegalAccessException, MojoFailureException {
+			String predefinedSortOrder, String lineSeparator, boolean sortParameters) throws IOException,
+			NoSuchFieldException, IllegalAccessException, MojoFailureException {
 		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
 				defaultOrderFileName, nrOfIndentSpace, sortDependencies, sortPlugins, predefinedSortOrder,
-				lineSeparator);
+				lineSeparator, sortParameters);
 		sortOrderFilesUtil.setup();
 		sortOrderFilesUtil.performTest();
 	}
 
 	private SortOrderFilesUtil(String inputResourceFileName, String expectedResourceFileName,
 			String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-			String predefinedSortOrder, String lineSeparator) {
+			String predefinedSortOrder, String lineSeparator, boolean sortProperties) {
 		this.inputResourceFileName = inputResourceFileName;
 		this.expectedResourceFileName = expectedResourceFileName;
 		this.defaultOrderFileName = defaultOrderFileName;
@@ -78,6 +79,7 @@ public class SortOrderFilesUtil {
 		this.sortPlugins = sortPlugins;
 		this.predefinedSortOrder = predefinedSortOrder;
 		this.lineSeparator = lineSeparator;
+		this.sortProperties = sortProperties;
 	}
 
 	private void setup() {
@@ -130,7 +132,7 @@ public class SortOrderFilesUtil {
 						.setBackupInfo(true, testPomBackupExtension)
 						.setFormatting(UTF_8, lineSeparator,
 								new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), true)
-						.setSortEntities(sortDependencies, sortPlugins)
+						.setSortEntities(sortDependencies, sortPlugins, sortProperties)
 						.setSortOrder(defaultOrderFileName, predefinedSortOrder).createPluginParameters());
 		sortPomImpl.sortPom();
 	}

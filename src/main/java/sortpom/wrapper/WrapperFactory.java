@@ -16,7 +16,7 @@ public interface WrapperFactory {
 	 * @param rootElement
 	 * @return
 	 */
-	WrapperOperations create(final Element rootElement);
+	WrapperOperations createFromRootElement(final Element rootElement);
 
 	/**
 	 * Creates wrapper around xml content.

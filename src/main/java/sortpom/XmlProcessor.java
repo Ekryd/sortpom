@@ -90,7 +90,7 @@ public class XmlProcessor {
 		newDocument = (Document) originalDocument.clone();
 		final Element rootElement = originalDocument.getRootElement();
 		factory.initialize();
-		WrapperOperations rootWrapper = factory.create(rootElement);
+		WrapperOperations rootWrapper = factory.createFromRootElement(rootElement);
 		rootWrapper.createWrappedStructure(factory);
 		rootWrapper.detachStructure();
 		rootWrapper.sortStructureAttributes();

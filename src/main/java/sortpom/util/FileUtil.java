@@ -19,7 +19,7 @@ public class FileUtil {
 	private File pomFile;
 	private String backupFileExtension;
 	private String encoding;
-	private String defaultOrderFileName;
+	private String customSortOrderFile;
 	private String predefinedSortOrder;
 	private String newName;
 	private File backupFile;
@@ -29,7 +29,7 @@ public class FileUtil {
 		this.pomFile = parameters.pomFile;
 		this.backupFileExtension = parameters.backupFileExtension;
 		this.encoding = parameters.encoding;
-		this.defaultOrderFileName = parameters.sortOrderFile;
+		this.customSortOrderFile = parameters.customSortOrderFile;
 		this.predefinedSortOrder = parameters.predefinedSortOrder;
 	}
 
@@ -118,7 +118,7 @@ public class FileUtil {
 	private String getDefaultSortOrderXml() {
 		InputStream inputStream = null;
 		try {
-			if (defaultOrderFileName != null) {
+			if (customSortOrderFile != null) {
 				inputStream = getFileFromRelativeOrClassPath();
 			} else if (predefinedSortOrder != null) {
 				inputStream = getPredefinedSortOrder(predefinedSortOrder);
@@ -136,18 +136,18 @@ public class FileUtil {
 	private InputStream getFileFromRelativeOrClassPath() throws IOException {
 		InputStream inputStream;
 		try {
-			inputStream = new FileInputStream(defaultOrderFileName);
+			inputStream = new FileInputStream(customSortOrderFile);
 		} catch (FileNotFoundException fnfex) {
 			// try classpath
 			try {
-				URL resource = this.getClass().getClassLoader().getResource(defaultOrderFileName);
+				URL resource = this.getClass().getClassLoader().getResource(customSortOrderFile);
 				if (resource == null) {
 					throw new IOException("Cannot find resource");
 				}
 				inputStream = resource.openStream();
 			} catch (IOException e1) {
 				throw new FileNotFoundException(String.format("Could not find %s or %s in classpath", new File(
-						defaultOrderFileName).getAbsolutePath(), defaultOrderFileName));
+						customSortOrderFile).getAbsolutePath(), customSortOrderFile));
 			}
 		}
 		return inputStream;

@@ -3,12 +3,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <compileSource>1.6</compileSource>
-    <other>Tomatoes</other>
     <another>
       <!-- Inner properties shall not be sorted -->
       <ccc>1</ccc>
       <bbb>2</bbb>
       <aaa>2</aaa>
     </another>
+    <other>Tomatoes</other>
   </properties>
 </project>

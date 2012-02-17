@@ -50,10 +50,10 @@ public class XmlProcessor {
 	 */
 	public ByteArrayOutputStream getSortedXml() throws IOException {
 		ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
-		XMLOutputter outputter = new XMLOutputter();
-		outputter.setFormat(createPrettyFormat());
+		XMLOutputter xmlOutputter = new XMLOutputter();
+		xmlOutputter.setFormat(createPrettyFormat());
 		OutputStream outputStream = new LineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
-		outputter.output(newDocument, outputStream);
+        xmlOutputter.output(newDocument, outputStream);
 		IOUtils.closeQuietly(outputStream);
 		return sortedXml;
 	}

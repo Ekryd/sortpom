@@ -47,11 +47,6 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
       * @see sortpom.wrapper.Wrapper#isBiggerSortOrder(sortpom.wrapper.Wrapper)
       */
 
-    @Override
-    public boolean isBiggerSortOrder(final Wrapper<? extends Content> maxSortValue) {
-        return false;
-    }
-
     /* (non-Javadoc)
       * @see sortpom.wrapper.Wrapper#isContentElement()
       */

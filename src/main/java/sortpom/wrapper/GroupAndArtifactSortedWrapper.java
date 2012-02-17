@@ -27,41 +27,24 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         if (wrapper instanceof GroupAndArtifactSortedWrapper) {
-            GroupAndArtifactSortedWrapper other = (GroupAndArtifactSortedWrapper) wrapper;
-            // Continue if sort order are equal
-            if (other.getSortOrder() != getSortOrder()) {
-                return super.isBefore(wrapper);
-            }
-            int compare = compareStrings(groupId, other.groupId);
-            if (compare != 0) {
-                return compare < 0;
-            }
-            compare = compareStrings(artifactId, other.artifactId);
-            return compare < 0;
+            return isBeforeGroupAndArtifactSortedWrapper((GroupAndArtifactSortedWrapper) wrapper);
         }
         return super.isBefore(wrapper);
     }
 
-    @Override
-    public boolean isBiggerSortOrder(final Wrapper<? extends Content> wrapper) {
-        if (wrapper == null) {
-            return true;
+    private boolean isBeforeGroupAndArtifactSortedWrapper(final GroupAndArtifactSortedWrapper wrapper) {
+        // Continue if sort order are equal
+        if (wrapper.getSortOrder() != getSortOrder()) {
+            return super.isBefore(wrapper);
         }
-        if (wrapper instanceof GroupAndArtifactSortedWrapper) {
-            GroupAndArtifactSortedWrapper other = (GroupAndArtifactSortedWrapper) wrapper;
-            // Continue if sortorder are equal
-            if (other.getSortOrder() != getSortOrder()) {
-                return super.isBefore(wrapper);
-            }
-            int compare = compareStrings(groupId, other.groupId);
-            if (compare != 0) {
-                return compare > 0;
-            }
-            compare = compareStrings(artifactId, other.artifactId);
-            return compare > 0;
+        int compare = compareStrings(groupId, wrapper.groupId);
+        if (compare != 0) {
+            return compare < 0;
         }
-        return super.isBiggerSortOrder(wrapper);
+        compare = compareStrings(artifactId, wrapper.artifactId);
+        return compare < 0;
     }
+
 
     private int compareStrings(final String s1, final String s2) {
         if (s1 == null) {

@@ -11,7 +11,7 @@ import sortpom.util.*;
 import sortpom.wrapper.*;
 
 /**
- * The implementation of the Mojo (Maven plugin) that sorts the pomfile for a
+ * The implementation of the Mojo (Maven plugin) that sorts the pom file for a
  * maven project.
  * 
  * @author Bjorn Ekryd
@@ -50,7 +50,7 @@ public class SortPomImpl {
 	}
 
 	/**
-	 * Sorts the pomfile.
+	 * Sorts the pom file.
 	 * 
 	 * @throws MojoFailureException
 	 *             the mojo failure exception
@@ -61,7 +61,7 @@ public class SortPomImpl {
 		String originalXml = fileUtil.getPomFileContent();
 		String sortedXml = getSortedXml(originalXml);
 		if (pomFileIsSorted(originalXml, sortedXml)) {
-			log.info("Pomfile is already sorted, exiting");
+			log.info("Pom file is already sorted, exiting");
 			return;
 		}
 		createBackupFile();
@@ -87,9 +87,9 @@ public class SortPomImpl {
 			sortedXmlOutputStream = xmlProcessor.getSortedXml();
 			return sortedXmlOutputStream.toString(encoding);
 		} catch (JDOMException e) {
-			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);
+			throw new MojoFailureException("Could not sort pom files content: " + xml, e);
 		} catch (IOException e) {
-			throw new MojoFailureException("Could not sort pomfiles content: " + xml, e);
+			throw new MojoFailureException("Could not sort pom files content: " + xml, e);
 		} finally {
 			IOUtils.closeQuietly(originalXmlInputStream);
 			IOUtils.closeQuietly(sortedXmlOutputStream);
@@ -128,7 +128,7 @@ public class SortPomImpl {
 	 */
 	private void saveSortedPomFile(final String sortedXml) throws MojoFailureException {
 		fileUtil.savePomFile(sortedXml);
-		log.info("Saved sorted pomfile to " + pomFile.getAbsolutePath());
+		log.info("Saved sorted pom file to " + pomFile.getAbsolutePath());
 	}
 
 }

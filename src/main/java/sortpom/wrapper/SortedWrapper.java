@@ -28,21 +28,11 @@ public class SortedWrapper implements Wrapper<Element> {
 
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
-        if (wrapper instanceof SortedWrapper) {
-            return ((SortedWrapper) wrapper).sortOrder > sortOrder;
-        }
-        return true;
+        return !(wrapper instanceof SortedWrapper) || isBeforeSortedWrapper((SortedWrapper) wrapper);
     }
-
-    @Override
-    public boolean isBiggerSortOrder(final Wrapper<? extends Content> wrapper) {
-        if (wrapper == null) {
-            return true;
-        }
-        if (!(wrapper instanceof SortedWrapper)) {
-            return false;
-        }
-        return ((SortedWrapper) wrapper).sortOrder <= sortOrder;
+    
+    private boolean isBeforeSortedWrapper(SortedWrapper wrapper) {
+        return wrapper.sortOrder > sortOrder;
     }
 
     @Override

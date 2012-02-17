@@ -34,7 +34,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * Saves a backup of the pomfile before sorting.
+	 * Saves a backup of the pom file before sorting.
 	 * 
 	 * @throws MojoFailureException
 	 */
@@ -71,7 +71,7 @@ public class FileUtil {
 	}
 
 	/**
-	 * Loads the pomfile that will be sorted.
+	 * Loads the pom file that will be sorted.
 	 * 
 	 * @return
 	 * @throws MojoFailureException
@@ -82,14 +82,14 @@ public class FileUtil {
 			inputStream = new FileInputStream(pomFile);
 			return IOUtils.toString(inputStream, encoding);
 		} catch (IOException ioex) {
-			throw new MojoFailureException("Could not read pomfile: " + pomFile.getAbsolutePath(), ioex);
+			throw new MojoFailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ioex);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
 	}
 
 	/**
-	 * Saves sorted pomfile.
+	 * Saves sorted pom file.
 	 * 
 	 * @param sortedXml
 	 * @throws MojoFailureException
@@ -100,7 +100,7 @@ public class FileUtil {
 			saveFile = new FileOutputStream(pomFile);
 			IOUtils.write(sortedXml, saveFile, encoding);
 		} catch (IOException e) {
-			throw new MojoFailureException("Could not save sorted pomfile: " + pomFile.getAbsolutePath(), e);
+			throw new MojoFailureException("Could not save sorted pom file: " + pomFile.getAbsolutePath(), e);
 		} finally {
 			IOUtils.closeQuietly(saveFile);
 		}

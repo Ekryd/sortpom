@@ -23,18 +23,11 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         return wrapper instanceof AlphabeticalSortedWrapper
-                && ((AlphabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) >= 0;
+                && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
     }
 
-    @Override
-    public boolean isBiggerSortOrder(final Wrapper<? extends Content> wrapper) {
-        if (wrapper == null) {
-            return true;
-        }
-        if (!(wrapper instanceof AlphabeticalSortedWrapper)) {
-            return false;
-        }
-        return ((AlphabeticalSortedWrapper) wrapper).getContent().getName().compareTo(getContent().getName()) <= 0;
+    private boolean isBeforeAlphabeticalSortedWrapper(AlphabeticalSortedWrapper wrapper) {
+        return wrapper.getContent().getName().compareTo(getContent().getName()) >= 0;
     }
 
     @Override

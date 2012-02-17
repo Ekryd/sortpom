@@ -7,7 +7,7 @@ import org.apache.maven.plugin.*;
 import sortpom.util.*;
 
 /**
- * Mojo (Maven plugin) that sorts the pomfile for a maven project.
+ * Mojo (Maven plugin) that sorts the pom file for a maven project.
  * 
  * @author Bjorn Ekryd
  * @goal sort
@@ -110,7 +110,7 @@ public class SortPomMojo extends AbstractMojo {
 	 * Execute plugin.
 	 * 
 	 * @throws MojoFailureException
-	 *             exception taht will be handled by plugin framework
+	 *             exception that will be handled by plugin framework
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	@Override

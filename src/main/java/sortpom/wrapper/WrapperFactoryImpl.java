@@ -12,7 +12,7 @@ import sortpom.util.*;
 
 /**
  * Concrete implementation of a wrapper factory that sorts xml according to
- * sortorder from fileutil.
+ * sort order from fileUtil.
  * 
  * Thank you Christian Haelg for your sortProperties patch.
  * 
@@ -72,7 +72,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	}
 
 	private ByteArrayInputStream putSortOrderFileElementsInSortingMap(ByteArrayInputStream inputStream)
-			throws UnsupportedEncodingException, JDOMException, IOException {
+			throws JDOMException, IOException {
 		inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
 		SAXBuilder parser = new SAXBuilder();
 		Document document = parser.build(inputStream);
@@ -143,14 +143,14 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	}
 
 	/**
-	 * Processes the chosen sortorder. Adds sortorder element and sort index to
+	 * Processes the chosen sort order. Adds sort order element and sort index to
 	 * a map.
 	 */
 	void addElementsSortOrderMap(final Element element, int sortOrder) {
 		final String deepName = getDeepName(element);
 		elementNameSortOrderMap.put(deepName, sortOrder);
 		final ArrayList<Element> castToChildElementList = castToChildElementList(element);
-		// Increments the sortorder index for each element
+		// Increments the sort order index for each element
 		for (Element child : castToChildElementList) {
 			sortOrder += SORT_ORDER_INCREMENT;
 			addElementsSortOrderMap(child, sortOrder);

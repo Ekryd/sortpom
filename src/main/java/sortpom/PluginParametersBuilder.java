@@ -2,7 +2,7 @@ package sortpom;
 
 import java.io.*;
 
-public class PluginParametersBuilder {
+class PluginParametersBuilder {
 	private File pomFile;
 	private boolean createBackupFile;
 	private String backupFileExtension;

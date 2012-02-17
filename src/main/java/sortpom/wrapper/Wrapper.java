@@ -27,15 +27,6 @@ public interface Wrapper<T extends Content> {
     boolean isBefore(Wrapper<? extends Content> wrapper);
 
     /**
-     * Checks if wrapper has higher sortorder than another
-     * 
-     * @param wrapper the wrapper
-     * 
-     * @return true, if is bigger sort order
-     */
-    boolean isBiggerSortOrder(Wrapper<? extends Content> wrapper);
-
-    /**
      * Checks if is content is of type Element.
      * 
      * @return true, if is content element

@@ -164,5 +164,5 @@
     </plugins>
   </reporting>
   <name>SortPom</name>
-  <description>Sorts the pomfile</description>
+  <description>Sorts the pom file</description>
 </project>

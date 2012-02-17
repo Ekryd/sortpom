@@ -59,7 +59,7 @@ public class FileUtilExceptionsTest {
 		when(pomFileMock.getPath()).thenReturn("gurka");
 		when(pomFileMock.getAbsolutePath()).thenReturn("pomFileName");
 
-		thrown.expectMessage("Could not read pomfile: pomFileName");
+		thrown.expectMessage("Could not read pom file: pomFileName");
 
 		fileUtil.getPomFileContent();
 	}
@@ -72,7 +72,7 @@ public class FileUtilExceptionsTest {
 		when(pomFileMock.getPath()).thenReturn("/\\");
 		when(pomFileMock.getAbsolutePath()).thenReturn("pomFileName");
 
-		thrown.expectMessage("Could not save sorted pomfile: pomFileName");
+		thrown.expectMessage("Could not save sorted pom file: pomFileName");
 
 		fileUtil.savePomFile(null);
 	}

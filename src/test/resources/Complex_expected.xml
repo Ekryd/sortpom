@@ -87,7 +87,7 @@
   </reporting>
   <!-- More Project Information -->
   <name>SortPom</name>
-  <description>Sorts the pomfile</description>
+  <description>Sorts the pom file</description>
   <url></url>
   <inceptionYear></inceptionYear>
   <licenses></licenses>

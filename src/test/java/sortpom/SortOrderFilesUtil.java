@@ -3,6 +3,7 @@ package sortpom;
 import static org.junit.Assert.*;
 
 import java.io.*;
+import java.util.Random;
 
 import org.apache.commons.io.*;
 import org.apache.maven.plugin.*;
@@ -11,153 +12,166 @@ import sortpom.util.*;
 
 public class SortOrderFilesUtil {
 
-	private static final String UTF_8 = "UTF-8";
-	private final String inputResourceFileName;
-	private final String expectedResourceFileName;
-	private final String defaultOrderFileName;
-	private final boolean sortDependencies;
-	private final boolean sortPlugins;
-	private final boolean sortProperties;
-	private final String predefinedSortOrder;
-	private final String lineSeparator;
-	private String testPomFileName;
-	private File testpom;
-	private String testPomBackupExtension;
-	private File backupFile;
+    private static final String UTF_8 = "UTF-8";
+    private final String inputResourceFileName;
+    private final String expectedResourceFileName;
+    private final String defaultOrderFileName;
+    private final boolean sortDependencies;
+    private final boolean sortPlugins;
+    private final boolean sortProperties;
+    private final String predefinedSortOrder;
+    private final String lineSeparator;
+    private String testPomFileName;
+    private File testpom;
+    private String testPomBackupExtension;
+    private File backupFile;
 
-	private FileInputStream backupFileInputStream = null;
-	private FileInputStream originalPomInputStream = null;
-	private FileInputStream actualSortedPomInputStream = null;
-	private FileInputStream expectedSortedPomInputStream = null;
-	private final int nrOfIndentSpace;
+    private FileInputStream backupFileInputStream = null;
+    private FileInputStream originalPomInputStream = null;
+    private FileInputStream actualSortedPomInputStream = null;
+    private FileInputStream expectedSortedPomInputStream = null;
+    private final int nrOfIndentSpace;
 
-	public static void testFilesWithCustomSortOrder(final String inputResourceFileName,
-			final String expectedResourceFileName, final String defaultOrderFileName) throws IOException,
-			NoSuchFieldException, IllegalAccessException, MojoFailureException {
-		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				defaultOrderFileName, 2, false, false, "", "\n", false);
-		sortOrderFilesUtil.setup();
-		sortOrderFilesUtil.performTest();
-	}
+    public static void testFilesWithCustomSortOrder(final String inputResourceFileName,
+                                                    final String expectedResourceFileName, final String defaultOrderFileName) throws IOException,
+            NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
+                defaultOrderFileName, 2, false, false, "", "\n", false, "src/test/resources/testpom.xml");
+        sortOrderFilesUtil.setup();
+        sortOrderFilesUtil.performTest();
+    }
 
-	public static void testFilesWithPredefinedSortOrder(final String inputResourceFileName,
-			final String expectedResourceFileName, final String predefinedSortOrder) throws IOException,
-			NoSuchFieldException, IllegalAccessException, MojoFailureException {
-		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				null, 2, false, false, predefinedSortOrder, "\n", false);
-		sortOrderFilesUtil.setup();
-		sortOrderFilesUtil.performTest();
-	}
+    public static void testFilesWithPredefinedSortOrder(final String inputResourceFileName,
+                                                        final String expectedResourceFileName, final String predefinedSortOrder) throws IOException,
+            NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
+                null, 2, false, false, predefinedSortOrder, "\n", false, "src/test/resources/testpom.xml");
+        sortOrderFilesUtil.setup();
+        sortOrderFilesUtil.performTest();
+    }
 
-	public static void testFilesDefaultOrder(final String inputResourceFileName, final String expectedResourceFileName)
-			throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				"default_0_4_0.xml", 2, false, false, "", "\r\n", false);
-		sortOrderFilesUtil.setup();
-		sortOrderFilesUtil.performTest();
-	}
+    public static void testFilesDefaultOrder(final String inputResourceFileName, final String expectedResourceFileName)
+            throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
+                "default_0_4_0.xml", 2, false, false, "", "\r\n", false, "src/test/resources/testpom.xml");
+        sortOrderFilesUtil.setup();
+        sortOrderFilesUtil.performTest();
+    }
 
-	public static void testFiles(String inputResourceFileName, String expectedResourceFileName,
-			String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-			String predefinedSortOrder, String lineSeparator, boolean sortParameters) throws IOException,
-			NoSuchFieldException, IllegalAccessException, MojoFailureException {
-		SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-				defaultOrderFileName, nrOfIndentSpace, sortDependencies, sortPlugins, predefinedSortOrder,
-				lineSeparator, sortParameters);
-		sortOrderFilesUtil.setup();
-		sortOrderFilesUtil.performTest();
-	}
+    public static void testFiles(String inputResourceFileName, String expectedResourceFileName,
+                                 String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
+                                 String predefinedSortOrder, String lineSeparator, boolean sortParameters) throws IOException,
+            NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
+                defaultOrderFileName, nrOfIndentSpace, sortDependencies, sortPlugins, predefinedSortOrder,
+                lineSeparator, sortParameters, "src/test/resources/testpom.xml");
+        sortOrderFilesUtil.setup();
+        sortOrderFilesUtil.performTest();
+    }
 
-	private SortOrderFilesUtil(String inputResourceFileName, String expectedResourceFileName,
-			String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-			String predefinedSortOrder, String lineSeparator, boolean sortProperties) {
-		this.inputResourceFileName = inputResourceFileName;
-		this.expectedResourceFileName = expectedResourceFileName;
-		this.defaultOrderFileName = defaultOrderFileName;
-		this.nrOfIndentSpace = nrOfIndentSpace;
-		this.sortDependencies = sortDependencies;
-		this.sortPlugins = sortPlugins;
-		this.predefinedSortOrder = predefinedSortOrder;
-		this.lineSeparator = lineSeparator;
-		this.sortProperties = sortProperties;
-	}
+    public static void testFilesWithUniqueFilenames(final String inputResourceFileName,
+                                           final String expectedResourceFileName,
+                                           final String predefinedSortOrder,
+                                           final int uniqueNumber) throws IOException,
+            NoSuchFieldException, IllegalAccessException, MojoFailureException, InterruptedException {
+        Thread.sleep(new Random(System.currentTimeMillis() - uniqueNumber*13).nextInt(100));
+        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
+                null, 2, false, false, predefinedSortOrder, "\n", false, "src/test/resources/testpom" +
+                uniqueNumber + ".xml");
+        sortOrderFilesUtil.setup();
+        sortOrderFilesUtil.performTest();
+    }
 
-	private void setup() {
-		testPomFileName = "src/test/resources/testpom.xml";
-		testpom = new File(testPomFileName);
-		testPomBackupExtension = ".testExtension";
-		backupFile = new File(testpom.getAbsolutePath() + testPomBackupExtension);
-	}
+    private SortOrderFilesUtil(String inputResourceFileName, String expectedResourceFileName,
+                               String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
+                               String predefinedSortOrder, String lineSeparator, boolean sortProperties, final String testPomFileName) {
+        this.inputResourceFileName = inputResourceFileName;
+        this.expectedResourceFileName = expectedResourceFileName;
+        this.defaultOrderFileName = defaultOrderFileName;
+        this.nrOfIndentSpace = nrOfIndentSpace;
+        this.sortDependencies = sortDependencies;
+        this.sortPlugins = sortPlugins;
+        this.predefinedSortOrder = predefinedSortOrder;
+        this.lineSeparator = lineSeparator;
+        this.sortProperties = sortProperties;
+        this.testPomFileName = testPomFileName;
+    }
 
-	private void performTest() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-		try {
-			removeOldTemporaryFiles();
+    private void setup() {
+        testpom = new File(testPomFileName);
+        testPomBackupExtension = ".testExtension";
+        backupFile = new File(testpom.getAbsolutePath() + testPomBackupExtension);
+    }
 
-			FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-			performSorting();
+    private void performTest() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        try {
+            removeOldTemporaryFiles();
 
-			assertTrue(testpom.exists());
-			assertTrue(backupFile.exists());
+            FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
+            performSorting();
 
-			backupFileInputStream = new FileInputStream(backupFile);
-			String actualBackup = IOUtils.toString(backupFileInputStream, UTF_8);
+            assertTrue(testpom.exists());
+            assertTrue(backupFile.exists());
 
-			originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-			String expectedBackup = IOUtils.toString(originalPomInputStream, UTF_8);
-			assertEquals(expectedBackup, actualBackup);
+            backupFileInputStream = new FileInputStream(backupFile);
+            String actualBackup = IOUtils.toString(backupFileInputStream, UTF_8);
 
-			actualSortedPomInputStream = new FileInputStream(testpom);
-			String actualSorted = IOUtils.toString(actualSortedPomInputStream, UTF_8);
+            originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
+            String expectedBackup = IOUtils.toString(originalPomInputStream, UTF_8);
+            assertEquals(expectedBackup, actualBackup);
 
-			expectedSortedPomInputStream = new FileInputStream("src/test/resources/" + expectedResourceFileName);
-			String expectedSorted = IOUtils.toString(expectedSortedPomInputStream, UTF_8);
-			assertEquals(expectedSorted, actualSorted);
-		} finally {
-			cleanupAfterTest();
-		}
-	}
+            actualSortedPomInputStream = new FileInputStream(testpom);
+            String actualSorted = IOUtils.toString(actualSortedPomInputStream, UTF_8);
 
-	private void removeOldTemporaryFiles() {
-		if (testpom.exists()) {
-			assertTrue(testpom.delete());
-		}
-	}
+            expectedSortedPomInputStream = new FileInputStream("src/test/resources/" + expectedResourceFileName);
+            String expectedSorted = IOUtils.toString(expectedSortedPomInputStream, UTF_8);
+            assertEquals(expectedSorted, actualSorted);
+        } finally {
+            cleanupAfterTest();
+        }
+    }
 
-	private void performSorting() throws MojoFailureException {
-		SortPomImpl sortPomImpl = new SortPomImpl();
-		sortPomImpl.setup(
-				createDummyMojo().getLog(),
-				new PluginParametersBuilder()
-						.setPomFile(testpom)
-						.setBackupInfo(true, testPomBackupExtension)
-						.setFormatting(UTF_8, lineSeparator,
-								new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), true)
-						.setSortEntities(sortDependencies, sortPlugins, sortProperties)
-						.setSortOrder(defaultOrderFileName, predefinedSortOrder).createPluginParameters());
-		sortPomImpl.sortPom();
-	}
+    private void removeOldTemporaryFiles() {
+        if (testpom.exists()) {
+            assertTrue(testpom.delete());
+        }
+    }
 
-	private void cleanupAfterTest() {
-		IOUtils.closeQuietly(backupFileInputStream);
-		IOUtils.closeQuietly(originalPomInputStream);
-		IOUtils.closeQuietly(actualSortedPomInputStream);
-		IOUtils.closeQuietly(expectedSortedPomInputStream);
-		if (testpom.exists()) {
-			testpom.delete();
-		}
-		if (backupFile.exists()) {
-			backupFile.delete();
-		}
-	}
+    private void performSorting() throws MojoFailureException {
+        SortPomImpl sortPomImpl = new SortPomImpl();
+        sortPomImpl.setup(
+                createDummyMojo().getLog(),
+                new PluginParametersBuilder()
+                        .setPomFile(testpom)
+                        .setBackupInfo(true, testPomBackupExtension)
+                        .setFormatting(UTF_8, lineSeparator,
+                                new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), true)
+                        .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                        .setSortOrder(defaultOrderFileName, predefinedSortOrder).createPluginParameters());
+        sortPomImpl.sortPom();
+    }
 
-	private AbstractMojo createDummyMojo() {
-		return new AbstractMojo() {
+    private void cleanupAfterTest() {
+        IOUtils.closeQuietly(backupFileInputStream);
+        IOUtils.closeQuietly(originalPomInputStream);
+        IOUtils.closeQuietly(actualSortedPomInputStream);
+        IOUtils.closeQuietly(expectedSortedPomInputStream);
+        if (testpom.exists()) {
+            testpom.delete();
+        }
+        if (backupFile.exists()) {
+            backupFile.delete();
+        }
+    }
 
-			@Override
-			public void execute() throws MojoExecutionException, MojoFailureException {
-				// TODO Auto-generated method stub
+    private AbstractMojo createDummyMojo() {
+        return new AbstractMojo() {
 
-			}
-		};
-	}
+            @Override
+            public void execute() throws MojoExecutionException, MojoFailureException {
+                // TODO Auto-generated method stub
+
+            }
+        };
+    }
 }

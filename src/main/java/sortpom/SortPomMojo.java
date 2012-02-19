@@ -11,6 +11,7 @@ import sortpom.util.*;
  * 
  * @author Bjorn Ekryd
  * @goal sort
+ * @threadSafe true
  */
 public class SortPomMojo extends AbstractMojo {
 	/**

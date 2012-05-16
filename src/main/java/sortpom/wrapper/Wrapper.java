@@ -39,4 +39,11 @@ public interface Wrapper<T extends Content> {
      * @return true, if is resortable
      */
     boolean isResortable();
+
+    /**
+     * Output debug-friendly string
+     * @param indent
+     * @return
+     */
+    String toString(String indent);
 }

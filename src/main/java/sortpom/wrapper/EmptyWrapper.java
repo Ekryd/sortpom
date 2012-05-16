@@ -1,40 +1,38 @@
 package sortpom.wrapper;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.jdom.*;
 
 /**
  * A wrapper that lets is element be unsorted
  *
  * @author Bjorn
- * @param <T>
  */
-public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
+public class EmptyWrapper implements Wrapper<Text> {
 
     /**
      * The wrapped dom content.
      */
-    private final T content;
+    private final Text content;
 
     /**
      * Instantiates a new unsorted wrapper.
      *
      * @param content the content
      */
-    public UnsortedWrapper(final T content) {
+    public EmptyWrapper(final Text content) {
         this.content = content;
     }
 
     /**
-      * @see sortpom.wrapper.Wrapper#getContent()
+      * @see Wrapper#getContent()
       */
     @Override
-    public T getContent() {
+    public Text getContent() {
         return content;
     }
 
     /**
-      * @see sortpom.wrapper.Wrapper#isBefore(sortpom.wrapper.Wrapper)
+      * @see Wrapper#isBefore(Wrapper)
       */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
@@ -42,15 +40,15 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
     }
 
     /**
-      * @see sortpom.wrapper.Wrapper#isContentElement()
+      * @see Wrapper#isContentElement()
       */
     @Override
     public boolean isContentElement() {
-        return content instanceof Element;
+        return false;
     }
 
     /**
-      * @see sortpom.wrapper.Wrapper#isResortable()
+      * @see Wrapper#isResortable()
       */
     @Override
     public boolean isResortable() {
@@ -59,7 +57,7 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
 
     @Override
     public String toString() {
-        return "UnsortedWrapper{" +
+        return "EmptyWrapper{" +
                 "content=" + content +
                 '}';
     }

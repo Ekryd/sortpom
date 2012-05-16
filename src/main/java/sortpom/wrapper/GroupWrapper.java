@@ -28,15 +28,18 @@ public class GroupWrapper implements WrapperOperations {
     public final void createWrappedStructure(final WrapperFactory factory) {
         GroupWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
-            if (currentWrapper == null) {
-                currentWrapper = new GroupWrapper(factory.create(child));
-                children.add(currentWrapper);
-            } else {
-                currentWrapper.addContent(factory.create(child));
-            }
-            if (currentWrapper.containsElement()) {
-                currentWrapper.createWrappedStructure(factory);
-                currentWrapper = null;
+            Wrapper<?> wrapper = factory.create(child);
+            if (!(wrapper instanceof EmptyWrapper)) {
+                if (currentWrapper == null) {
+                    currentWrapper = new GroupWrapper(wrapper);
+                    children.add(currentWrapper);
+                } else {
+                    currentWrapper.addContent(wrapper);
+                }
+                if (currentWrapper.containsElement()) {
+                    currentWrapper.createWrappedStructure(factory);
+                    currentWrapper = null;
+                }
             }
         }
     }
@@ -141,6 +144,46 @@ public class GroupWrapper implements WrapperOperations {
             returnValue.addAll(child.getWrappedStructure());
         }
         return returnValue;
+    }
+
+    @Override
+    public String toString() {
+        return toString("");
+    }
+
+    public String toString(String indent) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(indent).append("GroupWrapper{\n");
+        indent += "  ";
+        toStringElementContent(indent, builder);
+        toStringOtherContentList(indent, builder);
+        toStringChildren(indent, builder);
+        builder.append(indent).append('}');
+        return builder.toString();
+    }
+
+    private void toStringElementContent(String indent, StringBuilder builder) {
+        if (elementContent != null) {
+            builder.append(indent).append("elementContent=").append(elementContent).append("\n");
+        }
+    }
+
+    private void toStringOtherContentList(String indent, StringBuilder builder) {
+        if (otherContentList.size() != 0) {
+            builder.append(indent).append(", otherContentList=").append("\n");
+            for (Wrapper<? extends Content> wrapper : otherContentList) {
+                builder.append(wrapper.toString(indent)).append("\n");
+            }
+        }
+    }
+
+    private void toStringChildren(String indent, StringBuilder builder) {
+        if (children.size() != 0) {
+            builder.append(indent).append(", children=").append("\n");
+            for (GroupWrapper child : children) {
+                builder.append(child.toString(indent)).append("\n");
+            }
+        }
     }
 
 }

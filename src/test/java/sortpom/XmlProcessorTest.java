@@ -1,21 +1,26 @@
 package sortpom;
 
-import static org.junit.Assert.*;
-
-import java.io.*;
-
 import org.apache.commons.io.*;
 import org.jdom.*;
 import org.junit.*;
-
 import sortpom.util.*;
 import sortpom.wrapper.*;
+
+import java.io.*;
+
+import static org.junit.Assert.*;
 
 public class XmlProcessorTest {
 
 	private static final String UTF_8 = "UTF-8";
 
-	@Test
+    @Test
+    public final void emptyRowsInPomShouldBePreserved() throws Exception {
+        testInputAndExpected("src/test/resources/EmptyRow_input.xml", "src/test/resources/EmptyRow_expected.xml",
+                false);
+    }
+
+    @Test
 	public final void testSortXmlAttributes() throws Exception {
 		testInputAndExpected("src/test/resources/Attribute_input.xml", "src/test/resources/Attribute_expected.xml",
 				false);

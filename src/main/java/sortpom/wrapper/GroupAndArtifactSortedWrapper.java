@@ -55,4 +55,12 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         }
         return s1.compareToIgnoreCase(s2);
     }
+
+    @Override
+    public String toString() {
+        return "GroupAndArtifactSortedWrapper{" +
+                "groupId='" + groupId + '\'' +
+                ", artifactId='" + artifactId + '\'' +
+                '}';
+    }
 }

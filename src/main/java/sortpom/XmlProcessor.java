@@ -1,15 +1,15 @@
 package sortpom;
 
-import java.io.*;
-
 import org.apache.commons.io.*;
 import org.apache.maven.plugin.*;
 import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
-
+import sortpom.jdomcontent.*;
 import sortpom.util.*;
 import sortpom.wrapper.*;
+
+import java.io.*;
 
 /**
  * Creates xml structure and sorts it.
@@ -50,7 +50,7 @@ public class XmlProcessor {
 	 */
 	public ByteArrayOutputStream getSortedXml() throws IOException {
 		ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
-		XMLOutputter xmlOutputter = new XMLOutputter();
+		XMLOutputter xmlOutputter = new PatchedXMLOutputter();
 		xmlOutputter.setFormat(createPrettyFormat());
 		OutputStream outputStream = new LineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
         xmlOutputter.output(newDocument, outputStream);
@@ -98,4 +98,13 @@ public class XmlProcessor {
 		newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
 	}
 
+    private static class PatchedXMLOutputter extends XMLOutputter {
+        /** Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline */
+        @Override
+        protected void printComment(Writer out, Comment comment) throws IOException {
+            if (!(comment instanceof NewlineText)) {
+                super.printComment(out, comment);
+            }
+        }
+    }
 }

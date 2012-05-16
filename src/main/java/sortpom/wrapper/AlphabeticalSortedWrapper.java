@@ -39,4 +39,16 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     public boolean isResortable() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "AlphabeticalSortedWrapper{" +
+                "element=" + element +
+                '}';
+    }
+
+    @Override
+    public String toString(String indent) {
+        return indent + toString();
+    }
 }

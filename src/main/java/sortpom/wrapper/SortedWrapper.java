@@ -49,4 +49,15 @@ public class SortedWrapper implements Wrapper<Element> {
         return sortOrder;
     }
 
+    @Override
+    public String toString() {
+        return "SortedWrapper{" +
+                "element=" + element +
+                '}';
+    }
+
+    @Override
+    public String toString(String indent) {
+        return indent + toString();
+    }
 }

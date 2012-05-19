@@ -4,7 +4,6 @@ import org.apache.commons.io.*;
 import org.jdom.*;
 import org.jdom.input.*;
 import sortpom.*;
-import sortpom.jdomcontent.*;
 import sortpom.util.*;
 
 import java.io.*;
@@ -26,14 +25,11 @@ public class WrapperFactoryImpl implements WrapperFactory {
 	/** Start value for sort order index. */
 	private static final int SORT_ORDER_BASE = 1000;
 
-	/** Contains sort order element names and their index. */
-	private final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
-
     private final FileUtil fileUtil;
 
-    private boolean sortDependencies;
-    private boolean sortPlugins;
-    private boolean sortProperties;
+    private final ElementSortOrderMap elementSortOrderMap = new ElementSortOrderMap();
+    private final ElementWrapperCreator elementWrapperCreator = new ElementWrapperCreator(elementSortOrderMap);
+    private final TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
 
     /**
      * Instantiates a new wrapper factory impl.
@@ -46,9 +42,8 @@ public class WrapperFactoryImpl implements WrapperFactory {
 
 	/** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters pluginParameters) {
-        this.sortDependencies = pluginParameters.sortDependencies;
-        this.sortPlugins = pluginParameters.sortPlugins;
-        this.sortProperties = pluginParameters.sortProperties;
+        elementWrapperCreator.setup(pluginParameters);
+        textWrapperCreator.setup(pluginParameters);
     }
 
     /**
@@ -94,70 +89,17 @@ public class WrapperFactoryImpl implements WrapperFactory {
     @Override
     public <T extends Content> Wrapper<T> create(final T content) {
         if (content instanceof Element) {
-            Wrapper<Element> wrapper = createElementWrapper((Element) content);
+            Wrapper<Element> wrapper = elementWrapperCreator.createWrapper((Element) content);
             return (Wrapper<T>) wrapper;
         }
         if (content instanceof Comment) {
             return new UnsortedWrapper<T>(content);
         }
         if (content instanceof Text) {
-            Text text = (Text) content;
-            if (isSingleNewLine(text)) {
-                return (Wrapper<T>) new EmptyWrapper(text);
-            } else if (isEmptyLineOrLines(text)) {
-                return new UnsortedWrapper<T>((T) new NewlineText());
-            }
+            Wrapper<? extends Content> wrapper = textWrapperCreator.createWrapper((Text) content);
+            return (Wrapper<T>) wrapper;
         }
         return new UnsortedWrapper<T>(content);
-    }
-
-    private boolean isSingleNewLine(Text content) {
-        return content.getText().matches("[\\t ]*[\\r]?[\\n]?[\\t ]*");
-    }
-
-    private boolean isEmptyLineOrLines(Text content) {
-        return content.getText().matches("\\s*?(\\n.*?\\n|\\r.*?\\r)\\s*");
-    }
-
-    private Wrapper<Element> createElementWrapper(final Element element) {
-        String deepName = getDeepName(element);
-        boolean sortedBySortOrderFile = elementNameSortOrderMap.containsKey(deepName);
-        if (sortedBySortOrderFile) {
-            if (isDependencyElement(element)) {
-                return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.get(deepName));
-            }
-            if (isPluginElement(element)) {
-                return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.get(deepName));
-            }
-            return new SortedWrapper(element, elementNameSortOrderMap.get(deepName));
-        }
-        if (isPropertyElement(deepName, element)) {
-            return new AlphabeticalSortedWrapper(element);
-        }
-        return new UnsortedWrapper<Element>(element);
-    }
-
-    private boolean isDependencyElement(final Element element) {
-        if (!sortDependencies) {
-            return false;
-        }
-        return isElementName(element, "dependency") && isElementParentName(element, "dependencies");
-    }
-
-    private boolean isPluginElement(final Element element) {
-        if (!sortPlugins) {
-            return false;
-        }
-        return isElementName(element, "plugin") && isElementParentName(element, "plugins");
-    }
-
-    private boolean isPropertyElement(String deepName, final Element element) {
-        if (!sortProperties) {
-            return false;
-        }
-        boolean inTheRightPlace = deepName.startsWith("/project/properties/")
-                || deepName.startsWith("/project/profiles/profile/properties/");
-        return inTheRightPlace && isElementParentName(element, "properties");
     }
 
     /**
@@ -165,8 +107,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
      * a map.
      */
     void addElementsSortOrderMap(final Element element, int sortOrder) {
-        final String deepName = getDeepName(element);
-        elementNameSortOrderMap.put(deepName, sortOrder);
+        elementSortOrderMap.addElement(element, sortOrder);
         final ArrayList<Element> castToChildElementList = castToChildElementList(element);
         // Increments the sort order index for each element
         for (Element child : castToChildElementList) {
@@ -184,23 +125,4 @@ public class WrapperFactoryImpl implements WrapperFactory {
         return new ArrayList<Element>(element.getChildren());
     }
 
-    private String getDeepName(final Element element) {
-        if (element == null) {
-            return "";
-        }
-        return new StringBuilder().append(getDeepName(element.getParentElement())).append('/')
-                .append(element.getName()).toString();
-    }
-
-    private boolean isElementName(Element element, String name) {
-        return element.getName().equals(name);
-    }
-
-    private boolean isElementParentName(Element element, String name) {
-        Parent parent = element.getParent();
-        if (parent != null && parent instanceof Element) {
-            return isElementName((Element) parent, name);
-        }
-        return false;
-    }
 }

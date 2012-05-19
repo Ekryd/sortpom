@@ -1,15 +1,14 @@
 package sortpom;
 
-import static org.junit.Assert.*;
-
-import java.io.*;
-
 import org.apache.maven.plugin.*;
 import org.junit.*;
 import org.mockito.*;
-
 import sortpom.util.*;
 import sortpom.wrapper.*;
+
+import java.io.*;
+
+import static org.junit.Assert.*;
 
 public class PluginParametersTest {
 	@Mock
@@ -20,10 +19,12 @@ public class PluginParametersTest {
 	private SortPomMojo mojo;
 	private XmlProcessor xmlProcessor;
 	private WrapperFactoryImpl wrapperFactoryImpl;
+    private ElementWrapperCreator elementWrapperCreator;
+    private TextWrapperCreator textWrapperCreator;
 
-	@Before
+    @Before
 	public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
-			IllegalAccessException {
+            IllegalAccessException, MojoFailureException {
 		MockitoAnnotations.initMocks(this);
 		mojo = new SortPomMojo();
 		new ReflectionHelper(mojo).setField("lineSeparator", "\n");
@@ -32,7 +33,9 @@ public class PluginParametersTest {
 		fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);
 		xmlProcessor = new ReflectionHelper(sortPomImpl).getField(XmlProcessor.class);
 		wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
-	}
+        elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
+        textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
+    }
 
 	@Test
 	public void pomFileParameter() throws Exception {
@@ -93,21 +96,26 @@ public class PluginParametersTest {
 	}
 
 	@Test
-	public void parameterSortDependenciesShouldEndUpInWrapperFactoryImpl() throws Exception {
-		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortDependencies", true, wrapperFactoryImpl);
+	public void parameterSortDependenciesShouldEndUpInElementWrapperCreator() throws Exception {
+		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortDependencies", true, elementWrapperCreator);
 	}
 
 	@Test
 	public void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() throws Exception {
-		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortPlugins", true, wrapperFactoryImpl);
+		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortPlugins", true, elementWrapperCreator);
 	}
 
 	@Test
 	public void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() throws Exception {
-		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", true, wrapperFactoryImpl);
+		testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", true, elementWrapperCreator);
 	}
 
-	private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
+    @Test
+    public void parameterKeepBlankLineShouldEndUpInXmlProcessor() throws Exception {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", true, textWrapperCreator);
+    }
+
+    private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
 			Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
 			MojoFailureException {
 		new ReflectionHelper(mojo).setField(parameterName, parameterValue);

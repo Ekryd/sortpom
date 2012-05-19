@@ -1,10 +1,9 @@
 package sortpom;
 
-import java.io.*;
-
 import org.apache.maven.plugin.*;
-
 import sortpom.util.*;
+
+import java.io.*;
 
 /**
  * Mojo (Maven plugin) that sorts the pom file for a maven project.
@@ -15,7 +14,7 @@ import sortpom.util.*;
  */
 public class SortPomMojo extends AbstractMojo {
 	/**
-	 * This is the File instance that refers to the location of the POM that
+	 * This is the File instance that refers to the location of the pom that
 	 * should be sorted.
 	 * 
 	 * @parameter expression="${sort.pomFile}" default-value="${project.file}"
@@ -103,7 +102,14 @@ public class SortPomMojo extends AbstractMojo {
 	 */
 	private boolean sortProperties;
 
-	private final SortPomImpl sortPomImpl = new SortPomImpl();
+    /**
+     * Should blank lines in the pom-file be perserved. A maximum of one line is preserved between each tag.
+     *
+     * @parameter expression="${sort.keepBlankLines}" default-value="false"
+     */
+    private boolean keepBlankLines;
+
+    private final SortPomImpl sortPomImpl = new SortPomImpl();
 
 	public SortPomMojo() {}
 
@@ -124,7 +130,7 @@ public class SortPomMojo extends AbstractMojo {
 		String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
 		PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(pomFile)
 				.setBackupInfo(createBackupFile, backupFileExtension)
-				.setFormatting(encoding, lineSeparator, indentCharacters, expandEmptyElements)
+				.setFormatting(encoding, lineSeparator, indentCharacters, expandEmptyElements, keepBlankLines)
 				.setSortOrder(sortOrderFile, predefinedSortOrder)
 				.setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
 		sortPomImpl.setup(getLog(), pluginParameters);

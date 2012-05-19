@@ -9,7 +9,7 @@ public class ExpandEmptyElementTest {
 	@Test
 	public void trueExpandedParameterShouldExpandEmptyXmlElements() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);
-		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", true)
+		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", true, false)
 				.createPluginParameters());
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
@@ -20,7 +20,7 @@ public class ExpandEmptyElementTest {
 	@Test
 	public void falseExpandedParameterShouldCompressEmptyXmlElements() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);
-		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", false)
+		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", false, false)
 				.createPluginParameters());
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 

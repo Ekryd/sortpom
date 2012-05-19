@@ -7,13 +7,13 @@ public class SortOrderTest {
 	@Test
 	public final void testSortDifferentClassPath() throws Exception {
 		SortOrderFilesUtil.testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml",
-				"difforder/differentOrder.xml", 2, false, false, "", "\r\n", false);
+				"difforder/differentOrder.xml", 2, false, false, "", "\r\n", false, false);
 	}
 
 	@Test
 	public final void testSortDifferentRelativePath() throws Exception {
 		SortOrderFilesUtil.testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml",
-				"src/test/resources/difforder/differentOrder.xml", 2, false, false, "", "\r\n", false);
+				"src/test/resources/difforder/differentOrder.xml", 2, false, false, "", "\r\n", false, false);
 	}
 
 	@Test
@@ -49,19 +49,19 @@ public class SortOrderTest {
 	@Test
 	public final void testSortWithIndent() throws Exception {
 		SortOrderFilesUtil.testFiles("/Simple_input.xml", "/Simple_expected_indent.xml", "default_0_4_0.xml", 4, false,
-				false, "", "\r\n", false);
+				false, "", "\r\n", false, false);
 	}
 
 	@Test
 	public final void testSortWithDependencySortSimple() throws Exception {
 		SortOrderFilesUtil.testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml", "default_0_4_0.xml", 2, true,
-				true, "", "\r\n", false);
+				true, "", "\r\n", false, false);
 	}
 
 	@Test
 	public final void testSortWithDependencySortFull() throws Exception {
 		SortOrderFilesUtil.testFiles("/SortDep_input.xml", "/SortDep_expected.xml", "default_0_4_0.xml", 2, true, true,
-				"", "\r\n", false);
+				"", "\r\n", false, false);
 	}
 
 }

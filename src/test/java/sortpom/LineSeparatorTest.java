@@ -1,17 +1,16 @@
 package sortpom;
 
-import static org.junit.Assert.*;
-
 import org.jdom.*;
 import org.junit.*;
-
 import sortpom.util.*;
+
+import static org.junit.Assert.*;
 
 public class LineSeparatorTest {
 	@Test
 	public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);
-		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", false)
+		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", "  ", false, false)
 				.createPluginParameters());
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
@@ -22,7 +21,7 @@ public class LineSeparatorTest {
 	@Test
 	public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);
-		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r", "  ", false)
+		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r", "  ", false, false)
 				.createPluginParameters());
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
@@ -33,7 +32,7 @@ public class LineSeparatorTest {
 	@Test
 	public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() throws Exception {
 		XmlProcessor xmlProcessor = new XmlProcessor(null);
-		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r\n", "  ", false)
+		xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r\n", "  ", false, false)
 				.createPluginParameters());
 		new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 

@@ -15,6 +15,7 @@ class PluginParametersBuilder {
 	private boolean sortDependencies;
 	private boolean sortPlugins;
 	private boolean sortProperties;
+    private boolean keepBlankLines;
 
 	public PluginParametersBuilder setPomFile(final File pomFile) {
 		this.pomFile = pomFile;
@@ -28,11 +29,12 @@ class PluginParametersBuilder {
 	}
 
 	public PluginParametersBuilder setFormatting(final String encoding, final String lineSeparator,
-			final String indentCharacters, final boolean expandEmptyElements) {
+			final String indentCharacters, final boolean expandEmptyElements, final boolean keepBlankLines) {
 		this.encoding = encoding;
 		this.lineSeparator = lineSeparator;
 		this.indentCharacters = indentCharacters;
 		this.expandEmptyElements = expandEmptyElements;
+        this.keepBlankLines = keepBlankLines;
 		return this;
 	}
 
@@ -53,6 +55,6 @@ class PluginParametersBuilder {
 	public PluginParameters createPluginParameters() {
 		return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
 				indentCharacters, expandEmptyElements, predefinedSortOrder, customSortOrderFile, sortDependencies,
-				sortPlugins, sortProperties);
+				sortPlugins, sortProperties, keepBlankLines);
 	}
 }

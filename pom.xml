@@ -86,6 +86,7 @@
             <lineSeparator>\n</lineSeparator>
             <encoding>${project.build.sourceEncoding}</encoding>
             <sortProperties>true</sortProperties>
+            <keepBlankLines>true</keepBlankLines>
           </configuration>
         </plugin>
       </plugins>

@@ -70,11 +70,11 @@ public class SortOrderFilesUtil {
     }
 
     public static void testFilesWithUniqueFilenames(final String inputResourceFileName,
-                                           final String expectedResourceFileName,
-                                           final String predefinedSortOrder,
-                                           final int uniqueNumber) throws IOException,
+                                                    final String expectedResourceFileName,
+                                                    final String predefinedSortOrder,
+                                                    final int uniqueNumber) throws IOException,
             NoSuchFieldException, IllegalAccessException, MojoFailureException, InterruptedException {
-        Thread.sleep(new Random(System.currentTimeMillis() - uniqueNumber*13).nextInt(100));
+        Thread.sleep(new Random(System.currentTimeMillis() - uniqueNumber * 13).nextInt(100));
         SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
                 null, 2, false, false, predefinedSortOrder, "\n", false, "src/test/resources/testpom" +
                 uniqueNumber + ".xml", false);
@@ -170,8 +170,6 @@ public class SortOrderFilesUtil {
 
             @Override
             public void execute() throws MojoExecutionException, MojoFailureException {
-                // TODO Auto-generated method stub
-
             }
         };
     }

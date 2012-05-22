@@ -11,6 +11,8 @@ import org.jdom.*;
  * in XmlProcessor.PatchedXMLOutputter
  */
 public class NewlineText extends Comment {
+    private static final long serialVersionUID = -7552189498553321263L;
+
     /**
      * This returns a <code>String</code> representation of the
      * <code>NewlineText</code>, suitable for debugging. If the XML

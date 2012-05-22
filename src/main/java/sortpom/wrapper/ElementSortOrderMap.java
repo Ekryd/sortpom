@@ -6,7 +6,7 @@ import java.util.*;
 
 public class ElementSortOrderMap {
     /** Contains sort order element names and their index. */
-    final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
+    private final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
 
     public ElementSortOrderMap() {
     }

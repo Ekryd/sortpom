@@ -19,11 +19,11 @@ import java.util.*;
  */
 public class WrapperFactoryImpl implements WrapperFactory {
 
-	/** How much the sort order index should increase for each element type */
-	private static final int SORT_ORDER_INCREMENT = 100;
+    /** How much the sort order index should increase for each element type */
+    private static final int SORT_ORDER_INCREMENT = 100;
 
-	/** Start value for sort order index. */
-	private static final int SORT_ORDER_BASE = 1000;
+    /** Start value for sort order index. */
+    private static final int SORT_ORDER_BASE = 1000;
 
     private final FileUtil fileUtil;
 
@@ -40,7 +40,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
         this.fileUtil = fileUtil;
     }
 
-	/** Initializes the class with sortpom parameters. */
+    /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters pluginParameters) {
         elementWrapperCreator.setup(pluginParameters);
         textWrapperCreator.setup(pluginParameters);
@@ -53,51 +53,46 @@ public class WrapperFactoryImpl implements WrapperFactory {
      */
     @Override
     public void initialize() {
-        ByteArrayInputStream inputStream = null;
         try {
-            inputStream = putSortOrderFileElementsInSortingMap(inputStream);
+            Document document = createDocumentFromDefaultSortOrderFile();
+            addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (JDOMException e) {
             throw new RuntimeException(e);
+        } 
+    }
+
+    private Document createDocumentFromDefaultSortOrderFile()
+            throws JDOMException, IOException {
+        InputStream inputStream = null;
+        try {
+            inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
+            SAXBuilder parser = new SAXBuilder();
+            return parser.build(inputStream);
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
     }
 
-    private ByteArrayInputStream putSortOrderFileElementsInSortingMap(ByteArrayInputStream inputStream)
-            throws JDOMException, IOException {
-        inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
-        SAXBuilder parser = new SAXBuilder();
-        Document document = parser.build(inputStream);
-        addElementsSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
-        return inputStream;
-    }
-
-    /**
-     * @see sortpom.wrapper.WrapperFactory#createFromRootElement(org.jdom.Element)
-     */
+    /** @see sortpom.wrapper.WrapperFactory#createFromRootElement(org.jdom.Element) */
     @Override
     public WrapperOperations createFromRootElement(final Element rootElement) {
         return new GroupWrapper(create((Content) rootElement));
     }
 
-    /**
-     * @see sortpom.wrapper.WrapperFactory#create(org.jdom.Content)
-     */
+    /** @see sortpom.wrapper.WrapperFactory#create(org.jdom.Content) */
     @SuppressWarnings("unchecked")
     @Override
     public <T extends Content> Wrapper<T> create(final T content) {
         if (content instanceof Element) {
-            Wrapper<Element> wrapper = elementWrapperCreator.createWrapper((Element) content);
-            return (Wrapper<T>) wrapper;
+            return (Wrapper<T>) elementWrapperCreator.createWrapper((Element) content);
         }
         if (content instanceof Comment) {
             return new UnsortedWrapper<T>(content);
         }
         if (content instanceof Text) {
-            Wrapper<? extends Content> wrapper = textWrapperCreator.createWrapper((Text) content);
-            return (Wrapper<T>) wrapper;
+            return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
         }
         return new UnsortedWrapper<T>(content);
     }
@@ -106,13 +101,14 @@ public class WrapperFactoryImpl implements WrapperFactory {
      * Processes the chosen sort order. Adds sort order element and sort index to
      * a map.
      */
-    void addElementsSortOrderMap(final Element element, int sortOrder) {
-        elementSortOrderMap.addElement(element, sortOrder);
-        final ArrayList<Element> castToChildElementList = castToChildElementList(element);
+    void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
+        elementSortOrderMap.addElement(element, baseSortOrder);
+        final List<Element> castToChildElementList = castToChildElementList(element);
         // Increments the sort order index for each element
+        int sortOrder = baseSortOrder;
         for (Element child : castToChildElementList) {
             sortOrder += SORT_ORDER_INCREMENT;
-            addElementsSortOrderMap(child, sortOrder);
+            addElementsToSortOrderMap(child, sortOrder);
         }
     }
 
@@ -121,7 +117,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
      * Elements.
      */
     @SuppressWarnings("unchecked")
-    private ArrayList<Element> castToChildElementList(final Element element) {
+    private List<Element> castToChildElementList(final Element element) {
         return new ArrayList<Element>(element.getChildren());
     }
 

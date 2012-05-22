@@ -67,7 +67,7 @@ public class ElementWrapperCreator {
 
     private boolean isElementParentName(Element element, String name) {
         Parent parent = element.getParent();
-        if (parent != null && parent instanceof Element) {
+        if (parent instanceof Element) {
             return isElementName((Element) parent, name);
         }
         return false;

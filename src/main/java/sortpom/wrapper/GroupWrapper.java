@@ -113,12 +113,12 @@ public class GroupWrapper implements WrapperOperations {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Attribute> castToAttributeList(final Element element) {
+    private List<Attribute> castToAttributeList(final Element element) {
         return new ArrayList<Attribute>(element.getAttributes());
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Content> castToContentList(final Wrapper<Element> elementContent) {
+    private List<Content> castToContentList(final Wrapper<Element> elementContent) {
         if (elementContent == null) {
             return new ArrayList<Content>();
         }
@@ -151,10 +151,10 @@ public class GroupWrapper implements WrapperOperations {
         return toString("");
     }
 
-    public String toString(String indent) {
+    public String toString(String baseIndent) {
         StringBuilder builder = new StringBuilder();
-        builder.append(indent).append("GroupWrapper{\n");
-        indent += "  ";
+        builder.append(baseIndent).append("GroupWrapper{\n");
+        String indent = "  " + baseIndent;
         toStringElementContent(indent, builder);
         toStringOtherContentList(indent, builder);
         toStringChildren(indent, builder);

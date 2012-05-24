@@ -1,7 +1,8 @@
 package sortpom.wrapper;
 
-import org.jdom.*;
-import sortpom.*;
+import org.jdom.Element;
+import org.jdom.Parent;
+import sortpom.PluginParameters;
 
 /**
  * @author bjorn
@@ -23,7 +24,7 @@ public class ElementWrapperCreator {
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
     }
-    
+
     public Wrapper<Element> createWrapper(Element element) {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {

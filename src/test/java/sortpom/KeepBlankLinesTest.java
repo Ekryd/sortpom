@@ -1,6 +1,6 @@
 package sortpom;
 
-import org.junit.*;
+import org.junit.Test;
 
 public class KeepBlankLinesTest {
     @Test

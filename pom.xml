@@ -79,7 +79,7 @@
         <plugin>
           <groupId>com.google.code.sortpom</groupId>
           <artifactId>maven-sortpom-plugin</artifactId>
-          <version>1.3.0</version>
+          <version>1.3.1-SNAPSHOT</version>
           <configuration>
             <createBackupFile>false</createBackupFile>
             <predefinedSortOrder>custom_1</predefinedSortOrder>
@@ -90,7 +90,7 @@
           </configuration>
         </plugin>
       </plugins>
-     </pluginManagement>
+    </pluginManagement>
     
     <plugins>
       <plugin>
@@ -145,14 +145,6 @@
   <!-- Reports -->
   <reporting>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <configLocation>src/test/resources/checkstyle_checks.xml</configLocation>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
@@ -295,5 +287,36 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>analyze</id>
+      <activation>
+        <property>
+          <name>analyze</name>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <version>2.9.1</version>
+            <configuration>
+              <violationSeverity>warning</violationSeverity>
+              <consoleOutput>true</consoleOutput>
+              <configLocation>src/test/resources/plugin-resources/checkstyle_custom.xml</configLocation>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>checkstyle</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
   </profiles>
+  
 </project>

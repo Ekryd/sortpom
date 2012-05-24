@@ -1,8 +1,9 @@
 package sortpom.wrapper;
 
-import org.jdom.*;
-import sortpom.*;
-import sortpom.jdomcontent.*;
+import org.jdom.Content;
+import org.jdom.Text;
+import sortpom.PluginParameters;
+import sortpom.jdomcontent.NewlineText;
 
 /**
  * @author bjorn
@@ -17,7 +18,7 @@ public class TextWrapperCreator {
     public void setup(PluginParameters pluginParameters) {
         keepBlankLines = pluginParameters.keepBlankLines;
     }
-    
+
     public Wrapper<? extends Content> createWrapper(Text text) {
         if (isSingleNewLine(text)) {
             return new EmptyWrapper(text);

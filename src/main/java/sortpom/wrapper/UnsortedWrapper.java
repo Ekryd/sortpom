@@ -6,14 +6,12 @@ import org.jdom.Element;
 /**
  * A wrapper that lets is element be unsorted
  *
- * @author Bjorn
  * @param <T>
+ * @author Bjorn
  */
 public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
 
-    /**
-     * The wrapped dom content.
-     */
+    /** The wrapped dom content. */
     private final T content;
 
     /**
@@ -25,33 +23,25 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
         this.content = content;
     }
 
-    /**
-      * @see sortpom.wrapper.Wrapper#getContent()
-      */
+    /** @see sortpom.wrapper.Wrapper#getContent() */
     @Override
     public T getContent() {
         return content;
     }
 
-    /**
-      * @see sortpom.wrapper.Wrapper#isBefore(sortpom.wrapper.Wrapper)
-      */
+    /** @see sortpom.wrapper.Wrapper#isBefore(sortpom.wrapper.Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         return false;
     }
 
-    /**
-      * @see sortpom.wrapper.Wrapper#isContentElement()
-      */
+    /** @see sortpom.wrapper.Wrapper#isContentElement() */
     @Override
     public boolean isContentElement() {
         return content instanceof Element;
     }
 
-    /**
-      * @see sortpom.wrapper.Wrapper#isResortable()
-      */
+    /** @see sortpom.wrapper.Wrapper#isResortable() */
     @Override
     public boolean isResortable() {
         return false;

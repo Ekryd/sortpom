@@ -43,7 +43,8 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     @Override
     public String toString() {
         return "AlphabeticalSortedWrapper{" +
-                "element=" + element +
+                "element=" +
+                element +
                 '}';
     }
 

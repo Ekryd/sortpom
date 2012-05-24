@@ -1,28 +1,25 @@
 package sortpom.wrapper;
 
-import java.util.List;
-
 import org.jdom.Content;
+
+import java.util.List;
 
 /**
  * Specifies a number of operations that work with wrapper structures.
  *
  * @author Bjorn Ekryd
- *
  */
 public interface WrapperOperations {
 
-	void createWrappedStructure(WrapperFactory factory);
+    void createWrappedStructure(WrapperFactory factory);
 
-	void detachStructure();
+    void detachStructure();
 
-	List<Content> getWrappedStructure();
+    List<Content> getWrappedStructure();
 
-	/**
-	 * Sorts the attributes of the xml elements
-	 */
-	void sortStructureAttributes();
+    /** Sorts the attributes of the xml elements */
+    void sortStructureAttributes();
 
-	void sortStructureElements();
+    void sortStructureElements();
 
 }

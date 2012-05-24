@@ -5,7 +5,7 @@ import org.jdom.Element;
 
 /**
  * A wrapper that contains an element. The element is sorted according to a predetermined order.
- * 
+ *
  * @author Bjorn Ekryd
  */
 public class GroupAndArtifactSortedWrapper extends SortedWrapper {
@@ -14,8 +14,8 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
 
     /**
      * Instantiates a new group and artifact sorted wrapper with a dependency or plugin element.
-     * 
-     * @param element the element
+     *
+     * @param element   the element
      * @param sortOrder the sort order
      */
     public GroupAndArtifactSortedWrapper(final Element element, final int sortOrder) {

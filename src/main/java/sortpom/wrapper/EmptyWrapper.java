@@ -1,6 +1,7 @@
 package sortpom.wrapper;
 
-import org.jdom.*;
+import org.jdom.Content;
+import org.jdom.Text;
 
 /**
  * A wrapper that lets is element be unsorted
@@ -9,9 +10,7 @@ import org.jdom.*;
  */
 public class EmptyWrapper implements Wrapper<Text> {
 
-    /**
-     * The wrapped dom content.
-     */
+    /** The wrapped dom content. */
     private final Text content;
 
     /**
@@ -23,33 +22,25 @@ public class EmptyWrapper implements Wrapper<Text> {
         this.content = content;
     }
 
-    /**
-      * @see Wrapper#getContent()
-      */
+    /** @see Wrapper#getContent() */
     @Override
     public Text getContent() {
         return content;
     }
 
-    /**
-      * @see Wrapper#isBefore(Wrapper)
-      */
+    /** @see Wrapper#isBefore(Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         return false;
     }
 
-    /**
-      * @see Wrapper#isContentElement()
-      */
+    /** @see Wrapper#isContentElement() */
     @Override
     public boolean isContentElement() {
         return false;
     }
 
-    /**
-      * @see Wrapper#isResortable()
-      */
+    /** @see Wrapper#isResortable() */
     @Override
     public boolean isResortable() {
         return false;

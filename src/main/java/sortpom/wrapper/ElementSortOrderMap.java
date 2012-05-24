@@ -1,8 +1,9 @@
 package sortpom.wrapper;
 
-import org.jdom.*;
+import org.jdom.Element;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ElementSortOrderMap {
     /** Contains sort order element names and their index. */

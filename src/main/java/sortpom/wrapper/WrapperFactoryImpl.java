@@ -1,13 +1,21 @@
 package sortpom.wrapper;
 
-import org.apache.commons.io.*;
-import org.jdom.*;
-import org.jdom.input.*;
-import sortpom.*;
-import sortpom.util.*;
+import org.apache.commons.io.IOUtils;
+import org.jdom.Comment;
+import org.jdom.Content;
+import org.jdom.Document;
+import org.jdom.Element;
+import org.jdom.JDOMException;
+import org.jdom.Text;
+import org.jdom.input.SAXBuilder;
+import sortpom.PluginParameters;
+import sortpom.util.FileUtil;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Concrete implementation of a wrapper factory that sorts xml according to
@@ -60,7 +68,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
             throw new RuntimeException(e);
         } catch (JDOMException e) {
             throw new RuntimeException(e);
-        } 
+        }
     }
 
     private Document createDocumentFromDefaultSortOrderFile()

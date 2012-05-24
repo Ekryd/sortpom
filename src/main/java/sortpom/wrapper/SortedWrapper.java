@@ -5,7 +5,7 @@ import org.jdom.Element;
 
 /**
  * A wrapper that contains an element. The element is sorted according to a predetermined order.
- * 
+ *
  * @author Bjorn Ekryd
  */
 public class SortedWrapper implements Wrapper<Element> {
@@ -30,7 +30,7 @@ public class SortedWrapper implements Wrapper<Element> {
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         return !(wrapper instanceof SortedWrapper) || isBeforeSortedWrapper((SortedWrapper) wrapper);
     }
-    
+
     private boolean isBeforeSortedWrapper(SortedWrapper wrapper) {
         return wrapper.sortOrder > sortOrder;
     }

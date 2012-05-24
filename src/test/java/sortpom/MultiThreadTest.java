@@ -1,17 +1,16 @@
 package sortpom;
 
-import org.apache.maven.plugin.MojoFailureException;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.hamcrest.Matchers.endsWith;
 import static org.junit.Assert.assertEquals;
 
 public class MultiThreadTest {

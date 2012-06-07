@@ -10,7 +10,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import sortpom.jdomcontent.NewlineText;
-import sortpom.util.LineSeparatorOutputStream;
+import sortpom.util.BufferedLineSeparatorOutputStream;
 import sortpom.util.LineSeparatorUtil;
 import sortpom.wrapper.WrapperFactory;
 import sortpom.wrapper.WrapperOperations;
@@ -18,7 +18,6 @@ import sortpom.wrapper.WrapperOperations;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Writer;
 
 /**
@@ -60,11 +59,13 @@ public class XmlProcessor {
      */
     public ByteArrayOutputStream getSortedXml() throws IOException {
         ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
-        XMLOutputter xmlOutputter = new PatchedXMLOutputter();
+        BufferedLineSeparatorOutputStream bufferedLineOutputStream = new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
+
+        XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream);
         xmlOutputter.setFormat(createPrettyFormat());
-        OutputStream outputStream = new LineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
-        xmlOutputter.output(newDocument, outputStream);
-        IOUtils.closeQuietly(outputStream);
+        xmlOutputter.output(newDocument, bufferedLineOutputStream);
+        
+        IOUtils.closeQuietly(bufferedLineOutputStream);
         return sortedXml;
     }
 
@@ -104,12 +105,28 @@ public class XmlProcessor {
     }
 
     private static class PatchedXMLOutputter extends XMLOutputter {
+        private final BufferedLineSeparatorOutputStream bufferedLineOutputStream;
+
+        public PatchedXMLOutputter(BufferedLineSeparatorOutputStream bufferedLineOutputStream) {
+            this.bufferedLineOutputStream = bufferedLineOutputStream;
+        }
+
         /** Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline */
         @Override
-        protected void printComment(Writer out, Comment comment) throws IOException {
-            if (!(comment instanceof NewlineText)) {
-                super.printComment(out, comment);
+        protected void printComment(Writer stringWriter, Comment comment) throws IOException {
+            if (comment instanceof NewlineText) {
+                writeOnlyAnEmptyNewline(stringWriter);
+            } else {
+                super.printComment(stringWriter, comment);
             }
+        }
+
+        private void writeOnlyAnEmptyNewline(Writer stringWriter) throws IOException {
+            // Force all xml lines to be written to stream (via the writer)
+            stringWriter.flush();
+
+            // Remove all inset that has just been written since last newline
+            bufferedLineOutputStream.clearLineBuffer();
         }
     }
 }

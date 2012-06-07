@@ -2,37 +2,46 @@ package sortpom.util;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Makes sure that all line endings are written in the same way.
+ * Makes sure that all line endings are written in the same way. Keeps a buffer
+ * which is flushed when newline is encontered. 
+ * Removes the final trailing newline by delaying it.
  *
  * @author Bjorn
  */
-public class LineSeparatorOutputStream extends OutputStream {
+public class BufferedLineSeparatorOutputStream extends OutputStream {
     private static final int NEWLINE = '\n';
     private final OutputStream wrappedStream;
     private final char[] lineSeparator;
     private boolean wasNewLine = false;
+    private List<Integer> lineBuffer = new ArrayList<Integer>();
 
-    public LineSeparatorOutputStream(final String lineSeparator, final OutputStream streamWithNewlinesAsLineSeparator) {
+    public BufferedLineSeparatorOutputStream(final String lineSeparator, final OutputStream streamWithNewlinesAsLineSeparator) {
         this.lineSeparator = lineSeparator.toCharArray();
         this.wrappedStream = streamWithNewlinesAsLineSeparator;
     }
 
     @Override
     public void close() throws IOException {
+        writeCharacterBuffer();
         wrappedStream.close();
     }
 
+    public void clearLineBuffer() {
+        lineBuffer.clear();
+    }
+    
     @Override
     public void write(final int b) throws IOException {
         writeDelayedNewline();
-        switch (b) {
-            case NEWLINE:
-                wasNewLine = true;
-                return;
-            default:
-                wrappedStream.write(b);
+        if (b == NEWLINE) {
+            writeCharacterBuffer();
+            wasNewLine = true;
+        } else {
+            lineBuffer.add(b);
         }
 
     }
@@ -42,6 +51,13 @@ public class LineSeparatorOutputStream extends OutputStream {
             writeLineSeparator();
             wasNewLine = false;
         }
+    }
+
+    private void writeCharacterBuffer() throws IOException {
+        for (Integer ch : lineBuffer) {
+            wrappedStream.write(ch);
+        }
+        lineBuffer.clear();
     }
 
     private void writeLineSeparator() throws IOException {

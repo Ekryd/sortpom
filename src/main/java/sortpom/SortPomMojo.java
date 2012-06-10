@@ -52,6 +52,21 @@ public class SortPomMojo extends AbstractMojo {
     private String lineSeparator;
 
     /**
+     * Should empty xml elements be expanded or not. Example:
+     * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
+     *
+     * @parameter expression="${sort.expandEmptyElements}" default-value="true"
+     */
+    private boolean expandEmptyElements;
+
+    /**
+     * Should blank lines in the pom-file be perserved. A maximum of one line is preserved between each tag.
+     *
+     * @parameter expression="${sort.keepBlankLines}" default-value="false"
+     */
+    private boolean keepBlankLines;
+
+    /**
      * Number of space characters to use as indentation. A value of -1 indicates
      * that tab character should be used instead.
      *
@@ -60,12 +75,11 @@ public class SortPomMojo extends AbstractMojo {
     private int nrOfIndentSpace;
 
     /**
-     * Should empty xml elements be expanded or not. Example:
-     * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
+     * Should blank lines (if preserved) have indentation.
      *
-     * @parameter expression="${sort.expandEmptyElements}" default-value="true"
+     * @parameter expression="${sort.indentBlankLines}" default-value="false"
      */
-    private boolean expandEmptyElements;
+    private boolean indentBlankLines;
 
     /**
      * Choose between a number of predefined sort order files.
@@ -103,13 +117,6 @@ public class SortPomMojo extends AbstractMojo {
      */
     private boolean sortProperties;
 
-    /**
-     * Should blank lines in the pom-file be perserved. A maximum of one line is preserved between each tag.
-     *
-     * @parameter expression="${sort.keepBlankLines}" default-value="false"
-     */
-    private boolean keepBlankLines;
-
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
     public SortPomMojo() {
@@ -131,7 +138,8 @@ public class SortPomMojo extends AbstractMojo {
         String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
         PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(pomFile)
                 .setBackupInfo(createBackupFile, backupFileExtension)
-                .setFormatting(encoding, lineSeparator, indentCharacters, expandEmptyElements, keepBlankLines)
+                .setFormatting(encoding, lineSeparator, expandEmptyElements, keepBlankLines)
+                .setIndent(indentCharacters, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
         sortPomImpl.setup(getLog(), pluginParameters);

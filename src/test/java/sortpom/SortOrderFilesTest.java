@@ -13,54 +13,75 @@ public class SortOrderFilesTest {
 
     @Test
     public final void correctCustomSortOrderShouldSortThePm() throws Exception {
-        SortOrderFilesUtil.testFilesWithCustomSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_differentOrder.xml", "difforder/differentOrder.xml");
+        SortOrderFilesUtil.create()
+                .defaultOrderFileName("difforder/differentOrder.xml")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
     }
 
     @Test
     public final void incorrectCustomSortOrderShouldThrowException() throws Exception {
         thrown.expect(RuntimeException.class);
         thrown.expectMessage(endsWith("VERYdifferentOrder.xml in classpath"));
-        SortOrderFilesUtil.testFilesWithCustomSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_differentOrder.xml", "difforder/VERYdifferentOrder.xml");
+        SortOrderFilesUtil.create()
+                .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
+                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
     }
 
     @Test
     public final void incorrectPredefinedSortOrderShouldThrowException() throws Exception {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Cannot find abbie_normal_brain.xml among the predefined plugin resources");
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_default_0_4_0.xml", "abbie_normal_brain");
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder("abbie_normal_brain")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_default_0_4_0.xml");
     }
 
     @Test
     public final void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_default_0_4_0.xml", "default_0_4_0");
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_default_0_4_0.xml");
     }
 
     @Test
     public final void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_custom_1.xml", "custom_1");
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder("custom_1")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_custom_1.xml");
     }
 
     @Test
     public final void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_recommended_2008_06.xml", "recommended_2008_06");
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder("recommended_2008_06")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_recommended_2008_06.xml");
     }
 
     @Test
     public final void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_default_1_0_0.xml", "default_1_0_0");
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder("default_1_0_0")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_default_1_0_0.xml");
     }
 
     @Test
     public final void defaultPredefinedSortOrderShouldWork() throws Exception {
-        SortOrderFilesUtil.testFilesWithPredefinedSortOrder("/full_unsorted_input.xml",
-                "/sortOrderFiles/sorted_default_1_0_0.xml", null);
+        SortOrderFilesUtil.create()
+                .predefinedSortOrder(null)
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_default_1_0_0.xml");
     }
 
 }

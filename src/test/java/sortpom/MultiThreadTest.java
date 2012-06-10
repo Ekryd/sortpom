@@ -65,9 +65,11 @@ public class MultiThreadTest {
         @Override
         public Boolean call() {
             try {
-                SortOrderFilesUtil.testFilesWithUniqueFilenames(inputResourceFileName,
-                        expectedResourceFileName,
-                        predefinedSortOrder, counter.getAndIncrement());
+                SortOrderFilesUtil.create()
+                        .lineSeparator("\n")
+                        .testPomFileNameUniqueNumber(counter.getAndIncrement())
+                        .predefinedSortOrder(predefinedSortOrder)
+                        .testFiles(inputResourceFileName, expectedResourceFileName);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

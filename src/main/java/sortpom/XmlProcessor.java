@@ -34,6 +34,7 @@ public class XmlProcessor {
     private LineSeparatorUtil lineSeparatorUtil;
     private String indentCharacters;
     private boolean expandEmptyElements;
+    private boolean indentBlankLines;
 
     public XmlProcessor(WrapperFactory factory) {
         this.factory = factory;
@@ -49,6 +50,7 @@ public class XmlProcessor {
         this.lineSeparatorUtil = new LineSeparatorUtil(pluginParameters.lineSeparator);
         this.encoding = pluginParameters.encoding;
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
+        this.indentBlankLines = pluginParameters.indentBlankLines;
     }
 
     /**
@@ -61,10 +63,10 @@ public class XmlProcessor {
         ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
         BufferedLineSeparatorOutputStream bufferedLineOutputStream = new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
 
-        XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream);
+        XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream, indentBlankLines);
         xmlOutputter.setFormat(createPrettyFormat());
         xmlOutputter.output(newDocument, bufferedLineOutputStream);
-        
+
         IOUtils.closeQuietly(bufferedLineOutputStream);
         return sortedXml;
     }
@@ -106,22 +108,26 @@ public class XmlProcessor {
 
     private static class PatchedXMLOutputter extends XMLOutputter {
         private final BufferedLineSeparatorOutputStream bufferedLineOutputStream;
+        private final boolean indentBlankLines;
 
-        public PatchedXMLOutputter(BufferedLineSeparatorOutputStream bufferedLineOutputStream) {
+        public PatchedXMLOutputter(BufferedLineSeparatorOutputStream bufferedLineOutputStream, boolean indentBlankLines) {
             this.bufferedLineOutputStream = bufferedLineOutputStream;
+            this.indentBlankLines = indentBlankLines;
         }
 
         /** Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline */
         @Override
         protected void printComment(Writer stringWriter, Comment comment) throws IOException {
             if (comment instanceof NewlineText) {
-                writeOnlyAnEmptyNewline(stringWriter);
+                if (!indentBlankLines) {
+                    clearIndentationForCurrentLine(stringWriter);
+                }
             } else {
                 super.printComment(stringWriter, comment);
             }
         }
 
-        private void writeOnlyAnEmptyNewline(Writer stringWriter) throws IOException {
+        private void clearIndentationForCurrentLine(Writer stringWriter) throws IOException {
             // Force all xml lines to be written to stream (via the writer)
             stringWriter.flush();
 

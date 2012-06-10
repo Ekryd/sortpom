@@ -10,7 +10,6 @@ import sortpom.util.IndentCharacters;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,15 +17,15 @@ import static org.junit.Assert.assertTrue;
 public class SortOrderFilesUtil {
 
     private static final String UTF_8 = "UTF-8";
-    private final String inputResourceFileName;
-    private final String expectedResourceFileName;
-    private final String defaultOrderFileName;
-    private final boolean sortDependencies;
-    private final boolean sortPlugins;
-    private final boolean sortProperties;
-    private final String predefinedSortOrder;
-    private final String lineSeparator;
-    private String testPomFileName;
+    private String inputResourceFileName;
+    private String expectedResourceFileName;
+    private String defaultOrderFileName = "default_0_4_0.xml";
+    private boolean sortDependencies = false;
+    private boolean sortPlugins = false;
+    private boolean sortProperties = false;
+    private String predefinedSortOrder = "";
+    private String lineSeparator = "\r\n";
+    private String testPomFileName = "src/test/resources/testpom.xml";
     private File testpom;
     private String testPomBackupExtension;
     private File backupFile;
@@ -35,73 +34,75 @@ public class SortOrderFilesUtil {
     private FileInputStream originalPomInputStream = null;
     private FileInputStream actualSortedPomInputStream = null;
     private FileInputStream expectedSortedPomInputStream = null;
-    private final int nrOfIndentSpace;
-    private final boolean keepBlankLines;
+    private int nrOfIndentSpace = 2;
+    private boolean keepBlankLines = false;
+    private boolean indentBLankLines = false;
 
-    public static void testFilesWithCustomSortOrder(final String inputResourceFileName,
-                                                    final String expectedResourceFileName, final String defaultOrderFileName) throws IOException,
-            NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-                defaultOrderFileName, 2, false, false, "", "\n", false, "src/test/resources/testpom.xml", false);
-        sortOrderFilesUtil.setup();
-        sortOrderFilesUtil.performTest();
+    private SortOrderFilesUtil() {
     }
 
-    public static void testFilesWithPredefinedSortOrder(final String inputResourceFileName,
-                                                        final String expectedResourceFileName, final String predefinedSortOrder) throws IOException,
-            NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-                null, 2, false, false, predefinedSortOrder, "\n", false, "src/test/resources/testpom.xml", false);
-        sortOrderFilesUtil.setup();
-        sortOrderFilesUtil.performTest();
+    public static SortOrderFilesUtil create() {
+        return new SortOrderFilesUtil();
     }
 
-    public static void testFilesDefaultOrder(final String inputResourceFileName, final String expectedResourceFileName)
+    public void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-                "default_0_4_0.xml", 2, false, false, "", "\r\n", false, "src/test/resources/testpom.xml", false);
-        sortOrderFilesUtil.setup();
-        sortOrderFilesUtil.performTest();
-    }
-
-    public static void testFiles(String inputResourceFileName, String expectedResourceFileName,
-                                 String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-                                 String predefinedSortOrder, String lineSeparator, boolean sortParameters, boolean keepBlankLines) throws IOException,
-            NoSuchFieldException, IllegalAccessException, MojoFailureException {
-        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-                defaultOrderFileName, nrOfIndentSpace, sortDependencies, sortPlugins, predefinedSortOrder,
-                lineSeparator, sortParameters, "src/test/resources/testpom.xml", keepBlankLines);
-        sortOrderFilesUtil.setup();
-        sortOrderFilesUtil.performTest();
-    }
-
-    public static void testFilesWithUniqueFilenames(final String inputResourceFileName,
-                                                    final String expectedResourceFileName,
-                                                    final String predefinedSortOrder,
-                                                    final int uniqueNumber) throws IOException,
-            NoSuchFieldException, IllegalAccessException, MojoFailureException, InterruptedException {
-        Thread.sleep(new Random(System.currentTimeMillis() - uniqueNumber * 13).nextInt(100));
-        SortOrderFilesUtil sortOrderFilesUtil = new SortOrderFilesUtil(inputResourceFileName, expectedResourceFileName,
-                null, 2, false, false, predefinedSortOrder, "\n", false, "src/test/resources/testpom" +
-                uniqueNumber + ".xml", false);
-        sortOrderFilesUtil.setup();
-        sortOrderFilesUtil.performTest();
-    }
-
-    private SortOrderFilesUtil(String inputResourceFileName, String expectedResourceFileName,
-                               String defaultOrderFileName, final int nrOfIndentSpace, boolean sortDependencies, boolean sortPlugins,
-                               String predefinedSortOrder, String lineSeparator, boolean sortProperties, final String testPomFileName, boolean keepBlankLines) {
         this.inputResourceFileName = inputResourceFileName;
         this.expectedResourceFileName = expectedResourceFileName;
+        setup();
+        performTest();
+    }
+
+    public SortOrderFilesUtil nrOfIndentSpace(int indent) {
+        nrOfIndentSpace = indent;
+        return this;
+    }
+
+    public SortOrderFilesUtil keepBlankLines() {
+        keepBlankLines = true;
+        return this;
+    }
+
+    public SortOrderFilesUtil indentBLankLines() {
+        indentBLankLines = true;
+        return this;
+    }
+
+    public SortOrderFilesUtil sortDependencies() {
+        sortDependencies = true;
+        return this;
+    }
+
+    public SortOrderFilesUtil sortPlugins() {
+        sortPlugins = true;
+        return this;
+    }
+
+    public SortOrderFilesUtil sortProperties() {
+        sortProperties = true;
+        return this;
+    }
+
+    public SortOrderFilesUtil defaultOrderFileName(String defaultOrderFileName) {
         this.defaultOrderFileName = defaultOrderFileName;
-        this.nrOfIndentSpace = nrOfIndentSpace;
-        this.sortDependencies = sortDependencies;
-        this.sortPlugins = sortPlugins;
+        return this;
+    }
+
+    public SortOrderFilesUtil predefinedSortOrder(String predefinedSortOrder) {
         this.predefinedSortOrder = predefinedSortOrder;
+        this.defaultOrderFileName = null;
+        return this;
+    }
+
+    public SortOrderFilesUtil lineSeparator(String lineSeparator) {
         this.lineSeparator = lineSeparator;
-        this.sortProperties = sortProperties;
-        this.testPomFileName = testPomFileName;
-        this.keepBlankLines = keepBlankLines;
+        return this;
+    }
+
+    public SortOrderFilesUtil testPomFileNameUniqueNumber(int uniqueNumber) {
+        this.testPomFileName = "src/test/resources/testpom" +
+                uniqueNumber + ".xml";
+        return this;
     }
 
     private void setup() {
@@ -152,7 +153,8 @@ public class SortOrderFilesUtil {
                         .setPomFile(testpom)
                         .setBackupInfo(true, testPomBackupExtension)
                         .setFormatting(UTF_8, lineSeparator,
-                                new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), true, keepBlankLines)
+                                true, keepBlankLines)
+                        .setIndent(new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), indentBLankLines)
                         .setSortEntities(sortDependencies, sortPlugins, sortProperties)
                         .setSortOrder(defaultOrderFileName, predefinedSortOrder).createPluginParameters());
         sortPomImpl.sortPom();

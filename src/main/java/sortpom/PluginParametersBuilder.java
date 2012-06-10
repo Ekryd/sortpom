@@ -2,13 +2,14 @@ package sortpom;
 
 import java.io.File;
 
-class PluginParametersBuilder {
+public class PluginParametersBuilder {
     private File pomFile;
     private boolean createBackupFile;
     private String backupFileExtension;
     private String encoding;
     private String lineSeparator;
     private String indentCharacters;
+    private boolean indentBlankLines;
     private boolean expandEmptyElements;
     private String predefinedSortOrder;
     private String customSortOrderFile;
@@ -29,13 +30,18 @@ class PluginParametersBuilder {
     }
 
     public PluginParametersBuilder setFormatting(final String encoding, final String lineSeparator,
-                                                 final String indentCharacters, final boolean expandEmptyElements,
+                                                 final boolean expandEmptyElements,
                                                  final boolean keepBlankLines) {
         this.encoding = encoding;
         this.lineSeparator = lineSeparator;
-        this.indentCharacters = indentCharacters;
         this.expandEmptyElements = expandEmptyElements;
         this.keepBlankLines = keepBlankLines;
+        return this;
+    }
+
+    public PluginParametersBuilder setIndent(final String indentCharacters, final boolean indentBlankLines) {
+        this.indentCharacters = indentCharacters;
+        this.indentBlankLines = indentBlankLines;
         return this;
     }
 
@@ -55,7 +61,7 @@ class PluginParametersBuilder {
 
     public PluginParameters createPluginParameters() {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
-                indentCharacters, expandEmptyElements, predefinedSortOrder, customSortOrderFile, sortDependencies,
-                sortPlugins, sortProperties, keepBlankLines);
+                expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines, predefinedSortOrder, customSortOrderFile, sortDependencies,
+                sortPlugins, sortProperties);
     }
 }

@@ -121,6 +121,11 @@ public class PluginParametersTest {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", true, textWrapperCreator);
     }
 
+    @Test
+    public void parameterIndentBlankLineShouldEndUpInXmlProcessor() throws Exception {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", true, xmlProcessor);
+    }
+
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
                                                               Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
             MojoFailureException {

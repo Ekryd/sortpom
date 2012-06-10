@@ -11,25 +11,37 @@ public class SortPropertiesTest {
 
     @Test
     public final void namedParametersInSortFileShouldSortThemFirst() throws Exception {
-        SortOrderFilesUtil.testFilesWithCustomSortOrder("/SortedProperties_input.xml", "/SortedProperties_output.xml",
-                "difforder/sortedPropertiesOrder.xml");
+        SortOrderFilesUtil.create()
+                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .lineSeparator("\n")
+                .testFiles("/SortedProperties_input.xml", "/SortedProperties_output.xml");
     }
 
     @Test
     public final void sortPropertyParameterShouldSortAlphabetically() throws Exception {
-        SortOrderFilesUtil.testFiles("/SortedProperties_input.xml", "/SortedProperties_output_alfa.xml", null, 2,
-                false, false, "custom_1", "\n", true, false);
+        SortOrderFilesUtil.create()
+                .sortProperties()
+                .lineSeparator("\n")
+                .predefinedSortOrder("custom_1")
+                .testFiles("/SortedProperties_input.xml", "/SortedProperties_output_alfa.xml");
     }
 
     @Test
     public final void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
-        SortOrderFilesUtil.testFiles("/SortedProperties_input.xml", "/SortedProperties_output_alfa2.xml",
-                "difforder/sortedPropertiesOrder.xml", 2, false, false, "custom_1", "\n", true, false);
+        SortOrderFilesUtil.create()
+                .lineSeparator("\n")
+                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .sortProperties()
+                .testFiles("/SortedProperties_input.xml", "/SortedProperties_output_alfa2.xml");
     }
 
     @Test
     public final void sortingOfFullPomFileShouldWork() throws Exception {
-        SortOrderFilesUtil.testFiles("/SortProp_input.xml", "/SortProp_expected.xml", "default_0_4_0.xml", 2, true,
-                true, "", "\n", true, false);
+        SortOrderFilesUtil.create()
+                .sortProperties()
+                .sortPlugins()
+                .sortDependencies()
+                .lineSeparator("\n")
+                .testFiles("/SortProp_input.xml", "/SortProp_expected.xml");
     }
 }

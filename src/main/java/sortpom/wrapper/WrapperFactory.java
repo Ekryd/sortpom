@@ -10,12 +10,7 @@ import org.jdom.Element;
  */
 public interface WrapperFactory {
 
-    /**
-     * Creates wrapper around a root element.
-     *
-     * @param rootElement
-     * @return
-     */
+    /** Creates wrapper around a root element. */
     WrapperOperations createFromRootElement(final Element rootElement);
 
     /** Creates wrapper around xml content. */

@@ -15,7 +15,7 @@ public class LineSeparatorUtil {
     /**
      * Creates a line separator and makes sure that it is either &#92;n, &#92;r or &#92;r&#92;n
      *
-     * @param lineSeparatorString
+     * @param lineSeparatorString The line separator characters
      * @throws MojoFailureException
      */
     public LineSeparatorUtil(final String lineSeparatorString) throws MojoFailureException {

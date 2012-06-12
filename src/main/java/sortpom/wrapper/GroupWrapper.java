@@ -151,7 +151,7 @@ public class GroupWrapper implements WrapperOperations {
         return toString("");
     }
 
-    public String toString(String baseIndent) {
+    String toString(String baseIndent) {
         StringBuilder builder = new StringBuilder();
         builder.append(baseIndent).append("GroupWrapper{\n");
         String indent = "  " + baseIndent;

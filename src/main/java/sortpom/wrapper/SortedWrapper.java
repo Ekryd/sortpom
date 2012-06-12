@@ -13,8 +13,8 @@ public class SortedWrapper implements Wrapper<Element> {
     private final Element element;
 
     /**
-     * @param element
-     * @param sortOrder
+     * @param element   The wrapped element
+     * @param sortOrder The sort order, lower value is placed higher up
      */
     public SortedWrapper(final Element element, final int sortOrder) {
         this.element = element;

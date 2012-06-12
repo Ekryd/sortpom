@@ -17,7 +17,7 @@ public class BufferedLineSeparatorOutputStream extends OutputStream {
     private final OutputStream wrappedStream;
     private final char[] lineSeparator;
     private boolean wasNewLine = false;
-    private List<Integer> lineBuffer = new ArrayList<Integer>();
+    private final List<Integer> lineBuffer = new ArrayList<Integer>();
 
     public BufferedLineSeparatorOutputStream(final String lineSeparator, final OutputStream streamWithNewlinesAsLineSeparator) {
         this.lineSeparator = lineSeparator.toCharArray();

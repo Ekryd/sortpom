@@ -78,7 +78,7 @@ public class FileUtil {
     /**
      * Loads the pom file that will be sorted.
      *
-     * @return
+     * @return Content of the file
      * @throws MojoFailureException
      */
     public String getPomFileContent() throws MojoFailureException {
@@ -96,7 +96,7 @@ public class FileUtil {
     /**
      * Saves sorted pom file.
      *
-     * @param sortedXml
+     * @param sortedXml The content to save
      * @throws MojoFailureException
      */
     public void savePomFile(final String sortedXml) throws MojoFailureException {
@@ -118,7 +118,7 @@ public class FileUtil {
     /**
      * Retrieves the default sort order for sortpom
      *
-     * @return
+     * @return Content of the default sort order file
      */
     private String getDefaultSortOrderXml() {
         InputStream inputStream = null;

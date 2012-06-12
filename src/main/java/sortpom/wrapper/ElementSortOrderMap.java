@@ -5,7 +5,7 @@ import org.jdom.Element;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ElementSortOrderMap {
+class ElementSortOrderMap {
     /** Contains sort order element names and their index. */
     private final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
 
@@ -32,8 +32,7 @@ public class ElementSortOrderMap {
         if (element == null) {
             return "";
         }
-        return new StringBuilder().append(getDeepName(element.getParentElement())).append('/')
-                .append(element.getName()).toString();
+        return getDeepName(element.getParentElement()) + '/' + element.getName();
     }
 
 }

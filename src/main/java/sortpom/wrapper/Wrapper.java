@@ -42,8 +42,8 @@ public interface Wrapper<T extends Content> {
     /**
      * Output debug-friendly string
      *
-     * @param indent
-     * @return
+     * @param indent The indentation indicates nested elements
+     * @return The debug string
      */
     String toString(String indent);
 }

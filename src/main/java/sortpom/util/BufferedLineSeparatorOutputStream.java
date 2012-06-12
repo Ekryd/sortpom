@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Makes sure that all line endings are written in the same way. Keeps a buffer
- * which is flushed when newline is encontered. 
+ * which is flushed when newline is encontered.
  * Removes the final trailing newline by delaying it.
  *
  * @author Bjorn
@@ -33,7 +33,7 @@ public class BufferedLineSeparatorOutputStream extends OutputStream {
     public void clearLineBuffer() {
         lineBuffer.clear();
     }
-    
+
     @Override
     public void write(final int b) throws IOException {
         writeDelayedNewline();

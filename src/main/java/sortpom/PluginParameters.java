@@ -20,8 +20,9 @@ public class PluginParameters {
     public final boolean indentBlankLines;
 
     PluginParameters(File pomFile, boolean createBackupFile, String backupFileExtension, String encoding,
-                     String lineSeparator, boolean expandEmptyElements, boolean keepBlankLines, String indentCharacters, boolean indentBlankLines, String predefinedSortOrder,
-                     String customSortOrderFile, boolean sortDependencies, boolean sortPlugins, boolean sortProperties) {
+                     String lineSeparator, boolean expandEmptyElements, boolean keepBlankLines, String indentCharacters,
+                     boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
+                     boolean sortDependencies, boolean sortPlugins, boolean sortProperties) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;

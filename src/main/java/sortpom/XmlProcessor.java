@@ -61,7 +61,8 @@ public class XmlProcessor {
      */
     public ByteArrayOutputStream getSortedXml() throws IOException {
         ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
-        BufferedLineSeparatorOutputStream bufferedLineOutputStream = new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
+        BufferedLineSeparatorOutputStream bufferedLineOutputStream =
+                new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
 
         XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream, indentBlankLines);
         xmlOutputter.setFormat(createPrettyFormat());

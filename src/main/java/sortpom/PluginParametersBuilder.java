@@ -61,7 +61,7 @@ public class PluginParametersBuilder {
 
     public PluginParameters createPluginParameters() {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
-                expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines, predefinedSortOrder, customSortOrderFile, sortDependencies,
-                sortPlugins, sortProperties);
+                expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines, predefinedSortOrder,
+                customSortOrderFile, sortDependencies, sortPlugins, sortProperties);
     }
 }

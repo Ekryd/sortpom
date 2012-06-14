@@ -10,6 +10,7 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import sortpom.jdomcontent.NewlineText;
+import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
 import sortpom.util.LineSeparatorUtil;
 import sortpom.wrapper.WrapperFactory;

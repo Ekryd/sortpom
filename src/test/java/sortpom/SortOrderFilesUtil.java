@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.IndentCharacters;
 
 import java.io.File;

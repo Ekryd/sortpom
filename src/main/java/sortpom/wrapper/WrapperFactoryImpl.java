@@ -8,7 +8,7 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
-import sortpom.PluginParameters;
+import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 
 import java.io.ByteArrayInputStream;

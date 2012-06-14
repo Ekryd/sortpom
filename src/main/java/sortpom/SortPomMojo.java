@@ -2,6 +2,8 @@ package sortpom;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
+import sortpom.parameter.PluginParameters;
+import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.IndentCharacters;
 
 import java.io.File;

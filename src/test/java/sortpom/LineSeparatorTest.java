@@ -6,6 +6,7 @@ import org.jdom.Element;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.ReflectionHelper;
 
 import static org.junit.Assert.assertEquals;

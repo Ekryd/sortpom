@@ -2,7 +2,7 @@ package sortpom.wrapper;
 
 import org.jdom.Content;
 import org.jdom.Text;
-import sortpom.PluginParameters;
+import sortpom.parameter.PluginParameters;
 import sortpom.jdomcontent.NewlineText;
 
 /**

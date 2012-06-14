@@ -2,7 +2,7 @@ package sortpom.util;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoFailureException;
-import sortpom.PluginParameters;
+import sortpom.parameter.PluginParameters;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -2,7 +2,7 @@ package sortpom.wrapper;
 
 import org.jdom.Element;
 import org.jdom.Parent;
-import sortpom.PluginParameters;
+import sortpom.parameter.PluginParameters;
 
 /**
  * @author bjorn

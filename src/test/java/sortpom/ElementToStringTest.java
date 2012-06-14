@@ -4,11 +4,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Document;
 import org.jdom.JDOMException;
+import org.junit.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.FileUtil;
 import sortpom.util.ReflectionHelper;
-import sortpom.wrapper.WrapperFactory;
 import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.ByteArrayInputStream;
@@ -23,6 +23,10 @@ import java.io.UnsupportedEncodingException;
 public class ElementToStringTest {
     private static final String UTF_8 = "UTF-8";
 
+    @Test
+    public void dummy() {
+        
+    }
 
     private Document getDocument(String inputFileName) throws IllegalAccessException, MojoFailureException, IOException, UnsupportedEncodingException, JDOMException {
         PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(null).setBackupInfo(false, ".bak")
@@ -47,6 +51,6 @@ public class ElementToStringTest {
         new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
         xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
         xmlProcessor.sortXml();
-        
+        return null;
     }
 }

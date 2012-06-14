@@ -32,7 +32,7 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
     /** @see sortpom.wrapper.Wrapper#isBefore(sortpom.wrapper.Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
-        return false;
+        throw new UnsupportedOperationException("Cannot be sorted");
     }
 
     /** @see sortpom.wrapper.Wrapper#isContentElement() */

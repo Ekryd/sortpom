@@ -29,17 +29,18 @@ public class GroupWrapper implements WrapperOperations {
         GroupWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
             Wrapper<?> wrapper = factory.create(child);
-            if (!(wrapper instanceof EmptyWrapper)) {
-                if (currentWrapper == null) {
-                    currentWrapper = new GroupWrapper(wrapper);
-                    children.add(currentWrapper);
-                } else {
-                    currentWrapper.addContent(wrapper);
-                }
-                if (currentWrapper.containsElement()) {
-                    currentWrapper.createWrappedStructure(factory);
-                    currentWrapper = null;
-                }
+            if (wrapper instanceof ThrowAwayContentWrapper) {
+                continue;
+            }
+            if (currentWrapper == null) {
+                currentWrapper = new GroupWrapper(wrapper);
+                children.add(currentWrapper);
+            } else {
+                currentWrapper.addContent(wrapper);
+            }
+            if (currentWrapper.containsElement()) {
+                currentWrapper.createWrappedStructure(factory);
+                currentWrapper = null;
             }
         }
     }

@@ -83,5 +83,12 @@ public class SortOrderFilesTest {
                 .testFiles("/full_unsorted_input.xml",
                         "/sortOrderFiles/sorted_default_1_0_0.xml");
     }
+    
+    @Test
+    public void xmlDeviationsShouldNotHarmPlugin() throws Exception {
+        SortOrderFilesUtil.create()
+                .lineSeparator("\n")
+                .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");
+    }
 
 }

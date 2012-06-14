@@ -8,53 +8,44 @@ import org.jdom.Text;
  *
  * @author Bjorn
  */
-public class EmptyWrapper implements Wrapper<Text> {
+public final class ThrowAwayContentWrapper implements Wrapper<Text> {
+    public final static ThrowAwayContentWrapper INSTANCE = new ThrowAwayContentWrapper();
 
-    /** The wrapped dom content. */
-    private final Text content;
-
-    /**
-     * Instantiates a new unsorted wrapper.
-     *
-     * @param content the content
-     */
-    public EmptyWrapper(final Text content) {
-        this.content = content;
+    /** Instantiates a new wrapper, whose content will be thrown away. */
+    private ThrowAwayContentWrapper() {
     }
 
     /** @see Wrapper#getContent() */
     @Override
     public Text getContent() {
-        return content;
+        throw new UnsupportedOperationException();
     }
 
     /** @see Wrapper#isBefore(Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     /** @see Wrapper#isContentElement() */
     @Override
     public boolean isContentElement() {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     /** @see Wrapper#isResortable() */
     @Override
     public boolean isResortable() {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String toString() {
-        return "EmptyWrapper{" +
-                "content=" + content +
-                '}';
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public String toString(String indent) {
-        return indent + toString();
+        throw new UnsupportedOperationException();
     }
 }

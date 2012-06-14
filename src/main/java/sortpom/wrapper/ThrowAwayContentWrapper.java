@@ -9,7 +9,7 @@ import org.jdom.Text;
  * @author Bjorn
  */
 public final class ThrowAwayContentWrapper implements Wrapper<Text> {
-    public final static ThrowAwayContentWrapper INSTANCE = new ThrowAwayContentWrapper();
+    public static final ThrowAwayContentWrapper INSTANCE = new ThrowAwayContentWrapper();
 
     /** Instantiates a new wrapper, whose content will be thrown away. */
     private ThrowAwayContentWrapper() {

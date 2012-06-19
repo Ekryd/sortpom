@@ -32,10 +32,10 @@ public class TextWrapperCreator {
         return content.getText().matches("[\\t ]*[\\r]?[\\n]?[\\t ]*");
     }
 
-    private boolean isBlankLineOrLines(Text content) {
+    boolean isBlankLineOrLines(Text content) {
         if (!keepBlankLines) {
             return false;
         }
-        return content.getText().matches("\\s*?(\\n.*?\\n|\\r.*?\\r)\\s*");
+        return content.getText().matches("^\\s*?(\\r|\\n)\\s*$");
     }
 }

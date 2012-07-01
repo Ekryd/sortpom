@@ -18,7 +18,9 @@ public class LineSeparatorTest {
     @Test
     public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() throws Exception {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
-        xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", false, false)
+        xmlProcessor.setup(new PluginParametersBuilder()
+                .setEncoding("UTF-8")
+                .setFormatting("\n", false, false)
                 .setIndent("  ", false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
@@ -30,7 +32,9 @@ public class LineSeparatorTest {
     @Test
     public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() throws Exception {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
-        xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r", false, false)
+        xmlProcessor.setup(new PluginParametersBuilder()
+                .setEncoding("UTF-8")
+                .setFormatting("\r", false, false)
                 .setIndent("  ", false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
@@ -42,7 +46,9 @@ public class LineSeparatorTest {
     @Test
     public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() throws Exception {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
-        xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\r\n", false, false)
+        xmlProcessor.setup(new PluginParametersBuilder()
+                .setEncoding("UTF-8")
+                .setFormatting("\r\n", false, false)
                 .setIndent("  ", false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
@@ -57,7 +63,9 @@ public class LineSeparatorTest {
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [42, 42, 42]");
 
         XmlProcessor xmlProcessor = new XmlProcessor(null);
-        xmlProcessor.setup(new PluginParametersBuilder().setFormatting("UTF-8", "***", false, false)
+        xmlProcessor.setup(new PluginParametersBuilder()
+                .setEncoding("UTF-8")
+                .setFormatting("***", false, false)
                 .setIndent("  ", false)
                 .createPluginParameters());
 

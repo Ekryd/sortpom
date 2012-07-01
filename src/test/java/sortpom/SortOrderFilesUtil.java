@@ -153,7 +153,8 @@ public class SortOrderFilesUtil {
                 new PluginParametersBuilder()
                         .setPomFile(testpom)
                         .setBackupInfo(true, testPomBackupExtension)
-                        .setFormatting(UTF_8, lineSeparator,
+                        .setEncoding(UTF_8)
+                        .setFormatting(lineSeparator,
                                 true, keepBlankLines)
                         .setIndent(new IndentCharacters(nrOfIndentSpace).getIndentCharacters(), indentBLankLines)
                         .setSortEntities(sortDependencies, sortPlugins, sortProperties)

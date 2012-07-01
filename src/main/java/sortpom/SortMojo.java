@@ -15,7 +15,7 @@ import java.io.File;
  * @goal sort
  * @threadSafe true
  */
-public class SortPomMojo extends AbstractMojo {
+public class SortMojo extends AbstractMojo {
     /**
      * This is the File instance that refers to the location of the pom that
      * should be sorted.
@@ -121,13 +121,13 @@ public class SortPomMojo extends AbstractMojo {
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    public SortPomMojo() {
+    public SortMojo() {
     }
 
     /**
      * Execute plugin.
      *
-     * @throws MojoFailureException exception that will be handled by plugin framework
+     * @throws org.apache.maven.plugin.MojoFailureException exception that will be handled by plugin framework
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     @Override

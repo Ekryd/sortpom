@@ -16,7 +16,8 @@ public class TextWrapperCreatorTest {
     
     @Before
     public void setup() {
-        textWrapperCreator.setup(new PluginParametersBuilder().setFormatting("UTF-8", "\n", true, true).createPluginParameters());
+        textWrapperCreator.setup(new PluginParametersBuilder().setEncoding("UTF-8")
+                .setFormatting("\n", true, true).createPluginParameters());
     }
     
     @Test

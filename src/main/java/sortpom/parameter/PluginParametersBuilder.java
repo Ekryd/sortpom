@@ -29,10 +29,14 @@ public class PluginParametersBuilder {
         return this;
     }
 
-    public PluginParametersBuilder setFormatting(final String encoding, final String lineSeparator,
+    public PluginParametersBuilder setEncoding(final String encoding) {
+        this.encoding = encoding;
+        return this;
+    }
+
+    public PluginParametersBuilder setFormatting(final String lineSeparator,
                                                  final boolean expandEmptyElements,
                                                  final boolean keepBlankLines) {
-        this.encoding = encoding;
         this.lineSeparator = lineSeparator;
         this.expandEmptyElements = expandEmptyElements;
         this.keepBlankLines = keepBlankLines;

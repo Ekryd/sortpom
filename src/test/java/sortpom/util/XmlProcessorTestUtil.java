@@ -43,7 +43,8 @@ public class XmlProcessorTestUtil {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null)
                 .setBackupInfo(false, ".bak")
-                .setFormatting("UTF-8", "\r\n", expandEmptyElements, keepBlankLines)
+                .setEncoding("UTF-8")
+                .setFormatting("\r\n", expandEmptyElements, keepBlankLines)
                 .setIndent("  ", indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities(false, false, false).createPluginParameters();

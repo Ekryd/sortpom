@@ -35,7 +35,8 @@ public class ElementToStringTest {
     private String getToStringOnRootElementWrapper(String inputFileName) throws IllegalAccessException, MojoFailureException, IOException, UnsupportedEncodingException, JDOMException {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null).setBackupInfo(false, ".bak")
-                .setFormatting("UTF-8", "\r\n", true, true)
+                .setEncoding("UTF-8")
+                .setFormatting("\r\n", true, true)
                 .setIndent("  ", false)
                 .setSortOrder("default_0_4_0.xml", null)
                 .setSortEntities(true, true, true).createPluginParameters();

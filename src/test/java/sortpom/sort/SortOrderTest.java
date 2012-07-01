@@ -1,6 +1,7 @@
-package sortpom;
+package sortpom.sort;
 
 import org.junit.Test;
+import sortpom.sort.util.SortOrderFilesUtil;
 
 public class SortOrderTest {
 

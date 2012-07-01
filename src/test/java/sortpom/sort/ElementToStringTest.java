@@ -1,4 +1,4 @@
-package sortpom;
+package sortpom.sort;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoFailureException;

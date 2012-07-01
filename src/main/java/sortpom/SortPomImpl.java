@@ -56,7 +56,7 @@ public class SortPomImpl {
      *
      * @throws MojoFailureException the mojo failure exception
      */
-    void sortPom() throws MojoFailureException {
+    public void sortPom() throws MojoFailureException {
         log.info("Sorting file " + pomFile.getAbsolutePath());
 
         String originalXml = fileUtil.getPomFileContent();
@@ -77,20 +77,16 @@ public class SortPomImpl {
      * @throws MojoFailureException the mojo failure exception
      */
     private String getSortedXml(final String xml) throws MojoFailureException {
-        ByteArrayInputStream originalXmlInputStream = null;
+        String errorMsg = "Could not sort pom files content: ";
+        insertXmlInXmlProcessor(xml, errorMsg);
+        xmlProcessor.sortXml();
         ByteArrayOutputStream sortedXmlOutputStream = null;
         try {
-            originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding));
-            xmlProcessor.setOriginalXml(originalXmlInputStream);
-            xmlProcessor.sortXml();
             sortedXmlOutputStream = xmlProcessor.getSortedXml();
             return sortedXmlOutputStream.toString(encoding);
-        } catch (JDOMException e) {
-            throw new MojoFailureException("Could not sort pom files content: " + xml, e);
         } catch (IOException e) {
-            throw new MojoFailureException("Could not sort pom files content: " + xml, e);
+            throw new MojoFailureException(errorMsg + xml, e);
         } finally {
-            IOUtils.closeQuietly(originalXmlInputStream);
             IOUtils.closeQuietly(sortedXmlOutputStream);
         }
 
@@ -111,8 +107,7 @@ public class SortPomImpl {
                 throw new MojoFailureException("Could not create backup file, extension name was empty");
             }
             fileUtil.backupFile();
-            log.info("Saved backup of " + pomFile.getAbsolutePath() + " to " + pomFile.getAbsolutePath()
-                    + backupFileExtension);
+            log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(), pomFile.getAbsolutePath(), backupFileExtension));
         }
     }
 
@@ -125,6 +120,39 @@ public class SortPomImpl {
     private void saveSortedPomFile(final String sortedXml) throws MojoFailureException {
         fileUtil.savePomFile(sortedXml);
         log.info("Saved sorted pom file to " + pomFile.getAbsolutePath());
+    }
+
+    /**
+     * Verify that the pom-file is sorted regardless of formatting
+     * 
+     * @throws MojoFailureException thrown if pom-file is not sorted
+     */
+    public void verifyPom() throws MojoFailureException {
+        log.info("Verifying file " + pomFile.getAbsolutePath());
+
+        if (!isPomElementsSorted())
+            sortPom();
+    }
+    
+    public boolean isPomElementsSorted() throws MojoFailureException {
+        String originalXml = fileUtil.getPomFileContent();
+        insertXmlInXmlProcessor(originalXml, "Could not verify pom files content: ");
+        xmlProcessor.sortXml();
+        return xmlProcessor.isXmlOrdered();
+    }
+    
+    private void insertXmlInXmlProcessor(final String xml, String errorMsg) throws MojoFailureException {
+        ByteArrayInputStream originalXmlInputStream = null;
+        try {
+            originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding));
+            xmlProcessor.setOriginalXml(originalXmlInputStream);
+        } catch (JDOMException e) {
+            throw new MojoFailureException(errorMsg + xml, e);
+        } catch (IOException e) {
+            throw new MojoFailureException(errorMsg + xml, e);
+        } finally {
+            IOUtils.closeQuietly(originalXmlInputStream);
+        }
     }
 
 }

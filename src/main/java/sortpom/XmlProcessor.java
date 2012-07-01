@@ -13,6 +13,7 @@ import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
 import sortpom.util.LineSeparatorUtil;
+import sortpom.verify.ElementComparator;
 import sortpom.wrapper.WrapperFactory;
 import sortpom.wrapper.WrapperOperations;
 
@@ -55,6 +56,39 @@ public class XmlProcessor {
     }
 
     /**
+     * Sets the original xml that should be sorted. Builds a dom document of the
+     * xml.
+     *
+     * @param originalXml the new original xml
+     * @throws JDOMException the jDOM exception
+     * @throws IOException   Signals that an I/O exception has occurred.
+     */
+    public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
+        SAXBuilder parser = new SAXBuilder();
+        originalDocument = parser.build(originalXml);
+    }
+
+    /** Creates a new dom document that contains the sorted xml. */
+    public void sortXml() {
+        newDocument = (Document) originalDocument.clone();
+        final Element rootElement = (Element) originalDocument.getRootElement().clone();
+
+        WrapperOperations rootWrapper = factory.createFromRootElement(rootElement);
+
+        rootWrapper.createWrappedStructure(factory);
+        rootWrapper.detachStructure();
+        rootWrapper.sortStructureAttributes();
+        rootWrapper.sortStructureElements();
+
+        newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
+    }
+
+    public boolean isXmlOrdered() {
+        ElementComparator elementComparator = new ElementComparator(originalDocument.getRootElement(), newDocument.getRootElement());
+        return elementComparator.isElementOrdered();
+    }
+
+    /**
      * Returns the sorted xml as an OutputStream.
      *
      * @return the sorted xml
@@ -80,34 +114,6 @@ public class XmlProcessor {
         prettyFormat.setLineSeparator("\n");
         prettyFormat.setIndent(indentCharacters);
         return prettyFormat;
-    }
-
-    /**
-     * Sets the original xml that should be sorted. Builds a dom document of the
-     * xml.
-     *
-     * @param originalXml the new original xml
-     * @throws JDOMException the jDOM exception
-     * @throws IOException   Signals that an I/O exception has occurred.
-     */
-    public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
-        SAXBuilder parser = new SAXBuilder();
-        originalDocument = parser.build(originalXml);
-    }
-
-    /** Creates a new dom document that contains the sorted xml. */
-    public void sortXml() {
-        newDocument = (Document) originalDocument.clone();
-        final Element rootElement = originalDocument.getRootElement();
-
-        WrapperOperations rootWrapper = factory.createFromRootElement(rootElement);
-
-        rootWrapper.createWrappedStructure(factory);
-        rootWrapper.detachStructure();
-        rootWrapper.sortStructureAttributes();
-        rootWrapper.sortStructureElements();
-
-        newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
     }
 
     private static class PatchedXMLOutputter extends XMLOutputter {

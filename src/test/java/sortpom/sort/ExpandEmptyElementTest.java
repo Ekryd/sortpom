@@ -1,9 +1,10 @@
-package sortpom;
+package sortpom.sort;
 
 import org.jdom.Document;
 import org.jdom.Element;
 import org.junit.Assert;
 import org.junit.Test;
+import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.ReflectionHelper;
 

@@ -22,7 +22,7 @@ public class PluginParametersTest {
 
     private SortPomImpl sortPomImpl;
     private FileUtil fileUtil;
-    private SortPomMojo mojo;
+    private SortMojo mojo;
     private XmlProcessor xmlProcessor;
     private WrapperFactoryImpl wrapperFactoryImpl;
     private ElementWrapperCreator elementWrapperCreator;
@@ -32,7 +32,7 @@ public class PluginParametersTest {
     public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
             IllegalAccessException, MojoFailureException {
         MockitoAnnotations.initMocks(this);
-        mojo = new SortPomMojo();
+        mojo = new SortMojo();
         new ReflectionHelper(mojo).setField("lineSeparator", "\n");
         new ReflectionHelper(mojo).setField("encoding", "UTF-8");
 

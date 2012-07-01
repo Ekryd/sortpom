@@ -1,4 +1,4 @@
-package sortpom;
+package sortpom.sort;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Document;
@@ -6,6 +6,7 @@ import org.jdom.Element;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.ReflectionHelper;
 

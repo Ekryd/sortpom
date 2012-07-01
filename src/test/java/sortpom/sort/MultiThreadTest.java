@@ -1,6 +1,7 @@
-package sortpom;
+package sortpom.sort;
 
 import org.junit.Test;
+import sortpom.sort.util.SortOrderFilesUtil;
 
 import java.util.ArrayList;
 import java.util.List;

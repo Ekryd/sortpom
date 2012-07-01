@@ -1,7 +1,8 @@
-package sortpom;
+package sortpom.sort;
 
 import org.junit.Test;
-import sortpom.util.XmlProcessorTestUtil;
+import sortpom.sort.util.SortOrderFilesUtil;
+import sortpom.sort.util.XmlProcessorTestUtil;
 
 public class KeepBlankLinesTest {
     @Test

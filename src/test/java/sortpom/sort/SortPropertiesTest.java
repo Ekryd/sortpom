@@ -1,8 +1,9 @@
-package sortpom;
+package sortpom.sort;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sortpom.sort.util.SortOrderFilesUtil;
 
 public class SortPropertiesTest {
 

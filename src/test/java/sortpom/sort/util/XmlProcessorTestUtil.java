@@ -1,4 +1,4 @@
-package sortpom.util;
+package sortpom.sort.util;
 
 import org.apache.commons.io.IOUtils;
 import org.jdom.Content;
@@ -6,6 +6,8 @@ import org.jdom.Element;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.XmlProcessor;
+import sortpom.util.FileUtil;
+import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.AlphabeticalSortedWrapper;
 import sortpom.wrapper.GroupWrapper;
 import sortpom.wrapper.UnsortedWrapper;

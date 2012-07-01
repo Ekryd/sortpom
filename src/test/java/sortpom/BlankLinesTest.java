@@ -3,7 +3,7 @@ package sortpom;
 import org.junit.Test;
 import sortpom.util.XmlProcessorTestUtil;
 
-public class LineBreakTest {
+public class BlankLinesTest {
     @Test
     public final void emptyRowsInSimplePomShouldBePreserved() throws Exception {
         XmlProcessorTestUtil.create()

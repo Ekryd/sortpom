@@ -29,6 +29,8 @@ public class XmlProcessorTestUtil {
     private boolean sortAlfabeticalOnly = false;
     private boolean keepBlankLines = false;
     private boolean indentBlankLines = false;
+    private String predefinedSortOrder = "default_0_4_0";
+    private boolean expandEmptyElements = true;
 
     public static XmlProcessorTestUtil create() {
         return new XmlProcessorTestUtil();
@@ -39,9 +41,9 @@ public class XmlProcessorTestUtil {
 
     public void testInputAndExpected(final String inputFileName, final String expectedFileName) throws Exception {
         PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(null).setBackupInfo(false, ".bak")
-                .setFormatting("UTF-8", "\r\n", true, keepBlankLines)
+                .setFormatting("UTF-8", "\r\n", expandEmptyElements, keepBlankLines)
                 .setIndent("  ", indentBlankLines)
-                .setSortOrder("default_0_4_0.xml", null)
+                .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities(false, false, false).createPluginParameters();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
         final FileUtil fileUtil = new FileUtil();
@@ -98,6 +100,16 @@ public class XmlProcessorTestUtil {
 
     public XmlProcessorTestUtil indentBlankLines() {
         indentBlankLines = true;
+        return this;
+    }
+
+    public XmlProcessorTestUtil predefinedSortOrder(String predefinedSortOrder) {
+        this.predefinedSortOrder = predefinedSortOrder;
+        return this;
+    }
+
+    public XmlProcessorTestUtil expandEmptyElements(boolean expand) {
+        this.expandEmptyElements = expand;
         return this;
     }
 }

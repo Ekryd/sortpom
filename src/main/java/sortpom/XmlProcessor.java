@@ -99,12 +99,14 @@ public class XmlProcessor {
     public void sortXml() {
         newDocument = (Document) originalDocument.clone();
         final Element rootElement = originalDocument.getRootElement();
-        factory.initialize();
+
         WrapperOperations rootWrapper = factory.createFromRootElement(rootElement);
+
         rootWrapper.createWrappedStructure(factory);
         rootWrapper.detachStructure();
         rootWrapper.sortStructureAttributes();
         rootWrapper.sortStructureElements();
+
         newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
     }
 

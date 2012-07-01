@@ -54,13 +54,18 @@ public class WrapperFactoryImpl implements WrapperFactory {
         textWrapperCreator.setup(pluginParameters);
     }
 
+    /** @see sortpom.wrapper.WrapperFactory#createFromRootElement(org.jdom.Element) */
+    @Override
+    public WrapperOperations createFromRootElement(final Element rootElement) {
+        initializeSortOrderMap();
+        return new GroupWrapper(create((Content) rootElement));
+    }
+
     /**
      * Creates sort order map from chosen sort order.
      *
-     * @see sortpom.wrapper.WrapperFactory#initialize()
      */
-    @Override
-    public void initialize() {
+    private void initializeSortOrderMap() {
         try {
             Document document = createDocumentFromDefaultSortOrderFile();
             addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
@@ -83,10 +88,19 @@ public class WrapperFactoryImpl implements WrapperFactory {
         }
     }
 
-    /** @see sortpom.wrapper.WrapperFactory#createFromRootElement(org.jdom.Element) */
-    @Override
-    public WrapperOperations createFromRootElement(final Element rootElement) {
-        return new GroupWrapper(create((Content) rootElement));
+    /**
+     * Processes the chosen sort order. Adds sort order element and sort index to
+     * a map.
+     */
+    void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
+        elementSortOrderMap.addElement(element, baseSortOrder);
+        final List<Element> castToChildElementList = castToChildElementList(element);
+        // Increments the sort order index for each element
+        int sortOrder = baseSortOrder;
+        for (Element child : castToChildElementList) {
+            sortOrder += SORT_ORDER_INCREMENT;
+            addElementsToSortOrderMap(child, sortOrder);
+        }
     }
 
     /** @see sortpom.wrapper.WrapperFactory#create(org.jdom.Content) */
@@ -103,21 +117,6 @@ public class WrapperFactoryImpl implements WrapperFactory {
             return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
         }
         return new UnsortedWrapper<T>(content);
-    }
-
-    /**
-     * Processes the chosen sort order. Adds sort order element and sort index to
-     * a map.
-     */
-    void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
-        elementSortOrderMap.addElement(element, baseSortOrder);
-        final List<Element> castToChildElementList = castToChildElementList(element);
-        // Increments the sort order index for each element
-        int sortOrder = baseSortOrder;
-        for (Element child : castToChildElementList) {
-            sortOrder += SORT_ORDER_INCREMENT;
-            addElementsToSortOrderMap(child, sortOrder);
-        }
     }
 
     /**

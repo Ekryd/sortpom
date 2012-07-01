@@ -16,6 +16,4 @@ public interface WrapperFactory {
     /** Creates wrapper around xml content. */
     <T extends Content> Wrapper<T> create(final T content);
 
-    /** Initializes the factory before the sorting the pom. */
-    void initialize();
 }

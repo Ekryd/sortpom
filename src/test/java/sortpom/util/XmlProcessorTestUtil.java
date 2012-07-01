@@ -40,18 +40,24 @@ public class XmlProcessorTestUtil {
     }
 
     public void testInputAndExpected(final String inputFileName, final String expectedFileName) throws Exception {
-        PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(null).setBackupInfo(false, ".bak")
+        PluginParameters pluginParameters = new PluginParametersBuilder()
+                .setPomFile(null)
+                .setBackupInfo(false, ".bak")
                 .setFormatting("UTF-8", "\r\n", expandEmptyElements, keepBlankLines)
                 .setIndent("  ", indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities(false, false, false).createPluginParameters();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
+
         final FileUtil fileUtil = new FileUtil();
+        fileUtil.setup(pluginParameters);
+
         WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
         ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
+
         final XmlProcessor xmlProcessor = new XmlProcessor(wrapperFactory);
-        fileUtil.setup(pluginParameters);
         xmlProcessor.setup(pluginParameters);
+
         if (sortAlfabeticalOnly) {
             wrapperFactory = new WrapperFactory() {
 
@@ -70,15 +76,10 @@ public class XmlProcessorTestUtil {
                     return new UnsortedWrapper<T>(content);
                 }
 
-                @Override
-                public void initialize() {
-                }
-
             };
         } else {
             new ReflectionHelper(wrapperFactory).setField(fileUtil);
         }
-        wrapperFactory.initialize();
         new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
         xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
         xmlProcessor.sortXml();

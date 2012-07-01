@@ -34,6 +34,7 @@ public class PluginParametersTest {
         MockitoAnnotations.initMocks(this);
         mojo = new SortPomMojo();
         new ReflectionHelper(mojo).setField("lineSeparator", "\n");
+        new ReflectionHelper(mojo).setField("encoding", "UTF-8");
 
         sortPomImpl = new ReflectionHelper(mojo).getField(SortPomImpl.class);
         fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);

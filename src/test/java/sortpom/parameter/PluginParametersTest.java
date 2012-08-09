@@ -1,10 +1,13 @@
-package sortpom;
+package sortpom.parameter;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import sortpom.SortMojo;
+import sortpom.SortPomImpl;
+import sortpom.XmlProcessor;
 import sortpom.util.FileUtil;
 import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.ElementWrapperCreator;
@@ -68,7 +71,7 @@ public class PluginParametersTest {
     public void lineSeparatorParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        mojo.setup();
+        new ReflectionHelper(mojo).executeMethod("setup");
 
         assertEquals("\r", new ReflectionHelper(xmlProcessor).getField("lineSeparatorUtil").toString());
     }
@@ -77,7 +80,7 @@ public class PluginParametersTest {
     public void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() throws Exception {
         new ReflectionHelper(mojo).setField("nrOfIndentSpace", 6);
 
-        mojo.setup();
+        new ReflectionHelper(mojo).executeMethod("setup");
 
         assertEquals("      ", new ReflectionHelper(xmlProcessor).getField("indentCharacters"));
     }
@@ -96,7 +99,7 @@ public class PluginParametersTest {
     public void parameterSortOrderFileShouldEndUpInFileUtil() throws Exception {
         new ReflectionHelper(mojo).setField("sortOrderFile", "sortOrderFile.gurka");
 
-        mojo.setup();
+        new ReflectionHelper(mojo).executeMethod("setup");
 
         Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
         assertEquals("sortOrderFile.gurka", actual);
@@ -129,10 +132,10 @@ public class PluginParametersTest {
 
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
                                                               Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
-            MojoFailureException {
+            Exception {
         new ReflectionHelper(mojo).setField(parameterName, parameterValue);
 
-        mojo.setup();
+        new ReflectionHelper(mojo).executeMethod("setup");
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
@@ -142,10 +145,10 @@ public class PluginParametersTest {
 
     private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName, boolean parameterValue,
                                                                         Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
-            MojoFailureException {
+            Exception {
         new ReflectionHelper(mojo).setField(parameterName, parameterValue);
 
-        mojo.setup();
+        new ReflectionHelper(mojo).executeMethod("setup");
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);

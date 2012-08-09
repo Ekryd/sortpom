@@ -1,5 +1,6 @@
 package sortpom.util;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -22,6 +23,15 @@ public class ReflectionHelperTest {
         ReflectionHelper reflectionHelper = new ReflectionHelper(instance);
         reflectionHelper.setField(class1);
         assertEquals(class1, instance.getFieldInterface());
+    }
+
+    @Test
+    @Ignore("Does not work with primitives")
+    public void testSetNumberField() throws Exception {
+        Instance1 instance = new Instance1();
+        ReflectionHelper reflectionHelper = new ReflectionHelper(instance);
+        reflectionHelper.setField(42);
+        assertEquals(42, instance.getNumber());
     }
 
     @Test
@@ -95,9 +105,14 @@ public class ReflectionHelperTest {
 
     private class Instance1 {
         private FieldInterface fieldInterface;
+        private int number;
 
         public FieldInterface getFieldInterface() {
             return fieldInterface;
+        }
+
+        public int getNumber() {
+            return number;
         }
     }
 

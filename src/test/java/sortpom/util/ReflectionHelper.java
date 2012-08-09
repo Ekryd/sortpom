@@ -2,6 +2,7 @@ package sortpom.util;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -72,25 +73,6 @@ public final class ReflectionHelper {
         return instance;
     }
 
-    /** Fills the contained JavaBean, using fields directly, with dummy values */
-    public void fillWithDummyFields() {
-        fillFields(this.instance);
-    }
-
-    /** Fills the contained JavaBean, using setter methods, with dummy values */
-    public void fillWithDummyProperties() {
-        fillProperties(this.instance);
-    }
-
-    /**
-     * Gets the contined object of the ReflectionHelper.
-     *
-     * @return single instance of ReflectionHelper
-     */
-    public Object getInstance() {
-        return instance;
-    }
-
     /**
      * Sets a private or protected field for an object. This method uses
      * type-matchning to set the field. This method can be used if a class only
@@ -100,8 +82,8 @@ public final class ReflectionHelper {
      * @throws IllegalAccessException Thrown if the field is final
      */
     public void setField(final Object fieldValue) throws IllegalAccessException {
-        FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldValue.getClass());
-        fieldHelper.getField().set(getInstance(), fieldValue);
+        FieldHelper fieldHelper = new FieldHelper(instance.getClass(), fieldValue.getClass());
+        fieldHelper.getField().set(instance, fieldValue);
         fieldHelper.restoreAccessibleState();
     }
 
@@ -117,9 +99,75 @@ public final class ReflectionHelper {
      */
     public void setField(final String fieldName, final Object fieldValue) throws NoSuchFieldException,
             IllegalAccessException {
-        FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldName);
-        fieldHelper.getField().set(getInstance(), fieldValue);
+        FieldHelper fieldHelper = new FieldHelper(instance.getClass(), fieldName);
+        fieldHelper.getField().set(instance, fieldValue);
         fieldHelper.restoreAccessibleState();
+    }
+
+    public Object getField(String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        FieldHelper fieldHelper = new FieldHelper(instance.getClass(), fieldName);
+        Object returnValue = fieldHelper.getField().get(instance);
+        fieldHelper.restoreAccessibleState();
+        return returnValue;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T getField(Class<T> fieldClass) throws IllegalArgumentException, IllegalAccessException {
+        FieldHelper fieldHelper = new FieldHelper(instance.getClass(), fieldClass);
+        Object returnValue = fieldHelper.getField().get(instance);
+        fieldHelper.restoreAccessibleState();
+        return (T) returnValue;
+    }
+
+    public Object executeMethod(String methodName, Object... invocationValues) throws InvocationTargetException, IllegalAccessException {
+        MethodHelper methodHelper = new MethodHelper(instance.getClass(), methodName, invocationValues);
+        Object returnValue = methodHelper.getMethod().invoke(instance, invocationValues);
+        methodHelper.restoreAccessibleState();
+        return returnValue;
+    }
+
+    /** Fills the contained JavaBean, using fields directly, with dummy values */
+    public void fillWithDummyFields() {
+        fillFields(this.instance);
+    }
+
+    private void fillFields(final Object obj) {
+        Field[] fields = obj.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            String propertyName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+            Type type = field.getGenericType();
+            Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null,
+                    field.getType(), propertyName);
+            try {
+                field.setAccessible(true);
+                field.set(obj, value);
+            } catch (Exception e) {
+                // Silently ignore
+            }
+        }
+    }
+
+    /** Fills the contained JavaBean, using setter methods, with dummy values */
+    public void fillWithDummyProperties() {
+        fillProperties(this.instance);
+    }
+
+    private void fillProperties(final Object obj) {
+        Method[] methods = obj.getClass().getMethods();
+        for (Method method : methods) {
+            if (method.getName().startsWith(SETTER_PREFIX) && (method.getParameterTypes().length == 1)) {
+                String propertyName = method.getName().substring(SETTER_PREFIX_LENGTH);
+                Type type = method.getGenericParameterTypes()[0];
+                Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null,
+                        method.getParameterTypes()[0], propertyName);
+                try {
+                    method.invoke(obj, value);
+                } catch (Exception e) {
+                    throw new RuntimeException(String.format("Method: %s, Value: %s", method.getName(), value), e);
+                }
+            }
+        }
     }
 
     private Object createDummyValue(final ParameterizedType genericParameterType, final Class<?> clazz,
@@ -193,55 +241,6 @@ public final class ReflectionHelper {
             return true;
         }
         return instantiateWithDummyValues(clazz);
-    }
-
-    private void fillFields(final Object obj) {
-        Field[] fields = obj.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            String propertyName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
-            Type type = field.getGenericType();
-            Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null,
-                    field.getType(), propertyName);
-            try {
-                field.setAccessible(true);
-                field.set(obj, value);
-            } catch (Exception e) {
-                // Silently ignore
-            }
-        }
-    }
-
-    private void fillProperties(final Object obj) {
-        Method[] methods = obj.getClass().getMethods();
-        for (Method method : methods) {
-            if (method.getName().startsWith(SETTER_PREFIX) && (method.getParameterTypes().length == 1)) {
-                String propertyName = method.getName().substring(SETTER_PREFIX_LENGTH);
-                Type type = method.getGenericParameterTypes()[0];
-                Object value = createDummyValue(type instanceof ParameterizedType ? (ParameterizedType) type : null,
-                        method.getParameterTypes()[0], propertyName);
-                try {
-                    method.invoke(obj, value);
-                } catch (Exception e) {
-                    throw new RuntimeException(String.format("Method: %s, Value: %s", method.getName(), value), e);
-                }
-            }
-        }
-    }
-
-    public Object getField(String fieldName) throws SecurityException, NoSuchFieldException, IllegalArgumentException,
-            IllegalAccessException {
-        FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldName);
-        Object returnValue = fieldHelper.getField().get(getInstance());
-        fieldHelper.restoreAccessibleState();
-        return returnValue;
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T> T getField(Class<T> fieldClass) throws IllegalArgumentException, IllegalAccessException {
-        FieldHelper fieldHelper = new FieldHelper(getInstance().getClass(), fieldClass);
-        Object returnValue = fieldHelper.getField().get(getInstance());
-        fieldHelper.restoreAccessibleState();
-        return (T) returnValue;
     }
 
 }

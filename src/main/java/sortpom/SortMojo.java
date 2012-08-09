@@ -138,7 +138,8 @@ public class SortMojo extends AbstractMojo {
 
     void setup() throws MojoFailureException {
         String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
-        PluginParameters pluginParameters = new PluginParametersBuilder().setPomFile(pomFile)
+        PluginParameters pluginParameters = new PluginParametersBuilder()
+                .setPomFile(pomFile)
                 .setBackupInfo(createBackupFile, backupFileExtension)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)

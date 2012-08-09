@@ -1,4 +1,4 @@
-package sortpom.sort;
+package sortpom.wrapper;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.MojoFailureException;
@@ -9,8 +9,6 @@ import org.junit.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.FileUtil;
-import sortpom.wrapper.WrapperFactoryImpl;
-import sortpom.wrapper.WrapperOperations;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;

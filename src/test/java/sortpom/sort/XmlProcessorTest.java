@@ -1,7 +1,7 @@
 package sortpom.sort;
 
 import org.junit.Test;
-import sortpom.sort.util.XmlProcessorTestUtil;
+import sortpom.util.XmlProcessorTestUtil;
 
 public class XmlProcessorTest {
 

@@ -2,7 +2,7 @@ package sortpom.sort;
 
 import org.junit.Test;
 import sortpom.sort.util.SortOrderFilesUtil;
-import sortpom.sort.util.XmlProcessorTestUtil;
+import sortpom.util.XmlProcessorTestUtil;
 
 public class KeepBlankLinesTest {
     @Test
@@ -40,6 +40,13 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .indentBLankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines_indented.xml");
+    }
+
+    @Test
+    public final void simpleLineBreaksShouldNotBePreserved() throws Exception {
+        XmlProcessorTestUtil.create()
+                .keepBlankLines()
+                .testInputAndExpected("src/test/resources/LineBreak_input.xml", "src/test/resources/Character_expected.xml");
     }
 
 }

@@ -1,13 +1,13 @@
-package sortpom.sort.util;
+package sortpom.util;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Content;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.XmlProcessor;
-import sortpom.util.FileUtil;
-import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.AlphabeticalSortedWrapper;
 import sortpom.wrapper.GroupWrapper;
 import sortpom.wrapper.UnsortedWrapper;
@@ -19,6 +19,7 @@ import sortpom.wrapper.WrapperOperations;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,6 +43,27 @@ public class XmlProcessorTestUtil {
     }
 
     public void testInputAndExpected(final String inputFileName, final String expectedFileName) throws Exception {
+        final XmlProcessor xmlProcessor = setup(inputFileName);
+        xmlProcessor.sortXml();
+        final ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml();
+        final String expected = IOUtils.toString(new FileInputStream(expectedFileName), UTF_8);
+        String actual = sortedXmlOutputStream.toString(UTF_8);
+        assertEquals(expected, actual);
+    }
+
+    public void verifyXmlIsOrdered(final String inputFileName) throws Exception {
+        final XmlProcessor xmlProcessor = setup(inputFileName);
+        xmlProcessor.sortXml();
+        assertEquals(true, xmlProcessor.isXmlOrdered());
+    }
+
+    public void verifyXmlIsNotOrdered(final String inputFileName) throws Exception {
+        final XmlProcessor xmlProcessor = setup(inputFileName);
+        xmlProcessor.sortXml();
+        assertEquals(false, xmlProcessor.isXmlOrdered());
+    }
+
+    private XmlProcessor setup(String inputFileName) throws IOException, MojoFailureException, IllegalAccessException, JDOMException {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null)
                 .setBackupInfo(false, ".bak")
@@ -85,11 +107,7 @@ public class XmlProcessorTestUtil {
         }
         new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
         xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
-        xmlProcessor.sortXml();
-        final ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml();
-        final String expected = IOUtils.toString(new FileInputStream(expectedFileName), UTF_8);
-        String actual = sortedXmlOutputStream.toString(UTF_8);
-        assertEquals(expected, actual);
+        return xmlProcessor;
     }
 
     public XmlProcessorTestUtil sortAlfabeticalOnly() {

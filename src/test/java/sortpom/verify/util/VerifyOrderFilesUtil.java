@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class VerifyOrderFilesUtil {
@@ -41,11 +42,18 @@ public class VerifyOrderFilesUtil {
         return new VerifyOrderFilesUtil();
     }
 
-    public boolean isPomSorted(final String inputResourceFileName)
+    public void verifyXmlIsOrdered(final String inputResourceFileName)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         this.inputResourceFileName = inputResourceFileName;
         setup();
-        return performVerify();
+        assertEquals(true, performVerify());
+    }
+
+    public void verifyXmlIsNotOrdered(final String inputResourceFileName)
+            throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        this.inputResourceFileName = inputResourceFileName;
+        setup();
+        assertEquals(false, performVerify());
     }
 
     public VerifyOrderFilesUtil nrOfIndentSpace(int indent) {

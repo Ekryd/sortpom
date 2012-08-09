@@ -142,8 +142,8 @@ public class VerifyMojo extends AbstractMojo {
         String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(pomFile)
-                .setEncoding(encoding)
                 .setBackupInfo(createBackupFile, backupFileExtension)
+                .setEncoding(encoding)
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(indentCharacters, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)

@@ -8,14 +8,14 @@ public class KeepBlankLinesTest {
     @Test
     public final void emptyLinesInXmlShouldNotAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
-                .verifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
+                .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
     }
 
     @Test
     public final void emptyLinesInXmlShouldNotAffectVerify2() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
-                .verifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
+                .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
     }
 
     @Test
@@ -23,14 +23,14 @@ public class KeepBlankLinesTest {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .indentBlankLines()
-                .verifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
+                .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
     }
 
     @Test
     public final void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
         VerifyOrderFilesUtil.create()
                 .keepBlankLines()
-                .verifyXmlIsOrdered("/EmptyRow_input2.xml");
+                .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
 
     @Test
@@ -38,7 +38,7 @@ public class KeepBlankLinesTest {
         VerifyOrderFilesUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
-                .verifyXmlIsOrdered("/EmptyRow_input2.xml");
+                .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
 
     @Test
@@ -46,20 +46,20 @@ public class KeepBlankLinesTest {
         VerifyOrderFilesUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
-                .verifyXmlIsNotOrdered("/EmptyRow_input.xml");
+                .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
     }
 
     @Test
     public final void simpleLineBreaksShouldNotAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
-                .verifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
+                .testVerifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
     }
     
     @Test
     public final void unsortedXmlShouldAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
-                .verifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml");
+                .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
     }
 }

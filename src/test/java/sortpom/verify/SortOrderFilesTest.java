@@ -17,7 +17,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
     }
 
     @Test
@@ -25,7 +25,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .lineSeparator("\n")
-                .verifyXmlIsNotOrdered("/full_unsorted_input.xml");
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", "The xml element <parent> should be replaced with <modelVersion>");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class SortOrderFilesTest {
         thrown.expectMessage(endsWith("VERYdifferentOrder.xml in classpath"));
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
     }
 
     @Test
@@ -52,7 +52,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("default_0_4_0")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
     }
 
     @Test
@@ -60,7 +60,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("custom_1")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_custom_1.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_custom_1.xml");
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("recommended_2008_06")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_recommended_2008_06.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_recommended_2008_06.xml");
     }
 
     @Test
@@ -76,7 +76,7 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("default_1_0_0")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
     }
 
     @Test
@@ -84,14 +84,14 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder(null)
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
+                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
     }
     
     @Test
     public void xmlDeviationsShouldNotHarmPlugin() throws Exception {
         VerifyOrderFilesUtil.create()
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/Xml_deviations_output.xml");
+                .testVerifyXmlIsOrdered("/Xml_deviations_output.xml");
     }
 
 }

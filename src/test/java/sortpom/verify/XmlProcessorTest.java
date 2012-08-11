@@ -7,26 +7,26 @@ public class XmlProcessorTest {
 
     @Test
     public final void testSortXmlAttributesShouldNotAffectVerify() throws Exception {
-        XmlProcessorTestUtil.create().verifyXmlIsOrdered(
+        XmlProcessorTestUtil.create().testVerifyXmlIsOrdered(
                 "src/test/resources/Attribute_expected.xml");
     }
 
     @Test
     public final void testSortXmlMultilineCommentShouldNotAffectVerify() throws Exception {
-        XmlProcessorTestUtil.create().verifyXmlIsOrdered(
+        XmlProcessorTestUtil.create().testVerifyXmlIsOrdered(
                 "src/test/resources/MultilineComment_expected.xml");
     }
 
 
     @Test
     public final void testSortXmlAttributesShouldAffectVerify() throws Exception {
-        XmlProcessorTestUtil.create().verifyXmlIsNotOrdered(
-                "src/test/resources/Attribute_input.xml");
+        XmlProcessorTestUtil.create().testVerifyXmlIsNotOrdered(
+                "src/test/resources/Attribute_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
     }
 
     @Test
     public final void testSortXmlMultilineCommentShouldAffectVerify() throws Exception {
-        XmlProcessorTestUtil.create().verifyXmlIsNotOrdered(
-                "src/test/resources/MultilineComment_input.xml");
+        XmlProcessorTestUtil.create().testVerifyXmlIsNotOrdered(
+                "src/test/resources/MultilineComment_input.xml", "The xml element <artifactId> should be replaced with <groupId>");
     }
 }

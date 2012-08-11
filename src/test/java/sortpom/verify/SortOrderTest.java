@@ -9,44 +9,44 @@ public class SortOrderTest {
     public final void testSortDifferentClassPathShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
-                .verifyXmlIsOrdered("/full_differentorder_expected.xml");
+                .testVerifyXmlIsOrdered("/full_differentorder_expected.xml");
     }
 
     @Test
-    public final void testSortXmlCharacterToAlfabeticalShouldNotAffectVerify() throws Exception {
+    public final void testSortXmlCharacterShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsOrdered("/Character_expected.xml");
+                .testVerifyXmlIsOrdered("/Character_expected.xml");
     }
 
     @Test
-    public final void testSortXmlComplexToAlfabeticalShouldNotAffectVerify() throws Exception {
+    public final void testSortXmlComplexShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsOrdered("/Complex_expected.xml");
+                .testVerifyXmlIsOrdered("/Complex_expected.xml");
     }
 
     @Test
     public final void testSortXmlFullFromAlfabeticalOrderShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsOrdered("/full_expected.xml");
+                .testVerifyXmlIsOrdered("/full_expected.xml");
     }
 
     @Test
     public final void testSortXmlReal1ShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsOrdered("/Real1_expected.xml");
+                .testVerifyXmlIsOrdered("/Real1_expected.xml");
     }
 
     @Test
     public final void testSortXmlSimpleShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsOrdered("/Simple_expected.xml");
+                .testVerifyXmlIsOrdered("/Simple_expected.xml");
     }
 
     @Test
     public final void testSortWithIndentShouldNotAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
                 .nrOfIndentSpace(4)
-                .verifyXmlIsOrdered("/Simple_expected_indent.xml");
+                .testVerifyXmlIsOrdered("/Simple_expected_indent.xml");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class SortOrderTest {
         VerifyOrderFilesUtil.create()
                 .sortDependencies()
                 .sortPlugins()
-                .verifyXmlIsOrdered("/Simple_expected_sortDep.xml");
+                .testVerifyXmlIsOrdered("/Simple_expected_sortDep.xml");
     }
 
     @Test
@@ -62,7 +62,7 @@ public class SortOrderTest {
         VerifyOrderFilesUtil.create()
                 .sortDependencies()
                 .sortPlugins()
-                .verifyXmlIsOrdered("/SortDep_expected.xml");
+                .testVerifyXmlIsOrdered("/SortDep_expected.xml");
     }
 
 
@@ -71,43 +71,43 @@ public class SortOrderTest {
     public final void testSortDifferentClassPathShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
-                .verifyXmlIsNotOrdered("/full_unsorted_input.xml");
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", "The xml element <parent> should be replaced with <modelVersion>");
     }
 
     @Test
-    public final void testSortXmlCharacterToAlfabeticalShouldAffectVerify() throws Exception {
+    public final void testSortXmlCharacterShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/Character_input.xml");
+                .testVerifyXmlIsNotOrdered("/Character_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
     }
 
     @Test
-    public final void testSortXmlComplexToAlfabeticalShouldAffectVerify() throws Exception {
+    public final void testSortXmlComplexShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/Complex_input.xml");
+                .testVerifyXmlIsNotOrdered("/Complex_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
     }
 
     @Test
     public final void testSortXmlFullFromAlfabeticalOrderShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/full_alfa_input.xml");
+                .testVerifyXmlIsNotOrdered("/full_alfa_input.xml", null);
     }
 
     @Test
-    public final void testSortXmlFullToAlfabeticalShouldAffectVerify() throws Exception {
+    public final void testSortXmlFullShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/full_unsorted_input.xml");
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", null);
     }
 
     @Test
     public final void testSortXmlReal1ShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/Real1_input.xml");
+                .testVerifyXmlIsNotOrdered("/Real1_input.xml", null);
     }
 
     @Test
     public final void testSortXmlSimpleShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .verifyXmlIsNotOrdered("/Simple_input.xml");
+                .testVerifyXmlIsNotOrdered("/Simple_input.xml", null);
     }
 
     @Test
@@ -115,6 +115,6 @@ public class SortOrderTest {
         VerifyOrderFilesUtil.create()
                 .sortDependencies()
                 .sortPlugins()
-                .verifyXmlIsNotOrdered("/SortDep_input.xml");
+                .testVerifyXmlIsNotOrdered("/SortDep_input.xml", null);
     }
 }

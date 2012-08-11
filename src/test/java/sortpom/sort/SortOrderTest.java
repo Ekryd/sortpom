@@ -20,12 +20,12 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void testSortXmlCharacterToAlfabetical() throws Exception {
+    public final void testSortXmlCharacterl() throws Exception {
         SortOrderFilesUtil.create().testFiles("/Character_input.xml", "/Character_expected.xml");
     }
 
     @Test
-    public final void testSortXmlComplexToAlfabetical() throws Exception {
+    public final void testSortXmlComplex() throws Exception {
         SortOrderFilesUtil.create().testFiles("/Complex_input.xml", "/Complex_expected.xml");
     }
 
@@ -35,13 +35,15 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void testSortXmlFullToAlfabetical() throws Exception {
-        SortOrderFilesUtil.create().testFiles("/full_unsorted_input.xml", "/full_expected.xml");
+    public final void testSortXmlFull() throws Exception {
+        SortOrderFilesUtil.create()
+                .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
     }
 
     @Test
     public final void testSortXmlReal1() throws Exception {
-        SortOrderFilesUtil.create().testFiles("/Real1_input.xml", "/Real1_expected.xml");
+        SortOrderFilesUtil.create()
+                .testFiles("/Real1_input.xml", "/Real1_expected.xml");
     }
 
     @Test

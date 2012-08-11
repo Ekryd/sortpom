@@ -70,12 +70,12 @@ public class MultiThreadTest {
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)
-                        .verifyXmlIsOrdered(expectedResourceFileName);
+                        .testVerifyXmlIsOrdered(expectedResourceFileName);
                 VerifyOrderFilesUtil.create()
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)
-                        .verifyXmlIsNotOrdered(inputResourceFileName);
+                        .testVerifyXmlIsNotOrdered(inputResourceFileName, "The xml element <parent> should be replaced with <modelVersion>");
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

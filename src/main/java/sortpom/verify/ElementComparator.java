@@ -1,6 +1,7 @@
 package sortpom.verify;
 
 import org.jdom.Element;
+import sortpom.util.XmlOrderedResult;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class ElementComparator {
     private final Element originalElement;
     private final Element newElement;
+    private XmlOrderedResult orderedResult;
 
     public ElementComparator(Element originalElement, Element newElement) {
         this.originalElement = originalElement;
@@ -22,26 +24,26 @@ public class ElementComparator {
         this.newElement = (Element) newElement;
     }
 
-    public boolean isElementOrdered() {
+    public XmlOrderedResult isElementOrdered() {
         if (!originalElement.getName().equals(newElement.getName())) {
-            return false;
+            return XmlOrderedResult.notOrdered(originalElement.getName(), newElement.getName());
+        } else {
+            return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
         }
-        return isChildrenOrdered(originalElement.getChildren(), newElement.getChildren());
     }
 
-    private boolean isChildrenOrdered(List originalElementChildren, List newElementChildren) {
+    private XmlOrderedResult isChildrenOrdered(String name, List originalElementChildren, List newElementChildren) {
         int size = originalElementChildren.size();
         if (size != newElementChildren.size()) {
-            return false;
+            throw new IllegalStateException(String.format("Somehow the element %s has different number of children", name));
         }
         for (int i = 0; i < size; i++) {
             ElementComparator elementComparator = new ElementComparator(originalElementChildren.get(i), newElementChildren.get(i));
-            if (!elementComparator.isElementOrdered()) {
-                return false;
+            XmlOrderedResult elementOrdered = elementComparator.isElementOrdered();
+            if (!elementOrdered.isOrdered()) {
+                return elementOrdered;
             }
         }
-        return true;
+        return XmlOrderedResult.ordered();
     }
-
-
 }

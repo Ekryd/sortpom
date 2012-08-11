@@ -10,7 +10,7 @@ public class SortPropertiesTest {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/SortedProperties_output.xml");
+                .testVerifyXmlIsOrdered("/SortedProperties_output.xml");
     }
 
     @Test
@@ -19,7 +19,7 @@ public class SortPropertiesTest {
                 .sortProperties()
                 .lineSeparator("\n")
                 .predefinedSortOrder("custom_1")
-                .verifyXmlIsOrdered("/SortedProperties_output_alfa.xml");
+                .testVerifyXmlIsOrdered("/SortedProperties_output_alfa.xml");
     }
 
     @Test
@@ -28,7 +28,7 @@ public class SortPropertiesTest {
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
-                .verifyXmlIsOrdered("/SortedProperties_output_alfa2.xml");
+                .testVerifyXmlIsOrdered("/SortedProperties_output_alfa2.xml");
     }
 
     @Test
@@ -38,7 +38,7 @@ public class SortPropertiesTest {
                 .sortPlugins()
                 .sortDependencies()
                 .lineSeparator("\n")
-                .verifyXmlIsOrdered("/SortProp_expected.xml");
+                .testVerifyXmlIsOrdered("/SortProp_expected.xml");
     }
 
 
@@ -48,7 +48,7 @@ public class SortPropertiesTest {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
-                .verifyXmlIsNotOrdered("/SortedProperties_input.xml");
+                .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml", null);
     }
 
     @Test
@@ -57,7 +57,7 @@ public class SortPropertiesTest {
                 .sortProperties()
                 .lineSeparator("\n")
                 .predefinedSortOrder("custom_1")
-                .verifyXmlIsNotOrdered("/SortedProperties_input.xml");
+                .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml", null);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class SortPropertiesTest {
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
-                .verifyXmlIsNotOrdered("/SortedProperties_input.xml");
+                .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml", null);
     }
 
     @Test
@@ -76,6 +76,6 @@ public class SortPropertiesTest {
                 .sortPlugins()
                 .sortDependencies()
                 .lineSeparator("\n")
-                .verifyXmlIsNotOrdered("/SortProp_input.xml");
+                .testVerifyXmlIsNotOrdered("/SortProp_input.xml", null);
     }
 }

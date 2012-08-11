@@ -6,6 +6,8 @@ import org.apache.maven.plugin.logging.Log;
 import org.jdom.JDOMException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
+import sortpom.util.VerifyFailType;
+import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.ByteArrayInputStream;
@@ -29,6 +31,7 @@ public class SortPomImpl {
     private String encoding;
     private boolean createBackupFile;
     private String backupFileExtension;
+    private VerifyFailType verifyFailType;
 
     /**
      * Instantiates a new sort pom mojo and initiates dependencies to other
@@ -49,6 +52,7 @@ public class SortPomImpl {
         encoding = pluginParameters.encoding;
         createBackupFile = pluginParameters.createBackupFile;
         backupFileExtension = pluginParameters.backupFileExtension;
+        verifyFailType = VerifyFailType.fromString(pluginParameters.verifyFail);
     }
 
     /**
@@ -124,23 +128,42 @@ public class SortPomImpl {
 
     /**
      * Verify that the pom-file is sorted regardless of formatting
-     * 
+     *
      * @throws MojoFailureException thrown if pom-file is not sorted
      */
     public void verifyPom() throws MojoFailureException {
         log.info("Verifying file " + pomFile.getAbsolutePath());
 
-        if (!isPomElementsSorted())
-            sortPom();
+        if (!isPomElementsSorted()) {
+            switch (verifyFailType) {
+                case WARN:
+                    // The warning should already been sent
+                    break;
+                case SORT:
+                    sortPom();
+                    break;
+                case STOP:
+                    throw new MojoFailureException(String.format("The file %s was not sorted", pomFile.getAbsolutePath()));
+                default:
+                    throw new IllegalStateException(verifyFailType.toString());
+            }
+        }
     }
-    
+
     public boolean isPomElementsSorted() throws MojoFailureException {
         String originalXml = fileUtil.getPomFileContent();
         insertXmlInXmlProcessor(originalXml, "Could not verify pom files content: ");
         xmlProcessor.sortXml();
-        return xmlProcessor.isXmlOrdered();
+
+        XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
+        if (!xmlOrdered.isOrdered()) {
+            log.info(String.format("The xml element <%s> should be replaced with <%s>",
+                    xmlOrdered.getOriginalElementName(), xmlOrdered.getNewElementName()));
+        }
+
+        return xmlOrdered.isOrdered();
     }
-    
+
     private void insertXmlInXmlProcessor(final String xml, String errorMsg) throws MojoFailureException {
         ByteArrayInputStream originalXmlInputStream = null;
         try {

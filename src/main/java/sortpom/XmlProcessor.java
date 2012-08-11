@@ -13,6 +13,7 @@ import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
 import sortpom.util.LineSeparatorUtil;
+import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
 import sortpom.wrapper.WrapperFactory;
 import sortpom.wrapper.WrapperOperations;
@@ -83,7 +84,7 @@ public class XmlProcessor {
         newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
     }
 
-    public boolean isXmlOrdered() {
+    public XmlOrderedResult isXmlOrdered() {
         ElementComparator elementComparator = new ElementComparator(originalDocument.getRootElement(), newDocument.getRootElement());
         return elementComparator.isElementOrdered();
     }

@@ -67,7 +67,14 @@ public class VerifyMojo extends AbstractMojo {
      */
     private String encoding;
 
-
+    /**
+     * What should happen if verification fails. Can be either 'sort', 'warn' or 'stop'
+     *
+     * @parameter expression="${sort.verifyFail}" default-value="sort"
+     */
+    private String verifyFail;
+    
+    
     /**
      * Should a backup copy be created for the sorted pom.
      *
@@ -147,7 +154,9 @@ public class VerifyMojo extends AbstractMojo {
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(indentCharacters, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
+                .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                .setVerifyFail(verifyFail)
+                .createPluginParameters();
         sortPomImpl.setup(getLog(), pluginParameters);
     }
 

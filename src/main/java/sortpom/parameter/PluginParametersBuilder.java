@@ -17,6 +17,7 @@ public class PluginParametersBuilder {
     private boolean sortPlugins;
     private boolean sortProperties;
     private boolean keepBlankLines;
+    private String verifyFail;
 
     public PluginParametersBuilder setPomFile(final File pomFile) {
         this.pomFile = pomFile;
@@ -63,9 +64,14 @@ public class PluginParametersBuilder {
         return this;
     }
 
+    public PluginParametersBuilder setVerifyFail(String verifyFail) {
+        this.verifyFail = verifyFail;
+        return this;
+    }
+
     public PluginParameters createPluginParameters() {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
                 expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines, predefinedSortOrder,
-                customSortOrderFile, sortDependencies, sortPlugins, sortProperties);
+                customSortOrderFile, sortDependencies, sortPlugins, sortProperties, verifyFail);
     }
 }

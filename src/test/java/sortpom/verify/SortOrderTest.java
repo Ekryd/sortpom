@@ -71,43 +71,74 @@ public class SortOrderTest {
     public final void testSortDifferentClassPathShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
-                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", "The xml element <parent> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", 
+                        "The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test
     public final void testSortXmlCharacterShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/Character_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("/Character_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlComplexShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/Complex_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("/Complex_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlFullFromAlfabeticalOrderShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/full_alfa_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/full_alfa_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlFullShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", 
+                        "The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test
     public final void testSortXmlReal1ShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/Real1_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/Real1_input.xml", 
+                        "The xml element <version> should be placed before <name>");
     }
 
     @Test
     public final void testSortXmlSimpleShouldAffectVerify() throws Exception {
         VerifyOrderFilesUtil.create()
-                .testVerifyXmlIsNotOrdered("/Simple_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/Simple_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
+    }
+
+    @Test
+    public final void sortedDependenciesWithDifferentChildrenShouldAffectVerify() throws Exception {
+        VerifyOrderFilesUtil.create()
+                .sortDependencies()
+                .testVerifyXmlIsNotOrdered("/SortDepSimple_input.xml", 
+                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+    }
+
+    @Test
+    public final void sortedDependenciesWithDifferentNamesShouldAffectVerify() throws Exception {
+        VerifyOrderFilesUtil.create()
+                .sortDependencies()
+                .testVerifyXmlIsNotOrdered("/SortDepSimple2_input.xml", 
+                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+    }
+
+    @Test
+    public final void sortedDependenciesWithSameNameShouldAffectVerify() throws Exception {
+        VerifyOrderFilesUtil.create()
+                .sortDependencies()
+                .testVerifyXmlIsNotOrdered("/SortDepSimple3_input.xml", 
+                        "The xml element <dependency> with 2 child elements should be placed before element <dependency> with 4 child elements");
     }
 
     @Test
@@ -115,6 +146,7 @@ public class SortOrderTest {
         VerifyOrderFilesUtil.create()
                 .sortDependencies()
                 .sortPlugins()
-                .testVerifyXmlIsNotOrdered("/SortDep_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/SortDep_input.xml", 
+                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
 }

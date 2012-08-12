@@ -26,23 +26,29 @@ public class ElementComparator {
 
     public XmlOrderedResult isElementOrdered() {
         if (!originalElement.getName().equals(newElement.getName())) {
-            return XmlOrderedResult.notOrdered(originalElement.getName(), newElement.getName());
-        } else {
+            return XmlOrderedResult.nameDiffers(originalElement.getName(), newElement.getName());
+        } if (isEqualsIgnoringWhitespace())
+            return XmlOrderedResult.textContentDiffers(originalElement.getName(), originalElement.getText(), newElement.getText());
+        else {
             return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
         }
     }
 
+    private boolean isEqualsIgnoringWhitespace() {
+        return !originalElement.getText().replaceAll("\\s", "").equals(newElement.getText().replaceAll("\\s", ""));
+    }
+
     private XmlOrderedResult isChildrenOrdered(String name, List originalElementChildren, List newElementChildren) {
-        int size = originalElementChildren.size();
-        if (size != newElementChildren.size()) {
-            throw new IllegalStateException(String.format("Somehow the element %s has different number of children", name));
-        }
+        int size = Math.min(originalElementChildren.size(), newElementChildren.size());
         for (int i = 0; i < size; i++) {
             ElementComparator elementComparator = new ElementComparator(originalElementChildren.get(i), newElementChildren.get(i));
             XmlOrderedResult elementOrdered = elementComparator.isElementOrdered();
             if (!elementOrdered.isOrdered()) {
                 return elementOrdered;
             }
+        }
+        if (originalElementChildren.size() != newElementChildren.size()) {
+            return XmlOrderedResult.childElementDiffers(name, originalElementChildren.size(), newElementChildren.size());
         }
         return XmlOrderedResult.ordered();
     }

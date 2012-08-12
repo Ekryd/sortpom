@@ -75,7 +75,8 @@ public class MultiThreadTest {
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)
-                        .testVerifyXmlIsNotOrdered(inputResourceFileName, "The xml element <parent> should be replaced with <modelVersion>");
+                        .testVerifyXmlIsNotOrdered(inputResourceFileName, 
+                                "The xml element <modelVersion> should be placed before <parent>");
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;

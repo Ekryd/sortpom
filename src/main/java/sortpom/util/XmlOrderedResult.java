@@ -6,32 +6,38 @@ package sortpom.util;
  */
 public class XmlOrderedResult {
     private final boolean ordered;
-    private final String originalElementName;
-    private final String newElementName;
+    private final String message;
 
     public static XmlOrderedResult ordered() {
-        return new XmlOrderedResult(true, null, null);
+        return new XmlOrderedResult(true, "");
     }
 
-    public static XmlOrderedResult notOrdered(String originalElementName, String newElementName) {
-        return new XmlOrderedResult(false, originalElementName, newElementName);
+    public static XmlOrderedResult nameDiffers(String originalElementName, String newElementName) {
+        return new XmlOrderedResult(false, String.format("The xml element <%s> should be placed before <%s>",
+                newElementName, originalElementName));
     }
 
-    private XmlOrderedResult(boolean ordered, String originalElementName, String newElementName) {
+    public static XmlOrderedResult childElementDiffers(String name, int originalSize, int newSize) {
+        return new XmlOrderedResult(false, String.format("The xml element <%s> with %s child elements should be placed before element <%s> with %s child elements",
+                name, newSize, name, originalSize));
+    }
+
+    public static XmlOrderedResult textContentDiffers(String name, String originalElementText, String newElementText) {
+        return new XmlOrderedResult(false, String.format("The xml element <%s>%s</%s> should be placed before <%s>%s</%s>",
+                name, newElementText, name, name, originalElementText, name));
+    }
+
+    private XmlOrderedResult(boolean ordered, String message) {
         this.ordered = ordered;
-        this.originalElementName = originalElementName;
-        this.newElementName = newElementName;
+        this.message = message;
     }
 
     public boolean isOrdered() {
         return ordered;
     }
 
-    public String getOriginalElementName() {
-        return originalElementName;
+    public String getMessage() {
+        return message;
     }
 
-    public String getNewElementName() {
-        return newElementName;
-    }
 }

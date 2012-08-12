@@ -46,7 +46,8 @@ public class KeepBlankLinesTest {
         VerifyOrderFilesUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
-                .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
@@ -60,6 +61,7 @@ public class KeepBlankLinesTest {
     public final void unsortedXmlShouldAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
-                .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml", "The xml element <artifactId> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml", 
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 }

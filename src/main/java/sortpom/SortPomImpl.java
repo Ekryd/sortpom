@@ -157,8 +157,7 @@ public class SortPomImpl {
 
         XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
         if (!xmlOrdered.isOrdered()) {
-            log.info(String.format("The xml element <%s> should be replaced with <%s>",
-                    xmlOrdered.getOriginalElementName(), xmlOrdered.getNewElementName()));
+            log.info(xmlOrdered.getMessage());
         }
 
         return xmlOrdered.isOrdered();

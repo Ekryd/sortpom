@@ -59,14 +59,14 @@ public class VerifyOrderFilesUtil {
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         this.inputResourceFileName = inputResourceFileName;
         setup();
-        assertEquals(true, performVerify());
+        assertEquals("Expected that xml is ordered, ", true, performVerify());
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputResourceFileName, CharSequence warningMessage)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         this.inputResourceFileName = inputResourceFileName;
         setup();
-        assertEquals(false, performVerify());
+        assertEquals("Expected that xml is not ordered, ", false, performVerify());
         assertEquals(warningMessage, infoLogger.get(0));
     }
 

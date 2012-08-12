@@ -25,7 +25,8 @@ public class SortOrderFilesTest {
         VerifyOrderFilesUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .lineSeparator("\n")
-                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", "The xml element <parent> should be replaced with <modelVersion>");
+                .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml", 
+                        "The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test

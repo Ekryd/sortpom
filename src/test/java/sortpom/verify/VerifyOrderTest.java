@@ -20,7 +20,8 @@ public class VerifyOrderTest {
     public final void wrongSortedShouldNotPass() throws Exception {
         VerifyOrderFilesUtil.create()
                 .predefinedSortOrder("custom_1")
-                .testVerifyXmlIsNotOrdered("/Real2_input.xml", null);
+                .testVerifyXmlIsNotOrdered("/Real2_input.xml", 
+                        "The xml element <properties> should be placed before <inceptionYear>");
     }
 
     @Test
@@ -47,7 +48,8 @@ public class VerifyOrderTest {
     public void unsortedWarnVerifyShouldPerformSort() throws Exception {
         VerifyOrderFilesUtil.create()
                 .verifyFail("warn")
-                .testVerifyWarn("/Real1_input.xml", "The xml element <name> should be replaced with <version>");
+                .testVerifyWarn("/Real1_input.xml", 
+                        "The xml element <version> should be placed before <name>");
     }
 
 }

@@ -62,8 +62,7 @@ public class XmlProcessorTestUtil {
         xmlProcessor.sortXml();
         XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
         assertEquals(false, xmlOrdered.isOrdered());
-        assertEquals(infoMessage, String.format("The xml element <%s> should be replaced with <%s>",
-                xmlOrdered.getOriginalElementName(), xmlOrdered.getNewElementName()));
+        assertEquals(infoMessage, xmlOrdered.getMessage());
     }
 
     private XmlProcessor setup(String inputFileName) throws IOException, MojoFailureException, IllegalAccessException, JDOMException {

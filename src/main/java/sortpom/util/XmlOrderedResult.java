@@ -4,7 +4,7 @@ package sortpom.util;
  * @author bjorn
  * @since 2012-08-11
  */
-public class XmlOrderedResult {
+public final class XmlOrderedResult {
     private final boolean ordered;
     private final String message;
 
@@ -18,7 +18,8 @@ public class XmlOrderedResult {
     }
 
     public static XmlOrderedResult childElementDiffers(String name, int originalSize, int newSize) {
-        return new XmlOrderedResult(false, String.format("The xml element <%s> with %s child elements should be placed before element <%s> with %s child elements",
+        return new XmlOrderedResult(false, String.format(
+                "The xml element <%s> with %s child elements should be placed before element <%s> with %s child elements",
                 name, newSize, name, originalSize));
     }
 

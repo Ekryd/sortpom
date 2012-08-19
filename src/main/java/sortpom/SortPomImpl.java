@@ -111,7 +111,8 @@ public class SortPomImpl {
                 throw new MojoFailureException("Could not create backup file, extension name was empty");
             }
             fileUtil.backupFile();
-            log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(), pomFile.getAbsolutePath(), backupFileExtension));
+            log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(), 
+                    pomFile.getAbsolutePath(), backupFileExtension));
         }
     }
 

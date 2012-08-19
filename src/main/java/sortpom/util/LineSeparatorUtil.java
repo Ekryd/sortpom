@@ -28,8 +28,8 @@ public class LineSeparatorUtil {
     }
 
     private boolean isIllegalString() {
-        return !(string.equalsIgnoreCase("\n") || 
-                string.equalsIgnoreCase("\r") || 
+        return !(string.equalsIgnoreCase("\n") ||
+                string.equalsIgnoreCase("\r") ||
                 string.equalsIgnoreCase("\r\n"));
     }
 

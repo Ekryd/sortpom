@@ -73,8 +73,8 @@ public class VerifyMojo extends AbstractMojo {
      * @parameter expression="${sort.verifyFail}" default-value="sort"
      */
     private String verifyFail;
-    
-    
+
+
     /**
      * Should a backup copy be created for the sorted pom.
      *
@@ -136,7 +136,8 @@ public class VerifyMojo extends AbstractMojo {
     /**
      * Execute plugin.
      *
-     * @throws org.apache.maven.plugin.MojoFailureException exception that will be handled by plugin framework
+     * @throws org.apache.maven.plugin.MojoFailureException
+     *          exception that will be handled by plugin framework
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     @Override

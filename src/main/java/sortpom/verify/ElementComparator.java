@@ -12,7 +12,6 @@ import java.util.List;
 public class ElementComparator {
     private final Element originalElement;
     private final Element newElement;
-    private XmlOrderedResult orderedResult;
 
     public ElementComparator(Element originalElement, Element newElement) {
         this.originalElement = originalElement;
@@ -27,11 +26,11 @@ public class ElementComparator {
     public XmlOrderedResult isElementOrdered() {
         if (!originalElement.getName().equals(newElement.getName())) {
             return XmlOrderedResult.nameDiffers(originalElement.getName(), newElement.getName());
-        } if (isEqualsIgnoringWhitespace())
-            return XmlOrderedResult.textContentDiffers(originalElement.getName(), originalElement.getText(), newElement.getText());
-        else {
-            return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
         }
+        if (isEqualsIgnoringWhitespace()) {
+            return XmlOrderedResult.textContentDiffers(originalElement.getName(), originalElement.getText(), newElement.getText());
+        }
+        return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
     }
 
     private boolean isEqualsIgnoringWhitespace() {

@@ -4,29 +4,27 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 public class FileUtilExceptionsTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    @Mock
-    private File backupFileMock;
-    @Mock
-    private File pomFileMock;
+
+    private File backupFileMock = mock(File.class);
+
+    private File pomFileMock = mock(File.class);
 
     private FileUtil originalFileUtil;
 
     @Before
     public void setup() {
         originalFileUtil = new FileUtil();
-        MockitoAnnotations.initMocks(this);
     }
 
     @Test

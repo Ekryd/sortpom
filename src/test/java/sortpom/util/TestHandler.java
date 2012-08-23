@@ -57,7 +57,7 @@ class TestHandler {
         return infoLogger;
     }
 
-    public void performTest() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public void performTest() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
 
@@ -85,7 +85,7 @@ class TestHandler {
         }
     }
 
-    public void performTestThatSorted() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public void performTestThatSorted() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
 
@@ -113,7 +113,7 @@ class TestHandler {
         }
     }
 
-    public void performNoSortTest() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public void performNoSortTest() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
 
@@ -141,7 +141,7 @@ class TestHandler {
         sortPomImpl.sortPom();
     }
 
-    public boolean performVerify() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public boolean performVerify() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
             FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
@@ -154,7 +154,7 @@ class TestHandler {
         }
     }
 
-    public void performTestThatDidNotSort() throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public void performTestThatDidNotSort() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
 

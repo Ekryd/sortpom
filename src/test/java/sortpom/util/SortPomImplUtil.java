@@ -27,7 +27,7 @@ public class SortPomImplUtil {
     private boolean keepBlankLines = false;
     private boolean indentBLankLines = false;
     private String verifyFail = "SORT";
-    private String encoding = testHandler.UTF_8;
+    private String encoding = TestHandler.UTF_8;
     private File testpom;
 
     private SortPomImplUtil() {
@@ -74,7 +74,7 @@ public class SortPomImplUtil {
         testHandler.performTestThatSorted();
     }
 
-    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass) throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass) throws MojoFailureException {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         try {

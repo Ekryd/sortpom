@@ -1,18 +1,13 @@
 package sortpom.sort;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import sortpom.sort.util.SortOrderFilesUtil;
+import sortpom.util.SortPomImplUtil;
 
 public class SortPropertiesTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public final void namedParametersInSortFileShouldSortThemFirst() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testFiles("/SortedProperties_input.xml", "/SortedProperties_output.xml");
@@ -20,7 +15,7 @@ public class SortPropertiesTest {
 
     @Test
     public final void sortPropertyParameterShouldSortAlphabetically() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .sortProperties()
                 .lineSeparator("\n")
                 .predefinedSortOrder("custom_1")
@@ -29,7 +24,7 @@ public class SortPropertiesTest {
 
     @Test
     public final void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
@@ -38,7 +33,7 @@ public class SortPropertiesTest {
 
     @Test
     public final void sortingOfFullPomFileShouldWork() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .sortProperties()
                 .sortPlugins()
                 .sortDependencies()

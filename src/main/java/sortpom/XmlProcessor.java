@@ -12,7 +12,7 @@ import org.jdom.output.XMLOutputter;
 import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
-import sortpom.util.LineSeparatorUtil;
+import sortpom.parameter.LineSeparatorUtil;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
 import sortpom.wrapper.WrapperFactory;
@@ -50,7 +50,7 @@ public class XmlProcessor {
      */
     public void setup(PluginParameters pluginParameters) throws MojoFailureException {
         this.indentCharacters = pluginParameters.indentCharacters;
-        this.lineSeparatorUtil = new LineSeparatorUtil(pluginParameters.lineSeparator);
+        this.lineSeparatorUtil = pluginParameters.lineSeparatorUtil;
         this.encoding = pluginParameters.encoding;
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;

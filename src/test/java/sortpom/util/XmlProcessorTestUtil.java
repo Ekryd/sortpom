@@ -5,9 +5,9 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Content;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
-import sortpom.XmlProcessor;
 import sortpom.wrapper.AlphabeticalSortedWrapper;
 import sortpom.wrapper.GroupWrapper;
 import sortpom.wrapper.UnsortedWrapper;
@@ -71,7 +71,7 @@ public class XmlProcessorTestUtil {
                 .setBackupInfo(false, ".bak")
                 .setEncoding("UTF-8")
                 .setFormatting("\r\n", expandEmptyElements, keepBlankLines)
-                .setIndent("  ", indentBlankLines)
+                .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities(false, false, false).createPluginParameters();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);

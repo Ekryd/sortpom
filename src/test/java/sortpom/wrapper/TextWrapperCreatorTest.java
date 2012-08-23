@@ -1,5 +1,6 @@
 package sortpom.wrapper;
 
+import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Text;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +14,13 @@ import static org.junit.Assert.assertEquals;
  */
 public class TextWrapperCreatorTest {
     private TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
-    
+
     @Before
-    public void setup() {
+    public void setup() throws MojoFailureException {
         textWrapperCreator.setup(new PluginParametersBuilder().setEncoding("UTF-8")
                 .setFormatting("\n", true, true).createPluginParameters());
     }
-    
+
     @Test
     public void testIsEmptyLine() {
         assertEquals(false, textWrapperCreator.isBlankLineOrLines(new Text("\n      sortpom\n  ")));

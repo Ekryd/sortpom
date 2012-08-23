@@ -6,7 +6,7 @@ import org.junit.rules.ExpectedException;
 
 /**
  * All method should throw execption since the element should be throw away
- * 
+ *
  * @author bjorn
  * @since 2012-06-14
  */

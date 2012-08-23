@@ -86,6 +86,8 @@ public class FileUtil {
         try {
             inputStream = new FileInputStream(pomFile);
             return IOUtils.toString(inputStream, encoding);
+        } catch (UnsupportedEncodingException ueex) {
+            throw new MojoFailureException("Could not handle encoding: " + encoding, ueex);
         } catch (IOException ioex) {
             throw new MojoFailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ioex);
         } finally {
@@ -111,7 +113,7 @@ public class FileUtil {
         }
     }
 
-    public byte[] getDefaultSortOrderXmlBytes() throws UnsupportedEncodingException {
+    public byte[] getDefaultSortOrderXmlBytes() throws IOException {
         return getDefaultSortOrderXml().getBytes(encoding);
     }
 
@@ -120,7 +122,7 @@ public class FileUtil {
      *
      * @return Content of the default sort order file
      */
-    private String getDefaultSortOrderXml() {
+    private String getDefaultSortOrderXml() throws IOException {
         InputStream inputStream = null;
         try {
             if (customSortOrderFile != null) {
@@ -131,8 +133,6 @@ public class FileUtil {
                 inputStream = getPredefinedSortOrder(DEFAULT_SORT_ORDER_FILENAME);
             }
             return IOUtils.toString(inputStream, encoding);
-        } catch (IOException ioex) {
-            throw new RuntimeException(ioex);
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
@@ -158,17 +158,13 @@ public class FileUtil {
         return inputStream;
     }
 
-    private InputStream getPredefinedSortOrder(String predefinedSortOrder) {
+    private InputStream getPredefinedSortOrder(String predefinedSortOrder) throws IOException {
         URL resource = this.getClass().getClassLoader().getResource(predefinedSortOrder + XML_FILE_EXTENSION);
         if (resource == null) {
             throw new IllegalArgumentException(String.format("Cannot find %s among the predefined plugin resources",
                     predefinedSortOrder + XML_FILE_EXTENSION));
         }
-        try {
-            return resource.openStream();
-        } catch (IOException ioex) {
-            throw new RuntimeException(ioex);
-        }
+        return resource.openStream();
     }
 
 }

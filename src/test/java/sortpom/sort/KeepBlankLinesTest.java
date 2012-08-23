@@ -1,7 +1,7 @@
 package sortpom.sort;
 
 import org.junit.Test;
-import sortpom.sort.util.SortOrderFilesUtil;
+import sortpom.util.SortPomImplUtil;
 import sortpom.util.XmlProcessorTestUtil;
 
 public class KeepBlankLinesTest {
@@ -29,14 +29,14 @@ public class KeepBlankLinesTest {
 
     @Test
     public final void emptyRowsInLargePomShouldBePreserved2() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .keepBlankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines.xml");
     }
 
     @Test
     public final void emptyRowsInLargePomShouldBePreservedAndIndented2() throws Exception {
-        SortOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines_indented.xml");

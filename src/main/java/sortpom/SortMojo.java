@@ -4,7 +4,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
-import sortpom.util.IndentCharacters;
 
 import java.io.File;
 
@@ -137,13 +136,12 @@ public class SortMojo extends AbstractMojo {
     }
 
     void setup() throws MojoFailureException {
-        String indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(pomFile)
                 .setBackupInfo(createBackupFile, backupFileExtension)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
-                .setIndent(indentCharacters, indentBlankLines)
+                .setIndent(nrOfIndentSpace, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
         sortPomImpl.setup(getLog(), pluginParameters);

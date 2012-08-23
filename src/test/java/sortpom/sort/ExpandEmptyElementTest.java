@@ -15,7 +15,7 @@ public class ExpandEmptyElementTest {
         xmlProcessor.setup(new PluginParametersBuilder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", true, false)
-                .setIndent("  ", false)
+                .setIndent(2, false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 
@@ -29,7 +29,7 @@ public class ExpandEmptyElementTest {
         xmlProcessor.setup(new PluginParametersBuilder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", false, false)
-                .setIndent("  ", false)
+                .setIndent(2, false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
 

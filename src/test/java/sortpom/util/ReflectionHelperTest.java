@@ -25,7 +25,6 @@ public class ReflectionHelperTest {
         assertEquals(class1, instance.getFieldInterface());
     }
 
-    @Test
     @Ignore("Does not work with primitives")
     public void testSetNumberField() throws Exception {
         Instance1 instance = new Instance1();

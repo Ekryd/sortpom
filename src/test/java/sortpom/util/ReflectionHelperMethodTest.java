@@ -31,7 +31,6 @@ public class ReflectionHelperMethodTest {
     }
 
     @Ignore("Primitives does not work well")
-    @Test
     public void oneParameterChoiceMethodNameShouldWork() throws Exception {
         assertEquals(3, new ReflectionHelper(instance).executeMethod("kalle", 3));
     }
@@ -64,11 +63,24 @@ public class ReflectionHelperMethodTest {
 
 
     private static class Instance0 {
-        private void pelle() {}
-        private int kalle() { return 42; }
-        private int kalle(String a) { return a.length(); }
-        private int kalle(int a) { return a; }
-        private int kalle(int a, ParameterInterface parameter) { return a+1; }
+        private void pelle() {
+        }
+
+        private int kalle() {
+            return 42;
+        }
+
+        private int kalle(String a) {
+            return a.length();
+        }
+
+        private int kalle(int a) {
+            return a;
+        }
+
+        private int kalle(int a, ParameterInterface parameter) {
+            return a + 1;
+        }
     }
 
 }

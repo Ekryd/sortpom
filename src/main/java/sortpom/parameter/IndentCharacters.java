@@ -1,4 +1,4 @@
-package sortpom.util;
+package sortpom.parameter;
 
 import org.apache.maven.plugin.MojoFailureException;
 
@@ -16,7 +16,7 @@ public class IndentCharacters {
 
     private final int nrOfIndentSpace;
 
-    public IndentCharacters(int nrOfIndentSpace) {
+    IndentCharacters(int nrOfIndentSpace) {
         this.nrOfIndentSpace = nrOfIndentSpace;
     }
 
@@ -34,7 +34,7 @@ public class IndentCharacters {
             return "\t";
         }
         if (nrOfIndentSpace < INDENT_TAB || nrOfIndentSpace > MAX_INDENT_SPACES) {
-            throw new MojoFailureException("nrOfIndentSpace cannot be below -1 or above 255: " + nrOfIndentSpace);
+            throw new MojoFailureException("nrOfIndentSpace cannot be below -1 or above 255, was: " + nrOfIndentSpace);
         }
         char[] chars = new char[nrOfIndentSpace];
         Arrays.fill(chars, ' ');

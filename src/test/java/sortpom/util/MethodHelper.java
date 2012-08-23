@@ -22,7 +22,7 @@ class MethodHelper {
         if (methodMatches.size() == 0) {
             throw new IllegalArgumentException(String.format("Cannot find method named %s", methodName));
         }
-        if (methodMatches.size() == 1) {            
+        if (methodMatches.size() == 1) {
             return methodMatches;
         }
 
@@ -59,7 +59,7 @@ class MethodHelper {
                 returnValue.add(methodNameMatch);
             }
         }
-        return returnValue; 
+        return returnValue;
     }
 
     private List<Method> getArgumentMatches(List<Method> methodNearMatches, Object... invocationValues) {
@@ -75,7 +75,7 @@ class MethodHelper {
                 returnValue.add(methodNearMatch);
             }
         }
-        return returnValue;  
+        return returnValue;
     }
 
     public Method getMethod() {

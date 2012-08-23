@@ -6,7 +6,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.jdom.JDOMException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
-import sortpom.util.VerifyFailType;
+import sortpom.parameter.VerifyFailType;
 import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
 
@@ -52,7 +52,7 @@ public class SortPomImpl {
         encoding = pluginParameters.encoding;
         createBackupFile = pluginParameters.createBackupFile;
         backupFileExtension = pluginParameters.backupFileExtension;
-        verifyFailType = VerifyFailType.fromString(pluginParameters.verifyFail);
+        verifyFailType = pluginParameters.verifyFailType;
     }
 
     /**

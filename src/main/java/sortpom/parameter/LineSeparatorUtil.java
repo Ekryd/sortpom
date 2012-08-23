@@ -1,4 +1,4 @@
-package sortpom.util;
+package sortpom.parameter;
 
 import org.apache.maven.plugin.MojoFailureException;
 
@@ -18,7 +18,7 @@ public class LineSeparatorUtil {
      * @param lineSeparatorString The line separator characters
      * @throws MojoFailureException
      */
-    public LineSeparatorUtil(final String lineSeparatorString) throws MojoFailureException {
+    LineSeparatorUtil(final String lineSeparatorString) throws MojoFailureException {
         string = lineSeparatorString.replaceAll("\\\\r", "\r").replaceAll("\\\\n", "\n");
         if (isIllegalString()) {
             throw new MojoFailureException(

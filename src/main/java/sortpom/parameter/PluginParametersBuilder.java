@@ -1,5 +1,7 @@
 package sortpom.parameter;
 
+import org.apache.maven.plugin.MojoFailureException;
+
 import java.io.File;
 
 public class PluginParametersBuilder {
@@ -7,7 +9,7 @@ public class PluginParametersBuilder {
     private boolean createBackupFile;
     private String backupFileExtension;
     private String encoding;
-    private String lineSeparator;
+    private LineSeparatorUtil lineSeparatorUtil;
     private String indentCharacters;
     private boolean indentBlankLines;
     private boolean expandEmptyElements;
@@ -17,7 +19,7 @@ public class PluginParametersBuilder {
     private boolean sortPlugins;
     private boolean sortProperties;
     private boolean keepBlankLines;
-    private String verifyFail;
+    private VerifyFailType verifyFailType;
 
     public PluginParametersBuilder setPomFile(final File pomFile) {
         this.pomFile = pomFile;
@@ -37,15 +39,15 @@ public class PluginParametersBuilder {
 
     public PluginParametersBuilder setFormatting(final String lineSeparator,
                                                  final boolean expandEmptyElements,
-                                                 final boolean keepBlankLines) {
-        this.lineSeparator = lineSeparator;
+                                                 final boolean keepBlankLines) throws MojoFailureException {
+        this.lineSeparatorUtil = new LineSeparatorUtil(lineSeparator);
         this.expandEmptyElements = expandEmptyElements;
         this.keepBlankLines = keepBlankLines;
         return this;
     }
 
-    public PluginParametersBuilder setIndent(final String indentCharacters, final boolean indentBlankLines) {
-        this.indentCharacters = indentCharacters;
+    public PluginParametersBuilder setIndent(final int nrOfIndentSpace, final boolean indentBlankLines) throws MojoFailureException {
+        this.indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
         this.indentBlankLines = indentBlankLines;
         return this;
     }
@@ -64,14 +66,15 @@ public class PluginParametersBuilder {
         return this;
     }
 
-    public PluginParametersBuilder setVerifyFail(String verifyFail) {
-        this.verifyFail = verifyFail;
+    public PluginParametersBuilder setVerifyFail(String verifyFail) throws MojoFailureException {
+        VerifyFailType verifyFailType = VerifyFailType.fromString(verifyFail);
+        this.verifyFailType = verifyFailType;
         return this;
     }
 
     public PluginParameters createPluginParameters() {
-        return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparator,
+        return new PluginParameters(pomFile, createBackupFile, backupFileExtension, encoding, lineSeparatorUtil,
                 expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines, predefinedSortOrder,
-                customSortOrderFile, sortDependencies, sortPlugins, sortProperties, verifyFail);
+                customSortOrderFile, sortDependencies, sortPlugins, sortProperties, verifyFailType);
     }
 }

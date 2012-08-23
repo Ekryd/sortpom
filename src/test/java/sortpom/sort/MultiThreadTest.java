@@ -1,7 +1,7 @@
 package sortpom.sort;
 
 import org.junit.Test;
-import sortpom.sort.util.SortOrderFilesUtil;
+import sortpom.util.SortPomImplUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class MultiThreadTest {
         @Override
         public Boolean call() {
             try {
-                SortOrderFilesUtil.create()
+                SortPomImplUtil.create()
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)

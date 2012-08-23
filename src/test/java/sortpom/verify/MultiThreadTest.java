@@ -1,7 +1,7 @@
 package sortpom.verify;
 
 import org.junit.Test;
-import sortpom.verify.util.VerifyOrderFilesUtil;
+import sortpom.util.SortPomImplUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 public class MultiThreadTest {
     private AtomicInteger counter = new AtomicInteger(1);
-    
+
     @Test
     public final void multipleSortingsShouldNotInterfereWithEachOther() throws InterruptedException, ExecutionException {
         ExecutorService executorService = new ScheduledThreadPoolExecutor(10);
@@ -66,16 +66,16 @@ public class MultiThreadTest {
         @Override
         public Boolean call() {
             try {
-                VerifyOrderFilesUtil.create()
+                SortPomImplUtil.create()
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)
                         .testVerifyXmlIsOrdered(expectedResourceFileName);
-                VerifyOrderFilesUtil.create()
+                SortPomImplUtil.create()
                         .lineSeparator("\n")
                         .testPomFileNameUniqueNumber(counter.getAndIncrement())
                         .predefinedSortOrder(predefinedSortOrder)
-                        .testVerifyXmlIsNotOrdered(inputResourceFileName, 
+                        .testVerifyXmlIsNotOrdered(inputResourceFileName,
                                 "The xml element <modelVersion> should be placed before <parent>");
             } catch (Exception e) {
                 e.printStackTrace();

@@ -35,13 +35,13 @@ public class ElementToStringTest {
                 .setPomFile(null).setBackupInfo(false, ".bak")
                 .setEncoding("UTF-8")
                 .setFormatting("\r\n", true, true)
-                .setIndent("  ", false)
+                .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
                 .setSortEntities(true, true, true).createPluginParameters();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);
-        
+
         String xml = IOUtils.toString(new FileInputStream("src/test/resources/" + inputFileName), UTF_8);
         SAXBuilder parser = new SAXBuilder();
         Document document = parser.build(new ByteArrayInputStream(xml.getBytes(UTF_8)));

@@ -1,13 +1,12 @@
-package sortpom.parameter;
+package sortpom.verify;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import sortpom.SortMojo;
 import sortpom.SortPomImpl;
+import sortpom.VerifyMojo;
 import sortpom.XmlProcessor;
+import sortpom.parameter.VerifyFailType;
 import sortpom.util.FileUtil;
 import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.ElementWrapperCreator;
@@ -18,14 +17,14 @@ import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
 
-public class PluginParametersTest {
-    @Mock
-    private File pomFile;
+public class VerifyMojoParametersTest {
+    private File pomFile = mock(File.class);
 
     private SortPomImpl sortPomImpl;
     private FileUtil fileUtil;
-    private SortMojo mojo;
+    private VerifyMojo verifyMojo;
     private XmlProcessor xmlProcessor;
     private WrapperFactoryImpl wrapperFactoryImpl;
     private ElementWrapperCreator elementWrapperCreator;
@@ -34,12 +33,12 @@ public class PluginParametersTest {
     @Before
     public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
             IllegalAccessException, MojoFailureException {
-        MockitoAnnotations.initMocks(this);
-        mojo = new SortMojo();
-        new ReflectionHelper(mojo).setField("lineSeparator", "\n");
-        new ReflectionHelper(mojo).setField("encoding", "UTF-8");
+        verifyMojo = new VerifyMojo();
+        new ReflectionHelper(verifyMojo).setField("lineSeparator", "\n");
+        new ReflectionHelper(verifyMojo).setField("encoding", "UTF-8");
+        new ReflectionHelper(verifyMojo).setField("verifyFail", "SORT");
 
-        sortPomImpl = new ReflectionHelper(mojo).getField(SortPomImpl.class);
+        sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
         fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);
         xmlProcessor = new ReflectionHelper(sortPomImpl).getField(XmlProcessor.class);
         wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
@@ -71,16 +70,12 @@ public class PluginParametersTest {
     public void lineSeparatorParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        new ReflectionHelper(mojo).executeMethod("setup");
-
         assertEquals("\r", new ReflectionHelper(xmlProcessor).getField("lineSeparatorUtil").toString());
     }
 
     @Test
     public void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() throws Exception {
-        new ReflectionHelper(mojo).setField("nrOfIndentSpace", 6);
-
-        new ReflectionHelper(mojo).executeMethod("setup");
+        testParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
         assertEquals("      ", new ReflectionHelper(xmlProcessor).getField("indentCharacters"));
     }
@@ -97,9 +92,7 @@ public class PluginParametersTest {
 
     @Test
     public void parameterSortOrderFileShouldEndUpInFileUtil() throws Exception {
-        new ReflectionHelper(mojo).setField("sortOrderFile", "sortOrderFile.gurka");
-
-        new ReflectionHelper(mojo).executeMethod("setup");
+        testParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
         Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
         assertEquals("sortOrderFile.gurka", actual);
@@ -130,12 +123,19 @@ public class PluginParametersTest {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", true, xmlProcessor);
     }
 
+    @Test
+    public void parameterVerifyFailShouldEndUpInXmlProcessor() throws Exception {
+        testParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
+
+        assertEquals(VerifyFailType.STOP, new ReflectionHelper(sortPomImpl).getField("verifyFailType"));
+    }
+
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
                                                               Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
             Exception {
-        new ReflectionHelper(mojo).setField(parameterName, parameterValue);
+        new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 
-        new ReflectionHelper(mojo).executeMethod("setup");
+        new ReflectionHelper(verifyMojo).executeMethod("setup");
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
@@ -146,9 +146,9 @@ public class PluginParametersTest {
     private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName, boolean parameterValue,
                                                                         Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
             Exception {
-        new ReflectionHelper(mojo).setField(parameterName, parameterValue);
+        new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 
-        new ReflectionHelper(mojo).executeMethod("setup");
+        new ReflectionHelper(verifyMojo).executeMethod("setup");
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);

@@ -1,8 +1,8 @@
 package sortpom.verify;
 
 import org.junit.Test;
+import sortpom.util.SortPomImplUtil;
 import sortpom.util.XmlProcessorTestUtil;
-import sortpom.verify.util.VerifyOrderFilesUtil;
 
 public class KeepBlankLinesTest {
     @Test
@@ -28,14 +28,14 @@ public class KeepBlankLinesTest {
 
     @Test
     public final void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
-        VerifyOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .keepBlankLines()
                 .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
 
     @Test
     public final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() throws Exception {
-        VerifyOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
                 .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
@@ -43,10 +43,10 @@ public class KeepBlankLinesTest {
 
     @Test
     public final void unsortedXmlAndIndentParameterShouldAffectVerify() throws Exception {
-        VerifyOrderFilesUtil.create()
+        SortPomImplUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
-                .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml", 
+                .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml",
                         "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
@@ -56,12 +56,12 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .testVerifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
     }
-    
+
     @Test
     public final void unsortedXmlShouldAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
-                .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml", 
+                .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml",
                         "The xml element <modelVersion> should be placed before <artifactId>");
     }
 }

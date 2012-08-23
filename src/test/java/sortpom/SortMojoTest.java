@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @since 2012-08-23
  */
 public class SortMojoTest {
-    private SortPomImpl sortPom = mock(SortPomImpl.class);
+    private final SortPomImpl sortPom = mock(SortPomImpl.class);
 
     @Test
     public void executeShouldStartMojo() throws Exception {

@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Encapsulates functionality to get indent characters from the nrOfIndentSpace
  * parameter
  */
-public class IndentCharacters {
+class IndentCharacters {
     /** Indicates that a tab character should be used instead of spaces. */
     private static final int INDENT_TAB = -1;
 

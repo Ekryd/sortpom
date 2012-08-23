@@ -13,7 +13,6 @@ import sortpom.util.FileUtil;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,7 +29,7 @@ public class ElementToStringTest {
         assertEquals(expected, getToStringOnRootElementWrapper("Real1_input.xml"));
     }
 
-    private String getToStringOnRootElementWrapper(String inputFileName) throws IllegalAccessException, MojoFailureException, IOException, UnsupportedEncodingException, JDOMException {
+    private String getToStringOnRootElementWrapper(String inputFileName) throws IllegalAccessException, MojoFailureException, IOException, JDOMException {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null).setBackupInfo(false, ".bak")
                 .setEncoding("UTF-8")

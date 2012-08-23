@@ -20,13 +20,12 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
 public class VerifyMojoParametersTest {
-    private File pomFile = mock(File.class);
+    private final File pomFile = mock(File.class);
 
     private SortPomImpl sortPomImpl;
     private FileUtil fileUtil;
     private VerifyMojo verifyMojo;
     private XmlProcessor xmlProcessor;
-    private WrapperFactoryImpl wrapperFactoryImpl;
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
 
@@ -41,7 +40,7 @@ public class VerifyMojoParametersTest {
         sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
         fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);
         xmlProcessor = new ReflectionHelper(sortPomImpl).getField(XmlProcessor.class);
-        wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
+        WrapperFactoryImpl wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
     }
@@ -131,7 +130,7 @@ public class VerifyMojoParametersTest {
     }
 
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
-                                                              Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
+                                                              Object... whereParameterCanBeFound) throws
             Exception {
         new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 
@@ -144,7 +143,7 @@ public class VerifyMojoParametersTest {
     }
 
     private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName, boolean parameterValue,
-                                                                        Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
+                                                                        Object... whereParameterCanBeFound) throws
             Exception {
         new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 

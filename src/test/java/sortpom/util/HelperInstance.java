@@ -12,7 +12,7 @@ import java.util.Date;
  * @param <T>
  * @author exbjek
  */
-public final class HelperInstance<T> {
+final class HelperInstance<T> {
     private final Class<T> clazz;
 
     private HelperInstance(final Class<T> clazz) {
@@ -93,7 +93,7 @@ public final class HelperInstance<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T getAnyInstance() throws InstantiationException {
+    T getAnyInstance() throws InstantiationException {
         Constructor<?>[] constructors = getSortedConstructors();
         for (Constructor<?> constructor : constructors) {
             try {
@@ -105,7 +105,7 @@ public final class HelperInstance<T> {
         throw new InstantiationException("Cannot instantiatiate class");
     }
 
-    public T getDefaultInstance(final boolean accessIfPrivate) throws SecurityException, NoSuchMethodException,
+    T getDefaultInstance(final boolean accessIfPrivate) throws SecurityException, NoSuchMethodException,
             IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Constructor<T> constructor = clazz.getDeclaredConstructor();
         if (accessIfPrivate) {

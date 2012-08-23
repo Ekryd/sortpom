@@ -24,12 +24,12 @@ import static org.junit.Assert.assertTrue;
  * @author bjorn
  * @since 2012-08-23
  */
-public class TestHandler {
+class TestHandler {
     static final String UTF_8 = "UTF-8";
 
-    private SortPomImpl sortPomImpl = new SortPomImpl();
+    private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    private List<CharSequence> infoLogger = new ArrayList<CharSequence>();
+    private final List<CharSequence> infoLogger = new ArrayList<CharSequence>();
     private final String inputResourceFileName;
     private final String expectedResourceFileName;
     private final File testpom;
@@ -39,7 +39,7 @@ public class TestHandler {
     private FileInputStream originalPomInputStream = null;
     private FileInputStream actualSortedPomInputStream = null;
     private FileInputStream expectedSortedPomInputStream = null;
-    private File backupFile;
+    private final File backupFile;
 
     public TestHandler(String inputResourceFileName, PluginParameters pluginParameters) {
         this(inputResourceFileName, null, pluginParameters);

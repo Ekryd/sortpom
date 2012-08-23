@@ -67,8 +67,7 @@ public class PluginParametersBuilder {
     }
 
     public PluginParametersBuilder setVerifyFail(String verifyFail) throws MojoFailureException {
-        VerifyFailType verifyFailType = VerifyFailType.fromString(verifyFail);
-        this.verifyFailType = verifyFailType;
+        this.verifyFailType = VerifyFailType.fromString(verifyFail);
         return this;
     }
 

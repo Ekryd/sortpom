@@ -14,6 +14,7 @@ import java.io.File;
  * @goal verify
  * @threadSafe true
  */
+@SuppressWarnings({"UnusedDeclaration", "JavaDoc"})
 public class VerifyMojo extends AbstractMojo {
     /**
      * This is the File instance that refers to the location of the pom that

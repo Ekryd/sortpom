@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static org.junit.Assert.assertEquals;
 
 public class MultiThreadTest {
-    private AtomicInteger counter = new AtomicInteger(1);
+    private final AtomicInteger counter = new AtomicInteger(1);
 
     @Test
     public final void multipleSortingsShouldNotInterfereWithEachOther() throws InterruptedException, ExecutionException {

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("unused")
 public class ReflectionHelperMethodTest {
-    private Instance0 instance = new Instance0();
+    private final Instance0 instance = new Instance0();
 
 
     @Test

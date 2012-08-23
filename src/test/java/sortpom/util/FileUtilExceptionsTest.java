@@ -87,8 +87,7 @@ public class FileUtilExceptionsTest {
         helper.setField("backupFile", backupFileMock);
         helper.setField("pomFile", pomFileMock);
         helper.setField("newName", "backupFileName");
-        FileUtil fileUtil = spy(originalFileUtil);
-        return fileUtil;
+        return spy(originalFileUtil);
     }
 
     private void doNotAccessRealBackupFile(FileUtil fileUtil) {

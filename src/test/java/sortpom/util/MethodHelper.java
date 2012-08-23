@@ -8,7 +8,7 @@ class MethodHelper {
     private boolean accessibleState;
     private final Method method;
 
-    public MethodHelper(Class<? extends Object> instanceClass, String methodName, Object... invocationValues) {
+    public MethodHelper(Class<?> instanceClass, String methodName, Object... invocationValues) {
         List<Method> methodMatches = getMatchingMethods(instanceClass, methodName, invocationValues);
         if (methodMatches.size() > 1) {
             throw new IllegalArgumentException(String.format("Found %s matches for method %s", methodMatches.size(),
@@ -17,7 +17,7 @@ class MethodHelper {
         method = methodMatches.get(0);
     }
 
-    private List<Method> getMatchingMethods(Class<? extends Object> instanceClass, String methodName, Object... invocationValues) {
+    private List<Method> getMatchingMethods(Class<?> instanceClass, String methodName, Object... invocationValues) {
         List<Method> methodMatches = getMethodNameMatches(instanceClass, methodName);
         if (methodMatches.size() == 0) {
             throw new IllegalArgumentException(String.format("Cannot find method named %s", methodName));
@@ -42,7 +42,7 @@ class MethodHelper {
         return methodMatches;
     }
 
-    private List<Method> getMethodNameMatches(Class<? extends Object> instanceClass, String methodName) {
+    private List<Method> getMethodNameMatches(Class<?> instanceClass, String methodName) {
         Method[] methods = instanceClass.getDeclaredMethods();
         List<Method> methodMatches = new ArrayList<Method>();
         for (Method method : methods) {

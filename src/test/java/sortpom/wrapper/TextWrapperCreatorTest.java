@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
  * @since 2012-06-19
  */
 public class TextWrapperCreatorTest {
-    private TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
+    private final TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
 
     @Before
     public void setup() throws MojoFailureException {

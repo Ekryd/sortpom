@@ -1,7 +1,6 @@
 package sortpom;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.maven.plugin.MojoFailureException;
 import org.jdom.Comment;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -10,9 +9,9 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import sortpom.jdomcontent.NewlineText;
+import sortpom.parameter.LineSeparatorUtil;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
-import sortpom.parameter.LineSeparatorUtil;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
 import sortpom.wrapper.WrapperFactory;
@@ -45,10 +44,8 @@ public class XmlProcessor {
 
     /**
      * Setup default configuration
-     *
-     * @throws MojoFailureException
      */
-    public void setup(PluginParameters pluginParameters) throws MojoFailureException {
+    public void setup(PluginParameters pluginParameters) {
         this.indentCharacters = pluginParameters.indentCharacters;
         this.lineSeparatorUtil = pluginParameters.lineSeparatorUtil;
         this.encoding = pluginParameters.encoding;

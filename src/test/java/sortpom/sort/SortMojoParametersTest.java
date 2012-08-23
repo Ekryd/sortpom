@@ -19,13 +19,12 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
 public class SortMojoParametersTest {
-    private File pomFile = mock(File.class);
+    private final File pomFile = mock(File.class);
 
     private SortPomImpl sortPomImpl;
     private FileUtil fileUtil;
     private SortMojo sortMojo;
     private XmlProcessor xmlProcessor;
-    private WrapperFactoryImpl wrapperFactoryImpl;
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
 
@@ -39,7 +38,7 @@ public class SortMojoParametersTest {
         sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
         fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);
         xmlProcessor = new ReflectionHelper(sortPomImpl).getField(XmlProcessor.class);
-        wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
+        WrapperFactoryImpl wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
     }
@@ -122,7 +121,7 @@ public class SortMojoParametersTest {
     }
 
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
-                                                              Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
+                                                              Object... whereParameterCanBeFound) throws
             Exception {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 
@@ -135,7 +134,7 @@ public class SortMojoParametersTest {
     }
 
     private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName, boolean parameterValue,
-                                                                        Object... whereParameterCanBeFound) throws NoSuchFieldException, IllegalAccessException,
+                                                                        Object... whereParameterCanBeFound) throws
             Exception {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 

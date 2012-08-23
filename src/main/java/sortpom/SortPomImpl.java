@@ -43,7 +43,7 @@ public class SortPomImpl {
         xmlProcessor = new XmlProcessor(wrapperFactory);
     }
 
-    public void setup(Log log, PluginParameters pluginParameters) throws MojoFailureException {
+    public void setup(Log log, PluginParameters pluginParameters) {
         this.log = log;
         fileUtil.setup(pluginParameters);
         wrapperFactory.setup(pluginParameters);

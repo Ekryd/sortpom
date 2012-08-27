@@ -141,11 +141,11 @@ class TestHandler {
         sortPomImpl.sortPom();
     }
 
-    public boolean performVerify() throws IOException, MojoFailureException {
+    public XmlOrderedResult performVerify() throws IOException, MojoFailureException {
         try {
             removeOldTemporaryFiles();
             FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-            boolean verifyOk = isVerifyOk();
+            XmlOrderedResult verifyOk = isVerifyOk();
 
             assertTrue(testpom.exists());
             return verifyOk;
@@ -184,7 +184,7 @@ class TestHandler {
         sortPomImpl.verifyPom();
     }
 
-    private boolean isVerifyOk() throws MojoFailureException {
+    private XmlOrderedResult isVerifyOk() throws MojoFailureException {
         sortPomImpl.setup(
                 createDummyMojo().getLog(),
                 pluginParameters);

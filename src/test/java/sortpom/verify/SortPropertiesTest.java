@@ -48,7 +48,7 @@ public class SortPropertiesTest {
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
-                        "[INFO] The xml element <project.build.sourceEncoding> should be placed before <other>");
+                        "The xml element <project.build.sourceEncoding> should be placed before <other>");
     }
 
     @Test
@@ -58,7 +58,7 @@ public class SortPropertiesTest {
                 .lineSeparator("\n")
                 .predefinedSortOrder("custom_1")
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
-                        "[INFO] The xml element <another> should be placed before <other>");
+                        "The xml element <another> should be placed before <other>");
     }
 
     @Test
@@ -68,7 +68,7 @@ public class SortPropertiesTest {
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
-                        "[INFO] The xml element <project.build.sourceEncoding> should be placed before <other>");
+                        "The xml element <project.build.sourceEncoding> should be placed before <other>");
     }
 
     @Test
@@ -79,6 +79,6 @@ public class SortPropertiesTest {
                 .sortDependencies()
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortProp_input.xml",
-                        "[INFO] The xml element <commons.beanutils.version> should be placed before <commons.io.version>");
+                        "The xml element <commons.beanutils.version> should be placed before <commons.io.version>");
     }
 }

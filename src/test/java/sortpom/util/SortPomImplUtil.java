@@ -56,15 +56,17 @@ public class SortPomImplUtil {
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
-        assertEquals("Expected that xml is ordered, ", true, testHandler.performVerify());
+        XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
+        assertEquals("Expected that xml is ordered, ", true, xmlOrderedResult.isOrdered());
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputResourceFileName, CharSequence warningMessage)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
-        assertEquals("Expected that xml is not ordered, ", false, testHandler.performVerify());
-        assertEquals(warningMessage, testHandler.getInfoLogger().get(0));
+        XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
+        assertEquals("Expected that xml is not ordered, ", false, xmlOrderedResult.isOrdered());
+        assertEquals(warningMessage, xmlOrderedResult.getMessage());
     }
 
     public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName, String warningMessage)

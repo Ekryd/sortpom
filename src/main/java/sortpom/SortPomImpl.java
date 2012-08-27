@@ -136,35 +136,35 @@ public class SortPomImpl {
         String pomFileName = pomFile.getAbsolutePath();
         log.info("Verifying file " + pomFileName);
 
-        if (!isPomElementsSorted()) {
+        XmlOrderedResult xmlOrderedResult = isPomElementsSorted();
+        if (!xmlOrderedResult.isOrdered()) {
             switch (verifyFailType) {
                 case WARN:
+                    log.warn(xmlOrderedResult.getMessage());
                     log.warn(String.format("The file %s is not sorted", pomFileName));
                     break;
                 case SORT:
+                    log.info(xmlOrderedResult.getMessage());
                     log.info(String.format("The file %s is not sorted", pomFileName));
                     sortPom();
                     break;
                 case STOP:
+                    log.error(xmlOrderedResult.getMessage());
                     log.error(String.format("The file %s is not sorted", pomFileName));
                     throw new MojoFailureException(String.format("The file %s is not sorted", pomFileName));
                 default:
+                    log.error(xmlOrderedResult.getMessage());
                     throw new IllegalStateException(verifyFailType.toString());
             }
         }
     }
 
-    public boolean isPomElementsSorted() throws MojoFailureException {
+    public XmlOrderedResult isPomElementsSorted() throws MojoFailureException {
         String originalXml = fileUtil.getPomFileContent();
         insertXmlInXmlProcessor(originalXml, "Could not verify pom files content: ");
         xmlProcessor.sortXml();
 
-        XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
-        if (!xmlOrdered.isOrdered()) {
-            log.info(xmlOrdered.getMessage());
-        }
-
-        return xmlOrdered.isOrdered();
+        return xmlProcessor.isXmlOrdered();
     }
 
     private void insertXmlInXmlProcessor(final String xml, String errorMsg) throws MojoFailureException {

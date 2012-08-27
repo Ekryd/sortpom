@@ -47,7 +47,7 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .indentBLankLines()
                 .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml",
-                        "[INFO] The xml element <modelVersion> should be placed before <artifactId>");
+                        "The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test

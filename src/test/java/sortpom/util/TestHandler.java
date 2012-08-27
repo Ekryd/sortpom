@@ -222,7 +222,15 @@ class TestHandler {
                 return new DefaultLog(null) {
                     @Override
                     public void info(CharSequence content) {
-                        infoLogger.add(content);
+                        infoLogger.add("[INFO] " + content);
+                    }
+                    @Override
+                    public void warn(CharSequence content) {
+                        infoLogger.add("[WARNING] " + content);
+                    }
+                    @Override
+                    public void error(CharSequence content) {
+                        infoLogger.add("[ERROR] " + content);
                     }
                 };
             }

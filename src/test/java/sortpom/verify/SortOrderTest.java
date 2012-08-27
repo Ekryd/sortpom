@@ -71,49 +71,49 @@ public class SortOrderTest {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml",
-                        "The xml element <modelVersion> should be placed before <parent>");
+                        "[INFO] The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test
     public final void testSortXmlCharacterShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/Character_input.xml",
-                        "The xml element <modelVersion> should be placed before <artifactId>");
+                        "[INFO] The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlComplexShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/Complex_input.xml",
-                        "The xml element <modelVersion> should be placed before <artifactId>");
+                        "[INFO] The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlFullFromAlfabeticalOrderShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/full_alfa_input.xml",
-                        "The xml element <modelVersion> should be placed before <artifactId>");
+                        "[INFO] The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
     public final void testSortXmlFullShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml",
-                        "The xml element <modelVersion> should be placed before <parent>");
+                        "[INFO] The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test
     public final void testSortXmlReal1ShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/Real1_input.xml",
-                        "The xml element <version> should be placed before <name>");
+                        "[INFO] The xml element <version> should be placed before <name>");
     }
 
     @Test
     public final void testSortXmlSimpleShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/Simple_input.xml",
-                        "The xml element <modelVersion> should be placed before <artifactId>");
+                        "[INFO] The xml element <modelVersion> should be placed before <artifactId>");
     }
 
     @Test
@@ -121,7 +121,7 @@ public class SortOrderTest {
         SortPomImplUtil.create()
                 .sortDependencies()
                 .testVerifyXmlIsNotOrdered("/SortDepSimple_input.xml",
-                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+                        "[INFO] The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
 
     @Test
@@ -129,7 +129,7 @@ public class SortOrderTest {
         SortPomImplUtil.create()
                 .sortDependencies()
                 .testVerifyXmlIsNotOrdered("/SortDepSimple2_input.xml",
-                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+                        "[INFO] The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
 
     @Test
@@ -137,7 +137,7 @@ public class SortOrderTest {
         SortPomImplUtil.create()
                 .sortDependencies()
                 .testVerifyXmlIsNotOrdered("/SortDepSimple3_input.xml",
-                        "The xml element <dependency> with 2 child elements should be placed before element <dependency> with 4 child elements");
+                        "[INFO] The xml element <dependency> with 2 child elements should be placed before element <dependency> with 4 child elements");
     }
 
     @Test
@@ -146,6 +146,6 @@ public class SortOrderTest {
                 .sortDependencies()
                 .sortPlugins()
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",
-                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+                        "[INFO] The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
 }

@@ -133,18 +133,21 @@ public class SortPomImpl {
      * @throws MojoFailureException thrown if pom-file is not sorted
      */
     public void verifyPom() throws MojoFailureException {
-        log.info("Verifying file " + pomFile.getAbsolutePath());
+        String pomFileName = pomFile.getAbsolutePath();
+        log.info("Verifying file " + pomFileName);
 
         if (!isPomElementsSorted()) {
             switch (verifyFailType) {
                 case WARN:
-                    // The warning should already been sent
+                    log.warn(String.format("The file %s is not sorted", pomFileName));
                     break;
                 case SORT:
+                    log.info(String.format("The file %s is not sorted", pomFileName));
                     sortPom();
                     break;
                 case STOP:
-                    throw new MojoFailureException(String.format("The file %s was not sorted", pomFile.getAbsolutePath()));
+                    log.error(String.format("The file %s is not sorted", pomFileName));
+                    throw new MojoFailureException(String.format("The file %s is not sorted", pomFileName));
                 default:
                     throw new IllegalStateException(verifyFailType.toString());
             }

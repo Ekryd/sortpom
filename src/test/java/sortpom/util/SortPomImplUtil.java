@@ -49,7 +49,7 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
         testHandler.performNoSortTest();
-        assertEquals("Pom file is already sorted, exiting", testHandler.getInfoLogger().get(1));
+        assertEquals("[INFO] Pom file is already sorted, exiting", testHandler.getInfoLogger().get(1));
     }
 
     public void testVerifyXmlIsOrdered(final String inputResourceFileName)
@@ -67,14 +67,18 @@ public class SortPomImplUtil {
         assertEquals(warningMessage, testHandler.getInfoLogger().get(0));
     }
 
-    public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName)
+    public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName, String warningMessage)
             throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performTestThatSorted();
+        assertEquals("[INFO] Verifying file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml", testHandler.getInfoLogger().get(0));
+        assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
+        assertEquals("[INFO] The file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml is not sorted", testHandler.getInfoLogger().get(2));
+        assertEquals("[INFO] Sorting file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml", testHandler.getInfoLogger().get(3));
     }
 
-    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass) throws MojoFailureException {
+    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass, String warningMessage) throws MojoFailureException {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         try {
@@ -82,6 +86,9 @@ public class SortPomImplUtil {
             fail();
         } catch (Exception e) {
             assertEquals(expectedExceptionClass, e.getClass());
+            assertEquals("[INFO] Verifying file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml", testHandler.getInfoLogger().get(0));
+            assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
+            assertEquals("[ERROR] The file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml is not sorted", testHandler.getInfoLogger().get(2));
         }
     }
 
@@ -89,7 +96,9 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
         testHandler.performTestThatDidNotSort();
+        assertEquals("[INFO] Verifying file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml", testHandler.getInfoLogger().get(0));
         assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
+        assertEquals("[WARNING] The file /Users/bjorn/Documents/workspace/SortPom/src/test/resources/testpom.xml is not sorted", testHandler.getInfoLogger().get(2));
     }
 
     public SortPomImplUtil nrOfIndentSpace(int indent) {

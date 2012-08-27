@@ -18,7 +18,7 @@ public class SortOrderFilesTest {
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml",
-                        "The xml element <modelVersion> should be placed before <parent>");
+                        "[INFO] The xml element <modelVersion> should be placed before <parent>");
     }
 
     @Test

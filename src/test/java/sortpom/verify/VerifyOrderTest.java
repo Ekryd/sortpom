@@ -9,6 +9,7 @@ import sortpom.util.SortPomImplUtil;
  * @since 2012-07-01
  */
 public class VerifyOrderTest {
+
     @Test
     public final void sortedButUnformattedSortOrderShouldPass() throws Exception {
         SortPomImplUtil.create()
@@ -21,27 +22,27 @@ public class VerifyOrderTest {
         SortPomImplUtil.create()
                 .predefinedSortOrder("custom_1")
                 .testVerifyXmlIsNotOrdered("/Real2_input.xml",
-                        "The xml element <properties> should be placed before <inceptionYear>");
+                        "[INFO] The xml element <properties> should be placed before <inceptionYear>");
     }
 
     @Test
     public void unsortedDefaultVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
-                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml");
+                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>");
     }
 
     @Test
     public void unsortedSortVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
                 .verifyFail("SORT")
-                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml");
+                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>");
     }
 
     @Test
     public void unsortedStopVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
                 .verifyFail("STOP")
-                .testVerifyFail("/Real1_input.xml", MojoFailureException.class);
+                .testVerifyFail("/Real1_input.xml", MojoFailureException.class, "[INFO] The xml element <version> should be placed before <name>");
     }
 
     @Test
@@ -49,7 +50,7 @@ public class VerifyOrderTest {
         SortPomImplUtil.create()
                 .verifyFail("WARN")
                 .testVerifyWarn("/Real1_input.xml",
-                        "The xml element <version> should be placed before <name>");
+                        "[INFO] The xml element <version> should be placed before <name>");
     }
 
 }

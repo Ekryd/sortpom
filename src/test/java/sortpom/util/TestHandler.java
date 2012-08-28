@@ -29,7 +29,7 @@ class TestHandler {
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    private final List<CharSequence> infoLogger = new ArrayList<CharSequence>();
+    private final List<String> infoLogger = new ArrayList<String>();
     private final String inputResourceFileName;
     private final String expectedResourceFileName;
     private final File testpom;
@@ -53,7 +53,7 @@ class TestHandler {
         backupFile = new File(testpom.getAbsolutePath() + pluginParameters.backupFileExtension);
     }
 
-    public List<CharSequence> getInfoLogger() {
+    public List<String> getInfoLogger() {
         return infoLogger;
     }
 

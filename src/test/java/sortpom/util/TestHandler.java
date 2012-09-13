@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -79,6 +81,7 @@ class TestHandler {
 
             expectedSortedPomInputStream = new FileInputStream("src/test/resources/" + expectedResourceFileName);
             String expectedSorted = IOUtils.toString(expectedSortedPomInputStream, UTF_8);
+            assertThat(actualSorted, is(expectedSorted));
             assertEquals(expectedSorted, actualSorted);
         } finally {
             cleanupAfterTest();

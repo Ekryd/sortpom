@@ -146,6 +146,6 @@ public class SortOrderTest {
                 .sortDependencies()
                 .sortPlugins()
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",
-                        "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
+                        "The xml element <groupId>cheesymock</groupId> should be placed before <groupId>junit</groupId>");
     }
 }

@@ -32,6 +32,15 @@ public class SortOrderFilesTest {
     }
 
     @Test
+    public final void custom2ShouldWorkAsPredefinedSortOrder() throws Exception {
+        SortPomImplUtil.create()
+                .predefinedSortOrder("custom_2")
+                .lineSeparator("\n")
+                .testFiles("/full_unsorted_input.xml",
+                        "/sortOrderFiles/sorted_custom_1.xml");
+    }
+
+    @Test
     public final void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("recommended_2008_06")

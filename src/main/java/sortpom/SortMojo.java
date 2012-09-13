@@ -105,6 +105,13 @@ public class SortMojo extends AbstractMojo {
     private boolean sortDependencies;
 
     /**
+     * Should dependencies be sorted by scope. Scope sort order is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
+     *
+     * @parameter expression="${sort.sortDependenciesByScope}" default-value="false"
+     */
+    private boolean sortDependenciesByScope;
+
+    /**
      * Should plugins be sorted by groupId and artifactId.
      *
      * @parameter expression="${sort.sortPlugins}" default-value="false"
@@ -144,7 +151,7 @@ public class SortMojo extends AbstractMojo {
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
+                .setSortEntities(sortDependencies, sortDependenciesByScope, sortPlugins, sortProperties).createPluginParameters();
         sortPomImpl.setup(getLog(), pluginParameters);
     }
 

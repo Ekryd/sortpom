@@ -10,6 +10,7 @@ import sortpom.parameter.PluginParameters;
  */
 public class ElementWrapperCreator {
     private boolean sortDependencies;
+    private boolean sortDependenciesByScope;
     private boolean sortPlugins;
     private boolean sortProperties;
     private final ElementSortOrderMap elementNameSortOrderMap;
@@ -23,16 +24,22 @@ public class ElementWrapperCreator {
         this.sortDependencies = pluginParameters.sortDependencies;
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
+        this.sortDependenciesByScope = pluginParameters.sortDependenciesByScope;
     }
 
     public Wrapper<Element> createWrapper(Element element) {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {
             if (isDependencyElement(element)) {
-                return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                GroupAndArtifactSortedWrapper groupAndArtifactSortedWrapper = new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                groupAndArtifactSortedWrapper.setSortByScope(sortDependenciesByScope);
+                groupAndArtifactSortedWrapper.setSortByName(sortDependencies);
+                return groupAndArtifactSortedWrapper;
             }
             if (isPluginElement(element)) {
-                return new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                GroupAndArtifactSortedWrapper groupAndArtifactSortedWrapper = new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                groupAndArtifactSortedWrapper.setSortByName(sortPlugins);
+                return groupAndArtifactSortedWrapper;
             }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         }
@@ -43,7 +50,7 @@ public class ElementWrapperCreator {
     }
 
     private boolean isDependencyElement(final Element element) {
-        if (!sortDependencies) {
+        if (!sortDependencies && !sortDependenciesByScope) {
             return false;
         }
         return isElementName(element, "dependency") && isElementParentName(element, "dependencies");

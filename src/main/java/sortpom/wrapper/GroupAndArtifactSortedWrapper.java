@@ -11,6 +11,9 @@ import org.jdom.Element;
 public class GroupAndArtifactSortedWrapper extends SortedWrapper {
     private final String groupId;
     private final String artifactId;
+    private final Scope scope;
+    private boolean sortByName;
+    private boolean sortByScope;
 
     /**
      * Instantiates a new group and artifact sorted wrapper with a dependency or plugin element.
@@ -22,6 +25,15 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         super(element, sortOrder);
         this.groupId = element.getChildText("groupId", element.getNamespace());
         this.artifactId = element.getChildText("artifactId", element.getNamespace());
+        this.scope = Scope.getScope(element.getChildText("scope", element.getNamespace()));
+    }
+
+    public void setSortByName(boolean sortByName) {
+        this.sortByName = sortByName;
+    }
+
+    public void setSortByScope(boolean sortByScope) {
+        this.sortByScope = sortByScope;
     }
 
     @Override
@@ -37,12 +49,23 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
         if (wrapper.getSortOrder() != getSortOrder()) {
             return super.isBefore(wrapper);
         }
-        int compare = compareStrings(groupId, wrapper.groupId);
-        if (compare != 0) {
-            return compare < 0;
+        int compare = 0;
+        if (sortByScope) {
+            compare = scope.compareTo(wrapper.scope);
         }
-        compare = compareStrings(artifactId, wrapper.artifactId);
+        if (compare == 0 && sortByName) {
+            compare = compareByName(wrapper.groupId, wrapper.artifactId);
+        }
+
         return compare < 0;
+    }
+
+    private int compareByName(String otherGroupId, String otherArtifactId) {
+        int compare = compareStrings(groupId, otherGroupId);
+        if (compare != 0) {
+            return compare;
+        }
+        return compareStrings(artifactId, otherArtifactId);
     }
 
 
@@ -62,5 +85,22 @@ public class GroupAndArtifactSortedWrapper extends SortedWrapper {
                 "groupId='" + groupId + '\'' +
                 ", artifactId='" + artifactId + '\'' +
                 '}';
+    }
+
+    private enum Scope {
+        COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT, TEST, OTHER;
+
+        public static Scope getScope(String scope) {
+            if (scope == null || scope.isEmpty()) {
+                return COMPILE;
+            }
+            Scope[] values = Scope.values();
+            for (Scope value : values) {
+                if (scope.equalsIgnoreCase(value.name())) {
+                    return value;
+                }
+            }
+            return OTHER;
+        }
     }
 }

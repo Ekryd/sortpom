@@ -35,8 +35,8 @@ public class SortPropertiesTest {
     public final void sortingOfFullPomFileShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins()
-                .sortDependencies()
+                .sortPlugins("true")
+                .sortDependencies("true")
                 .lineSeparator("\n")
                 .testFiles("/SortProp_input.xml", "/SortProp_expected.xml");
     }

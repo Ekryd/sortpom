@@ -18,9 +18,8 @@ public class SortPomImplUtil {
     private TestHandler testHandler;
 
     private String defaultOrderFileName = "default_0_4_0.xml";
-    private boolean sortDependencies = false;
-    private boolean sortDependenciesByScope = false;
-    private boolean sortPlugins = false;
+    private String sortDependencies = "";
+    private String sortPlugins = "";
     private boolean sortProperties = false;
     private String predefinedSortOrder = "";
     private String lineSeparator = "\r\n";
@@ -125,18 +124,13 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil sortDependencies() {
-        sortDependencies = true;
+    public SortPomImplUtil sortDependencies(String sortOrder) {
+        sortDependencies = sortOrder;
         return this;
     }
 
-    public SortPomImplUtil sortDependenciesByScope() {
-        sortDependenciesByScope = true;
-        return this;
-    }
-
-    public SortPomImplUtil sortPlugins() {
-        sortPlugins = true;
+    public SortPomImplUtil sortPlugins(String sortOrder) {
+        sortPlugins = sortOrder;
         return this;
     }
 
@@ -194,7 +188,7 @@ public class SortPomImplUtil {
                 .setFormatting(lineSeparator,
                         true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortDependenciesByScope, sortPlugins, sortProperties)
+                .setSortEntities(sortDependencies, sortPlugins, sortProperties)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .createPluginParameters();

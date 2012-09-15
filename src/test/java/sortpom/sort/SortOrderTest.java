@@ -61,24 +61,24 @@ public class SortOrderTest {
     @Test
     public final void testSortWithDependencySortSimple() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies()
-                .sortPlugins()
+                .sortDependencies("true")
+                .sortPlugins("true")
                 .testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml");
     }
 
     @Test
     public final void testSortWithDependencySortFull() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies()
-                .sortPlugins()
+                .sortDependencies("true")
+                .sortPlugins("true")
                 .testFiles("/SortDep_input.xml", "/SortDep_expected.xml");
     }
 
     @Test
     public final void sortedFileShouldNotBeSorted() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies()
-                .sortPlugins()
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testNoSorting("/SortDep_expected.xml");
     }
 

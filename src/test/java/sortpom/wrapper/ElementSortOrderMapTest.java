@@ -75,7 +75,7 @@ public class ElementSortOrderMapTest {
 
     private void addSortOrder(Element element) {
         map.addElement(element, sortOrderCounter++);
-        List<Element> children = element.getChildren();
+        List<Element> children = (List<Element>) element.getChildren();
         for (Element child : children) {
             addSortOrder(child);
         }

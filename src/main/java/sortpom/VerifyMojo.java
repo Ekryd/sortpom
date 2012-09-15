@@ -39,25 +39,21 @@ public class VerifyMojo extends AbstractMojo {
     private String sortOrderFile;
 
     /**
-     * Should dependencies be sorted by groupId and artifactId.
+     * Comma-separated ordered list how dependencies should be sorted. Example: scope,groupId,artifactId
+     * If scope is specified in the list then the scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
+     * The list can be seprated by ,;:
      *
-     * @parameter expression="${sort.sortDependencies}" default-value="false"
+     * @parameter expression="${sort.sortDependencies}" default-value=""
      */
-    private boolean sortDependencies;
+    private String sortDependencies;
 
     /**
-     * Should dependencies be sorted by scope. Scope sort order is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
+     * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
+     * The list can be seprated by ,;:
      *
-     * @parameter expression="${sort.sortDependenciesByScope}" default-value="false"
+     * @parameter expression="${sort.sortPlugins}" default-value=""
      */
-    private boolean sortDependenciesByScope;
-
-    /**
-     * Should plugins be sorted by groupId and artifactId.
-     *
-     * @parameter expression="${sort.sortPlugins}" default-value="false"
-     */
-    private boolean sortPlugins;
+    private String sortPlugins;
 
     /**
      * Should the Maven pom properties be sorted alphabetically. Affects both
@@ -161,7 +157,7 @@ public class VerifyMojo extends AbstractMojo {
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBlankLines)
                 .setSortOrder(sortOrderFile, predefinedSortOrder)
-                .setSortEntities(sortDependencies, sortDependenciesByScope, sortPlugins, sortProperties)
+                .setSortEntities(sortDependencies, sortPlugins, sortProperties)
                 .setVerifyFail(verifyFail)
                 .createPluginParameters();
         sortPomImpl.setup(getLog(), pluginParameters);

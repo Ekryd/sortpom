@@ -14,8 +14,10 @@ import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.File;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class SortMojoParametersTest {
@@ -97,12 +99,18 @@ public class SortMojoParametersTest {
 
     @Test
     public void parameterSortDependenciesShouldEndUpInElementWrapperCreator() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortDependencies", true, elementWrapperCreator);
+        testParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
+
+        Object sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
+        assertThat(sortDependencies.toString(), is("DependencySortOrder{childElementNames=[groupId, scope]}"));
     }
 
     @Test
     public void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortPlugins", true, elementWrapperCreator);
+        testParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
+
+        Object sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
+        assertThat(sortDependencies.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
     }
 
     @Test

@@ -15,9 +15,8 @@ public class PluginParametersBuilder {
     private boolean expandEmptyElements;
     private String predefinedSortOrder;
     private String customSortOrderFile;
-    private boolean sortDependencies;
-    private boolean sortDependenciesByScope;
-    private boolean sortPlugins;
+    private DependencySortOrder sortDependencies;
+    private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean keepBlankLines;
     private VerifyFailType verifyFailType;
@@ -59,11 +58,10 @@ public class PluginParametersBuilder {
         return this;
     }
 
-    public PluginParametersBuilder setSortEntities(final boolean sortDependencies, boolean sortDependenciesByScope,
-                                                   final boolean sortPlugins, final boolean sortProperties) {
-        this.sortDependencies = sortDependencies;
-        this.sortDependenciesByScope = sortDependenciesByScope;
-        this.sortPlugins = sortPlugins;
+    public PluginParametersBuilder setSortEntities(final String sortDependencies,
+                                                   final String sortPlugins, final boolean sortProperties) {
+        this.sortDependencies = new DependencySortOrder(sortDependencies);
+        this.sortPlugins = new DependencySortOrder(sortPlugins);
         this.sortProperties = sortProperties;
         return this;
     }
@@ -77,7 +75,7 @@ public class PluginParametersBuilder {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension,
                 encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                 predefinedSortOrder, customSortOrderFile,
-                sortDependencies, sortDependenciesByScope, sortPlugins, sortProperties,
+                sortDependencies, sortPlugins, sortProperties,
                 verifyFailType);
     }
 }

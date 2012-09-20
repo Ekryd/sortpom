@@ -6,6 +6,7 @@ import sortpom.parameter.PluginParametersBuilder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
@@ -45,6 +46,14 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performTest();
+    }
+
+    public List<String> testFilesAndReturnLogs(final String inputResourceFileName, final String expectedResourceFileName)
+            throws IOException, NoSuchFieldException, IllegalAccessException, MojoFailureException {
+        setup();
+        testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
+        testHandler.performTest();
+        return testHandler.getInfoLogger();
     }
 
     public void testNoSorting(final String inputResourceFileName)

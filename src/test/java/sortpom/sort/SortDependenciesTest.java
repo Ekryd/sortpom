@@ -32,13 +32,4 @@ public class SortDependenciesTest {
                 .testFiles("/SortDep_input_simpleWithScope.xml", "/SortDep_expected_simpleWithScope2.xml");
     }
 
-    @Test
-    public final void custom2ShouldWorkAsPredefinedSortOrder() throws Exception {
-        SortPomImplUtil.create()
-                .predefinedSortOrder("custom_2")
-                .lineSeparator("\r\n")
-                .testFiles("/SortDep_input.xml",
-                        "/SortDep_expected_withScope.xml");
-    }
-
 }

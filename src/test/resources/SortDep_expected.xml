@@ -33,17 +33,6 @@
   </dependencies>
   <build>
     <plugins>
-      <!-- test3 -->
-      <plugin>
-        <groupId></groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
-      </plugin>
-      <!-- test4 -->
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
-      </plugin>
       <!-- test1 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -63,6 +52,17 @@
           <source>${compileSource}</source>
           <target>${compileSource}</target>
         </configuration>
+      </plugin>
+      <!-- test3 -->
+      <plugin>
+        <groupId></groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0.2</version>
+      </plugin>
+      <!-- test4 -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0.2</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -148,4 +148,6 @@ public class SortOrderTest {
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",
                         "The xml element <groupId>cheesymock</groupId> should be placed before <groupId>junit</groupId>");
     }
+    
+    
 }

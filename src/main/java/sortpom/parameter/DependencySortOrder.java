@@ -38,8 +38,8 @@ public class DependencySortOrder {
         return childElementNameList.equalsIgnoreCase("false");
     }
 
-    public boolean hasSortValues() {
-        return getChildElementNames().length != 0;
+    public boolean isNoSorting() {
+        return getChildElementNames().length == 0;
     }
 
     @Override

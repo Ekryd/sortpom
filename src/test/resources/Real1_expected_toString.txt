@@ -113,7 +113,7 @@ GroupWrapper{
       UnsortedWrapper{content=[NewLine]}
       , children=
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-compiler-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-compiler-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -161,7 +161,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-eclipse-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-eclipse-plugin]}}
         , otherContentList=
         UnsortedWrapper{content=[NewLine]}
         , children=
@@ -225,7 +225,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -289,7 +289,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-jar-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-jar-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -333,7 +333,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-resources-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-resources-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -433,7 +433,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-site-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-site-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -468,7 +468,7 @@ GroupWrapper{
     UnsortedWrapper{content=[NewLine]}
     , children=
     GroupWrapper{
-      elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[, org.jdom, jdom]}
+      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[, org.jdom, jdom]}}
       , children=
       GroupWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -496,7 +496,7 @@ GroupWrapper{
         }
       }
     GroupWrapper{
-      elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[test, junit, junit]}
+      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, junit, junit]}}
       , otherContentList=
       UnsortedWrapper{content=[NewLine]}
       , children=
@@ -534,7 +534,7 @@ GroupWrapper{
         }
       }
     GroupWrapper{
-      elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[test, cglib, cglib]}
+      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, cglib, cglib]}}
       , children=
       GroupWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -570,7 +570,7 @@ GroupWrapper{
         }
       }
     GroupWrapper{
-      elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[test, cheesymock, cheesymock]}
+      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, cheesymock, cheesymock]}}
       , children=
       GroupWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -615,7 +615,7 @@ GroupWrapper{
       elementContent=SortedWrapper{element=[Element: <plugins [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
       , children=
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-checkstyle-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-checkstyle-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -655,7 +655,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.codehaus.mojo, findbugs-maven-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, findbugs-maven-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -683,7 +683,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.codehaus.mojo, cobertura-maven-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, cobertura-maven-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -711,7 +711,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -739,7 +739,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-pmd-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-pmd-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -795,7 +795,7 @@ GroupWrapper{
           }
         }
       GroupWrapper{
-        elementContent=GroupAndArtifactSortedWrapper{childElementTexts=[org.apache.maven.plugins, maven-jxr-plugin]}
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-jxr-plugin]}}
         , children=
         GroupWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}

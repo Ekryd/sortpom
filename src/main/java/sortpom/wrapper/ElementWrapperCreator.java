@@ -29,14 +29,14 @@ public class ElementWrapperCreator {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {
             if (isDependencyElement(element)) {
-                GroupAndArtifactSortedWrapper groupAndArtifactSortedWrapper = new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-                groupAndArtifactSortedWrapper.setSortOrder(sortDependencies.getChildElementNames());
-                return groupAndArtifactSortedWrapper;
+                DependencySortedWrapper dependencySortedWrapper = new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                dependencySortedWrapper.setSortOrder(sortDependencies);
+                return dependencySortedWrapper;
             }
             if (isPluginElement(element)) {
-                GroupAndArtifactSortedWrapper groupAndArtifactSortedWrapper = new GroupAndArtifactSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-                groupAndArtifactSortedWrapper.setSortOrder(sortPlugins.getChildElementNames());
-                return groupAndArtifactSortedWrapper;
+                PluginSortedWrapper pluginSortedWrapper = new PluginSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                pluginSortedWrapper.setSortOrder(sortPlugins);
+                return pluginSortedWrapper;
             }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         }
@@ -47,14 +47,14 @@ public class ElementWrapperCreator {
     }
 
     private boolean isDependencyElement(final Element element) {
-        if (!sortDependencies.hasSortValues()) {
+        if (sortDependencies.isNoSorting()) {
             return false;
         }
         return isElementName(element, "dependency") && isElementParentName(element, "dependencies");
     }
 
     private boolean isPluginElement(final Element element) {
-        if (!sortPlugins.hasSortValues()) {
+        if (sortPlugins.isNoSorting()) {
             return false;
         }
         if (isElementName(element, "plugin")) {

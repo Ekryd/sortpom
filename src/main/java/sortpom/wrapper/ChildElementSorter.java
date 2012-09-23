@@ -32,12 +32,11 @@ public class ChildElementSorter {
         Map<String, Element> childrenMap = getChildrenMappedByUpperCaseName(children);
         List<String> childElementNameList = new ArrayList<String>();
 
-        for (int i = 0, childElementNamesLength = childElementNames.length; i < childElementNamesLength; i++) {
-            String childElementName = childElementNames[i];
-            childElementNameList.add( getChildText(childrenMap, childElementName));
+        for (String childElementName : childElementNames) {
+            childElementNameList.add(getChildText(childrenMap, childElementName));
         }
         
-        return childElementNameList.toArray(new String[0]);
+        return childElementNameList.toArray(new String[childElementNameList.size()]);
     }
 
     @SuppressWarnings("unchecked")

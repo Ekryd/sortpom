@@ -173,6 +173,11 @@
           </dependency>
         </dependencies>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
 
       <!-- Site generation -->
       <plugin>
@@ -268,8 +273,8 @@
   </developers>
 
   <scm>
-    <connection>scm:svn:http://sortpom.googlecode.com/svn/trunk/</connection>
-    <developerConnection>scm:svn:https://sortpom.googlecode.com/svn/trunk/</developerConnection>
+    <connection>scm:git:https://code.google.com/p/sortpom/</connection>
+    <developerConnection>scm:git:https://code.google.com/p/sortpom/</developerConnection>
     <url>http://code.google.com/p/sortpom/source/browse/</url>
   </scm>
   <issueManagement>

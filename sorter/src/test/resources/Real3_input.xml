@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <groupId>org.test</groupId>
+    <artifactId>sort-pom-test</artifactId>
+    <version>1.0</version>
+
+    <!-- <dependencyManagement> -->
+        <dependencies>
+<!-- b... -->
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-anim</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-gvt</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-parser</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-script</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-svg-dom</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-svggen</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-transcoder</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.gwt.inject</groupId>
+                <artifactId>gin</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jmock</groupId>
+                <artifactId>jmock</artifactId>
+                <version>1.2.0</version>
+                <scope>test</scope>
+            </dependency>
+
+
+<!-- p... -->
+            <dependency>
+                <groupId>postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>8.3-603.jdbc3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis-ext</artifactId>
+                <version>1.3.04</version>
+            </dependency>
+
+<!-- n... -->
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <version>2.2.3</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.jtds</groupId>
+                <artifactId>jtds</artifactId>
+                <version>1.2.2</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-util</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>batik</groupId>
+                <artifactId>batik-xml</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gwt-log</groupId>
+                <artifactId>gwt-log</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.saxon</groupId>
+                <artifactId>saxon</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
+            <!-- Junit is scoped test in EAP boms but we need scope compile for forge -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
+<!-- m... -->
+            <!-- Override mysql connector for Riftsaw -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.12</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.saxon</groupId>
+                <artifactId>saxon</artifactId>
+                <classifier>dom</classifier>
+                <version>1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.saxon</groupId>
+                <artifactId>saxon</artifactId>
+                <version>1.0</version>
+                <classifier>xpath</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.saxon</groupId>
+                <artifactId>saxon</artifactId>
+                <version>1.0</version>
+                <classifier>xqj</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sourceforge.saxon</groupId>
+                <artifactId>saxonhe</artifactId>
+                <version>9.2.1.5</version>
+            </dependency>
+
+        </dependencies>
+    <!-- </dependencyManagement> -->
+</project>

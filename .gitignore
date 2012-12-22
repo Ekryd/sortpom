@@ -1,4 +1,4 @@
 .idea
-maven-sortpom-plugin.iml
+*.iml
 target
 release.properties

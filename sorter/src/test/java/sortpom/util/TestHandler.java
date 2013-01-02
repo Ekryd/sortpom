@@ -209,17 +209,19 @@ class TestHandler {
         return new SortPomLogger() {
 
             @Override
-                    public void info(CharSequence content) {
-                        infoLogger.add("[INFO] " + content);
-                    }
-                    @Override
-                    public void warn(CharSequence content) {
-                        infoLogger.add("[WARNING] " + content);
-                    }
-                    @Override
-                    public void error(CharSequence content) {
-                        infoLogger.add("[ERROR] " + content);
-                    }
+            public void info(String content) {
+                infoLogger.add("[INFO] " + content);
+            }
+
+            @Override
+            public void warn(String content) {
+                infoLogger.add("[WARNING] " + content);
+            }
+
+            @Override
+            public void error(String content) {
+                infoLogger.add("[ERROR] " + content);
+            }
         };
     }
 

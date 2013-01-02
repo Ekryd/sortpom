@@ -10,19 +10,19 @@ public interface SortPomLogger {
      *
      * @param content warning message
      */
-    void warn( CharSequence content );
+    void warn(String content);
 
     /**
      * Send a message to the log in the <b>info</b> error level.
      *
      * @param content info message
      */
-    void info( CharSequence content );
+    void info(String content);
 
     /**
      * Send a message to the log in the <b>error</b> error level.
      *
      * @param content error message
      */
-    void error( CharSequence content );
+    void error(String content);
 }

@@ -78,7 +78,7 @@ public class SortPomImpl {
         log.info("Sorting file " + pomFile.getAbsolutePath());
 
         String originalXml = fileUtil.getPomFileContent();
-        String sortedXml = getSortedXml(originalXml);
+        String sortedXml = sortXml(originalXml);
         if (pomFileIsSorted(originalXml, sortedXml)) {
             log.info("Pom file is already sorted, exiting");
             return;
@@ -93,7 +93,7 @@ public class SortPomImpl {
      * @param xml the xml that should be sorted.
      * @return the sorted xml
      */
-    private String getSortedXml(final String xml) {
+    public String sortXml(final String xml) {
         String errorMsg = "Could not sort pom files content: ";
         insertXmlInXmlProcessor(xml, errorMsg);
         xmlProcessor.sortXml();

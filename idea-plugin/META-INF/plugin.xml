@@ -1,0 +1,51 @@
+<idea-plugin version="2">
+    <id>com.yourcompany.unique.plugin.id</id>
+    <name>Plugin display name here</name>
+    <version>1.0</version>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+      IntelliJ plugin for the Maven SortPom plugin that helps the user sort pom.xml. 
+      The default sort order is taken from the Maven3 pom documentation. 
+      The main advantages to have standardized sorted poms are that they become more readable and that comparisons 
+      between different module poms becomes much easier.
+      ]]></description>
+
+    <change-notes><![CDATA[
+      2013-01-02: Created
+      ]]>
+    </change-notes>
+
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+    <!-- Jetbrains IntelliJ IDEA 12.0.1 -->
+    <idea-version since-build="123.72"/>
+
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- depends on the intellij plugin for maven -->
+    <depends>org.jetbrains.idea.maven</depends>
+    <!-- depends on IntelliJ -->
+    <depends>com.intellij.modules.java</depends>
+
+
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
+
+    <project-components>
+        <!-- Add your project components here -->
+    </project-components>
+
+    <actions>
+        <!-- This is the sort menu command that is added to the Maven context menu --> 
+        <action id="SortPom.sort" class="sortpom.SortPomMenuItem" text="Sort_Action" description="Sort the pom-file">
+            <add-to-group group-id="Maven.BaseProjectMenu" anchor="last"/>
+        </action>
+    </actions>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Adds sortpom configuration to project settings -->
+        <projectConfigurable instance="sortpom.configuration.SortPomProjectConfiguration"></projectConfigurable>
+    </extensions>
+</idea-plugin>

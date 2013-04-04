@@ -22,10 +22,12 @@ public class DependencySortOrder {
     }
 
     private String[] parseChildElementNameList() {
-        if (isDeprecatedValueFalse())
+        if (isDeprecatedValueFalse()) {
             return new String[0];
-        if (isDeprecatedValueTrue())
+        }
+        if (isDeprecatedValueTrue()) {
             return new String[]{"groupId", "artifactId"};
+        }
         String list = childElementNameList.replaceAll("\\s", "");
         return list.split(";|,|:");
     }

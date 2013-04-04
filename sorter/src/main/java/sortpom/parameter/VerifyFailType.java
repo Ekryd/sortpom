@@ -11,15 +11,15 @@ public enum VerifyFailType {
 
     static VerifyFailType fromString(String verifyFail) {
         if (verifyFail == null) {
-            throw new FailureException("verifyFail must be either SORT, WARN or STOP. Was: " + verifyFail);
+            throw new FailureException("verifyFail must be either SORT, WARN or STOP. Was: null");
         }
-        if (verifyFail.equalsIgnoreCase("SORT")) {
+        if ("SORT".equalsIgnoreCase(verifyFail)) {
             return SORT;
         }
-        if (verifyFail.equalsIgnoreCase("WARN")) {
+        if ("WARN".equalsIgnoreCase(verifyFail)) {
             return WARN;
         }
-        if (verifyFail.equalsIgnoreCase("STOP")) {
+        if ("STOP".equalsIgnoreCase(verifyFail)) {
             return STOP;
         }
         throw new FailureException("verifyFail must be either SORT, WARN or STOP. Was: " + verifyFail);

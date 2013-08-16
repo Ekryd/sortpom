@@ -116,7 +116,12 @@ public class FileUtil {
         InputStream inputStream = null;
         try {
             if (customSortOrderFile != null) {
-                inputStream = getFileFromRelativeOrClassPath();
+                UrlWrapper urlWrapper = new UrlWrapper(customSortOrderFile);
+                if (urlWrapper.isUrl()) {
+                    inputStream = urlWrapper.openStream();
+                } else {
+                    inputStream = getFileFromRelativeOrClassPath();
+                }
             } else if (predefinedSortOrder != null) {
                 inputStream = getPredefinedSortOrder(predefinedSortOrder);
             } else {

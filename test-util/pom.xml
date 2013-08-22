@@ -10,9 +10,7 @@
   </parent>
 
   <!-- Basics -->
-  <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-test-util</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>SortPom Test util</name>
   <description>Test utility classes</description>

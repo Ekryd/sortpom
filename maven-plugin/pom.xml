@@ -10,9 +10,7 @@
   </parent>
 
   <!-- Basics -->
-  <groupId>com.google.code.sortpom</groupId>
   <artifactId>maven-sortpom-plugin</artifactId>
-  <version>2.1.1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>SortPom Plugin</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>

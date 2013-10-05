@@ -38,15 +38,20 @@ public class FileUtilTest {
         } catch (IOException e) {
             assertThat(e.getMessage(), startsWith("Could not find"));
             assertThat(e.getMessage(), endsWith("or zzz_Attribute_expected.xml in classpath"));
-        } 
+        }
     }
 
     @Test
     public void defaultSortOrderFromUrlShouldWork() throws IOException {
         FileUtil fileUtil = createFileUtil("http://opensource.org/licenses/BSD-3-Clause");
 
-        byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
-        Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("The BSD 3-Clause License"));
+        try {
+            byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
+            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("The BSD 3-Clause License"));
+        } catch (UnknownHostException e) {
+            // This is ok, we were not online when the test was perfomed
+            // Which actually makes this test a bit pointless :-(
+        }
     }
 
     @Test
@@ -68,6 +73,8 @@ public class FileUtilTest {
         try {
             fileUtil.getDefaultSortOrderXmlBytes();
             fail();
+        } catch (UnknownHostException e) {
+            // This is ok, we were not online when the test was performed
         } catch (FileNotFoundException e) {
             assertThat(e.getMessage(), is("http://opensource.org/this.does.not.work"));
         }

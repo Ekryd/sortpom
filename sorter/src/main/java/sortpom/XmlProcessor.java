@@ -42,9 +42,7 @@ public class XmlProcessor {
         this.factory = factory;
     }
 
-    /**
-     * Setup default configuration
-     */
+    /** Setup default configuration */
     public void setup(PluginParameters pluginParameters) {
         this.indentCharacters = pluginParameters.indentCharacters;
         this.lineSeparatorUtil = pluginParameters.lineSeparatorUtil;
@@ -59,7 +57,7 @@ public class XmlProcessor {
      *
      * @param originalXml the new original xml
      * @throws org.jdom.JDOMException the jDOM exception
-     * @throws java.io.IOException   Signals that an I/O exception has occurred.
+     * @throws java.io.IOException    Signals that an I/O exception has occurred.
      */
     public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
         SAXBuilder parser = new SAXBuilder();
@@ -121,6 +119,7 @@ public class XmlProcessor {
         public PatchedXMLOutputter(BufferedLineSeparatorOutputStream bufferedLineOutputStream, boolean indentBlankLines) {
             this.bufferedLineOutputStream = bufferedLineOutputStream;
             this.indentBlankLines = indentBlankLines;
+            XMLOutputter.preserveFormat.setLineSeparator("\n");
         }
 
         /** Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline */

@@ -1,9 +1,9 @@
 package sortpom;
 
 import org.junit.Test;
+import refutils.ReflectionHelper;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
-import sortpom.util.ReflectionHelper;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;

@@ -18,7 +18,6 @@
   <description>A Maven plugin that sorts the pom.xml file.</description>
 
   <modules>
-    <module>test-util</module>
     <module>sorter</module>
     <module>maven-plugin</module>
   </modules>

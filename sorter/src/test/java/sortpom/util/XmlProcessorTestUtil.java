@@ -3,7 +3,7 @@ package sortpom.util;
 import org.apache.commons.io.IOUtils;
 import org.jdom.Content;
 import org.jdom.Element;
-import org.jdom.JDOMException;
+import refutils.ReflectionHelper;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
@@ -12,7 +12,6 @@ import sortpom.wrapper.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,7 +64,7 @@ public class XmlProcessorTestUtil {
         assertEquals(infoMessage, xmlOrdered.getMessage());
     }
 
-    private XmlProcessor setup(String inputFileName) throws IOException, IllegalAccessException, JDOMException {
+    private XmlProcessor setup(String inputFileName) throws Exception {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null)
                 .setBackupInfo(false, ".bak")

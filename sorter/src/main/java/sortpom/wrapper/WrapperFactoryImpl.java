@@ -1,12 +1,7 @@
 package sortpom.wrapper;
 
 import org.apache.commons.io.IOUtils;
-import org.jdom.Comment;
-import org.jdom.Content;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.Text;
+import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;

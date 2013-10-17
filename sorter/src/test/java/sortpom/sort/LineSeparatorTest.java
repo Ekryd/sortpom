@@ -3,9 +3,9 @@ package sortpom.sort;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.junit.Test;
+import refutils.ReflectionHelper;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParametersBuilder;
-import sortpom.util.ReflectionHelper;
 
 import static org.junit.Assert.assertEquals;
 

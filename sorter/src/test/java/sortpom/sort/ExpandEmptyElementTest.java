@@ -4,9 +4,9 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.junit.Assert;
 import org.junit.Test;
+import refutils.ReflectionHelper;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParametersBuilder;
-import sortpom.util.ReflectionHelper;
 
 public class ExpandEmptyElementTest {
     @Test

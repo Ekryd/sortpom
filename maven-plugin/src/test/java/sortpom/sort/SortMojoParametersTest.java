@@ -3,11 +3,11 @@ package sortpom.sort;
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
+import refutils.ReflectionHelper;
 import sortpom.SortMojo;
 import sortpom.SortPomImpl;
 import sortpom.XmlProcessor;
 import sortpom.util.FileUtil;
-import sortpom.util.ReflectionHelper;
 import sortpom.wrapper.ElementWrapperCreator;
 import sortpom.wrapper.TextWrapperCreator;
 import sortpom.wrapper.WrapperFactoryImpl;
@@ -131,7 +131,7 @@ public class SortMojoParametersTest {
             Exception {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 
-        new ReflectionHelper(sortMojo).executeMethod("setup");
+        sortMojo.setup();
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
@@ -144,7 +144,7 @@ public class SortMojoParametersTest {
             Exception {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 
-        new ReflectionHelper(sortMojo).executeMethod("setup");
+        sortMojo.setup();
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);

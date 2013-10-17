@@ -143,7 +143,7 @@ public class SortMojo extends AbstractMojo {
         sortPom();
     }
 
-    void setup() throws MojoFailureException {
+    public void setup() throws MojoFailureException {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(pomFile)
                 .setBackupInfo(createBackupFile, backupFileExtension)

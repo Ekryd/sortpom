@@ -3,6 +3,7 @@ package sortpom.wrapper;
 import org.apache.commons.io.IOUtils;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
+import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 
@@ -65,9 +66,9 @@ public class WrapperFactoryImpl implements WrapperFactory {
             Document document = createDocumentFromDefaultSortOrderFile();
             addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FailureException(e.getMessage(), e);
         } catch (JDOMException e) {
-            throw new RuntimeException(e);
+            throw new FailureException(e.getMessage(), e);
         }
     }
 

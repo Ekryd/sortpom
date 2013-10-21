@@ -4,6 +4,8 @@ import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
 import sortpom.parameter.PluginParameters;
 
+import static sortpom.wrapper.ElementUtil.*;
+
 /**
  * @author bjorn
  * @since 2012-05-19
@@ -67,22 +69,10 @@ public class ElementWrapperCreator {
         if (!sortProperties) {
             return false;
         }
-        String deepName = elementNameSortOrderMap.getDeepName(element);
+        String deepName = getDeepName(element);
         boolean inTheRightPlace = deepName.startsWith("/project/properties/")
                 || deepName.startsWith("/project/profiles/profile/properties/");
         return inTheRightPlace && isElementParentName(element, "properties");
-    }
-
-    private boolean isElementParentName(Element element, String name) {
-        Element parent = element.getParentElement();
-        if (parent == null) {
-            return false;
-        }
-        return isElementName(parent, name);
-    }
-
-    private boolean isElementName(Element element, String name) {
-        return element.getName().equals(name);
     }
 
 }

@@ -148,20 +148,20 @@ public class SortPomImpl {
         if (!xmlOrderedResult.isOrdered()) {
             switch (verifyFailType) {
                 case WARN:
-                    log.warn(xmlOrderedResult.getMessage());
+                    log.warn(xmlOrderedResult.getErrorMessage());
                     log.warn(String.format("The file %s is not sorted", pomFileName));
                     break;
                 case SORT:
-                    log.info(xmlOrderedResult.getMessage());
+                    log.info(xmlOrderedResult.getErrorMessage());
                     log.info(String.format("The file %s is not sorted", pomFileName));
                     sortPom();
                     break;
                 case STOP:
-                    log.error(xmlOrderedResult.getMessage());
+                    log.error(xmlOrderedResult.getErrorMessage());
                     log.error(String.format("The file %s is not sorted", pomFileName));
                     throw new FailureException(String.format("The file %s is not sorted", pomFileName));
                 default:
-                    log.error(xmlOrderedResult.getMessage());
+                    log.error(xmlOrderedResult.getErrorMessage());
                     throw new IllegalStateException(verifyFailType.toString());
             }
         }

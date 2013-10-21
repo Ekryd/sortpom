@@ -74,7 +74,7 @@ public class SortPomImplUtil {
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
         assertEquals("Expected that xml is not ordered, ", false, xmlOrderedResult.isOrdered());
-        assertEquals(warningMessage, xmlOrderedResult.getMessage());
+        assertEquals(warningMessage, xmlOrderedResult.getErrorMessage());
     }
 
     public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName, String warningMessage)

@@ -61,7 +61,7 @@ public class XmlProcessorTestUtil {
         xmlProcessor.sortXml();
         XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
         assertEquals(false, xmlOrdered.isOrdered());
-        assertEquals(infoMessage, xmlOrdered.getMessage());
+        assertEquals(infoMessage, xmlOrdered.getErrorMessage());
     }
 
     private XmlProcessor setup(String inputFileName) throws Exception {

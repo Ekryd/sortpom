@@ -166,7 +166,7 @@ public class VerifyMojo extends AbstractMojo {
         try {
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
         } catch (FailureException fex) {
-            ExceptionHandler.throwMojoFailureException(fex);
+            new ExceptionHandler(fex).throwMojoFailureException();
         }
     }
 
@@ -174,7 +174,7 @@ public class VerifyMojo extends AbstractMojo {
         try {
             sortPomImpl.verifyPom();
         } catch (FailureException fex) {
-            ExceptionHandler.throwMojoFailureException(fex);
+            new ExceptionHandler(fex).throwMojoFailureException();
         }
     }
 

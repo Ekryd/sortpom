@@ -155,7 +155,7 @@ public class SortMojo extends AbstractMojo {
         try {
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
         } catch (FailureException fex) {
-            ExceptionHandler.throwMojoFailureException(fex);
+            new ExceptionHandler(fex).throwMojoFailureException();
         }
     }
 
@@ -163,7 +163,7 @@ public class SortMojo extends AbstractMojo {
         try {
             sortPomImpl.sortPom();
         } catch (FailureException fex) {
-            ExceptionHandler.throwMojoFailureException(fex);
+            new ExceptionHandler(fex).throwMojoFailureException();
         }
     }
 

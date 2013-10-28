@@ -46,7 +46,7 @@ public class ElementToStringTest {
 
         WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
         wrapperFactory.setup(pluginParameters);
-        WrapperOperations rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
+        GroupWrapper rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
         rootWrapper.createWrappedStructure(wrapperFactory);
 
         return rootWrapper.toString();

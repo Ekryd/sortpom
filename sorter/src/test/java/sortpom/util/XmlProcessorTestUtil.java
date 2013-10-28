@@ -88,7 +88,7 @@ public class XmlProcessorTestUtil {
             wrapperFactory = new WrapperFactory() {
 
                 @Override
-                public WrapperOperations createFromRootElement(final Element rootElement) {
+                public GroupWrapper createFromRootElement(final Element rootElement) {
                     return new GroupWrapper(new AlphabeticalSortedWrapper(rootElement));
                 }
 

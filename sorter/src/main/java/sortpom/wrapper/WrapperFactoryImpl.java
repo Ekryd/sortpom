@@ -51,8 +51,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
     }
 
     /** @see WrapperFactory#createFromRootElement(org.jdom.Element) */
-    @Override
-    public WrapperOperations createFromRootElement(final Element rootElement) {
+    public GroupWrapper createFromRootElement(final Element rootElement) {
         initializeSortOrderMap();
         return new GroupWrapper(create((Content) rootElement));
     }

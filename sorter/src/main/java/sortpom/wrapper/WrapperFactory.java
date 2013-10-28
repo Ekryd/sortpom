@@ -11,7 +11,7 @@ import org.jdom.Element;
 public interface WrapperFactory {
 
     /** Creates wrapper around a root element. */
-    WrapperOperations createFromRootElement(final Element rootElement);
+    GroupWrapper createFromRootElement(final Element rootElement);
 
     /** Creates wrapper around xml content. */
     <T extends Content> Wrapper<T> create(final T content);

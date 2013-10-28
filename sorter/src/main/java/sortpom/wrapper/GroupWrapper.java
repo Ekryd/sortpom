@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Bjorn
  */
-public class GroupWrapper implements WrapperOperations {
+public class GroupWrapper {
     private Wrapper<Element> elementContent;
     private final List<Wrapper<? extends Content>> otherContentList = new ArrayList<Wrapper<? extends Content>>();
     private final List<GroupWrapper> children = new ArrayList<GroupWrapper>();
@@ -24,7 +24,6 @@ public class GroupWrapper implements WrapperOperations {
         addContent(wrapper);
     }
 
-    @Override
     public final void createWrappedStructure(final WrapperFactory factory) {
         GroupWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
@@ -45,12 +44,11 @@ public class GroupWrapper implements WrapperOperations {
         }
     }
 
-    @Override
     public final void detachStructure() {
         if (elementContent != null) {
             elementContent.getContent().detach();
         }
-        for (WrapperOperations child : children) {
+        for (GroupWrapper child : children) {
             child.detachStructure();
         }
         for (Wrapper<? extends Content> content : otherContentList) {
@@ -58,7 +56,6 @@ public class GroupWrapper implements WrapperOperations {
         }
     }
 
-    @Override
     public final List<Content> getWrappedStructure() {
         List<Content> returnValue = new ArrayList<Content>();
         for (Wrapper<? extends Content> content : otherContentList) {
@@ -72,17 +69,16 @@ public class GroupWrapper implements WrapperOperations {
         return returnValue;
     }
 
-    @Override
+    /** Sorts the attributes of the xml elements */
     public final void sortStructureAttributes() {
         if (elementContent != null) {
             elementContent.getContent().setAttributes(getSortedAttributes(elementContent));
         }
-        for (WrapperOperations child : children) {
+        for (GroupWrapper child : children) {
             child.sortStructureAttributes();
         }
     }
 
-    @Override
     public final void sortStructureElements() {
         for (int i = 0; i < children.size(); i++) {
             GroupWrapper wrapperImpl = children.get(i);
@@ -141,7 +137,7 @@ public class GroupWrapper implements WrapperOperations {
 
     private List<Content> getWrappedChildren() {
         List<Content> returnValue = new ArrayList<Content>();
-        for (WrapperOperations child : children) {
+        for (GroupWrapper child : children) {
             returnValue.addAll(child.getWrappedStructure());
         }
         return returnValue;

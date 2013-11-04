@@ -33,7 +33,7 @@ public class PluginParametersBuilder {
         return this;
     }
 
-    /** Sets whick encoding should be used throughout the plugin */
+    /** Sets which encoding should be used throughout the plugin */
     public PluginParametersBuilder setEncoding(final String encoding) {
         this.encoding = encoding;
         return this;

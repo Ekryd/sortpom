@@ -11,7 +11,7 @@ import java.net.URL;
  * @author bjorn
  * @since 2013-08-16
  */
-public class UrlWrapper {
+class UrlWrapper {
     private final String spec;
 
     public UrlWrapper(String spec) {

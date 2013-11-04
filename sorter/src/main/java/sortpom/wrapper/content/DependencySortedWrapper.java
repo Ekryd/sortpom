@@ -24,6 +24,7 @@ public class DependencySortedWrapper extends SortedWrapper {
         super(element, sortOrder);
     }
 
+    @SuppressWarnings("unchecked")
     public void setSortOrder(DependencySortOrder childElementNames) {
         List<Element> children = (List<Element>) getContent().getChildren();
         this.childElementSorter = new ChildElementSorter(childElementNames, children);

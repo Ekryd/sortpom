@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ToStringOperation extends HierarchyWrapperOperation {
     private final StringBuilder builder;
-    private String baseIndent;
+    private final String baseIndent;
     private boolean processFirstOtherContent;
 
     public ToStringOperation() {

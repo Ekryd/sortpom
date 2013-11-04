@@ -35,7 +35,7 @@ public interface Wrapper<T extends Content> {
     /**
      * Checks if wrapper should be sorted.
      *
-     * @return true, if is resortable
+     * @return true, if is sortable
      */
     boolean isSortable();
 

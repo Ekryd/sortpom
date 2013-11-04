@@ -77,10 +77,10 @@ public class FileUtil {
         try {
             inputStream = new FileInputStream(pomFile);
             return IOUtils.toString(inputStream, encoding);
-        } catch (UnsupportedEncodingException ueex) {
-            throw new FailureException("Could not handle encoding: " + encoding, ueex);
-        } catch (IOException ioex) {
-            throw new FailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ioex);
+        } catch (UnsupportedEncodingException ex) {
+            throw new FailureException("Could not handle encoding: " + encoding, ex);
+        } catch (IOException ex) {
+            throw new FailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ex);
         } finally {
             IOUtils.closeQuietly(inputStream);
         }
@@ -137,7 +137,7 @@ public class FileUtil {
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(customSortOrderFile);
-        } catch (FileNotFoundException fnfex) {
+        } catch (FileNotFoundException ex) {
             // try classpath
             try {
                 URL resource = this.getClass().getClassLoader().getResource(customSortOrderFile);

@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Makes sure that all line endings are written in the same way. Keeps a buffer
- * which is flushed when newline is encontered.
+ * which is flushed when newline is encountered.
  * Removes the final trailing newline by delaying it.
  *
  * @author Bjorn

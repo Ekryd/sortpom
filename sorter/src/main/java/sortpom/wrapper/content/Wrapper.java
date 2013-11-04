@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Content;
 
@@ -37,7 +37,7 @@ public interface Wrapper<T extends Content> {
      *
      * @return true, if is resortable
      */
-    boolean isResortable();
+    boolean isSortable();
 
     /**
      * Output debug-friendly string

@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Content;
 import org.jdom.Element;

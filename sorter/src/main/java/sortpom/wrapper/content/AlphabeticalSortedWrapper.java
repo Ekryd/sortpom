@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Content;
 import org.jdom.Element;
@@ -36,7 +36,7 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     }
 
     @Override
-    public boolean isResortable() {
+    public boolean isSortable() {
         return true;
     }
 

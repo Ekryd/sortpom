@@ -4,6 +4,9 @@ import org.jdom.Content;
 import org.jdom.Text;
 import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.PluginParameters;
+import sortpom.wrapper.content.ThrowAwayContentWrapper;
+import sortpom.wrapper.content.UnsortedWrapper;
+import sortpom.wrapper.content.Wrapper;
 
 /**
  * @author bjorn

@@ -3,6 +3,7 @@ package sortpom.wrapper;
 import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
 import sortpom.parameter.PluginParameters;
+import sortpom.wrapper.content.*;
 
 import static sortpom.wrapper.ElementUtil.*;
 

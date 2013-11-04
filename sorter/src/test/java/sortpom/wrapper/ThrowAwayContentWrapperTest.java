@@ -3,6 +3,7 @@ package sortpom.wrapper;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sortpom.wrapper.content.ThrowAwayContentWrapper;
 
 /**
  * All method should throw execption since the element should be throw away
@@ -35,7 +36,7 @@ public class ThrowAwayContentWrapperTest {
     @Test
     public void testIsResortable() throws Exception {
         thrown.expect(UnsupportedOperationException.class);
-        ThrowAwayContentWrapper.INSTANCE.isResortable();
+        ThrowAwayContentWrapper.INSTANCE.isSortable();
     }
 
     @Test

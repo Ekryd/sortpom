@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.operation;
 
 import org.jdom.Attribute;
 

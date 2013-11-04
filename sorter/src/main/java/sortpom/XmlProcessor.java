@@ -14,8 +14,8 @@ import sortpom.parameter.PluginParameters;
 import sortpom.util.BufferedLineSeparatorOutputStream;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
-import sortpom.wrapper.GroupWrapper;
-import sortpom.wrapper.WrapperFactory;
+import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -69,14 +69,15 @@ public class XmlProcessor {
         newDocument = (Document) originalDocument.clone();
         final Element rootElement = (Element) originalDocument.getRootElement().clone();
 
-        GroupWrapper rootWrapper = factory.createFromRootElement(rootElement);
+        HierarchyWrapper rootWrapper = factory.createFromRootElement(rootElement);
 
         rootWrapper.createWrappedStructure(factory);
         rootWrapper.detachStructure();
         rootWrapper.sortStructureAttributes();
         rootWrapper.sortStructureElements();
+        rootWrapper.connectXmlStructure();
 
-        newDocument.setRootElement((Element) rootWrapper.getWrappedStructure().get(0));
+        newDocument.setRootElement(rootWrapper.getElementContent().getContent());
     }
 
     public XmlOrderedResult isXmlOrdered() {

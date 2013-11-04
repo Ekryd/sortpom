@@ -175,6 +175,7 @@
     </plugins>
   </reporting>
   
+  <!-- Basics -->
   <name>SortPom</name>
   <description>Sorts the pom file</description>
 </project>

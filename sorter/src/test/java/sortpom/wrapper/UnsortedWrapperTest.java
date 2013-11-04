@@ -4,6 +4,7 @@ import org.jdom.Text;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sortpom.wrapper.content.UnsortedWrapper;
 
 /**
  * @author bjorn

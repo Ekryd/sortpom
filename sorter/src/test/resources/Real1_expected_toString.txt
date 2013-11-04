@@ -1,286 +1,287 @@
-GroupWrapper{
+HierarchyWrapper{
   elementContent=SortedWrapper{element=[Element: <project [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-  , children=
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <modelVersion [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  children=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    elementContent=SortedWrapper{element=[Element: <modelVersion [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: 4.0.0]}
       }
     }
-  GroupWrapper{
+  HierarchyWrapper{
+    otherContentList=
+    UnsortedWrapper{content=[NewLine]}
     elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
-    UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: sortpom]}
       }
     }
-  GroupWrapper{
+  HierarchyWrapper{
     elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: sortpom]}
       }
     }
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <name [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    UnsortedWrapper{content=[Comment: <!-- Basics -->]}
+    elementContent=SortedWrapper{element=[Element: <name [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: SortPom]}
       }
     }
-  GroupWrapper{
+  HierarchyWrapper{
     elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: 1.0.0-SNAPSHOT]}
       }
     }
-  GroupWrapper{
+  HierarchyWrapper{
     elementContent=SortedWrapper{element=[Element: <description [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , children=
-    GroupWrapper{
-      , otherContentList=
+    children=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[Text: Sorts the pom file]}
       }
     }
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <build [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
+    elementContent=SortedWrapper{element=[Element: <build [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
       elementContent=SortedWrapper{element=[Element: <defaultGoal [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , children=
-      GroupWrapper{
-        , otherContentList=
+      children=
+      HierarchyWrapper{
+        otherContentList=
         UnsortedWrapper{content=[Text: verify]}
         }
       }
-    GroupWrapper{
-      elementContent=SortedWrapper{element=[Element: <resources [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , otherContentList=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[NewLine]}
-      , children=
-      GroupWrapper{
+      elementContent=SortedWrapper{element=[Element: <resources [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <resource [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <directory [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: src\main\bin]}
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <resource [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <directory [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: src\main\resources]}
             }
           }
         }
       }
-    GroupWrapper{
-      elementContent=SortedWrapper{element=[Element: <pluginManagement [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , otherContentList=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[NewLine]}
-      , children=
-      GroupWrapper{
+      elementContent=SortedWrapper{element=[Element: <pluginManagement [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <plugins [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
         }
       }
-    GroupWrapper{
-      elementContent=SortedWrapper{element=[Element: <plugins [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , otherContentList=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[NewLine]}
-      , children=
-      GroupWrapper{
+      elementContent=SortedWrapper{element=[Element: <plugins [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      children=
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-compiler-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-compiler-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.0.2]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <source [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: ${compileSource}]}
               }
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <target [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: ${compileSource}]}
               }
             }
           }
         }
-      GroupWrapper{
-        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-eclipse-plugin]}}
-        , otherContentList=
+      HierarchyWrapper{
+        otherContentList=
         UnsortedWrapper{content=[NewLine]}
-        , children=
-        GroupWrapper{
+        elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-eclipse-plugin]}}
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-eclipse-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.7]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <additionalProjectnatures [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <additionalBuildcommands [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <useProjectReferences [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: false]}
               }
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <downloadSources [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: true]}
               }
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <downloadJavadocs [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: true]}
               }
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.codehaus.mojo]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: versions-maven-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 1.0-alpha-3]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <executions [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=SortedWrapper{element=[Element: <execution [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
+            children=
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <id [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: show-plugin-versions]}
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <phase [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: pre-site]}
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <goals [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
+              children=
+              HierarchyWrapper{
                 elementContent=SortedWrapper{element=[Element: <goal [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                , children=
-                GroupWrapper{
-                  , otherContentList=
+                children=
+                HierarchyWrapper{
+                  otherContentList=
                   UnsortedWrapper{content=[Text: display-plugin-updates]}
                   }
                 }
@@ -288,141 +289,141 @@ GroupWrapper{
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-jar-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-jar-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <excludes [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
+            children=
+            HierarchyWrapper{
               elementContent=UnsortedWrapper{content=[Element: <exclude [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: *.cmd]}
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=UnsortedWrapper{content=[Element: <exclude [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: pom.*]}
                 }
               }
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-resources-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-resources-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.3]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <executions [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=SortedWrapper{element=[Element: <execution [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
+            children=
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <id [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: copy-resources]}
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <phase [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
-                , otherContentList=
+              children=
+              HierarchyWrapper{
+                otherContentList=
                 UnsortedWrapper{content=[Text: validate]}
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <goals [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
+              children=
+              HierarchyWrapper{
                 elementContent=SortedWrapper{element=[Element: <goal [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                , children=
-                GroupWrapper{
-                  , otherContentList=
+                children=
+                HierarchyWrapper{
+                  otherContentList=
                   UnsortedWrapper{content=[Text: copy-resources]}
                   }
                 }
               }
-            GroupWrapper{
+            HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-              , children=
-              GroupWrapper{
+              children=
+              HierarchyWrapper{
                 elementContent=UnsortedWrapper{content=[Element: <outputDirectory [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                , children=
-                GroupWrapper{
-                  , otherContentList=
+                children=
+                HierarchyWrapper{
+                  otherContentList=
                   UnsortedWrapper{content=[Text: ${basedir}]}
                   }
                 }
-              GroupWrapper{
+              HierarchyWrapper{
                 elementContent=UnsortedWrapper{content=[Element: <resources [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                , children=
-                GroupWrapper{
+                children=
+                HierarchyWrapper{
                   elementContent=UnsortedWrapper{content=[Element: <resource [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                  , children=
-                  GroupWrapper{
+                  children=
+                  HierarchyWrapper{
                     elementContent=UnsortedWrapper{content=[Element: <directory [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                    , children=
-                    GroupWrapper{
-                      , otherContentList=
+                    children=
+                    HierarchyWrapper{
+                      otherContentList=
                       UnsortedWrapper{content=[Text: src/main/bin]}
                       }
                     }
-                  GroupWrapper{
+                  HierarchyWrapper{
                     elementContent=UnsortedWrapper{content=[Element: <filtering [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-                    , children=
-                    GroupWrapper{
-                      , otherContentList=
+                    children=
+                    HierarchyWrapper{
+                      otherContentList=
                       UnsortedWrapper{content=[Text: true]}
                       }
                     }
@@ -432,408 +433,408 @@ GroupWrapper{
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-site-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-site-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.0.1]}
             }
           }
         }
       }
     }
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <dependencies [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
+    elementContent=SortedWrapper{element=[Element: <dependencies [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
       elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[, org.jdom, jdom]}}
-      , children=
-      GroupWrapper{
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: org.jdom]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: jdom]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: 1.1]}
           }
         }
       }
-    GroupWrapper{
-      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, junit, junit]}}
-      , otherContentList=
+    HierarchyWrapper{
+      otherContentList=
       UnsortedWrapper{content=[NewLine]}
-      , children=
-      GroupWrapper{
+      elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, junit, junit]}}
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: junit]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: junit]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: 3.8.2]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <scope [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: test]}
           }
         }
       }
-    GroupWrapper{
+    HierarchyWrapper{
       elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, cglib, cglib]}}
-      , children=
-      GroupWrapper{
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: cglib]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: cglib]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: 2.2]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <scope [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: test]}
           }
         }
       }
-    GroupWrapper{
+    HierarchyWrapper{
       elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, cheesymock, cheesymock]}}
-      , children=
-      GroupWrapper{
+      children=
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: cheesymock]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: cheesymock]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: 1.2-SNAPSHOT]}
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=SortedWrapper{element=[Element: <scope [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-        , children=
-        GroupWrapper{
-          , otherContentList=
+        children=
+        HierarchyWrapper{
+          otherContentList=
           UnsortedWrapper{content=[Text: test]}
           }
         }
       }
     }
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <reporting [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
+    elementContent=SortedWrapper{element=[Element: <reporting [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
       elementContent=SortedWrapper{element=[Element: <plugins [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , children=
-      GroupWrapper{
+      children=
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-checkstyle-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-checkstyle-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.3]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <configLocation [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: src/test/resources/checkstyle_checks.xml]}
               }
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, findbugs-maven-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.codehaus.mojo]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: findbugs-maven-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.1]}
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, cobertura-maven-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.codehaus.mojo]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: cobertura-maven-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.3]}
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.codehaus.mojo, versions-maven-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.codehaus.mojo]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: versions-maven-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 1.0-alpha-3]}
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-pmd-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-pmd-plugin]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: 2.4]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <configuration [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
+          children=
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <linkXref [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: true]}
               }
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <minimumTokens [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: 100]}
               }
             }
-          GroupWrapper{
+          HierarchyWrapper{
             elementContent=UnsortedWrapper{content=[Element: <targetJdk [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-            , children=
-            GroupWrapper{
-              , otherContentList=
+            children=
+            HierarchyWrapper{
+              otherContentList=
               UnsortedWrapper{content=[Text: ${compileSource}]}
               }
             }
           }
         }
-      GroupWrapper{
+      HierarchyWrapper{
         elementContent=PluginSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[org.apache.maven.plugins, maven-jxr-plugin]}}
-        , children=
-        GroupWrapper{
+        children=
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: org.apache.maven.plugins]}
             }
           }
-        GroupWrapper{
+        HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-          , children=
-          GroupWrapper{
-            , otherContentList=
+          children=
+          HierarchyWrapper{
+            otherContentList=
             UnsortedWrapper{content=[Text: maven-jxr-plugin]}
             }
           }
         }
       }
     }
-  GroupWrapper{
-    elementContent=SortedWrapper{element=[Element: <properties [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-    , otherContentList=
+  HierarchyWrapper{
+    otherContentList=
     UnsortedWrapper{content=[NewLine]}
-    , children=
-    GroupWrapper{
+    elementContent=SortedWrapper{element=[Element: <properties [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
       elementContent=AlphabeticalSortedWrapper{element=[Element: <project.build.sourceEncoding [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , children=
-      GroupWrapper{
-        , otherContentList=
+      children=
+      HierarchyWrapper{
+        otherContentList=
         UnsortedWrapper{content=[Text: UTF-8]}
         }
       }
-    GroupWrapper{
+    HierarchyWrapper{
       elementContent=AlphabeticalSortedWrapper{element=[Element: <compileSource [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
-      , children=
-      GroupWrapper{
-        , otherContentList=
+      children=
+      HierarchyWrapper{
+        otherContentList=
         UnsortedWrapper{content=[Text: 1.6]}
         }
       }

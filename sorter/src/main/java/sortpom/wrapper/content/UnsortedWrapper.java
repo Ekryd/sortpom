@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Content;
 import org.jdom.Element;
@@ -41,9 +41,9 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
         return content instanceof Element;
     }
 
-    /** @see Wrapper#isResortable() */
+    /** @see Wrapper#isSortable() */
     @Override
-    public boolean isResortable() {
+    public boolean isSortable() {
         return false;
     }
 

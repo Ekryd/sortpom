@@ -6,6 +6,10 @@ import org.jdom.input.SAXBuilder;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
+import sortpom.wrapper.content.UnsortedWrapper;
+import sortpom.wrapper.content.Wrapper;
+import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -51,15 +55,12 @@ public class WrapperFactoryImpl implements WrapperFactory {
     }
 
     /** @see WrapperFactory#createFromRootElement(org.jdom.Element) */
-    public GroupWrapper createFromRootElement(final Element rootElement) {
+    public HierarchyWrapper createFromRootElement(final Element rootElement) {
         initializeSortOrderMap();
-        return new GroupWrapper(create((Content) rootElement));
+        return new HierarchyWrapper(create((Content) rootElement));
     }
 
-    /**
-     * Creates sort order map from chosen sort order.
-     *
-     */
+    /** Creates sort order map from chosen sort order. */
     private void initializeSortOrderMap() {
         try {
             Document document = createDocumentFromDefaultSortOrderFile();

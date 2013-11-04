@@ -8,6 +8,11 @@ import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.wrapper.*;
+import sortpom.wrapper.content.AlphabeticalSortedWrapper;
+import sortpom.wrapper.content.UnsortedWrapper;
+import sortpom.wrapper.content.Wrapper;
+import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -88,8 +93,8 @@ public class XmlProcessorTestUtil {
             wrapperFactory = new WrapperFactory() {
 
                 @Override
-                public GroupWrapper createFromRootElement(final Element rootElement) {
-                    return new GroupWrapper(new AlphabeticalSortedWrapper(rootElement));
+                public HierarchyWrapper createFromRootElement(final Element rootElement) {
+                    return new HierarchyWrapper(new AlphabeticalSortedWrapper(rootElement));
                 }
 
                 @SuppressWarnings("unchecked")

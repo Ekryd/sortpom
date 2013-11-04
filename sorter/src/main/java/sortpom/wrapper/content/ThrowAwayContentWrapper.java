@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Content;
 import org.jdom.Text;
@@ -15,27 +15,27 @@ public final class ThrowAwayContentWrapper implements Wrapper<Text> {
     private ThrowAwayContentWrapper() {
     }
 
-    /** @see sortpom.wrapper.Wrapper#getContent() */
+    /** @see sortpom.wrapper.content.Wrapper#getContent() */
     @Override
     public Text getContent() {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.Wrapper#isBefore(sortpom.wrapper.Wrapper) */
+    /** @see sortpom.wrapper.content.Wrapper#isBefore(sortpom.wrapper.content.Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.Wrapper#isContentElement() */
+    /** @see sortpom.wrapper.content.Wrapper#isContentElement() */
     @Override
     public boolean isContentElement() {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.Wrapper#isResortable() */
+    /** @see sortpom.wrapper.content.Wrapper#isSortable() */
     @Override
-    public boolean isResortable() {
+    public boolean isSortable() {
         throw new UnsupportedOperationException();
     }
 

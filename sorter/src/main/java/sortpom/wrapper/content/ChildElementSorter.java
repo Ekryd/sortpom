@@ -1,4 +1,4 @@
-package sortpom.wrapper;
+package sortpom.wrapper.content;
 
 import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
@@ -31,7 +31,7 @@ public class ChildElementSorter {
         for (String childElementName : childElementNames) {
             childElementNameList.add(getChildText(childrenMap, childElementName));
         }
-        
+
         return childElementNameList.toArray(new String[childElementNameList.size()]);
     }
 
@@ -100,7 +100,7 @@ public class ChildElementSorter {
     public void setEmptyPluginGroupIdValue(String value) {
         for (int i = 0, childElementNamesLength = childElementNames.length; i < childElementNamesLength; i++) {
             if ("groupId".equalsIgnoreCase(childElementNames[i]) && childElementTexts[i].isEmpty()) {
-                childElementTexts[i] = value;   
+                childElementTexts[i] = value;
             }
 
         }

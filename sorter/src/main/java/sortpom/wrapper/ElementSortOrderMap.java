@@ -5,7 +5,7 @@ import org.jdom.Element;
 import java.util.HashMap;
 import java.util.Map;
 
-import static sortpom.wrapper.ElementUtil.*;
+import static sortpom.wrapper.ElementUtil.getDeepName;
 
 /**
  * All elements from the chosen sort order (from predefined sort order or custom sort order) are placed in this map
@@ -17,7 +17,8 @@ class ElementSortOrderMap {
 
     /**
      * Add an Xml element to the map
-     * @param element Xml element
+     *
+     * @param element   Xml element
      * @param sortOrder an index describing the sort order (lower number == element towards the start of the file)
      */
     public void addElement(Element element, int sortOrder) {

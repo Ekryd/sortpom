@@ -8,6 +8,7 @@ import org.junit.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.FileUtil;
+import sortpom.wrapper.operation.HierarchyWrapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -46,7 +47,7 @@ public class ElementToStringTest {
 
         WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
         wrapperFactory.setup(pluginParameters);
-        GroupWrapper rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
+        HierarchyWrapper rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
         rootWrapper.createWrappedStructure(wrapperFactory);
 
         return rootWrapper.toString();

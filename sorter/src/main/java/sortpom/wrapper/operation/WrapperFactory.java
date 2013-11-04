@@ -1,7 +1,8 @@
-package sortpom.wrapper;
+package sortpom.wrapper.operation;
 
 import org.jdom.Content;
 import org.jdom.Element;
+import sortpom.wrapper.content.Wrapper;
 
 /**
  * Creates wrappers around xml fragments.
@@ -11,7 +12,7 @@ import org.jdom.Element;
 public interface WrapperFactory {
 
     /** Creates wrapper around a root element. */
-    GroupWrapper createFromRootElement(final Element rootElement);
+    HierarchyWrapper createFromRootElement(final Element rootElement);
 
     /** Creates wrapper around xml content. */
     <T extends Content> Wrapper<T> create(final T content);

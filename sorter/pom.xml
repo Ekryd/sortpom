@@ -28,12 +28,12 @@
     </dependency>
 
     <!-- Test dependencies -->
-      <dependency>
-  <groupId>com.google.code.reflection-utils</groupId>
-  <artifactId>reflection-utils</artifactId>
-  <version>0.0.1</version>
+    <dependency>
+      <groupId>com.google.code.reflection-utils</groupId>
+      <artifactId>reflection-utils</artifactId>
+      <version>0.0.1</version>
       <scope>test</scope>
-      </dependency>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

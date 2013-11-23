@@ -153,17 +153,18 @@ public class VerifyMojo extends AbstractMojo {
     }
 
     public void setup() throws MojoFailureException {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
-                .setPomFile(pomFile)
-                .setBackupInfo(createBackupFile, backupFileExtension)
-                .setEncoding(encoding)
-                .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
-                .setIndent(nrOfIndentSpace, indentBlankLines)
-                .setSortOrder(sortOrderFile, predefinedSortOrder)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties)
-                .setVerifyFail(verifyFail)
-                .createPluginParameters();
         try {
+            PluginParameters pluginParameters = new PluginParametersBuilder()
+                    .setPomFile(pomFile)
+                    .setBackupInfo(createBackupFile, backupFileExtension)
+                    .setEncoding(encoding)
+                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
+                    .setIndent(nrOfIndentSpace, indentBlankLines)
+                    .setSortOrder(sortOrderFile, predefinedSortOrder)
+                    .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                    .setVerifyFail(verifyFail)
+                    .createPluginParameters();
+
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
         } catch (FailureException fex) {
             new ExceptionHandler(fex).throwMojoFailureException();

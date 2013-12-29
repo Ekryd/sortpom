@@ -6,6 +6,7 @@ import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.VerifyFailType;
+import sortpom.processinstruction.XmlProcessingInstructionParser;
 import sortpom.util.FileUtil;
 import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
@@ -26,6 +27,7 @@ public class SortPomImpl {
     private final FileUtil fileUtil;
     private final XmlProcessor xmlProcessor;
     private final WrapperFactoryImpl wrapperFactory;
+    private final XmlProcessingInstructionParser xmlProcessingInstructionParser;
     private SortPomLogger log;
     private File pomFile;
     private String encoding;
@@ -41,6 +43,7 @@ public class SortPomImpl {
         fileUtil = new FileUtil();
         wrapperFactory = new WrapperFactoryImpl(fileUtil);
         xmlProcessor = new XmlProcessor(wrapperFactory);
+        xmlProcessingInstructionParser = new XmlProcessingInstructionParser();
     }
 
     public void setup(SortPomLogger log, PluginParameters pluginParameters) {
@@ -48,6 +51,7 @@ public class SortPomImpl {
         fileUtil.setup(pluginParameters);
         wrapperFactory.setup(pluginParameters);
         xmlProcessor.setup(pluginParameters);
+        xmlProcessingInstructionParser.setup(log);
         pomFile = pluginParameters.pomFile;
         encoding = pluginParameters.encoding;
         createBackupFile = pluginParameters.createBackupFile;
@@ -90,17 +94,25 @@ public class SortPomImpl {
     /**
      * Sorts the incoming xml.
      *
-     * @param xml the xml that should be sorted.
+     * @param originalXml the xml that should be sorted.
      * @return the sorted xml
      */
-    public String sortXml(final String xml) {
+    public String sortXml(final String originalXml) {
         String errorMsg = "Could not sort pom files content: ";
+
+        xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
+        String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
+        
         insertXmlInXmlProcessor(xml, errorMsg);
         xmlProcessor.sortXml();
         ByteArrayOutputStream sortedXmlOutputStream = null;
         try {
             sortedXmlOutputStream = xmlProcessor.getSortedXml();
-            return sortedXmlOutputStream.toString(encoding);
+            String sortedXml = sortedXmlOutputStream.toString(encoding);
+            if (xmlProcessingInstructionParser.existsIgnoredSections()) {
+                sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);
+            }
+            return sortedXml;
         } catch (IOException e) {
             throw new FailureException(errorMsg + xml, e);
         } finally {
@@ -169,13 +181,16 @@ public class SortPomImpl {
 
     public XmlOrderedResult isPomElementsSorted() {
         String originalXml = fileUtil.getPomFileContent();
-        insertXmlInXmlProcessor(originalXml, "Could not verify pom files content: ");
+        xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
+        String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
+
+        insertXmlInXmlProcessor(xml, "Could not verify pom files content: ");
         xmlProcessor.sortXml();
 
         return xmlProcessor.isXmlOrdered();
     }
 
-    private void insertXmlInXmlProcessor(final String xml, String errorMsg) {
+    private void insertXmlInXmlProcessor(String xml, String errorMsg) {
         ByteArrayInputStream originalXmlInputStream = null;
         try {
             originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding));

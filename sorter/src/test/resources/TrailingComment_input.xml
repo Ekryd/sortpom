@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Basics -->
+    <groupId>something</groupId>
+  <artifactId>maven-sortpom-sorter</artifactId>
+    <version>1.0</version>
+  <packaging>jar</packaging>
+  <name>SortPom Sorter</name>
+  <description>The sorting functionality</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <version>1.1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+        <?sortpom ignore?>
+      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->
+        <?sortpom resume?>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+        <?sortpom ignore?>
+      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->
+        <?sortpom resume?>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>com.google.code.reflection-utils</groupId>
+      <artifactId>reflection-utils</artifactId>
+      <version>0.0.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>

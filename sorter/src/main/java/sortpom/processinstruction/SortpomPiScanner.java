@@ -7,6 +7,8 @@ import java.util.regex.Matcher;
 import static sortpom.processinstruction.InstructionType.*;
 
 /**
+ * Check the pom file for processing instructions and verifies that they are correct and balanced
+ *
  * @author bjorn
  * @since 2013-12-28
  */
@@ -20,6 +22,7 @@ class SortpomPiScanner {
         this.logger = logger;
     }
 
+    /** Scan and verifies the pom file for processing instructions */
     public void scan(String originalXml) {
         Matcher matcher = INSTRUCTION_PATTERN.matcher(originalXml);
         while (matcher.find()) {
@@ -61,6 +64,7 @@ class SortpomPiScanner {
         return errorString;
     }
 
+    /** Returns true if ignored sections where found the pon file */
     public boolean containsIgnoredSections() {
         return containsIgnoredSections;
     }

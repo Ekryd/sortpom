@@ -2,6 +2,9 @@ package sortpom.processinstruction;
 
 import org.junit.Before;
 import org.junit.Test;
+import refutils.ReflectionHelper;
+
+import java.util.ArrayList;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -10,13 +13,15 @@ import static org.junit.Assert.assertThat;
  * @author bjorn
  * @since 2013-12-28
  */
-public class IgnoredSectionsMapTest {
+public class IgnoredSectionsStoreTest {
 
-    private IgnoredSectionsMap ignoredSectionsMap;
+    private IgnoredSectionsStore ignoredSectionsStore;
+    private ArrayList<String> ignoredSections;
 
     @Before
     public void setUp() throws Exception {
-        ignoredSectionsMap = new IgnoredSectionsMap();
+        ignoredSectionsStore = new IgnoredSectionsStore();
+        ignoredSections = new ReflectionHelper(ignoredSectionsStore).getField(ArrayList.class);
     }
 
     @Test
@@ -36,31 +41,31 @@ public class IgnoredSectionsMapTest {
                 "  <reporting />\n" +
                 "  <version>1.0.0-SNAPSHOT</version>\n" +
                 "</project>";
-        String replaced = ignoredSectionsMap.replaceIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
         assertThat(replaced, is(xml));
-        assertThat(ignoredSectionsMap.ignoredSections.size(), is(0));
+        assertThat(ignoredSections.size(), is(0));
     }
 
     @Test
     public void replaceOneSectionShouldCreateOneToken() throws Exception {
         String xml = "abc<?sortpom ignore?>def<?sortpom resume?>cba";
-        String replaced = ignoredSectionsMap.replaceIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
         assertThat(replaced, is("abc<?sortpom token='0'?>cba"));
-        assertThat(ignoredSectionsMap.ignoredSections.size(), is(1));
-        assertThat(ignoredSectionsMap.ignoredSections.get(0), is("<?sortpom ignore?>def<?sortpom resume?>"));
+        assertThat(ignoredSections.size(), is(1));
+        assertThat(ignoredSections.get(0), is("<?sortpom ignore?>def<?sortpom resume?>"));
     }
 
     @Test
     public void replaceMultipleSectionShouldCreateManyTokens() throws Exception {
         String xml = "abc<?sortpom ignore?>def1<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def2<?sortPom reSUME?>cba";
-        String replaced = ignoredSectionsMap.replaceIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
         assertThat(replaced, is("abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba"));
-        assertThat(ignoredSectionsMap.ignoredSections.size(), is(2));
-        assertThat(ignoredSectionsMap.ignoredSections.get(0), is("<?sortpom ignore?>def1<?sortpom resume?>"));
-        assertThat(ignoredSectionsMap.ignoredSections.get(1), is("<?SORTPOM Ignore?>def2<?sortPom reSUME?>"));
+        assertThat(ignoredSections.size(), is(2));
+        assertThat(ignoredSections.get(0), is("<?sortpom ignore?>def1<?sortpom resume?>"));
+        assertThat(ignoredSections.get(1), is("<?SORTPOM Ignore?>def2<?sortPom reSUME?>"));
     }
 
     @Test
@@ -110,34 +115,34 @@ public class IgnoredSectionsMapTest {
                 "  </dependencies>\n" +
                 "\n" +
                 "</project>\n";
-        String replaced = ignoredSectionsMap.replaceIgnoredSections(xml);
+        ignoredSectionsStore.replaceIgnoredSections(xml);
 
-        assertThat(ignoredSectionsMap.ignoredSections.size(), is(2));
-        assertThat(ignoredSectionsMap.ignoredSections.get(0), is("<?sortpom ignore?>\n" +
-                "      <version>4.11</version><!--\\$NO-MVN-MAN-VER\\$ -->\n" +
+        assertThat(ignoredSections.size(), is(2));
+        assertThat(ignoredSections.get(0), is("<?sortpom ignore?>\n" +
+                "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n" +
                 "        <?sortpom resume?>"));
-        assertThat(ignoredSectionsMap.ignoredSections.get(1), is("<?sortpom ignore?>\n" +
-                "      <version>2.1</version><!--\\$NO-MVN-MAN-VER\\$ -->\n" +
+        assertThat(ignoredSections.get(1), is("<?sortpom ignore?>\n" +
+                "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n" +
                 "        <?sortpom resume?>"));
     }
 
     @Test
     public void revertTokensInOrderShouldWork() throws Exception {
         String xml = "abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba";
-        ignoredSectionsMap.ignoredSections.add("<?sortpom ignore?>def1<?sortpom resume?>");
-        ignoredSectionsMap.ignoredSections.add("<?SORTPOM Ignore?>def2<?sortPom reSUME?>");
+        ignoredSections.add("<?sortpom ignore?>def1<?sortpom resume?>");
+        ignoredSections.add("<?SORTPOM Ignore?>def2<?sortPom reSUME?>");
 
-        String replaced = ignoredSectionsMap.revertIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
         assertThat(replaced, is("abc<?sortpom ignore?>def1<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def2<?sortPom reSUME?>cba"));
     }
 
     @Test
     public void revertTokensInRearrangedOrderShouldPlaceTextInRightOrder() throws Exception {
         String xml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
-        ignoredSectionsMap.ignoredSections.add("<?sortpom ignore?>def0<?sortpom resume?>");
-        ignoredSectionsMap.ignoredSections.add("<?SORTPOM Ignore?>def1<?sortPom reSUME?>");
+        ignoredSections.add("<?sortpom ignore?>def0<?sortpom resume?>");
+        ignoredSections.add("<?SORTPOM Ignore?>def1<?sortPom reSUME?>");
 
-        String replaced = ignoredSectionsMap.revertIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
         assertThat(replaced, is("abc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cbaabc<?sortpom ignore?>def0<?sortpom resume?>cba"));
     }
 
@@ -184,14 +189,14 @@ public class IgnoredSectionsMapTest {
                 "  <description>The sorting functionality</description>\n" +
                 "\n" +
                 "</project>\n";
-        ignoredSectionsMap.ignoredSections.add("<?sortpom ignore?>\n" +
-                "      <version>4.11</version><!--\\$NO-MVN-MAN-VER\\$ -->\n" +
+        ignoredSections.add("<?sortpom ignore?>\n" +
+                "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n" +
                 "        <?sortpom resume?>");
-        ignoredSectionsMap.ignoredSections.add("<?sortpom ignore?>\n" +
-                "      <version>2.1</version><!--\\$NO-MVN-MAN-VER\\$ -->\n" +
+        ignoredSections.add("<?sortpom ignore?>\n" +
+                "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n" +
                 "        <?sortpom resume?>");
 
-        String replaced = ignoredSectionsMap.revertIgnoredSections(xml);
+        String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
         assertThat(replaced, is("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "\n" +

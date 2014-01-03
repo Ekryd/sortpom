@@ -6,6 +6,9 @@
   <!-- Basics -->
   <groupId>something</groupId>
   <artifactId>maven-sortpom-sorter</artifactId>
+  <?sortpom ignore?>
+      <!-- \$1 $1 $1 \n  -->
+        <?sortpom resume?>
   <version>1.0</version>
   <packaging>jar</packaging>
 

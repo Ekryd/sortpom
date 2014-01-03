@@ -3,6 +3,8 @@ package sortpom.processinstruction;
 import java.util.regex.Pattern;
 
 /**
+ * Contains the different processing instruction commands that sortpom supports
+ *
  * @author bjorn
  * @since 2013-12-28
  */

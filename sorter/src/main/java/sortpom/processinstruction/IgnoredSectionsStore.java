@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 
 /**
+ * Replaces ignored sections with a token. The ignored sections look like this:
+ * <?sortpom ignore?>... whatever ... <?sortpom resume?>
+ * <p/>
+ * The tokens look like this:
+ * <?sortpom token='0'?>
+ * <p/>
+ * The number in the token identifies the ignored section so that it can find it in a stored list.
+ *
  * @author bjorn
  * @since 2013-12-28
  */
-class IgnoredSectionsMap {
-    ArrayList<String> ignoredSections = new ArrayList<String>();
+class IgnoredSectionsStore {
+    private ArrayList<String> ignoredSections = new ArrayList<String>();
 
     public String replaceIgnoredSections(String originalXml) {
         Matcher matcher = InstructionType.IGNORE_SECTIONS_PATTERN.matcher(originalXml);
@@ -17,8 +25,7 @@ class IgnoredSectionsMap {
         int i = 0;
 
         while (matcher.find()) {
-            String contentWithOneBackslashBeforeDollar = matcher.group().replaceAll("[$]", "\\\\\\$");
-            ignoredSections.add(contentWithOneBackslashBeforeDollar);
+            ignoredSections.add(matcher.group());
             matcher.appendReplacement(returnValue, String.format("<?sortpom token='%d'?>", i));
             i++;
         }
@@ -34,7 +41,11 @@ class IgnoredSectionsMap {
 
         while (matcher.find()) {
             int index = Integer.parseInt(matcher.group(1));
-            matcher.appendReplacement(returnValue, ignoredSections.get(index));
+            String replacement = ignoredSections.get(index);
+            String oneBackslashBeforeBackslash = replacement.replace("\\", "\\\\");
+            String oneBackslashBeforeDollar = oneBackslashBeforeBackslash.replace("$", "\\$");
+
+            matcher.appendReplacement(returnValue, oneBackslashBeforeDollar);
         }
         matcher.appendTail(returnValue);
 

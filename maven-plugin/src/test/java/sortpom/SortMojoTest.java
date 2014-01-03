@@ -58,4 +58,13 @@ public class SortMojoTest {
         
         sortMojo.setup();
     }
+
+    @Test
+    public void skipParameterShouldSkipExecution() throws Exception {
+        new ReflectionHelper(sortMojo).setField("skip", true);
+
+        sortMojo.execute();
+        
+        verifyNoMoreInteractions(sortPom);
+    }
 }

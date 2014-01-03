@@ -60,4 +60,13 @@ public class VerifyMojoTest {
         
         verifyMojo.setup();
     }
+
+    @Test
+    public void skipParameterShouldSkipExecution() throws Exception {
+        new ReflectionHelper(verifyMojo).setField("skip", true);
+
+        verifyMojo.execute();
+        
+        verifyNoMoreInteractions(sortPom);
+    }
 }

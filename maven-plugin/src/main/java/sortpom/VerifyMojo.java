@@ -133,6 +133,12 @@ public class VerifyMojo extends AbstractMojo {
      */
     private boolean indentBlankLines;
 
+    /**
+     * Set this to 'true' to bypass sortpom plugin
+     *
+     * @parameter expression="${sort.skip}" default-value="false"
+     */
+    private boolean skip;
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
@@ -142,14 +148,17 @@ public class VerifyMojo extends AbstractMojo {
     /**
      * Execute plugin.
      *
-     * @throws org.apache.maven.plugin.MojoFailureException
-     *          exception that will be handled by plugin framework
+     * @throws org.apache.maven.plugin.MojoFailureException exception that will be handled by plugin framework
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     @Override
     public void execute() throws MojoFailureException {
-        setup();
-        sortPom();
+        if (skip) {
+            getLog().info("Skipping Sortpom");
+        } else {
+            setup();
+            sortPom();
+        }
     }
 
     public void setup() throws MojoFailureException {

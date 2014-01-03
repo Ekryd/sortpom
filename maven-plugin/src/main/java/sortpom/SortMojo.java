@@ -125,6 +125,13 @@ public class SortMojo extends AbstractMojo {
      */
     private boolean sortProperties;
 
+    /**
+     * Set this to 'true' to bypass sortpom plugin
+     *
+     * @parameter expression="${sort.skip}" default-value="false"
+     */
+    private boolean skip;
+
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
     public SortMojo() {
@@ -133,14 +140,18 @@ public class SortMojo extends AbstractMojo {
     /**
      * Execute plugin.
      *
-     * @throws org.apache.maven.plugin.MojoFailureException
-     *          exception that will be handled by plugin framework
+     * @throws org.apache.maven.plugin.MojoFailureException exception that will be handled by plugin framework
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     @Override
     public void execute() throws MojoFailureException {
-        setup();
-        sortPom();
+        if (skip) {
+            getLog().info("Skipping sortpom");
+        } else {
+            setup();
+            sortPom();
+        }
+
     }
 
     public void setup() throws MojoFailureException {

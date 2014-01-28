@@ -97,7 +97,7 @@ public class SortPomImpl {
      * @param originalXml the xml that should be sorted.
      * @return the sorted xml
      */
-    public String sortXml(final String originalXml) {
+    String sortXml(final String originalXml) {
         String errorMsg = "Could not sort pom files content: ";
 
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);

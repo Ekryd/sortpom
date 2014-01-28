@@ -10,7 +10,7 @@ import sortpom.logger.SortPomLogger;
  * @since 2013-12-28
  */
 public class XmlProcessingInstructionParser {
-    private IgnoredSectionsStore ignoredSectionsStore = new IgnoredSectionsStore();
+    private final IgnoredSectionsStore ignoredSectionsStore = new IgnoredSectionsStore();
     private String originalXml;
     private SortPomLogger logger;
     private boolean containsIgnoredSections = false;

@@ -1,6 +1,7 @@
 package sortpom.processinstruction;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 
 /**
@@ -16,7 +17,7 @@ import java.util.regex.Matcher;
  * @since 2013-12-28
  */
 class IgnoredSectionsStore {
-    private ArrayList<String> ignoredSections = new ArrayList<String>();
+    private final List<String> ignoredSections = new ArrayList<String>();
 
     public String replaceIgnoredSections(String originalXml) {
         Matcher matcher = InstructionType.IGNORE_SECTIONS_PATTERN.matcher(originalXml);

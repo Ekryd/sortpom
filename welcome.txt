@@ -1,0 +1,12 @@
+
+
+  ******************************************************************************
+  *  Use the following build options when building the SortPom Maven plugin:   *
+  *                                                                            *
+  *  mvn clean install -Ddev  (compile without signing the jar-file)           *
+  *                                                                            *
+  *  mvn clean install    (to deploy new version of the plugin)                *
+  *  mvn release:clean                                                         *
+  *  mvn release:prepare                                                       *
+  *  mvn release:perform                                                       *
+  ******************************************************************************

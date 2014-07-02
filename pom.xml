@@ -24,6 +24,7 @@
 
   <properties>
     <compileSource>1.6</compileSource>
+    <my.property>Special value</my.property>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -106,16 +107,17 @@
       <plugin>
         <groupId>com.google.code.echo-maven-plugin</groupId>
         <artifactId>echo-maven-plugin</artifactId>
-        <version>0.0.1</version>
+        <version>1.0.0</version>
         <inherited>false</inherited>
-        <configuration>
-          <fromFile>welcome.txt</fromFile>
-        </configuration>
         <executions>
           <execution>
+            <id>welcome</id>
             <goals>
               <goal>echo</goal>
             </goals>
+            <configuration>
+              <fromFile>welcome.txt</fromFile>
+            </configuration>
           </execution>
         </executions>
       </plugin>

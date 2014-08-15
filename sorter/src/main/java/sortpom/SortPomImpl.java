@@ -24,6 +24,7 @@ import java.io.IOException;
  */
 public class SortPomImpl {
 
+    public static final String TEXT_FILE_NOT_SORTED = "The file %s is not sorted";
     private final FileUtil fileUtil;
     private final XmlProcessor xmlProcessor;
     private final WrapperFactoryImpl wrapperFactory;
@@ -161,17 +162,17 @@ public class SortPomImpl {
             switch (verifyFailType) {
                 case WARN:
                     log.warn(xmlOrderedResult.getErrorMessage());
-                    log.warn(String.format("The file %s is not sorted", pomFileName));
+                    log.warn(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     break;
                 case SORT:
                     log.info(xmlOrderedResult.getErrorMessage());
-                    log.info(String.format("The file %s is not sorted", pomFileName));
+                    log.info(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     sortPom();
                     break;
                 case STOP:
                     log.error(xmlOrderedResult.getErrorMessage());
-                    log.error(String.format("The file %s is not sorted", pomFileName));
-                    throw new FailureException(String.format("The file %s is not sorted", pomFileName));
+                    log.error(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
+                    throw new FailureException(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                 default:
                     log.error(xmlOrderedResult.getErrorMessage());
                     throw new IllegalStateException(verifyFailType.toString());

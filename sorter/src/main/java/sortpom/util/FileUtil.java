@@ -120,7 +120,7 @@ public class FileUtil {
                 if (urlWrapper.isUrl()) {
                     inputStream = urlWrapper.openStream();
                 } else {
-                    inputStream = getFileFromRelativeOrClassPath();
+                    inputStream = openCustomSortOrderFile();
                 }
             } else if (predefinedSortOrder != null) {
                 inputStream = getPredefinedSortOrder(predefinedSortOrder);
@@ -133,7 +133,13 @@ public class FileUtil {
         }
     }
 
-    private InputStream getFileFromRelativeOrClassPath() throws IOException {
+    /**
+     * Load custom sort order file from absolute or class path. 
+     * 
+     * @return
+     * @throws IOException
+     */
+    private InputStream openCustomSortOrderFile() throws IOException {
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(customSortOrderFile);

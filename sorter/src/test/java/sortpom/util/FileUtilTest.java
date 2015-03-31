@@ -56,13 +56,13 @@ public class FileUtilTest {
 
     @Test
     public void defaultSortOrderFromNonExistingHostShouldThrowException() throws IOException {
-        FileUtil fileUtil = createFileUtil("http://this.does.not.work/licenses/BSD-3-Clause");
+        FileUtil fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 
         try {
             fileUtil.getDefaultSortOrderXmlBytes();
             fail();
         } catch (UnknownHostException e) {
-            assertThat(e.getMessage(), is("this.does.not.work"));
+            assertThat(e.getMessage(), is("jgerwzuujy.fjrmzaxklj.zfgmqavbhp"));
         }
     }
 

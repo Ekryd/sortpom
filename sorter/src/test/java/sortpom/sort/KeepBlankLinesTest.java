@@ -4,7 +4,7 @@ import org.junit.Test;
 import sortpom.util.SortPomImplUtil;
 import sortpom.util.XmlProcessorTestUtil;
 
-import static org.hamcrest.text.StringContains.containsString;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
 
 public class KeepBlankLinesTest {

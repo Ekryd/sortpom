@@ -4,13 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.google.code.sortpom</groupId>
-    <artifactId>maven-sortpom</artifactId>
-    <version>2.3.1-SNAPSHOT</version>
+    <groupId>com.github.ekryd.sortpom</groupId>
+    <artifactId>sortpom-parent</artifactId>
+    <version>2.4.0-SNAPSHOT</version>
   </parent>
 
   <!-- Basics -->
-  <artifactId>maven-sortpom-sorter</artifactId>
+  <artifactId>sortpom-sorter</artifactId>
   <packaging>jar</packaging>
   <name>SortPom Sorter</name>
   <description>The sorting functionality</description>
@@ -28,30 +28,6 @@
     </dependency>
 
     <!-- Test dependencies -->
-    <dependency>
-      <groupId>com.google.code.reflection-utils</groupId>
-      <artifactId>reflection-utils</artifactId>
-      <version>0.0.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <version>1.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>1.9.0</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>

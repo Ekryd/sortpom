@@ -23,35 +23,35 @@ public class SortMojo extends AbstractMojo {
      * This is the File instance that refers to the location of the pom that
      * should be sorted.
      *
-     * @parameter expression="${sort.pomFile}" default-value="${project.file}"
+     * @parameter property="sort.pomFile" default-value="${project.file}"
      */
     private File pomFile;
 
     /**
      * Should a backup copy be created for the sorted pom.
      *
-     * @parameter expression="${sort.createBackupFile}" default-value="true"
+     * @parameter property="sort.createBackupFile" default-value="true"
      */
     private boolean createBackupFile;
 
     /**
      * Name of the file extension for the backup file.
      *
-     * @parameter expression="${sort.backupFileExtension}" default-value=".bak"
+     * @parameter property="sort.backupFileExtension" default-value=".bak"
      */
     private String backupFileExtension;
 
     /**
      * Encoding for the files.
      *
-     * @parameter expression="${sort.encoding}" default-value="UTF-8"
+     * @parameter property="sort.encoding" default-value="UTF-8"
      */
     private String encoding;
 
     /**
      * Line separator for sorted pom. Can be either \n, \r or \r\n
      *
-     * @parameter expression="${sort.lineSeparator}"
+     * @parameter property="sort.lineSeparator"
      * default-value="${line.separator}"
      */
     private String lineSeparator;
@@ -60,14 +60,14 @@ public class SortMojo extends AbstractMojo {
      * Should empty xml elements be expanded or not. Example:
      * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
      *
-     * @parameter expression="${sort.expandEmptyElements}" default-value="true"
+     * @parameter property="sort.expandEmptyElements" default-value="true"
      */
     private boolean expandEmptyElements;
 
     /**
-     * Should blank lines in the pom-file be perserved. A maximum of one line is preserved between each tag.
+     * Should blank lines in the pom-file be preserved. A maximum of one line is preserved between each tag.
      *
-     * @parameter expression="${sort.keepBlankLines}" default-value="false"
+     * @parameter property="sort.keepBlankLines" default-value="false"
      */
     private boolean keepBlankLines;
 
@@ -75,28 +75,28 @@ public class SortMojo extends AbstractMojo {
      * Number of space characters to use as indentation. A value of -1 indicates
      * that tab character should be used instead.
      *
-     * @parameter expression="${sort.nrOfIndentSpace}" default-value="2"
+     * @parameter property="sort.nrOfIndentSpace" default-value="2"
      */
     private int nrOfIndentSpace;
 
     /**
      * Should blank lines (if preserved) have indentation.
      *
-     * @parameter expression="${sort.indentBlankLines}" default-value="false"
+     * @parameter property="sort.indentBlankLines" default-value="false"
      */
     private boolean indentBlankLines;
 
     /**
      * Choose between a number of predefined sort order files.
      *
-     * @parameter expression="${sort.predefinedSortOrder}"
+     * @parameter property="sort.predefinedSortOrder"
      */
     private String predefinedSortOrder;
 
     /**
      * Custom sort order file.
      *
-     * @parameter expression="${sort.sortOrderFile}"
+     * @parameter property="sort.sortOrderFile"
      */
     private String sortOrderFile;
 
@@ -105,7 +105,7 @@ public class SortMojo extends AbstractMojo {
      * If scope is specified in the list then the scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
      * The list can be seprated by ,;:
      *
-     * @parameter expression="${sort.sortDependencies}" default-value=""
+     * @parameter property="sort.sortDependencies" default-value=""
      */
     private String sortDependencies;
 
@@ -113,7 +113,7 @@ public class SortMojo extends AbstractMojo {
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
      * The list can be seprated by ,;:
      *
-     * @parameter expression="${sort.sortPlugins}" default-value=""
+     * @parameter property="sort.sortPlugins" default-value=""
      */
     private String sortPlugins;
 
@@ -121,14 +121,14 @@ public class SortMojo extends AbstractMojo {
      * Should the Maven pom properties be sorted alphabetically. Affects both
      * project/properties and project/profiles/profile/properties
      *
-     * @parameter expression="${sort.sortProperties}" default-value="false"
+     * @parameter property="sort.sortProperties" default-value="false"
      */
     private boolean sortProperties;
 
     /**
      * Set this to 'true' to bypass sortpom plugin
      *
-     * @parameter expression="${sort.skip}" default-value="false"
+     * @parameter property="sort.skip" default-value="false"
      */
     private boolean skip;
 

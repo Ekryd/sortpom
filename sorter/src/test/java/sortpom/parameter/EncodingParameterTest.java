@@ -11,7 +11,7 @@ public class EncodingParameterTest {
 
     @Test
     public void illegalEncodingShouldNotWork() throws Exception {
-        thrown.expectMessage("Could not handle encoding: gurka-2000");
+        thrown.expectMessage("gurka-2000");
 
         SortPomImplUtil.create()
                 .encoding("gurka-2000")

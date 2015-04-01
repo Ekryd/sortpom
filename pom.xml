@@ -85,7 +85,7 @@
               <goal>echo</goal>
             </goals>
             <configuration>
-              <fromFile>welcome.txt</fromFile>
+              <fromFile>misc/welcome.txt</fromFile>
             </configuration>
           </execution>
         </executions>

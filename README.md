@@ -11,5 +11,6 @@ The main advantages to have standardized sorted poms are that they become more r
 
 The SortPom Plugin has two goals.
 
-  mvn sortpom:sort sorts the current pom.xml file. This goal will always sort the pom.xml file.
-  mvn sortpom:verify only sorts the current pom.xml file if the xml elements are unsorted. This goal ignores text formatting (such as indentation and line breaks) when it verifies if the pom is sorted or not.
+mvn sortpom:sort sorts the current pom.xml file. This goal will always sort the pom.xml file.
+
+mvn sortpom:verify only sorts the current pom.xml file if the xml elements are unsorted. This goal ignores text formatting (such as indentation and line breaks) when it verifies if the pom is sorted or not.

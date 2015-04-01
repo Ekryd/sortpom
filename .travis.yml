@@ -1,0 +1,26 @@
+language: java
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "H++md51jq/ANOWItsany1pKllMuLrQCv0El1j2qNuwPPxxFh0JqyQ2TZruqD6JY6l1b9JMbgiesUsl04vu1p3UeQOofnJQCFE0Ym69qN43nZJMU7AvYNLTq7mhdEeHXxy1gC0wtSXKaI0nS+m0O4eKV0D1cyzX0+sSlrruy+ZsA="
+
+install: mvn install -Ddev
+
+jdk:
+  - openjdk6
+  - oraclejdk8
+
+addons:
+  coverity_scan:
+    project:
+      name: "Ekryd/sortpom-maven-plugin"
+      description: "Maven plugin that helps the user sort pom.xml"
+    notification_email: bjorn.ekryd@gmail.com
+    build_command_prepend: "mvn clean -Ddev"
+    build_command:   "mvn compile -Ddev -DskipTests=true"
+    branch_pattern: coverity_scan
+    
+after_success:
+  - mvn clean test jacoco:report coveralls:report -Ddev

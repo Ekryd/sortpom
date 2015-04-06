@@ -268,8 +268,8 @@
   <scm>
     <connection>connection</connection>
     <developerConnection>developerConnection</developerConnection>
-    <tag>HEAD</tag>
     <url>url</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>system</system>

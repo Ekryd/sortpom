@@ -290,8 +290,8 @@
 	<scm>
 		<connection />
 		<developerConnection />
-		<tag />
 		<url />
+		<tag />
 	</scm>
 	<issueManagement>
 		<system />

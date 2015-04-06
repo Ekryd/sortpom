@@ -32,7 +32,7 @@ public abstract class HierarchyWrapperOperation {
     public void manipulateChildElements(List<HierarchyWrapper> children) {
     }
 
-    /** Override this if the operation wants to manipulate itself before it recurses down to the children
+    /** Override this if the operation wants to manipulate itself before it traverses down to the children
      * of the element being processed
      * @return the same or another instance of the implementing operation
      */

@@ -136,7 +136,7 @@ public class FileUtil {
     /**
      * Load custom sort order file from absolute or class path. 
      * 
-     * @return
+     * @return a stream to the opened resource
      * @throws IOException
      */
     private InputStream openCustomSortOrderFile() throws IOException {

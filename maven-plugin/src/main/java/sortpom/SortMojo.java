@@ -11,7 +11,7 @@ import sortpom.parameter.PluginParametersBuilder;
 import java.io.File;
 
 /**
- * Mojo (Maven plugin) that sorts the pom file for a maven project.
+ * Sorts the pom.xml for a Maven project.
  *
  * @author Bjorn Ekryd
  * @goal sort
@@ -101,9 +101,9 @@ public class SortMojo extends AbstractMojo {
     private String sortOrderFile;
 
     /**
-     * Comma-separated ordered list how dependencies should be sorted. Example: scope,groupId,artifactId
+     * Comma-separated ordered list how dependencies should be sorted. Example: scope,groupId,artifactId.
      * If scope is specified in the list then the scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
-     * The list can be seprated by ,;:
+     * The list can be separated by ",;:"
      *
      * @parameter property="sort.sortDependencies" default-value=""
      */
@@ -111,7 +111,7 @@ public class SortMojo extends AbstractMojo {
 
     /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
-     * The list can be seprated by ,;:
+     * The list can be separated by ",;:"
      *
      * @parameter property="sort.sortPlugins" default-value=""
      */

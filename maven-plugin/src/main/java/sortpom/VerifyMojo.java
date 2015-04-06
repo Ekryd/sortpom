@@ -11,7 +11,7 @@ import sortpom.parameter.PluginParametersBuilder;
 import java.io.File;
 
 /**
- * Mojo (Maven plugin) that sorts the pom file for a maven project.
+ * Verifies that the pom.xml is sorted. If the verification fails then the pom.xml is sorted.
  *
  * @author Bjorn Ekryd
  * @goal verify
@@ -44,7 +44,7 @@ public class VerifyMojo extends AbstractMojo {
     /**
      * Comma-separated ordered list how dependencies should be sorted. Example: scope,groupId,artifactId
      * If scope is specified in the list then the scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST.
-     * The list can be seprated by ,;:
+     * The list can be separated by ",;:"
      *
      * @parameter property="sort.sortDependencies" default-value=""
      */
@@ -52,7 +52,7 @@ public class VerifyMojo extends AbstractMojo {
 
     /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId
-     * The list can be seprated by ,;:
+     * The list can be separated by ",;:"
      *
      * @parameter property="sort.sortPlugins" default-value=""
      */
@@ -112,7 +112,7 @@ public class VerifyMojo extends AbstractMojo {
     private boolean expandEmptyElements;
 
     /**
-     * Should blank lines in the pom-file be perserved. A maximum of one line is preserved between each tag.
+     * Should blank lines in the pom-file be preserved. A maximum of one line is preserved between each tag.
      *
      * @parameter property="sort.keepBlankLines" default-value="false"
      */

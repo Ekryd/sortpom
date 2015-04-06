@@ -11,7 +11,11 @@
   <name>SortPom</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>
 
-  <modules>
+  <prerequisites>
+    <maven>3.0.4</maven>
+  </prerequisites>
+
+    <modules>
     <module>sorter</module>
     <module>maven-plugin</module>
   </modules>

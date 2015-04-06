@@ -7,10 +7,10 @@ import java.util.regex.Matcher;
 /**
  * Replaces ignored sections with a token. The ignored sections look like this:
  * <?sortpom ignore?>... whatever ... <?sortpom resume?>
- * <p/>
+ *
  * The tokens look like this:
  * <?sortpom token='0'?>
- * <p/>
+ *
  * The number in the token identifies the ignored section so that it can find it in a stored list.
  *
  * @author bjorn

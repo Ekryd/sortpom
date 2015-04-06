@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Concrete implementation of a wrapper factory that sorts xml according to
  * sort order from fileUtil.
- * <p/>
+ * 
  * Thank you Christian Haelg for your sortProperties patch.
  *
  * @author Bjorn Ekryd

@@ -3,12 +3,12 @@ package sortpom.jdomcontent;
 import org.jdom.Comment;
 
 /**
+ * The NewlineText is not really a special case of comment. Its just that comments
+ * are not subjected to trimming by jdom. The special handling of NewlineText is done
+ * in XmlProcessor.PatchedXMLOutputter
+ *
  * @author bjorn
  * @since 2012-05-17
- *        <p/>
- *        The NewlineText is not really a special case of comment. Its just that comments
- *        are not subjected to trimming by jdom. The special handling of NewlineText is done
- *        in XmlProcessor.PatchedXMLOutputter
  */
 public class NewlineText extends Comment {
     private static final long serialVersionUID = -7552189498553321263L;
@@ -21,7 +21,7 @@ public class NewlineText extends Comment {
      * should be used.
      *
      * @return <code>String</code> - information about the
-     *         <code>Attribute</code>
+     * <code>Attribute</code>
      */
     public String toString() {
         return "[NewLine]";

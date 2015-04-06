@@ -293,6 +293,18 @@
                 <!-- JSE -->
                 <link>http://docs.oracle.com/javase/6/docs/api/</link>
               </links>
+              <tags>
+                <tag>
+                  <name>goal</name>
+                  <placement>a</placement>
+                  <head>Maven plugin goal:</head>
+                </tag>
+                <tag>
+                  <name>threadSafe</name>
+                  <placement>a</placement>
+                  <head>Is plugin thread safe:</head>
+                </tag>
+              </tags>
             </configuration>
             <executions>
               <execution>
@@ -304,6 +316,7 @@
               </execution>
             </executions>
           </plugin>
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>

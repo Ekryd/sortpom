@@ -1,4 +1,4 @@
-# sortpom-maven-plugin ![Icon](https://raw.githubusercontent.com/Ekryd/sortpom/master/misc/Sortpom.png)
+# Sortpom Maven Plugin ![Icon](https://raw.githubusercontent.com/Ekryd/sortpom/master/misc/Sortpom.png)
 
 [![Build Status](https://travis-ci.org/Ekryd/sortpom.svg?branch=master)](https://travis-ci.org/Ekryd/sortpom-utils)
 [![Coverage Status](https://coveralls.io/repos/Ekryd/sortpom/badge.svg?branch=master)](https://coveralls.io/r/Ekryd/sortpom?branch=master)
@@ -15,6 +15,18 @@ The SortPom Plugin has two goals.
 
   * **mvn sortpom:verify** only sorts the current pom.xml file if the xml elements are unsorted. This goal ignores text formatting (such as indentation and line breaks) when it verifies if the pom is sorted or not.
 
+## Usage ##
+
+The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be configured to sort by by different standards or by custom format. By default a backup file will be created, so that you can check how the pom-file has changed.
+
+Sortpom works best if it is run every time during Maven compilation. Configure it once and then forget about it. If you want to see what the plugin does then open a command prompt in your project home and enter
+```
+mvn com.github.ekryd.sortpom:sortpom-maven-plugin:sort -Dsort.keepBlankLines -Dsort.predefinedSortOrder=custom_1
+```
+
+For a example how the plugin can be configured to run every time you build your project see [this](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
+
+The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 # UNDER CONSTRUCTION #
 It will take some time to do things right.

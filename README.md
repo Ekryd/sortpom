@@ -24,7 +24,7 @@ Sortpom works best if it is run every time during Maven compilation. Configure i
 mvn com.github.ekryd.sortpom:sortpom-maven-plugin:sort -Dsort.keepBlankLines -Dsort.predefinedSortOrder=custom_1
 ```
 
-For a example how the plugin can be configured to run every time you build your project see [this](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
+For a example how the plugin can be configured to run every time you build your project see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 

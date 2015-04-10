@@ -36,18 +36,24 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2014-08-11: Received an Open Source license for Araxis Merge. Thank you [Araxis](http://www.araxis.com/)!
   * 2014-04-18: Released [Echo-maven-plugin](https://code.google.com/p/echo-maven-plugin/), another Maven plugin. Please check it out!
   * 2014-02-05: Renewed Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
-  * 2014-01-28: Released version 2.3.0 which lets you [ignore sections](IgnoringSections.md) in pom.xml where SortPom should not sort elements.
+  * 2014-01-28: Released version 2.3.0 which lets you [ignore sections](https://github.com/Ekryd/sortpom/wiki/IgnoringSections) in pom.xml where SortPom should not sort elements.
   * 2013-11-23: Hurrah! Got a donation. Thank you Bastian!
   * 2013-10-13: Released version 2.2.1 which corrects line separators when using xml:space="preserve"
   * 2013-10-01: Hurrah! Got an donation. Thank you Khalid!
   * 2013-08-22: Released version 2.2 which contains functionality to use an url as sortOrderFile. This means that you can have a centralized, version controlled, sort order file for multiple projects.
-    * 2012-12-22: Split the project into three modules: one for sorting, one for maven plugin support and one for test utils.
+  * 2012-12-22: Split the project into three modules: one for sorting, one for maven plugin support and one for test utils.
   * 2012-11-05: Hurrah! Got an donation. Thank you Michael!
   * 2012-06-12: Hurrah! Got an donation. Thank you Reuben!
   * 2011-11-21: The 0.4.0 plugin is now in the Central repository. It is highly recommended to use the 0.4.0 version or later from Central from now on. There is no need to include an extra repository location.
 
-# UNDER CONSTRUCTION #
-It will take some time to do things right.
+## Versions ##
+https://github.com/Ekryd/sortpom/wiki/Versions
+
+## Plugin parameters ##
+https://github.com/Ekryd/sortpom/wiki/Parameters
+
+## Download ##
+The plugin is hosted i [Maven Central](http://mvnrepository.com/artifact/com.github.ekryd.sortpom/sortpom-maven-plugin) and will be downloaded automatically if you include it as a plugin in your pom file.
 
 ## Donations ##
 If you use it, then please consider some encouragement.  

@@ -57,6 +57,6 @@ The plugin is hosted i [Maven Central](http://mvnrepository.com/artifact/com.git
 
 ## Donations ##
 If you use it, then please consider some encouragement.  
-Especially now that I have move everything to GitHub. 
+Especially now that I have made the effort to move everything to GitHub. 
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JB25X84DDG5JW&lc=SE&item_name=Encourage%20the%20development&item_number=sortpom&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)

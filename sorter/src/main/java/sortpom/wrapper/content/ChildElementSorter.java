@@ -72,7 +72,7 @@ public class ChildElementSorter {
             String childElementName = childElementNames[i];
             String childElementText = childElementTexts[i];
             String otherChildElementText = otherChildElementTexts[i];
-            if (childElementName.equalsIgnoreCase("scope")) {
+            if ("scope".equalsIgnoreCase(childElementName)) {
                 compare = compareScope(childElementText, otherChildElementText);
             } else {
                 compare = childElementText.compareToIgnoreCase(otherChildElementText);

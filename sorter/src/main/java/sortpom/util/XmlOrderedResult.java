@@ -10,6 +10,11 @@ public final class XmlOrderedResult {
     private final boolean ordered;
     private final String errorMessage;
 
+    private XmlOrderedResult(boolean ordered, String errorMessage) {
+        this.ordered = ordered;
+        this.errorMessage = errorMessage;
+    }
+
     /** pom file was ordered */
     public static XmlOrderedResult ordered() {
         return new XmlOrderedResult(true, "");
@@ -32,11 +37,6 @@ public final class XmlOrderedResult {
     public static XmlOrderedResult textContentDiffers(String name, String originalElementText, String newElementText) {
         return new XmlOrderedResult(false, String.format("The xml element <%s>%s</%s> should be placed before <%s>%s</%s>",
                 name, newElementText, name, name, originalElementText, name));
-    }
-
-    private XmlOrderedResult(boolean ordered, String errorMessage) {
-        this.ordered = ordered;
-        this.errorMessage = errorMessage;
     }
 
     /** Returns true when verification tells that the pom file was sorted */

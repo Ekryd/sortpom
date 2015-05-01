@@ -49,12 +49,12 @@ public class DependencySortOrder {
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */
     public boolean isDeprecatedValueTrue() {
-        return childElementNameList.equalsIgnoreCase("true");
+        return "true".equalsIgnoreCase(childElementNameList);
     }
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */
     public boolean isDeprecatedValueFalse() {
-        return childElementNameList.equalsIgnoreCase("false");
+        return "false".equalsIgnoreCase(childElementNameList);
     }
 
     /** If the dependencies should be unsorted */

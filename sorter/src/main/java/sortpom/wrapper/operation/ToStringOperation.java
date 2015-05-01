@@ -13,24 +13,27 @@ import java.util.List;
  * @since 2013-11-02
  */
 public class ToStringOperation extends HierarchyWrapperOperation {
+    private final static String INDENT = "  ";
+    private final static int INDENT_LENGTH = INDENT.length();
     private final StringBuilder builder;
     private final String baseIndent;
     private boolean processFirstOtherContent;
 
     public ToStringOperation() {
         builder = new StringBuilder();
-        baseIndent = "  ";
+        baseIndent = INDENT;
     }
 
     private ToStringOperation(StringBuilder builder, String baseIndent) {
         this.builder = builder;
-        this.baseIndent = "  " + baseIndent;
+        this.baseIndent = INDENT + baseIndent;
     }
 
     /** Add text before each element */
     @Override
     public void startOfProcess() {
-        builder.append(baseIndent.substring(2)).append("HierarchyWrapper{\n");
+        String previousBaseIndent = baseIndent.substring(INDENT_LENGTH);
+        builder.append(previousBaseIndent).append("HierarchyWrapper{\n");
         processFirstOtherContent = true;
     }
 
@@ -53,7 +56,7 @@ public class ToStringOperation extends HierarchyWrapperOperation {
     /** Add text before processing each child */
     @Override
     public void manipulateChildElements(List<HierarchyWrapper> children) {
-        if (children.size() != 0) {
+        if (!children.isEmpty()) {
             builder.append(baseIndent).append("children=").append("\n");
         }
     }

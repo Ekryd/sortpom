@@ -21,16 +21,20 @@ public class SortChildrenOperation extends HierarchyWrapperOperation {
             final Wrapper<Element> wrapper = wrapperImpl.getElementContent();
 
             if (wrapper != null && wrapper.isSortable()) {
-                boolean done = false;
-                for (int j = 0; !done && j < i; j++) {
-                    if (wrapper.isBefore(children.get(j).getElementContent())) {
-                        children.remove(i);
-                        children.add(j, wrapperImpl);
-                        done = true;
-                    }
-                }
+                insertChildInSortedOrder(children, i, wrapperImpl, wrapper);
             }
         }
 
+    }
+
+    private void insertChildInSortedOrder(List<HierarchyWrapper> children, int indexOfChild, HierarchyWrapper wrapperImpl, Wrapper<Element> wrapper) {
+        boolean done = false;
+        for (int j = 0; !done && j < indexOfChild; j++) {
+            if (wrapper.isBefore(children.get(j).getElementContent())) {
+                children.remove(indexOfChild);
+                children.add(j, wrapperImpl);
+                done = true;
+            }
+        }
     }
 }

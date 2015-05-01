@@ -27,9 +27,9 @@ public class LineSeparatorUtil {
     }
 
     private boolean isIllegalString() {
-        return !(string.equalsIgnoreCase("\n") ||
-                string.equalsIgnoreCase("\r") ||
-                string.equalsIgnoreCase("\r\n"));
+        return !("\n".equalsIgnoreCase(string) ||
+                "\r".equalsIgnoreCase(string) ||
+                "\r\n".equalsIgnoreCase(string));
     }
 
     @Override

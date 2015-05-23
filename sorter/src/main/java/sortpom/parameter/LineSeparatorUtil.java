@@ -2,6 +2,7 @@ package sortpom.parameter;
 
 import sortpom.exception.FailureException;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 /**
@@ -22,7 +23,7 @@ public class LineSeparatorUtil {
         if (isIllegalString()) {
             throw new FailureException(
                     "LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were "
-                            + Arrays.toString(lineSeparatorString.getBytes()));
+                            + Arrays.toString(lineSeparatorString.getBytes(Charset.defaultCharset())));
         }
     }
 

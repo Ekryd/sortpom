@@ -33,7 +33,7 @@ public class DependencySortOrder {
         if (childElementNames == null) {
             childElementNames = parseChildElementNameList();
         }
-        return childElementNames;
+        return childElementNames.clone();
     }
 
     private String[] parseChildElementNameList() {

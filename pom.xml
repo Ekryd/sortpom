@@ -16,6 +16,7 @@
   </prerequisites>
 
   <modules>
+    <module>report-resources</module>
     <module>sorter</module>
     <module>maven-plugin</module>
   </modules>
@@ -42,7 +43,7 @@
     <dependency>
       <groupId>com.github.ekryd.reflection-utils</groupId>
       <artifactId>reflection-utils</artifactId>
-      <version>0.0.5</version>
+      <version>1.0.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -73,7 +74,140 @@
           </configuration>
         </plugin>
 
+        <!-- Report plugins -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.10.1</version>
+          <configuration>
+            <minmemory>128m</minmemory>
+            <maxmemory>512</maxmemory>
+            <breakiterator>true</breakiterator>
+            <quiet>true</quiet>
+            <source>${compileSource}</source>
+            <verbose>false</verbose>
+            <linksource>true</linksource>
+            <links>
+              <!-- JSE -->
+              <link>http://docs.oracle.com/javase/6/docs/api/</link>
+            </links>
+            <tags>
+              <tag>
+                <name>goal</name>
+                <placement>a</placement>
+                <head>Maven plugin goal:</head>
+              </tag>
+              <tag>
+                <name>threadSafe</name>
+                <placement>a</placement>
+                <head>Is plugin thread safe:</head>
+              </tag>
+            </tags>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>3.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>2.8</version>
+          <configuration>
+            <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+            <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>2.15</version>
+          <configuration>
+            <includeTestResources>false</includeTestResources>
+            <enableRulesSummary>false</enableRulesSummary>
+            <violationSeverity>warning</violationSeverity>
+            <consoleOutput>false</consoleOutput>
+            <!--<configLocation>src/test/resources/plugin-resources/checkstyle_custom.xml</configLocation>-->
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.github.ekryd.sortpom</groupId>
+              <artifactId>report-resources</artifactId>
+              <version>1.0.0</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>3.4</version>
+          <configuration>
+            <targetJdk>${compileSource}</targetJdk>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>cobertura-maven-plugin</artifactId>
+          <version>2.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>emma-maven-plugin</artifactId>
+          <version>1.0-alpha-3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>3.0.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+
+        <!-- Release management -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.1</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy</goals>
+          </configuration>
+        </plugin>
+
+        <!-- References plugins (not directly used) -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.5.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.10</version>
+        </plugin>
       </plugins>
+
     </pluginManagement>
 
     <plugins>
@@ -106,14 +240,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.2</version>
-        <dependencies>
-          <dependency>
-            <groupId>com.thoughtworks.qdox</groupId>
-            <artifactId>qdox</artifactId>
-            <version>1.9</version>
-          </dependency>
-        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -143,13 +269,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5.1</version>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <useReleaseProfile>false</useReleaseProfile>
-          <releaseProfiles>release</releaseProfiles>
-          <goals>deploy</goals>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
@@ -222,6 +341,74 @@
     </plugins>
   </build>
 
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>aggregate</id>
+            <reports>
+              <report>aggregate</report>
+            </reports>
+            <inherited>false</inherited>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>aggregate</id>
+            <reports>
+              <report>aggregate</report>
+            </reports>
+            <inherited>false</inherited>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>aggregate</id>
+            <reports>
+              <report>checkstyle-aggregate</report>
+            </reports>
+            <inherited>false</inherited>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
   <!-- Misc -->
   <url>https://github.com/Ekryd/sortpom/</url>
   <inceptionYear>2009</inceptionYear>
@@ -281,32 +468,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.10.1</version>
-            <configuration>
-              <minmemory>128m</minmemory>
-              <maxmemory>512</maxmemory>
-              <breakiterator>true</breakiterator>
-              <quiet>true</quiet>
-              <source>${compileSource}</source>
-              <verbose>false</verbose>
-              <linksource>true</linksource>
-              <links>
-                <!-- JSE -->
-                <link>http://docs.oracle.com/javase/6/docs/api/</link>
-              </links>
-              <tags>
-                <tag>
-                  <name>goal</name>
-                  <placement>a</placement>
-                  <head>Maven plugin goal:</head>
-                </tag>
-                <tag>
-                  <name>threadSafe</name>
-                  <placement>a</placement>
-                  <head>Is plugin thread safe:</head>
-                </tag>
-              </tags>
-            </configuration>
             <executions>
               <execution>
                 <id>attach-javadoc</id>
@@ -321,7 +482,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.4</version>
             <executions>
               <execution>
                 <id>attach-sources</id>

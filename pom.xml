@@ -16,7 +16,6 @@
   </prerequisites>
 
   <modules>
-    <module>report-resources</module>
     <module>sorter</module>
     <module>maven-plugin</module>
   </modules>
@@ -128,25 +127,6 @@
             <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
             <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.15</version>
-          <configuration>
-            <includeTestResources>false</includeTestResources>
-            <enableRulesSummary>false</enableRulesSummary>
-            <violationSeverity>warning</violationSeverity>
-            <consoleOutput>false</consoleOutput>
-            <!--<configLocation>src/test/resources/plugin-resources/checkstyle_custom.xml</configLocation>-->
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>com.github.ekryd.sortpom</groupId>
-              <artifactId>report-resources</artifactId>
-              <version>1.0.0</version>
-            </dependency>
-          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -372,19 +352,6 @@
             <id>aggregate</id>
             <reports>
               <report>aggregate</report>
-            </reports>
-            <inherited>false</inherited>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <id>aggregate</id>
-            <reports>
-              <report>checkstyle-aggregate</report>
             </reports>
             <inherited>false</inherited>
           </reportSet>

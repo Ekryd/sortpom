@@ -22,9 +22,6 @@
 
   <properties>
     <compileSource>1.6</compileSource>
-
-    <!-- skip standard site deployment, because site is deployed using github plugin instead -->
-    <maven.site.deploy.skip>true</maven.site.deploy.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -328,26 +325,6 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
         <version>3.4</version>
-      </plugin>
-
-      <!-- Site pages to Github -->
-      <plugin>
-        <groupId>com.github.github</groupId>
-        <artifactId>site-maven-plugin</artifactId>
-        <version>0.12</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>site</goal>
-            </goals>
-            <phase>site-deploy</phase>
-          </execution>
-        </executions>
-            <configuration>
-              <server>github</server>
-              <message>Creating site for ${project.version}</message>
-              <noJekyll>true</noJekyll>
-            </configuration>
       </plugin>
     </plugins>
   </build>

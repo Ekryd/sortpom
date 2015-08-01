@@ -21,7 +21,7 @@
   </modules>
 
   <properties>
-    <compileSource>1.6</compileSource>
+    <compileSource>1.8</compileSource>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -241,6 +241,9 @@
             </goals>
             <configuration>
               <rules>
+                <requireJavaVersion>
+                  <version>1.8</version>
+                </requireJavaVersion>
                 <requirePluginVersions>
                   <message>Best Practice is to always define plugin versions!</message>
                   <banLatest>true</banLatest>

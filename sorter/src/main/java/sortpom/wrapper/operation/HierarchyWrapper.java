@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class HierarchyWrapper {
     private Wrapper<Element> elementContent;
-    private final List<Wrapper<Content>> otherContentList = new ArrayList<Wrapper<Content>>();
-    private final List<HierarchyWrapper> children = new ArrayList<HierarchyWrapper>();
+    private final List<Wrapper<Content>> otherContentList = new ArrayList<>();
+    private final List<HierarchyWrapper> children = new ArrayList<>();
 
     public HierarchyWrapper(final Wrapper<? extends Content> wrapper) {
         addContent(wrapper);
@@ -56,9 +56,9 @@ public class HierarchyWrapper {
     @SuppressWarnings("unchecked")
     private List<Content> castToContentList(final Wrapper<Element> elementContent) {
         if (elementContent == null) {
-            return new ArrayList<Content>();
+            return new ArrayList<>();
         }
-        return new ArrayList<Content>(elementContent.getContent().getContent());
+        return new ArrayList<>(elementContent.getContent().getContent());
     }
 
     private boolean containsElement() {
@@ -96,10 +96,8 @@ public class HierarchyWrapper {
         // Hook for start
         operation.startOfProcess();
 
-        for (Wrapper<Content> content : otherContentList) {
-            // Hook to process other content (newlines and comments)
-            operation.processOtherContent(content);
-        }
+        // Hook to process other content (newlines and comments)
+        otherContentList.forEach(operation::processOtherContent);
 
         if (elementContent != null && elementContent.isContentElement()) {
             // Hook to process element

@@ -1,6 +1,5 @@
 package sortpom;
 
-import org.apache.commons.io.IOUtils;
 import org.jdom.JDOMException;
 import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
@@ -106,9 +105,8 @@ public class SortPomImpl {
         
         insertXmlInXmlProcessor(xml, errorMsg);
         xmlProcessor.sortXml();
-        ByteArrayOutputStream sortedXmlOutputStream = null;
-        try {
-            sortedXmlOutputStream = xmlProcessor.getSortedXml();
+
+        try (ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml()) {
             String sortedXml = sortedXmlOutputStream.toString(encoding);
             if (xmlProcessingInstructionParser.existsIgnoredSections()) {
                 sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);
@@ -116,9 +114,7 @@ public class SortPomImpl {
             return sortedXml;
         } catch (IOException e) {
             throw new FailureException(errorMsg + xml, e);
-        } finally {
-            IOUtils.closeQuietly(sortedXmlOutputStream);
-        }
+        } 
 
     }
 
@@ -192,17 +188,11 @@ public class SortPomImpl {
     }
 
     private void insertXmlInXmlProcessor(String xml, String errorMsg) {
-        ByteArrayInputStream originalXmlInputStream = null;
-        try {
-            originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding));
+        try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))){
             xmlProcessor.setOriginalXml(originalXmlInputStream);
-        } catch (JDOMException e) {
+        } catch (JDOMException | IOException e) {
             throw new FailureException(errorMsg + xml, e);
-        } catch (IOException e) {
-            throw new FailureException(errorMsg + xml, e);
-        } finally {
-            IOUtils.closeQuietly(originalXmlInputStream);
-        }
+        } 
     }
 
 }

@@ -26,16 +26,16 @@ public class SortAttributesOperation extends HierarchyWrapperOperation {
 
     private List<Attribute> getSortedAttributes(Element element) {
         final List<Attribute> attributes = getAttributeList(element);
-        for (Attribute attribute : attributes) {
-            attribute.detach();
-        }
+        
+        attributes.forEach(Attribute::detach);
+        
         Collections.sort(attributes, ATTRIBUTE_COMPARATOR);
         return attributes;
     }
 
     @SuppressWarnings("unchecked")
     private List<Attribute> getAttributeList(final Element element) {
-        return new ArrayList<Attribute>(element.getAttributes());
+        return new ArrayList<>(element.getAttributes());
     }
 
 }

@@ -28,7 +28,7 @@ public class TextWrapperCreator {
         } else if (isBlankLineOrLines(text)) {
             return new UnsortedWrapper<Content>(new NewlineText());
         }
-        return new UnsortedWrapper<Text>(text);
+        return new UnsortedWrapper<>(text);
     }
 
     private boolean isSingleNewLine(Text content) {

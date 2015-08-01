@@ -26,7 +26,7 @@ public class ChildElementSorter {
 
     private String[] findChildElementTexts(List<Element> children) {
         Map<String, Element> childrenMap = getChildrenMappedByUpperCaseName(children);
-        List<String> childElementNameList = new ArrayList<String>();
+        List<String> childElementNameList = new ArrayList<>();
 
         for (String childElementName : childElementNames) {
             childElementNameList.add(getChildText(childrenMap, childElementName));
@@ -37,7 +37,7 @@ public class ChildElementSorter {
 
     @SuppressWarnings("unchecked")
     private Map<String, Element> getChildrenMappedByUpperCaseName(List<Element> children) {
-        Map<String, Element> map = new HashMap<String, Element>();
+        Map<String, Element> map = new HashMap<>();
 
         for (Element child : children) {
             map.put(child.getName().toUpperCase(), child);

@@ -46,7 +46,7 @@ public class ElementWrapperCreator {
         if (isPropertyElement(element)) {
             return new AlphabeticalSortedWrapper(element);
         }
-        return new UnsortedWrapper<Element>(element);
+        return new UnsortedWrapper<>(element);
     }
 
     private boolean isDependencyElement(final Element element) {

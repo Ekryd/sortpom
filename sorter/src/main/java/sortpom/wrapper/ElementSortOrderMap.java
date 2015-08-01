@@ -13,7 +13,7 @@ import static sortpom.wrapper.ElementUtil.getDeepName;
  */
 class ElementSortOrderMap {
     /** Contains sort order element names and their index. */
-    private final Map<String, Integer> elementNameSortOrderMap = new HashMap<String, Integer>();
+    private final Map<String, Integer> elementNameSortOrderMap = new HashMap<>();
 
     /**
      * Add an Xml element to the map

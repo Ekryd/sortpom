@@ -53,17 +53,10 @@ public class FileUtil {
     }
 
     private void createBackupFile() {
-        FileInputStream source = null;
-        FileOutputStream newFile = null;
-        try {
-            source = new FileInputStream(pomFile);
-            newFile = new FileOutputStream(backupFile);
+        try (FileInputStream source = new FileInputStream(pomFile); FileOutputStream newFile = new FileOutputStream(backupFile)) {
             IOUtils.copy(source, newFile);
         } catch (IOException e) {
             throw new FailureException("Could not create backup file to filename: " + newName, e);
-        } finally {
-            IOUtils.closeQuietly(newFile);
-            IOUtils.closeQuietly(source);
         }
     }
 
@@ -73,16 +66,12 @@ public class FileUtil {
      * @return Content of the file
      */
     public String getPomFileContent() {
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(pomFile);
+        try (InputStream inputStream = new FileInputStream(pomFile)) {
             return IOUtils.toString(inputStream, encoding);
         } catch (UnsupportedEncodingException ex) {
             throw new FailureException("Could not handle encoding: " + encoding, ex);
         } catch (IOException ex) {
             throw new FailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ex);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
         }
     }
 
@@ -92,14 +81,10 @@ public class FileUtil {
      * @param sortedXml The content to save
      */
     public void savePomFile(final String sortedXml) {
-        FileOutputStream saveFile = null;
-        try {
-            saveFile = new FileOutputStream(pomFile);
+        try (FileOutputStream saveFile = new FileOutputStream(pomFile)) {
             IOUtils.write(sortedXml, saveFile, encoding);
         } catch (IOException e) {
             throw new FailureException("Could not save sorted pom file: " + pomFile.getAbsolutePath(), e);
-        } finally {
-            IOUtils.closeQuietly(saveFile);
         }
     }
 
@@ -113,29 +98,28 @@ public class FileUtil {
      * @return Content of the default sort order file
      */
     private String getDefaultSortOrderXml() throws IOException {
-        InputStream inputStream = null;
-        try {
+        CheckedSupplier<InputStream, IOException> createStreamFunc = () -> {
             if (customSortOrderFile != null) {
                 UrlWrapper urlWrapper = new UrlWrapper(customSortOrderFile);
                 if (urlWrapper.isUrl()) {
-                    inputStream = urlWrapper.openStream();
+                    return urlWrapper.openStream();
                 } else {
-                    inputStream = openCustomSortOrderFile();
+                    return openCustomSortOrderFile();
                 }
             } else if (predefinedSortOrder != null) {
-                inputStream = getPredefinedSortOrder(predefinedSortOrder);
-            } else {
-                inputStream = getPredefinedSortOrder(DEFAULT_SORT_ORDER_FILENAME);
+                return getPredefinedSortOrder(predefinedSortOrder);
             }
+            return getPredefinedSortOrder(DEFAULT_SORT_ORDER_FILENAME);
+        };
+
+        try (InputStream inputStream = createStreamFunc.get()) {
             return IOUtils.toString(inputStream, encoding);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
         }
     }
 
     /**
-     * Load custom sort order file from absolute or class path. 
-     * 
+     * Load custom sort order file from absolute or class path.
+     *
      * @return a stream to the opened resource
      * @throws IOException
      */

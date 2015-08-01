@@ -1,6 +1,5 @@
 package sortpom.wrapper;
 
-import org.apache.commons.io.IOUtils;
 import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import sortpom.exception.FailureException;
@@ -65,23 +64,17 @@ public class WrapperFactoryImpl implements WrapperFactory {
         try {
             Document document = createDocumentFromDefaultSortOrderFile();
             addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
-        } catch (IOException e) {
-            throw new FailureException(e.getMessage(), e);
-        } catch (JDOMException e) {
+        } catch (IOException | JDOMException e) {
             throw new FailureException(e.getMessage(), e);
         }
     }
 
     private Document createDocumentFromDefaultSortOrderFile()
             throws JDOMException, IOException {
-        InputStream inputStream = null;
-        try {
-            inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes());
+        try (InputStream inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes())){
             SAXBuilder parser = new SAXBuilder();
             return parser.build(inputStream);
-        } finally {
-            IOUtils.closeQuietly(inputStream);
-        }
+        } 
     }
 
     /**
@@ -107,12 +100,12 @@ public class WrapperFactoryImpl implements WrapperFactory {
             return (Wrapper<T>) elementWrapperCreator.createWrapper((Element) content);
         }
         if (content instanceof Comment) {
-            return new UnsortedWrapper<T>(content);
+            return new UnsortedWrapper<>(content);
         }
         if (content instanceof Text) {
             return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
         }
-        return new UnsortedWrapper<T>(content);
+        return new UnsortedWrapper<>(content);
     }
 
     /**
@@ -121,7 +114,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
      */
     @SuppressWarnings("unchecked")
     private List<Element> castToChildElementList(final Element element) {
-        return new ArrayList<Element>(element.getChildren());
+        return new ArrayList<>(element.getChildren());
     }
 
 }

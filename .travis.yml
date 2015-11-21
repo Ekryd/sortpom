@@ -6,11 +6,9 @@ env:
    #   via the "travis encrypt" command using the project repo's public key
    - secure: "FECikYsVcJp7gIXK5BHi5508kpafdK9nzC+zSZCoyVGpRosE0hUKZTHBY4ldhhBDsGj0XmCuQgQb5SrVYc5WAzPLPGn85RItClulFn8OQYfMqpwtXQBaFaJZv9NqGq1STxHTH7wzOoP9OpuZVEX5fokQ69Ta8KTRtyXG+frrOYE="
    
-install: mvn install -Ddev
+install: mvn install
 
 jdk:
-  - openjdk6
-  - oraclejdk7
   - oraclejdk8
 
 addons:
@@ -24,4 +22,4 @@ addons:
     branch_pattern: coverity_scan
     
 after_success:
-  - mvn clean test jacoco:report coveralls:report -Ddev
+  - mvn clean test jacoco:report coveralls:report

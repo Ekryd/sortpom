@@ -11,6 +11,10 @@ install: mvn install
 jdk:
   - oraclejdk8
 
+os:
+  - linux
+  - osx
+  
 addons:
   coverity_scan:
     project:

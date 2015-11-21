@@ -112,15 +112,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <!-- Cannot upgrade due to JDK6 -->
-          <version>3.2</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.thoughtworks.qdox</groupId>
-              <artifactId>qdox</artifactId>
-              <version>1.9</version>
-            </dependency>
-          </dependencies>
+          <version>3.4</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -173,7 +165,7 @@
           <configuration>
             <autoVersionSubmodules>true</autoVersionSubmodules>
             <useReleaseProfile>false</useReleaseProfile>
-            <releaseProfiles>release</releaseProfiles>
+            <arguments>-Pdistribution</arguments>
             <goals>deploy</goals>
           </configuration>
         </plugin>
@@ -200,9 +192,9 @@
 
     <plugins>
       <plugin>
-        <groupId>com.google.code.echo-maven-plugin</groupId>
+        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
         <artifactId>echo-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.0</version>
         <inherited>false</inherited>
         <executions>
           <execution>
@@ -417,8 +409,8 @@
   <scm>
     <connection>scm:git:https://github.com/Ekryd/sortpom.git</connection>
     <developerConnection>scm:git:https://github.com/Ekryd/sortpom.git</developerConnection>
-    <tag>HEAD</tag>
     <url>https://github.com/Ekryd/sortpom</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>
@@ -436,11 +428,6 @@
   <profiles>
     <profile>
       <id>distribution</id>
-      <activation>
-        <property>
-          <name>!dev</name>
-        </property>
-      </activation>
       <build>
         <plugins>
           <plugin>

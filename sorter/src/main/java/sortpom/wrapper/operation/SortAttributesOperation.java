@@ -6,6 +6,7 @@ import sortpom.wrapper.content.Wrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  * @since 2013-11-01
  */
 public class SortAttributesOperation extends HierarchyWrapperOperation {
-    private static final AttributeComparator ATTRIBUTE_COMPARATOR = new AttributeComparator();
+    private static final Comparator<Attribute> ATTRIBUTE_COMPARATOR = (o1, o2) -> o1.getName().compareTo(o2.getName());
 
     /** Sort attributes of each element */
     @Override

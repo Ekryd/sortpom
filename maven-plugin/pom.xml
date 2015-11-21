@@ -24,17 +24,16 @@
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
-      <!-- Cannot upgrade due to JDK6 -->
-      <version>3.2.5</version>
+      <version>3.3.9</version>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>com.google.code.echo-maven-plugin</groupId>
+        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
         <artifactId>echo-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.2.0</version>
         <inherited>false</inherited>
         <executions>
           <execution>
@@ -45,6 +44,16 @@
             <phase>install</phase>
             <configuration>
               <message>${line.separator}       To run the plugin directly:${line.separator}       mvn ${project.groupId}:${project.artifactId}:${project.version}:sort${line.separator}</message>
+            </configuration>
+          </execution>
+          <execution>
+            <id>end_description</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>install</phase>
+            <configuration>
+              <message>${line.separator}       To view description:${line.separator}       mvn help:describe -DgroupId=${project.groupId} -DartifactId=${project.artifactId} -Dversion=${project.version} -Ddetail</message>
             </configuration>
           </execution>
         </executions>

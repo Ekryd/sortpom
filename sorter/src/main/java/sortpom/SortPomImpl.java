@@ -23,7 +23,7 @@ import java.io.IOException;
  */
 public class SortPomImpl {
 
-    public static final String TEXT_FILE_NOT_SORTED = "The file %s is not sorted";
+    private static final String TEXT_FILE_NOT_SORTED = "The file %s is not sorted";
     private final FileUtil fileUtil;
     private final XmlProcessor xmlProcessor;
     private final WrapperFactoryImpl wrapperFactory;
@@ -97,7 +97,7 @@ public class SortPomImpl {
      * @param originalXml the xml that should be sorted.
      * @return the sorted xml
      */
-    String sortXml(final String originalXml) {
+    private String sortXml(final String originalXml) {
         String errorMsg = "Could not sort pom files content: ";
 
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);

@@ -29,6 +29,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-07-19: Wiki pages should be ok now
   * 2015-04-10: Started to update all Wiki pages. What a job...
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
@@ -41,11 +42,8 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2013-11-23: Hurrah! Got a donation. Thank you Bastian!
   * 2013-10-13: Released version 2.2.1 which corrects line separators when using xml:space="preserve"
   * 2013-10-01: Hurrah! Got an donation. Thank you Khalid!
-  * 2013-08-22: Released version 2.2 which contains functionality to use an url as sortOrderFile. This means that you can have a centralized, version controlled, sort order file for multiple projects.
-  * 2012-12-22: Split the project into three modules: one for sorting, one for maven plugin support and one for test utils.
   * 2012-11-05: Hurrah! Got an donation. Thank you Michael!
   * 2012-06-12: Hurrah! Got an donation. Thank you Reuben!
-  * 2011-11-21: The 0.4.0 plugin is now in the Central repository. It is highly recommended to use the 0.4.0 version or later from Central from now on. There is no need to include an extra repository location.
 
 ## Versions ##
 https://github.com/Ekryd/sortpom/wiki/Versions

@@ -29,6 +29,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2016-01-11: Renewed Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-07-19: Wiki pages should be ok now
   * 2015-04-10: Started to update all Wiki pages. What a job...
@@ -37,7 +38,6 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2015-02-04: Received an Open Source license for Structure101. Thank you [Structure101](http://structure101.com/)!
   * 2014-08-11: Received an Open Source license for Araxis Merge. Thank you [Araxis](http://www.araxis.com/)!
   * 2014-04-18: Released [Echo-maven-plugin](https://code.google.com/p/echo-maven-plugin/), another Maven plugin. Please check it out!
-  * 2014-02-05: Renewed Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2014-01-28: Released version 2.3.0 which lets you [ignore sections](https://github.com/Ekryd/sortpom/wiki/IgnoringSections) in pom.xml where SortPom should not sort elements.
   * 2013-11-23: Hurrah! Got a donation. Thank you Bastian!
   * 2013-10-13: Released version 2.2.1 which corrects line separators when using xml:space="preserve"

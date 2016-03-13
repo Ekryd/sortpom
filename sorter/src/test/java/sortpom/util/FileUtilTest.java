@@ -43,7 +43,7 @@ public class FileUtilTest {
 
     @Test
     public void defaultSortOrderFromUrlShouldWork() throws IOException {
-        FileUtil fileUtil = createFileUtil("http://opensource.org/licenses/BSD-3-Clause");
+        FileUtil fileUtil = createFileUtil("https://opensource.org/licenses/BSD-3-Clause");
 
         try {
             byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
@@ -68,7 +68,7 @@ public class FileUtilTest {
 
     @Test
     public void defaultSortOrderFromNonExistingPageShouldThrowException() throws IOException {
-        FileUtil fileUtil = createFileUtil("http://opensource.org/this.does.not.work");
+        FileUtil fileUtil = createFileUtil("https://opensource.org/this.does.not.work");
 
         try {
             fileUtil.getDefaultSortOrderXmlBytes();
@@ -76,7 +76,7 @@ public class FileUtilTest {
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was performed
         } catch (FileNotFoundException e) {
-            assertThat(e.getMessage(), is("http://opensource.org/this.does.not.work"));
+            assertThat(e.getMessage(), is("https://opensource.org/this.does.not.work"));
         }
     }
 

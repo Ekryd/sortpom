@@ -88,31 +88,14 @@
             <linksource>true</linksource>
             <links>
               <!-- JSE -->
-              <link>http://docs.oracle.com/javase/6/docs/api/</link>
+              <link>http://docs.oracle.com/javase/8/docs/api/</link>
             </links>
-            <tags>
-              <tag>
-                <name>goal</name>
-                <placement>a</placement>
-                <head>Maven plugin goal:</head>
-              </tag>
-              <tag>
-                <name>threadSafe</name>
-                <placement>a</placement>
-                <head>Is plugin thread safe:</head>
-              </tag>
-            </tags>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.4</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.4</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -220,6 +203,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.4</version>
+        <executions>
+          <execution>
+            <id>default-descriptor</id>
+            <phase>process-classes</phase>
+          </execution>
+          <execution>
+            <id>help-goal</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -279,6 +279,11 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/HelpMojo</exclude>
+          </excludes>
+        </configuration>
       </plugin>
 
       <!-- Define versions for standard plugins -->

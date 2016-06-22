@@ -281,7 +281,7 @@
         </executions>
         <configuration>
           <excludes>
-            <exclude>**/HelpMojo</exclude>
+            <exclude>**/*HelpMojo.class</exclude>
           </excludes>
         </configuration>
       </plugin>

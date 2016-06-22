@@ -1,5 +1,8 @@
 language: java
 
+# We are running in container-based infrastructure and we don't need sudo
+sudo: false
+
 env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created

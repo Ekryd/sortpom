@@ -6,6 +6,7 @@ import sortpom.parameter.PluginParameters;
 
 import java.io.*;
 import java.net.URL;
+import java.util.Optional;
 
 /**
  * Used to interface with file system
@@ -144,11 +145,14 @@ public class FileUtil {
     }
 
     private InputStream getPredefinedSortOrder(String predefinedSortOrder) throws IOException {
-        URL resource = this.getClass().getClassLoader().getResource(predefinedSortOrder + XML_FILE_EXTENSION);
-        if (resource == null) {
-            throw new IllegalArgumentException(String.format("Cannot find %s among the predefined plugin resources",
-                    predefinedSortOrder + XML_FILE_EXTENSION));
-        }
+        Optional<URL> resourceOptional = Optional
+                .of(getClass())
+                .map(Class::getClassLoader)
+                .map(classLoader -> classLoader.getResource(predefinedSortOrder + XML_FILE_EXTENSION));
+
+        URL resource = resourceOptional.orElseThrow(() -> new IllegalArgumentException(
+                String.format("Cannot find %s among the predefined plugin resources", predefinedSortOrder + XML_FILE_EXTENSION)));
+
         return resource.openStream();
     }
 

@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.is;
  * @author bjorn
  * @since 2013-10-19
  */
-public class ExceptionHandlerTest {
+public class ExceptionConverterTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
     
@@ -22,7 +22,7 @@ public class ExceptionHandlerTest {
         expectedException.expect(MojoFailureException.class);
         expectedException.expectMessage("Gurka");
         
-        new ExceptionHandler(failureException).throwMojoFailureException();
+        new ExceptionConverter(() ->{ throw failureException; }).executeAndConvertException();
     }
 
     @Test
@@ -34,6 +34,6 @@ public class ExceptionHandlerTest {
         expectedException.expectMessage("Gurka");
         expectedException.expectCause(is(cause));
         
-        new ExceptionHandler(failureException).throwMojoFailureException();
+        new ExceptionConverter(() ->{ throw failureException; }).executeAndConvertException();
     }
 }

@@ -5,8 +5,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import sortpom.exception.ExceptionHandler;
-import sortpom.exception.FailureException;
+import sortpom.exception.ExceptionConverter;
 import sortpom.logger.MavenLogger;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
@@ -147,7 +146,8 @@ public class VerifyMojo extends AbstractMojo {
     }
 
     public void setup() throws MojoFailureException {
-        try {
+        new ExceptionConverter(() -> {
+
             PluginParameters pluginParameters = new PluginParametersBuilder()
                     .setPomFile(pomFile)
                     .setBackupInfo(createBackupFile, backupFileExtension)
@@ -160,17 +160,12 @@ public class VerifyMojo extends AbstractMojo {
                     .createPluginParameters();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
-        } catch (FailureException fex) {
-            new ExceptionHandler(fex).throwMojoFailureException();
-        }
+            
+        }).executeAndConvertException();
     }
 
     private void sortPom() throws MojoFailureException {
-        try {
-            sortPomImpl.verifyPom();
-        } catch (FailureException fex) {
-            new ExceptionHandler(fex).throwMojoFailureException();
-        }
+        new ExceptionConverter(sortPomImpl::verifyPom).executeAndConvertException();
     }
 
 }

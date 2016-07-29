@@ -19,6 +19,22 @@ public class SortDependenciesTest {
                 .testFiles("/SortDep_input_simpleWithScope.xml", "/SortDep_expected_simpleWithScope2.xml");
     }
 
+    /**
+     * This is an odd test since we add an extra tag in the sort order file (under plugins and dependencies)
+     * so that it will be sorted beside dependency and plugin tags. The extra tag does not play well with
+     * the pom xml validation.
+     */
+
+    @Test
+    public final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
+        SortPomImplUtil.create()
+                .defaultOrderFileName("sortOrderFiles/extra_dummy_tags.xml")
+                .sortDependencies("scope,groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
+                .lineSeparator("\r\n")
+                .testFiles("/Extra_tags_dep_and_plugin.xml", "/Extra_tags_dep_and_plugin_expected.xml");
+    }
+
     @Test
     public final void defaultGroupIdForPluginsShouldWork() throws Exception {
         SortPomImplUtil.create()

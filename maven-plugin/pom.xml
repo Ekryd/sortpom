@@ -65,6 +65,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>install</goal>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+          <!-- See http://maven.apache.org/plugins/maven-invoker-plugin/examples/fast-use.html -->
+          <settingsFile>src/it/settings.xml</settingsFile>
+          <skipInvocation>${skipTests}</skipInvocation>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>

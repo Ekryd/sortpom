@@ -47,7 +47,7 @@ public class FileUtilTest {
 
         try {
             byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
-            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("The BSD 3-Clause License"));
+            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("The 3-Clause BSD License"));
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was perfomed
             // Which actually makes this test a bit pointless :-(

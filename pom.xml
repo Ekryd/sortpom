@@ -271,17 +271,18 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.7.4.201502262128</version>
+        <!-- Don't move this configuration into the execution -->
+        <configuration>
+          <excludes>
+            <exclude>**/*HelpMojo.class</exclude>
+          </excludes>
+        </configuration>
         <executions>
           <execution>
             <id>prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
-            <configuration>
-              <excludes>
-                <exclude>**/*HelpMojo.class</exclude>
-              </excludes>
-            </configuration>
           </execution>
         </executions>
       </plugin>

@@ -34,6 +34,7 @@ public class SortPomImpl {
     private boolean createBackupFile;
     private String backupFileExtension;
     private VerifyFailType verifyFailType;
+    private boolean ignoreLineSeparators;
 
     /**
      * Instantiates a new sort pom mojo and initiates dependencies to other
@@ -57,6 +58,7 @@ public class SortPomImpl {
         createBackupFile = pluginParameters.createBackupFile;
         backupFileExtension = pluginParameters.backupFileExtension;
         verifyFailType = pluginParameters.verifyFailType;
+        ignoreLineSeparators = pluginParameters.ignoreLineSeparators;
         warnAboutDeprecatedArguments(log, pluginParameters);
     }
 
@@ -119,7 +121,11 @@ public class SortPomImpl {
     }
 
     private boolean pomFileIsSorted(String xml, String sortedXml) {
-        return xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""));
+        if (ignoreLineSeparators) {
+          return xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""));
+        } else {
+            return xml.equals(sortedXml);
+        }
     }
 
     /**

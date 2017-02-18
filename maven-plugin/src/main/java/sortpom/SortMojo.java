@@ -52,6 +52,12 @@ public class SortMojo extends AbstractMojo {
     private String lineSeparator;
 
     /**
+     * Ignore line separators when comparing current POM with sorted one
+     */
+    @Parameter(property = "sort.ignoreLineSeparators", defaultValue = "true")
+    private boolean ignoreLineSeparators;
+
+    /**
      * Should empty xml elements be expanded or not. Example:
      * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
      */
@@ -145,7 +151,7 @@ public class SortMojo extends AbstractMojo {
                     .setPomFile(pomFile)
                     .setBackupInfo(createBackupFile, backupFileExtension)
                     .setEncoding(encoding)
-                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
+                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines, ignoreLineSeparators)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();

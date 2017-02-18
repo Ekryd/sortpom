@@ -18,7 +18,7 @@ public class LineSeparatorParameterTest {
 
         new PluginParametersBuilder()
                 .setEncoding("UTF-8")
-                .setFormatting("***", false, false)
+                .setFormatting("***", false, false, false)
                 .setIndent(2, false);
 
     }
@@ -26,9 +26,9 @@ public class LineSeparatorParameterTest {
     @Test
     public void testCharInput() {
         PluginParametersBuilder builder = new PluginParametersBuilder();
-        assertEquals("\n", builder.setFormatting("\n", true, true).createPluginParameters().lineSeparatorUtil.toString());
-        assertEquals("\r", builder.setFormatting("\r", true, true).createPluginParameters().lineSeparatorUtil.toString());
-        assertEquals("\r\n", builder.setFormatting("\r\n", true, true).createPluginParameters().lineSeparatorUtil.toString());
+        assertEquals("\n", builder.setFormatting("\n", true, true, true).createPluginParameters().lineSeparatorUtil.toString());
+        assertEquals("\r", builder.setFormatting("\r", true, true, true).createPluginParameters().lineSeparatorUtil.toString());
+        assertEquals("\r\n", builder.setFormatting("\r\n", true, true, true).createPluginParameters().lineSeparatorUtil.toString());
     }
 
     @Test
@@ -36,28 +36,28 @@ public class LineSeparatorParameterTest {
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 110]");
 
         PluginParametersBuilder builder = new PluginParametersBuilder();
-        builder.setFormatting("\nn", true, true);
+        builder.setFormatting("\nn", true, true, true);
     }
 
     @Test
     public void testFailedInput2() {
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 10]");
         PluginParametersBuilder builder = new PluginParametersBuilder();
-        builder.setFormatting("\n\n", true, true);
+        builder.setFormatting("\n\n", true, true, true);
     }
 
     @Test
     public void testFailedInput3() {
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [103, 117, 114, 107, 97]");
         PluginParametersBuilder builder = new PluginParametersBuilder();
-        builder.setFormatting("gurka", true, true);
+        builder.setFormatting("gurka", true, true, true);
     }
 
     @Test
     public void testFailedInput4() {
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were []");
         PluginParametersBuilder builder = new PluginParametersBuilder();
-        builder.setFormatting("", true, true);
+        builder.setFormatting("", true, true, true);
     }
 
     @Test

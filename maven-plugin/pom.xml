@@ -66,6 +66,7 @@
         </executions>
       </plugin>
       <plugin>
+        <!-- See http://maven.apache.org/plugins/maven-invoker-plugin/examples/fast-use.html -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-invoker-plugin</artifactId>
         <executions>
@@ -75,18 +76,17 @@
               <goal>install</goal>
               <goal>run</goal>
             </goals>
+            <configuration>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+              <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+              <settingsFile>src/it/settings.xml</settingsFile>
+              <scriptVariables>
+                <projectversion>${project.version}</projectversion>
+              </scriptVariables>
+              <skipInvocation>${skipTests}</skipInvocation>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-          <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
-          <!-- See http://maven.apache.org/plugins/maven-invoker-plugin/examples/fast-use.html -->
-          <settingsFile>src/it/settings.xml</settingsFile>
-          <scriptVariables>
-            <projectversion>${project.version}</projectversion>
-          </scriptVariables>
-          <skipInvocation>${skipTests}</skipInvocation>
-        </configuration>
       </plugin>
     </plugins>
   </build>

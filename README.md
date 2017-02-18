@@ -29,6 +29,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2017-02-18: Benoit Guerin supplied Maven invoker tests to the plugin. Thank you! 
   * 2016-05-06: Received an Open Source license for JProfiler. Thank you [ej-technologies](http://www.ej-technologies.com/products/jprofiler/overview.html)!
   * 2016-01-11: Renewed Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.

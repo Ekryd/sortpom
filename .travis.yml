@@ -25,4 +25,4 @@ addons:
     branch_pattern: coverity_scan
     
 after_success:
-  - mvn clean test jacoco:report coveralls:report
+  - mvn clean integration-test jacoco:report coveralls:report

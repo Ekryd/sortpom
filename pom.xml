@@ -277,13 +277,13 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <exclude>**/*HelpMojo.class</exclude>
+              </excludes>
+            </configuration>
           </execution>
         </executions>
-        <configuration>
-          <excludes>
-            <exclude>**/*HelpMojo.class</exclude>
-          </excludes>
-        </configuration>
       </plugin>
 
       <!-- Define versions for standard plugins -->
@@ -410,8 +410,8 @@
   <scm>
     <connection>scm:git:https://github.com/Ekryd/sortpom.git</connection>
     <developerConnection>scm:git:https://github.com/Ekryd/sortpom.git</developerConnection>
-    <url>https://github.com/Ekryd/sortpom</url>
     <tag>HEAD</tag>
+    <url>https://github.com/Ekryd/sortpom</url>
   </scm>
   <issueManagement>
     <system>GitHub</system>

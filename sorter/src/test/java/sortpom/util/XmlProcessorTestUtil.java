@@ -28,6 +28,7 @@ public class XmlProcessorTestUtil {
     private static final String UTF_8 = "UTF-8";
     private boolean sortAlfabeticalOnly = false;
     private boolean keepBlankLines = false;
+    private boolean ignoreLineSeparators = true;
     private boolean indentBlankLines = false;
     private String predefinedSortOrder = "default_0_4_0";
     private boolean expandEmptyElements = true;
@@ -74,7 +75,7 @@ public class XmlProcessorTestUtil {
                 .setPomFile(null)
                 .setBackupInfo(false, ".bak")
                 .setEncoding("UTF-8")
-                .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
+                .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines, ignoreLineSeparators)
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities("", "", false).createPluginParameters();

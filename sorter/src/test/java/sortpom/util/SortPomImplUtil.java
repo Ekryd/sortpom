@@ -25,6 +25,7 @@ public class SortPomImplUtil {
 
     private int nrOfIndentSpace = 2;
     private boolean keepBlankLines = false;
+    private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
     private String verifyFail = "SORT";
     private String encoding = TestHandler.UTF_8;
@@ -160,6 +161,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil ignoreLineSeparators(boolean ignoreLineSeparators) {
+        this.ignoreLineSeparators = ignoreLineSeparators;
+        return this;
+    }
+
     public SortPomImplUtil verifyFail(String verifyFail) {
         this.verifyFail = verifyFail;
         return this;
@@ -191,7 +197,7 @@ public class SortPomImplUtil {
                 .setBackupInfo(true, testPomBackupExtension)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator,
-                        true, keepBlankLines)
+                        true, keepBlankLines, ignoreLineSeparators)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)

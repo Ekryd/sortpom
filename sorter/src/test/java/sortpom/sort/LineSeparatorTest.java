@@ -15,7 +15,7 @@ public class LineSeparatorTest {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
         xmlProcessor.setup(new PluginParametersBuilder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", false, false)
+                .setFormatting("\n", false, false, false)
                 .setIndent(2, false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
@@ -29,7 +29,7 @@ public class LineSeparatorTest {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
         xmlProcessor.setup(new PluginParametersBuilder()
                 .setEncoding("UTF-8")
-                .setFormatting("\r", false, false)
+                .setFormatting("\r", false, false, false)
                 .setIndent(2, false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());
@@ -43,7 +43,7 @@ public class LineSeparatorTest {
         XmlProcessor xmlProcessor = new XmlProcessor(null);
         xmlProcessor.setup(new PluginParametersBuilder()
                 .setEncoding("UTF-8")
-                .setFormatting("\r\n", false, false)
+                .setFormatting("\r\n", false, false, false)
                 .setIndent(2, false)
                 .createPluginParameters());
         new ReflectionHelper(xmlProcessor).setField("newDocument", createXmlFragment());

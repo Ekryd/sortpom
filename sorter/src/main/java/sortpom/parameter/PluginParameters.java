@@ -19,11 +19,13 @@ public class PluginParameters {
     public final boolean keepBlankLines;
     public final boolean indentBlankLines;
     public final VerifyFailType verifyFailType;
+    public final boolean ignoreLineSeparators;
 
     PluginParameters(File pomFile, boolean createBackupFile, String backupFileExtension, String encoding,
-                     LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean keepBlankLines, String indentCharacters,
-                     boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
-                     DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, VerifyFailType verifyFailType) {
+                     LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean keepBlankLines,
+                     String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
+                     DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties,
+                     VerifyFailType verifyFailType, boolean ignoreLineSeparators) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
@@ -39,6 +41,7 @@ public class PluginParameters {
         this.keepBlankLines = keepBlankLines;
         this.indentBlankLines = indentBlankLines;
         this.verifyFailType = verifyFailType;
+        this.ignoreLineSeparators = ignoreLineSeparators;
     }
 
 }

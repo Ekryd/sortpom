@@ -18,8 +18,8 @@ public class PluginParametersBuilder {
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean keepBlankLines;
-    private boolean ignoreLineSeparators;
     private VerifyFailType verifyFailType;
+    private boolean ignoreLineSeparators;
 
     /** Sets pomFile location */
     public PluginParametersBuilder setPomFile(final File pomFile) {
@@ -43,12 +43,10 @@ public class PluginParametersBuilder {
     /** Sets formatting information that is used when the pom file is sorted */
     public PluginParametersBuilder setFormatting(final String lineSeparator,
                                                  final boolean expandEmptyElements,
-                                                 final boolean keepBlankLines,
-                                                 final boolean ignoreLineSeparators) {
+                                                 final boolean keepBlankLines) {
         this.lineSeparatorUtil = new LineSeparatorUtil(lineSeparator);
         this.expandEmptyElements = expandEmptyElements;
         this.keepBlankLines = keepBlankLines;
-        this.ignoreLineSeparators = ignoreLineSeparators;
         return this;
     }
 
@@ -81,12 +79,18 @@ public class PluginParametersBuilder {
         return this;
     }
 
+    /** Sets triggers to decide when the pom should be sorted **/
+    public PluginParametersBuilder setTriggers(boolean ignoreLineSeparators) {
+        this.ignoreLineSeparators = ignoreLineSeparators;
+        return this;
+    }
+
     /** Build the PluginParameters instance */
     public PluginParameters createPluginParameters() {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension,
-                encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, ignoreLineSeparators, indentCharacters, indentBlankLines,
+                encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                 predefinedSortOrder, customSortOrderFile,
                 sortDependencies, sortPlugins, sortProperties,
-                verifyFailType);
+                verifyFailType, ignoreLineSeparators);
     }
 }

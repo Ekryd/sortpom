@@ -23,6 +23,7 @@
               <goal>sort</goal>
             </goals>
             <configuration>
+              <lineSeparator>\n</lineSeparator>
               <ignoreLineSeparators>false</ignoreLineSeparators>
             </configuration>
           </execution>

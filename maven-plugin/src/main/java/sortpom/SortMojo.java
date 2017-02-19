@@ -151,10 +151,12 @@ public class SortMojo extends AbstractMojo {
                     .setPomFile(pomFile)
                     .setBackupInfo(createBackupFile, backupFileExtension)
                     .setEncoding(encoding)
-                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines, ignoreLineSeparators)
+                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortPlugins, sortProperties).createPluginParameters();
+                    .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                    .setTriggers(ignoreLineSeparators)
+                    .createPluginParameters();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
         }).executeAndConvertException();

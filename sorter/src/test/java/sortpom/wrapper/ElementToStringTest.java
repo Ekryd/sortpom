@@ -33,7 +33,7 @@ public class ElementToStringTest {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null).setBackupInfo(false, ".bak")
                 .setEncoding("UTF-8")
-                .setFormatting("\r\n", true, true, true)
+                .setFormatting("\r\n", true, true)
                 .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
                 .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true).createPluginParameters();

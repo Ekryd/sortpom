@@ -196,12 +196,12 @@ public class SortPomImplUtil {
                 .setPomFile(testpom)
                 .setBackupInfo(true, testPomBackupExtension)
                 .setEncoding(encoding)
-                .setFormatting(lineSeparator,
-                        true, keepBlankLines, ignoreLineSeparators)
+                .setFormatting(lineSeparator, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
+                .setTriggers(ignoreLineSeparators)
                 .createPluginParameters();
     }
 

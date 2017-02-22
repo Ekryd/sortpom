@@ -19,6 +19,7 @@ public class PluginParametersBuilder {
     private boolean sortProperties;
     private boolean keepBlankLines;
     private VerifyFailType verifyFailType;
+    private boolean ignoreLineSeparators;
 
     /** Sets pomFile location */
     public PluginParametersBuilder setPomFile(final File pomFile) {
@@ -78,12 +79,18 @@ public class PluginParametersBuilder {
         return this;
     }
 
+    /** Sets triggers to decide when the pom should be sorted **/
+    public PluginParametersBuilder setTriggers(boolean ignoreLineSeparators) {
+        this.ignoreLineSeparators = ignoreLineSeparators;
+        return this;
+    }
+
     /** Build the PluginParameters instance */
     public PluginParameters createPluginParameters() {
         return new PluginParameters(pomFile, createBackupFile, backupFileExtension,
                 encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                 predefinedSortOrder, customSortOrderFile,
                 sortDependencies, sortPlugins, sortProperties,
-                verifyFailType);
+                verifyFailType, ignoreLineSeparators);
     }
 }

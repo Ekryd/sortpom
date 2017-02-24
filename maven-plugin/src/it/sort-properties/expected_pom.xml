@@ -2,13 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.ekryd.sortpom.its</groupId>
-  <artifactId>do-not-ignore-line-separators</artifactId>
+  <artifactId>sort-properties</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>SortPom Plugin :: ITs :: Do not ignore line separators</name>
-  <description>Test reformatting only if line separators changes</description>
+  <name>SortPom Plugin :: ITs :: Sort properties</name>
+  <description>Test sorting properties</description>
   <url>no-url</url>
   <properties>
+    <compileSource>1.8</compileSource>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
@@ -23,8 +24,7 @@
               <goal>sort</goal>
             </goals>
             <configuration>
-              <lineSeparator>\n</lineSeparator>
-              <ignoreLineSeparators>false</ignoreLineSeparators>
+              <sortProperties>true</sortProperties>
             </configuration>
           </execution>
         </executions>

@@ -7,6 +7,7 @@ public class PluginParametersBuilder {
     private File pomFile;
     private boolean createBackupFile;
     private String backupFileExtension;
+    private ViolationFile violationFile;
     private String encoding;
     private LineSeparatorUtil lineSeparatorUtil;
     private String indentCharacters;
@@ -28,9 +29,10 @@ public class PluginParametersBuilder {
     }
 
     /** Sets information regarding backup file */
-    public PluginParametersBuilder setBackupInfo(final boolean createBackupFile, final String backupFileExtension) {
+    public PluginParametersBuilder setFileOutput(final boolean createBackupFile, final String backupFileExtension, String violationFilename) {
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
+        this.violationFile = violationFile == null ? null : new ViolationFile(violationFilename);
         return this;
     }
 
@@ -87,7 +89,7 @@ public class PluginParametersBuilder {
 
     /** Build the PluginParameters instance */
     public PluginParameters createPluginParameters() {
-        return new PluginParameters(pomFile, createBackupFile, backupFileExtension,
+        return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFile,
                 encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                 predefinedSortOrder, customSortOrderFile,
                 sortDependencies, sortPlugins, sortProperties,

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sortpom version="2.6.0">
+  <file name="c:\path\pom.xml">
+    <violation goal="verify">The xml element &lt;version&gt; should be placed before &lt;packaging&gt;</violation>
+  </file>
+</sortpom>

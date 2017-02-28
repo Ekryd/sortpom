@@ -149,7 +149,7 @@ public class SortMojo extends AbstractMojo {
         new ExceptionConverter(() -> {
             PluginParameters pluginParameters = new PluginParametersBuilder()
                     .setPomFile(pomFile)
-                    .setBackupInfo(createBackupFile, backupFileExtension)
+                    .setFileOutput(createBackupFile, backupFileExtension, null)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)

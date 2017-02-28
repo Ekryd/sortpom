@@ -72,7 +72,7 @@ public class XmlProcessorTestUtil {
     private XmlProcessor setup(String inputFileName) throws Exception {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null)
-                .setBackupInfo(false, ".bak")
+                .setFileOutput(false, ".bak", null)
                 .setEncoding("UTF-8")
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(2, indentBlankLines)

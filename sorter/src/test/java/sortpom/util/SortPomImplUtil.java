@@ -30,6 +30,7 @@ public class SortPomImplUtil {
     private String verifyFail = "SORT";
     private String encoding = TestHandler.UTF_8;
     private File testpom;
+    private String violationFile;
 
     private SortPomImplUtil() {
     }
@@ -187,6 +188,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil violationFile(String violationFile) {
+        this.violationFile = violationFile;
+        return this;
+    }
+
     private void setup() {
         testpom = new File(testPomFileName);
     }
@@ -194,7 +200,7 @@ public class SortPomImplUtil {
     private PluginParameters getPluginParameters() {
         return new PluginParametersBuilder()
                 .setPomFile(testpom)
-                .setBackupInfo(true, testPomBackupExtension)
+                .setFileOutput(true, testPomBackupExtension, violationFile)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)

@@ -5,6 +5,7 @@ import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.VerifyFailType;
+import sortpom.parameter.ViolationFile;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
 import sortpom.util.FileUtil;
 import sortpom.util.XmlOrderedResult;
@@ -14,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * The implementation of the Mojo (Maven plugin) that sorts the pom file for a
@@ -35,6 +37,7 @@ public class SortPomImpl {
     private String backupFileExtension;
     private VerifyFailType verifyFailType;
     private boolean ignoreLineSeparators;
+    private Optional<ViolationFile> violationFile;
 
     /**
      * Instantiates a new sort pom mojo and initiates dependencies to other
@@ -59,6 +62,7 @@ public class SortPomImpl {
         backupFileExtension = pluginParameters.backupFileExtension;
         verifyFailType = pluginParameters.verifyFailType;
         ignoreLineSeparators = pluginParameters.ignoreLineSeparators;
+        violationFile = pluginParameters.getViolationFile();
         warnAboutDeprecatedArguments(log, pluginParameters);
     }
 
@@ -161,6 +165,7 @@ public class SortPomImpl {
 
         XmlOrderedResult xmlOrderedResult = isPomElementsSorted();
         if (!xmlOrderedResult.isOrdered()) {
+            violationFile.ifPresent(vf -> vf.store(pomFile, xmlOrderedResult.getErrorMessage()));
             switch (verifyFailType) {
                 case WARN:
                     log.warn(xmlOrderedResult.getErrorMessage());

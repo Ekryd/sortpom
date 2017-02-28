@@ -31,7 +31,7 @@ public class ElementToStringTest {
 
     private String getToStringOnRootElementWrapper(String inputFileName) throws IOException, JDOMException {
         PluginParameters pluginParameters = new PluginParametersBuilder()
-                .setPomFile(null).setBackupInfo(false, ".bak")
+                .setPomFile(null).setFileOutput(false, ".bak", null)
                 .setEncoding("UTF-8")
                 .setFormatting("\r\n", true, true)
                 .setIndent(2, false)

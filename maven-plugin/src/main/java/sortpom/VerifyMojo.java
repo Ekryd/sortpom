@@ -150,7 +150,7 @@ public class VerifyMojo extends AbstractMojo {
 
             PluginParameters pluginParameters = new PluginParametersBuilder()
                     .setPomFile(pomFile)
-                    .setBackupInfo(createBackupFile, backupFileExtension)
+                    .setFileOutput(createBackupFile, backupFileExtension, null)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)

@@ -15,7 +15,7 @@ public class SortOrderTest {
     @Test
     public final void testSortDifferentRelativePath() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .defaultOrderFileName("src/test/resources/difforder/differentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
     }
 

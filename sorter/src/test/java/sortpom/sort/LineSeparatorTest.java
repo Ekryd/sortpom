@@ -1,13 +1,12 @@
 package sortpom.sort;
 
-import org.jdom.Document;
-import org.jdom.Element;
 import org.junit.Test;
 import refutils.ReflectionHelper;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParametersBuilder;
 
 import static org.junit.Assert.assertEquals;
+import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
 public class LineSeparatorTest {
     @Test
@@ -50,12 +49,6 @@ public class LineSeparatorTest {
 
         String actual = xmlProcessor.getSortedXml().toString("UTF-8");
         assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Gurka />\r\n", actual);
-    }
-
-    private Document createXmlFragment() {
-        Document newDocument = new Document();
-        newDocument.setRootElement(new Element("Gurka"));
-        return newDocument;
     }
 
 }

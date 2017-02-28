@@ -6,7 +6,7 @@ import org.junit.Test;
 import refutils.ReflectionHelper;
 import sortpom.SortMojo;
 import sortpom.SortPomImpl;
-import sortpom.XmlProcessor;
+import sortpom.XmlOutputGenerator;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.ElementWrapperCreator;
 import sortpom.wrapper.TextWrapperCreator;
@@ -24,9 +24,9 @@ public class SortMojoParametersTest {
     private SortPomImpl sortPomImpl;
     private FileUtil fileUtil;
     private SortMojo sortMojo;
-    private XmlProcessor xmlProcessor;
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
+    private XmlOutputGenerator xmlOutputGenerator;
 
     @Before
     public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
@@ -36,9 +36,10 @@ public class SortMojoParametersTest {
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");
 
         sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
-        fileUtil = new ReflectionHelper(sortPomImpl).getField(FileUtil.class);
-        xmlProcessor = new ReflectionHelper(sortPomImpl).getField(XmlProcessor.class);
-        WrapperFactoryImpl wrapperFactoryImpl = new ReflectionHelper(sortPomImpl).getField(WrapperFactoryImpl.class);
+        ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
+        fileUtil = sortPomImplHelper.getField(FileUtil.class);
+        xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);
+        WrapperFactoryImpl wrapperFactoryImpl = sortPomImplHelper.getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
     }
@@ -50,7 +51,7 @@ public class SortMojoParametersTest {
 
     @Test
     public void createBackupFileParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", true, sortPomImpl);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomImpl);
     }
 
     @Test
@@ -60,26 +61,26 @@ public class SortMojoParametersTest {
 
     @Test
     public void encodingParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlProcessor);
+        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlOutputGenerator);
     }
 
     @Test
     public void lineSeparatorParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        assertEquals("\r", new ReflectionHelper(xmlProcessor).getField("lineSeparatorUtil").toString());
+        assertEquals("\r", new ReflectionHelper(xmlOutputGenerator).getField("lineSeparatorUtil").toString());
     }
 
     @Test
     public void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
-        assertEquals("      ", new ReflectionHelper(xmlProcessor).getField("indentCharacters"));
+        assertEquals("      ", new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters"));
     }
 
     @Test
     public void expandEmptyElementsParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("expandEmptyElements", true, xmlProcessor);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("expandEmptyElements", xmlOutputGenerator);
     }
 
     @Test
@@ -113,17 +114,17 @@ public class SortMojoParametersTest {
 
     @Test
     public void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", true, elementWrapperCreator);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", elementWrapperCreator);
     }
 
     @Test
     public void parameterKeepBlankLineShouldEndUpInXmlProcessor() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", true, textWrapperCreator);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", textWrapperCreator);
     }
 
     @Test
     public void parameterIndentBlankLineShouldEndUpInXmlProcessor() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", true, xmlProcessor);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", xmlOutputGenerator);
     }
 
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
@@ -139,16 +140,16 @@ public class SortMojoParametersTest {
         }
     }
 
-    private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName, boolean parameterValue,
+    private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName,
                                                                         Object... whereParameterCanBeFound) throws
             Exception {
-        new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
+        new ReflectionHelper(sortMojo).setField(parameterName, true);
 
         sortMojo.setup();
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
-            assertEquals(parameterValue, actual);
+            assertEquals(true, actual);
         }
     }
 

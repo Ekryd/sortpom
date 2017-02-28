@@ -1,5 +1,6 @@
 package sortpom;
 
+import org.jdom.Document;
 import org.jdom.JDOMException;
 import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
@@ -30,7 +31,10 @@ public class SortPomImpl {
     private final XmlProcessor xmlProcessor;
     private final WrapperFactoryImpl wrapperFactory;
     private final XmlProcessingInstructionParser xmlProcessingInstructionParser;
+    private final XmlOutputGenerator xmlOutputGenerator;
+    
     private SortPomLogger log;
+    
     private File pomFile;
     private String encoding;
     private boolean createBackupFile;
@@ -48,14 +52,16 @@ public class SortPomImpl {
         wrapperFactory = new WrapperFactoryImpl(fileUtil);
         xmlProcessor = new XmlProcessor(wrapperFactory);
         xmlProcessingInstructionParser = new XmlProcessingInstructionParser();
+        xmlOutputGenerator = new XmlOutputGenerator();
     }
 
     public void setup(SortPomLogger log, PluginParameters pluginParameters) {
         this.log = log;
         fileUtil.setup(pluginParameters);
         wrapperFactory.setup(pluginParameters);
-        xmlProcessor.setup(pluginParameters);
         xmlProcessingInstructionParser.setup(log);
+        xmlOutputGenerator.setup(pluginParameters);
+
         pomFile = pluginParameters.pomFile;
         encoding = pluginParameters.encoding;
         createBackupFile = pluginParameters.createBackupFile;
@@ -111,8 +117,9 @@ public class SortPomImpl {
         
         insertXmlInXmlProcessor(xml, errorMsg);
         xmlProcessor.sortXml();
+        Document newDocument = xmlProcessor.getNewDocument();
 
-        try (ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml()) {
+        try (ByteArrayOutputStream sortedXmlOutputStream = xmlOutputGenerator.getSortedXml(newDocument)) {
             String sortedXml = sortedXmlOutputStream.toString(encoding);
             if (xmlProcessingInstructionParser.existsIgnoredSections()) {
                 sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);

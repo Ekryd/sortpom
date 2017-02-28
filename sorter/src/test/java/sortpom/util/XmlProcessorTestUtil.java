@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.jdom.Content;
 import org.jdom.Element;
 import refutils.ReflectionHelper;
+import sortpom.XmlOutputGenerator;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
@@ -32,6 +33,10 @@ public class XmlProcessorTestUtil {
     private String predefinedSortOrder = "default_0_4_0";
     private boolean expandEmptyElements = true;
     private String lineSeparator = "\r\n";
+    
+    private XmlProcessor xmlProcessor;
+    private XmlOutputGenerator xmlOutputGenerator;
+
 
     public static XmlProcessorTestUtil create() {
         return new XmlProcessorTestUtil();
@@ -49,27 +54,27 @@ public class XmlProcessorTestUtil {
     }
 
     public String sortXmlAndReturnResult(String inputFileName) throws Exception {
-        final XmlProcessor xmlProcessor = setup(inputFileName);
+        setup(inputFileName);
         xmlProcessor.sortXml();
-        final ByteArrayOutputStream sortedXmlOutputStream = xmlProcessor.getSortedXml();
+        final ByteArrayOutputStream sortedXmlOutputStream = xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
         return sortedXmlOutputStream.toString(UTF_8);
     }
 
     public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {
-        final XmlProcessor xmlProcessor = setup(inputFileName);
+        setup(inputFileName);
         xmlProcessor.sortXml();
         assertEquals(true, xmlProcessor.isXmlOrdered().isOrdered());
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputFileName, String infoMessage) throws Exception {
-        final XmlProcessor xmlProcessor = setup(inputFileName);
+        setup(inputFileName);
         xmlProcessor.sortXml();
         XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
         assertEquals(false, xmlOrdered.isOrdered());
         assertEquals(infoMessage, xmlOrdered.getErrorMessage());
     }
 
-    private XmlProcessor setup(String inputFileName) throws Exception {
+    private void setup(String inputFileName) throws Exception {
         PluginParameters pluginParameters = new PluginParametersBuilder()
                 .setPomFile(null)
                 .setFileOutput(false, ".bak", null)
@@ -86,8 +91,10 @@ public class XmlProcessorTestUtil {
         WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
         ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
 
-        final XmlProcessor xmlProcessor = new XmlProcessor(wrapperFactory);
-        xmlProcessor.setup(pluginParameters);
+        xmlProcessor = new XmlProcessor(wrapperFactory);
+        
+        xmlOutputGenerator = new XmlOutputGenerator();
+        xmlOutputGenerator.setup(pluginParameters);
 
         if (sortAlfabeticalOnly) {
             wrapperFactory = new WrapperFactory() {
@@ -104,7 +111,7 @@ public class XmlProcessorTestUtil {
                         Element element = (Element) content;
                         return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
                     }
-                    return new UnsortedWrapper<T>(content);
+                    return new UnsortedWrapper<>(content);
                 }
 
             };
@@ -113,7 +120,6 @@ public class XmlProcessorTestUtil {
         }
         new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
         xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
-        return xmlProcessor;
     }
 
     public XmlProcessorTestUtil sortAlfabeticalOnly() {

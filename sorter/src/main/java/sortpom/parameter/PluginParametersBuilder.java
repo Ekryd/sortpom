@@ -32,7 +32,7 @@ public class PluginParametersBuilder {
     public PluginParametersBuilder setFileOutput(final boolean createBackupFile, final String backupFileExtension, String violationFilename) {
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
-        this.violationFile = violationFile == null ? null : new ViolationFile(violationFilename);
+        this.violationFile = violationFilename == null ? null : new ViolationFile(violationFilename);
         return this;
     }
 

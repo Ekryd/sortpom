@@ -87,7 +87,7 @@ public class FileUtilExceptionsTest {
         fileUtil.savePomFile(null);
     }
 
-    private FileUtil createFileUtil() throws NoSuchFieldException, IllegalAccessException {
+    private FileUtil createFileUtil() {
         ReflectionHelper helper = new ReflectionHelper(originalFileUtil);
         helper.setField("backupFile", backupFileMock);
         helper.setField("pomFile", pomFileMock);

@@ -12,7 +12,7 @@ public class LineSeparatorParameterTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void lineSeparatorWithSomehtingElseShouldThrowException() throws Exception {
+    public void lineSeparatorWithSomethingElseShouldThrowException() throws Exception {
         thrown.expect(FailureException.class);
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [42, 42, 42]");
 

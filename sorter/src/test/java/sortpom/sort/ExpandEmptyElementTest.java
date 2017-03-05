@@ -17,7 +17,7 @@ public class ExpandEmptyElementTest {
                 .setIndent(2, false)
                 .createPluginParameters());
 
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment()).toString("UTF-8");
+        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
     }
 
@@ -30,7 +30,7 @@ public class ExpandEmptyElementTest {
                 .setIndent(2, false)
                 .createPluginParameters());
 
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment()).toString("UTF-8");
+        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
     }
 

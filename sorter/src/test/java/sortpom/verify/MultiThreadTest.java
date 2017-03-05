@@ -28,7 +28,7 @@ public class MultiThreadTest {
     }
 
     private List<Callable<Boolean>> getTestThreads() {
-        List<Callable<Boolean>> list = new ArrayList<Callable<Boolean>>();
+        List<Callable<Boolean>> list = new ArrayList<>();
         list.add(new TestThread("/full_unsorted_input.xml",
                 "/sortOrderFiles/sorted_default_0_4_0.xml", "default_0_4_0"));
         list.add(new TestThread("/full_unsorted_input.xml",

@@ -81,7 +81,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
      * Processes the chosen sort order. Adds sort order element and sort index to
      * a map.
      */
-    void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
+    private void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
         elementSortOrderMap.addElement(element, baseSortOrder);
         final List<Element> castToChildElementList = castToChildElementList(element);
         // Increments the sort order index for each element

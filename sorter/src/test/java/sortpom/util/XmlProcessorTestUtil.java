@@ -8,7 +8,7 @@ import sortpom.XmlOutputGenerator;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.PluginParametersBuilder;
-import sortpom.wrapper.*;
+import sortpom.wrapper.WrapperFactoryImpl;
 import sortpom.wrapper.content.AlphabeticalSortedWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
@@ -16,7 +16,6 @@ import sortpom.wrapper.operation.HierarchyWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -56,8 +55,7 @@ public class XmlProcessorTestUtil {
     public String sortXmlAndReturnResult(String inputFileName) throws Exception {
         setup(inputFileName);
         xmlProcessor.sortXml();
-        final ByteArrayOutputStream sortedXmlOutputStream = xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
-        return sortedXmlOutputStream.toString(UTF_8);
+        return xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
     }
 
     public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {

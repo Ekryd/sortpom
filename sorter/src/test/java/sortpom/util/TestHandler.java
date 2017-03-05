@@ -23,7 +23,7 @@ class TestHandler {
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    private final List<String> infoLogger = new ArrayList<String>();
+    private final List<String> infoLogger = new ArrayList<>();
     private final String inputResourceFileName;
     private final String expectedResourceFileName;
     private final File testpom;

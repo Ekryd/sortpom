@@ -87,6 +87,12 @@ public class VerifyMojo extends AbstractMojo {
     private String backupFileExtension;
 
     /**
+     * Saves the verification failure to an external xml file, recommended filename is 'target/sortpom_reports/violation.xml'.
+     */
+    @Parameter(property = "sort.violationFilename")
+    private String violationFilename;
+
+    /**
      * Line separator for sorted pom. Can be either \n, \r or \r\n
      */
     @Parameter(property = "sort.lineSeparator", defaultValue = "${line.separator}")
@@ -150,7 +156,7 @@ public class VerifyMojo extends AbstractMojo {
 
             PluginParameters pluginParameters = new PluginParametersBuilder()
                     .setPomFile(pomFile)
-                    .setFileOutput(createBackupFile, backupFileExtension, null)
+                    .setFileOutput(createBackupFile, backupFileExtension, violationFilename)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)

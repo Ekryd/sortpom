@@ -6,7 +6,7 @@ import org.junit.rules.ExpectedException;
 import sortpom.wrapper.content.ThrowAwayContentWrapper;
 
 /**
- * All method should throw execption since the element should be throw away
+ * All method should throw exception since the element should be throw away
  *
  * @author bjorn
  * @since 2012-06-14

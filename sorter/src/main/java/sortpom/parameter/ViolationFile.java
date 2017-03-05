@@ -1,17 +1,18 @@
 package sortpom.parameter;
 
+import org.jdom.Document;
+import org.jdom.Element;
+
 import java.io.File;
 
 /**
- * Encapulates the behaviour of the violation file. I.e. the file that will contain the unsorted element during verify
- * @author bjorn
- * @since 2017-02-28
+ * Encapulates the behaviour of the violation file. I.e. the file that will contain which element was unsorted element during verify
  */
 public class ViolationFile {
 
     private final File file;
 
-    public ViolationFile(String filename) {
+    ViolationFile(String filename) {
         this.file = new File(filename);
         if (file.exists()) {
             String message = String.format("Violation file %s already exists", file.getAbsolutePath());
@@ -19,7 +20,21 @@ public class ViolationFile {
         }
     }
 
-    public void store(File pomFile, String errorMessage) {
+    public Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
+        Element violationElement = new Element("violation");
+        violationElement.setText(violationMessage);
         
+        Element fileElement = new Element("file");
+        fileElement.addContent(violationElement);
+        fileElement.setAttribute("filename", pomFileLocation.getAbsolutePath());
+        
+        Element rootElement = new Element("sortpom");
+        rootElement.addContent(fileElement);
+        
+        return new Document(rootElement);
+    }
+
+    public File getViolationFile() {
+        return file;
     }
 }

@@ -24,7 +24,7 @@ public class XmlProcessorTest {
     }
 
     @Test
-    public final void testSortXmlFullFromAlfabeticalOrder() throws Exception {
+    public final void testSortXmlFullFromAlphabeticalOrder() throws Exception {
         XmlProcessorTestUtil.create().testInputAndExpected(
                 "src/test/resources/full_alfa_input.xml", "src/test/resources/full_expected.xml");
     }

@@ -28,21 +28,21 @@ public class VerifyOrderTest {
     @Test
     public void unsortedDefaultVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
-                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>");
+                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>", false);
     }
 
     @Test
     public void unsortedSortVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
                 .verifyFail("SORT")
-                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>");
+                .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", "[INFO] The xml element <version> should be placed before <name>", false);
     }
 
     @Test
     public void unsortedStopVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
                 .verifyFail("STOP")
-                .testVerifyFail("/Real1_input.xml", FailureException.class, "[ERROR] The xml element <version> should be placed before <name>");
+                .testVerifyFail("/Real1_input.xml", FailureException.class, "[ERROR] The xml element <version> should be placed before <name>", false);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class VerifyOrderTest {
         SortPomImplUtil.create()
                 .verifyFail("WARN")
                 .testVerifyWarn("/Real1_input.xml",
-                        "[WARNING] The xml element <version> should be placed before <name>");
+                        "[WARNING] The xml element <version> should be placed before <name>", false);
     }
 
 }

@@ -3,6 +3,7 @@ package sortpom.util;
 import org.apache.commons.io.IOUtils;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
+import sortpom.parameter.ViolationFile;
 
 import java.io.*;
 import java.net.URL;
@@ -23,6 +24,7 @@ public class FileUtil {
     private String predefinedSortOrder;
     private String newName;
     private File backupFile;
+    private Optional<ViolationFile> violationFile;
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -31,6 +33,7 @@ public class FileUtil {
         this.encoding = parameters.encoding;
         this.customSortOrderFile = parameters.customSortOrderFile;
         this.predefinedSortOrder = parameters.predefinedSortOrder;
+        this.violationFile = parameters.getViolationFile();
     }
 
     /**
@@ -76,16 +79,27 @@ public class FileUtil {
         }
     }
 
+    public void saveViolationFile(String violationXml) {
+        violationFile
+                .map(ViolationFile::getViolationFile)
+                .ifPresent(file -> saveFile(file, violationXml, "Could not save violation file: " + file.getAbsolutePath()));
+    }
+
     /**
      * Saves sorted pom file.
      *
      * @param sortedXml The content to save
      */
-    public void savePomFile(final String sortedXml) {
-        try (FileOutputStream saveFile = new FileOutputStream(pomFile)) {
-            IOUtils.write(sortedXml, saveFile, encoding);
+    public void savePomFile(String sortedXml) {
+        saveFile(pomFile, sortedXml, "Could not save sorted pom file: " + pomFile.getAbsolutePath());
+    }
+
+    private void saveFile(File fileToSave, String content, String errorMessage) {
+        fileToSave.getParentFile().mkdirs();
+        try (FileOutputStream saveFile = new FileOutputStream(fileToSave)) {
+            IOUtils.write(content, saveFile, encoding);
         } catch (IOException e) {
-            throw new FailureException("Could not save sorted pom file: " + pomFile.getAbsolutePath(), e);
+            throw new FailureException(errorMessage, e);
         }
     }
 
@@ -122,9 +136,8 @@ public class FileUtil {
      * Load custom sort order file from absolute or class path.
      *
      * @return a stream to the opened resource
-     * @throws IOException
      */
-    private InputStream openCustomSortOrderFile() throws IOException {
+    private InputStream openCustomSortOrderFile() throws FileNotFoundException {
         InputStream inputStream;
         try {
             inputStream = new FileInputStream(customSortOrderFile);

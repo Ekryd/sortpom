@@ -18,6 +18,7 @@ public class IgnoredSectionsStoreTest {
     private IgnoredSectionsStore ignoredSectionsStore;
     private ArrayList<String> ignoredSections;
 
+    @SuppressWarnings("unchecked")
     @Before
     public void setUp() throws Exception {
         ignoredSectionsStore = new IgnoredSectionsStore();

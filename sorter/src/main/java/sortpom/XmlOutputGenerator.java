@@ -5,6 +5,7 @@ import org.jdom.Comment;
 import org.jdom.Document;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import sortpom.exception.FailureException;
 import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.LineSeparatorUtil;
 import sortpom.parameter.PluginParameters;
@@ -32,24 +33,26 @@ public class XmlOutputGenerator {
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;
     }
-
+    
     /**
      * Returns the sorted xml as an OutputStream.
      *
      * @return the sorted xml
-     * @throws java.io.IOException if there's any problem writing the xml
      */
-    public ByteArrayOutputStream getSortedXml(Document newDocument) throws IOException {
-        ByteArrayOutputStream sortedXml = new ByteArrayOutputStream();
-        BufferedLineSeparatorOutputStream bufferedLineOutputStream =
-                new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
+    public String getSortedXml(Document newDocument) {
+        try (ByteArrayOutputStream sortedXml = new ByteArrayOutputStream()) {
+            BufferedLineSeparatorOutputStream bufferedLineOutputStream =
+                    new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
 
-        XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream, indentBlankLines);
-        xmlOutputter.setFormat(createPrettyFormat());
-        xmlOutputter.output(newDocument, bufferedLineOutputStream);
+            XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream, indentBlankLines);
+            xmlOutputter.setFormat(createPrettyFormat());
+            xmlOutputter.output(newDocument, bufferedLineOutputStream);
 
-        IOUtils.closeQuietly(bufferedLineOutputStream);
-        return sortedXml;
+            IOUtils.closeQuietly(bufferedLineOutputStream);
+            return sortedXml.toString(encoding);
+        } catch (IOException ioex) {
+            throw new FailureException("Could not format pom files content", ioex);
+        }
     }
 
     private Format createPrettyFormat() {

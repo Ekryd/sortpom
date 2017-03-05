@@ -13,7 +13,6 @@ import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -32,9 +31,9 @@ public class SortPomImpl {
     private final WrapperFactoryImpl wrapperFactory;
     private final XmlProcessingInstructionParser xmlProcessingInstructionParser;
     private final XmlOutputGenerator xmlOutputGenerator;
-    
+
     private SortPomLogger log;
-    
+
     private File pomFile;
     private String encoding;
     private boolean createBackupFile;
@@ -110,30 +109,24 @@ public class SortPomImpl {
      * @return the sorted xml
      */
     private String sortXml(final String originalXml) {
-        String errorMsg = "Could not sort pom files content: ";
 
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
         String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
-        
-        insertXmlInXmlProcessor(xml, errorMsg);
+
+        insertXmlInXmlProcessor(xml, "Could not sort pom files content: ");
         xmlProcessor.sortXml();
         Document newDocument = xmlProcessor.getNewDocument();
 
-        try (ByteArrayOutputStream sortedXmlOutputStream = xmlOutputGenerator.getSortedXml(newDocument)) {
-            String sortedXml = sortedXmlOutputStream.toString(encoding);
-            if (xmlProcessingInstructionParser.existsIgnoredSections()) {
-                sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);
-            }
-            return sortedXml;
-        } catch (IOException e) {
-            throw new FailureException(errorMsg + xml, e);
-        } 
-
+        String sortedXml = xmlOutputGenerator.getSortedXml(newDocument);
+        if (xmlProcessingInstructionParser.existsIgnoredSections()) {
+            sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);
+        }
+        return sortedXml;
     }
 
     private boolean pomFileIsSorted(String xml, String sortedXml) {
         if (ignoreLineSeparators) {
-          return xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""));
+            return xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""));
         } else {
             return xml.equals(sortedXml);
         }
@@ -148,7 +141,7 @@ public class SortPomImpl {
                 throw new FailureException("Could not create backup file, extension name was empty");
             }
             fileUtil.backupFile();
-            log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(), 
+            log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(),
                     pomFile.getAbsolutePath(), backupFileExtension));
         }
     }
@@ -172,19 +165,21 @@ public class SortPomImpl {
 
         XmlOrderedResult xmlOrderedResult = isPomElementsSorted();
         if (!xmlOrderedResult.isOrdered()) {
-            violationFile.ifPresent(vf -> vf.store(pomFile, xmlOrderedResult.getErrorMessage()));
             switch (verifyFailType) {
                 case WARN:
                     log.warn(xmlOrderedResult.getErrorMessage());
+                    saveViolationFile(xmlOrderedResult);
                     log.warn(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     break;
                 case SORT:
                     log.info(xmlOrderedResult.getErrorMessage());
+                    saveViolationFile(xmlOrderedResult);
                     log.info(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     sortPom();
                     break;
                 case STOP:
                     log.error(xmlOrderedResult.getErrorMessage());
+                    saveViolationFile(xmlOrderedResult);
                     log.error(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     throw new FailureException(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                 default:
@@ -192,6 +187,15 @@ public class SortPomImpl {
                     throw new IllegalStateException(verifyFailType.toString());
             }
         }
+    }
+
+    private void saveViolationFile(XmlOrderedResult xmlOrderedResult) {
+        violationFile
+                .ifPresent(vf -> log.info("Saving violation report to " + vf.getViolationFile().getAbsolutePath()));
+        violationFile
+                .map(vf -> vf.createViolationXmlContent(pomFile, xmlOrderedResult.getErrorMessage()))
+                .map(xmlOutputGenerator::getSortedXml)
+                .ifPresent(fileUtil::saveViolationFile);
     }
 
     public XmlOrderedResult isPomElementsSorted() {
@@ -206,11 +210,11 @@ public class SortPomImpl {
     }
 
     private void insertXmlInXmlProcessor(String xml, String errorMsg) {
-        try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))){
+        try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
             xmlProcessor.setOriginalXml(originalXmlInputStream);
         } catch (JDOMException | IOException e) {
             throw new FailureException(errorMsg + xml, e);
-        } 
+        }
     }
 
 }

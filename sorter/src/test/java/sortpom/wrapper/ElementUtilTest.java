@@ -33,7 +33,7 @@ public class ElementUtilTest {
     }
 
     @Test
-    public void parentElementNameShouleBeMatched() throws Exception {
+    public void parentElementNameShouldBeMatched() throws Exception {
         assertThat(ElementUtil.isElementParentName(child, "Parent"), is(true));
         assertThat(ElementUtil.isElementParentName(child, "Gurka"), is(false));
         assertThat(ElementUtil.isElementParentName(parent, "Parent"), is(false));

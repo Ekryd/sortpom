@@ -79,19 +79,18 @@ public class SortPomImplUtil {
         assertEquals(warningMessage, xmlOrderedResult.getErrorMessage());
     }
 
-    public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName, String warningMessage)
+    public void testVerifySort(final String inputResourceFileName, final String expectedResourceFileName, String warningMessage, boolean outputToViolationFile)
             throws Exception {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performTestThatSorted();
-        assertThat(testHandler.getInfoLogger().get(0), startsWith("[INFO] Verifying file "));
-        assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
-        assertThat(testHandler.getInfoLogger().get(2), startsWith("[INFO] The file "));
-        assertThat(testHandler.getInfoLogger().get(2), endsWith(" is not sorted"));
-        assertThat(testHandler.getInfoLogger().get(3), startsWith("[INFO] Sorting file "));
+        int index = assertStartOfMessages(warningMessage, outputToViolationFile);
+        assertThat(testHandler.getInfoLogger().get(index), startsWith("[INFO] The file "));
+        assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
+        assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Sorting file "));
     }
 
-    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass, String warningMessage) {
+    public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass, String warningMessage, boolean outputToViolationFile) {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         try {
@@ -99,21 +98,31 @@ public class SortPomImplUtil {
             fail();
         } catch (Exception e) {
             assertEquals(expectedExceptionClass, e.getClass());
-            assertThat(testHandler.getInfoLogger().get(0), startsWith("[INFO] Verifying file "));
-            assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
-            assertThat(testHandler.getInfoLogger().get(2), startsWith("[ERROR] The file "));
-            assertThat(testHandler.getInfoLogger().get(2), endsWith(" is not sorted"));
+            int index = assertStartOfMessages(warningMessage, outputToViolationFile);
+            assertThat(testHandler.getInfoLogger().get(index), startsWith("[ERROR] The file "));
+            assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
         }
     }
 
-    public void testVerifyWarn(String inputResourceFileName, String warningMessage) throws Exception {
+    public void testVerifyWarn(String inputResourceFileName, String warningMessage, boolean outputToViolationFile) throws Exception {
         setup();
         testHandler = new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
         testHandler.performTestThatDidNotSort();
-        assertThat(testHandler.getInfoLogger().get(0), startsWith("[INFO] Verifying file "));
-        assertEquals(warningMessage, testHandler.getInfoLogger().get(1));
-        assertThat(testHandler.getInfoLogger().get(2), startsWith("[WARNING] The file "));
-        assertThat(testHandler.getInfoLogger().get(2), endsWith(" is not sorted"));
+
+        int index = assertStartOfMessages(warningMessage, outputToViolationFile);
+        assertThat(testHandler.getInfoLogger().get(index), startsWith("[WARNING] The file "));
+        assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
+    }
+
+    private int assertStartOfMessages(String warningMessage, boolean outputToViolationFile) {
+        int index = 0;
+        assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Verifying file "));
+        assertEquals(warningMessage, testHandler.getInfoLogger().get(index++));
+
+        if (outputToViolationFile) {
+            assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Saving violation report to "));
+        }
+        return index;
     }
 
     public SortPomImplUtil nrOfIndentSpace(int indent) {

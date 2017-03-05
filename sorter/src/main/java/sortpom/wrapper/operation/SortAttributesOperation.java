@@ -5,7 +5,6 @@ import org.jdom.Element;
 import sortpom.wrapper.content.Wrapper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * @since 2013-11-01
  */
 public class SortAttributesOperation extends HierarchyWrapperOperation {
-    private static final Comparator<Attribute> ATTRIBUTE_COMPARATOR = (o1, o2) -> o1.getName().compareTo(o2.getName());
+    private static final Comparator<Attribute> ATTRIBUTE_COMPARATOR = Comparator.comparing(Attribute::getName);
 
     /** Sort attributes of each element */
     @Override
@@ -30,7 +29,7 @@ public class SortAttributesOperation extends HierarchyWrapperOperation {
         
         attributes.forEach(Attribute::detach);
         
-        Collections.sort(attributes, ATTRIBUTE_COMPARATOR);
+        attributes.sort(ATTRIBUTE_COMPARATOR);
         return attributes;
     }
 

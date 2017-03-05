@@ -10,7 +10,6 @@ import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**

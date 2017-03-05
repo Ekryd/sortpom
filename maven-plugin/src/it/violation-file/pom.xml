@@ -23,8 +23,8 @@
               <goal>verify</goal>
             </goals>
             <configuration>
-              <violationFile>sortpom-reports/sortpom-result.xml</violationFile>
-              <verifyFail>stop</verifyFail>
+              <violationFilename>target/sortpom_reports/violation.xml</violationFilename>
+              <verifyFail>warn</verifyFail>
             </configuration>
           </execution>
         </executions>

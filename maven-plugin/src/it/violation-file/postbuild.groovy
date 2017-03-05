@@ -1,13 +1,14 @@
 log = new File(basedir, 'build.log')
 sorted = new File(basedir, 'pom.xml')
-violationFile = new File(basedir, 'sortpom-reports/sortpom-result.xml')
-expected_violationFile = new File(basedir, 'expected_sortpom-result.xml')
+violationFile = new File(basedir, 'target/sortpom_reports/violation.xml')
+expected_violationFile = new File(basedir, 'expected_violation_file.xml')
 
 assert log.exists()
-assert log.text.contains('Sorting file ' + sorted.absolutePath)
-assert log.text.contains('Saved backup of ' + sorted.absolutePath + ' to ' + backup.absolutePath)
-assert log.text.contains('Saved sorted pom file to ' + sorted.absolutePath)
+assert log.text.contains('[INFO] Verifying file ' + sorted.absolutePath)
+assert log.text.contains('[WARNING] The xml element <modelVersion> should be placed before <name>')
+assert log.text.contains('[INFO] Saving violation report to ' + violationFile.absolutePath)
+assert log.text.contains('[WARNING] The file ' + sorted.absolutePath + ' is not sorted')
 
-assert expected.text.replaceAll('@pom.version@', projectversion).tokenize('\n').equals(sorted.text.tokenize('\n'))
+assert expected_violationFile.text.replaceAll('@POM_PATH@', sorted.absolutePath).tokenize('\n').equals(violationFile.text.tokenize('\n'))
 
 return true

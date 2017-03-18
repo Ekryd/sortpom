@@ -171,9 +171,11 @@
           <artifactId>maven-invoker-plugin</artifactId>
           <version>2.0.0</version>
           <configuration>
+            <!-- for jacoco to analyze integration test runs, the jar-file has to be in the local repository used by the invoker plugin when running tests -->
             <extraArtifacts>
               <extraArtifact>org.jacoco:org.jacoco.agent:0.7.9:jar:runtime</extraArtifact>
             </extraArtifacts>
+            <!-- skip any .mavenrc file to override what the jacoco agent defined in the invoker.mavenOpts variable -->
             <environmentVariables>
               <MAVEN_SKIP_RC>1</MAVEN_SKIP_RC>
             </environmentVariables>
@@ -298,6 +300,7 @@
               <goal>prepare-agent</goal>
             </goals>
           </execution>
+          <!-- create the invoker.mavenOpts variable, containing what is needed for the agent to run during the integration tests. -->
           <execution>
             <id>pre-integration-test</id>
             <goals>
@@ -307,6 +310,7 @@
               <propertyName>invoker.mavenOpts</propertyName>
             </configuration>
           </execution>
+          <!-- merge the two data files of jacoco (the one for the unit tests, the other for the integration tests) into only one file, and generate only one report (disabling the two others) -->
           <execution>
             <id>merge</id>
             <goals>

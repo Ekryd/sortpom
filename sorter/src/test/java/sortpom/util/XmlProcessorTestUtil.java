@@ -82,7 +82,7 @@ public class XmlProcessorTestUtil {
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
-                .setSortEntities("", "", false).createPluginParameters();
+                .setSortEntities("", "", false, false).createPluginParameters();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
 
         final FileUtil fileUtil = new FileUtil();

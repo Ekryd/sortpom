@@ -3,7 +3,6 @@ package sortpom.util;
 import org.apache.commons.io.IOUtils;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.ViolationFile;
 
 import java.io.*;
 import java.net.URL;
@@ -24,7 +23,7 @@ public class FileUtil {
     private String predefinedSortOrder;
     private String newName;
     private File backupFile;
-    private Optional<ViolationFile> violationFile;
+    private String violationFilename;
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -33,7 +32,7 @@ public class FileUtil {
         this.encoding = parameters.encoding;
         this.customSortOrderFile = parameters.customSortOrderFile;
         this.predefinedSortOrder = parameters.predefinedSortOrder;
-        this.violationFile = parameters.getViolationFile();
+        this.violationFilename = parameters.violationFilename;
     }
 
     /**
@@ -80,9 +79,8 @@ public class FileUtil {
     }
 
     public void saveViolationFile(String violationXml) {
-        violationFile
-                .map(ViolationFile::getViolationFile)
-                .ifPresent(file -> saveFile(file, violationXml, "Could not save violation file: " + file.getAbsolutePath()));
+        File violationFile = new File(violationFilename);
+        saveFile(violationFile, violationXml, "Could not save violation file: " + violationFile.getAbsolutePath());
     }
 
     /**

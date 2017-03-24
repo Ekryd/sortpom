@@ -62,6 +62,11 @@ public class VerifyMojoParametersTest {
     }
 
     @Test
+    public void violationFilenameParameterShouldBeFound() throws Exception {
+        testParameterMoveFromMojoToRestOfApplication("violationFilename", "violets.are", sortPomImpl, fileUtil);
+    }
+
+    @Test
     public void encodingParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlOutputGenerator);
     }

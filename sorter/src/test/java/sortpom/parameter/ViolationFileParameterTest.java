@@ -21,13 +21,29 @@ public class ViolationFileParameterTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public final void violationFileShouldNotBeOverwritten() throws Exception {
+    public final void violationFileCanBeOverwritten() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Violation file " + tempFile.getAbsolutePath() + " already exists");
         SortPomImplUtil.create()
                 .violationFile(tempFile.getAbsolutePath())
-                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
+                .testVerifySort("/full_unsorted_input.xml",
+                        "/full_expected.xml", 
+                        "[INFO] The xml element <modelVersion> should be placed before <parent>", 
+                        true);
+    }
+
+    @Test
+    public final void readOnlyViolationFileShouldReportError() throws Exception {
+        File tempFile = File.createTempFile("violation", ".xml", new File("target"));
+        tempFile.setReadOnly();
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Could not save violation file: " + tempFile.getAbsolutePath());
+        
+        SortPomImplUtil.create()
+                .violationFile(tempFile.getAbsolutePath())
+                .testVerifySort("/full_unsorted_input.xml",
+                        "/full_expected.xml", 
+                        "[INFO] The xml element <modelVersion> should be placed before <parent>", 
+                        true);
     }
 
     @Test

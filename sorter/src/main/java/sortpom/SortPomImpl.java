@@ -6,7 +6,6 @@ import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 import sortpom.parameter.VerifyFailType;
-import sortpom.parameter.ViolationFile;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
 import sortpom.util.FileUtil;
 import sortpom.util.XmlOrderedResult;
@@ -15,7 +14,6 @@ import sortpom.wrapper.WrapperFactoryImpl;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * The implementation of the Mojo (Maven plugin) that sorts the pom file for a
@@ -40,7 +38,7 @@ public class SortPomImpl {
     private String backupFileExtension;
     private VerifyFailType verifyFailType;
     private boolean ignoreLineSeparators;
-    private Optional<ViolationFile> violationFile;
+    private String violationFilename;
 
     /**
      * Instantiates a new sort pom mojo and initiates dependencies to other
@@ -67,7 +65,7 @@ public class SortPomImpl {
         backupFileExtension = pluginParameters.backupFileExtension;
         verifyFailType = pluginParameters.verifyFailType;
         ignoreLineSeparators = pluginParameters.ignoreLineSeparators;
-        violationFile = pluginParameters.getViolationFile();
+        violationFilename = pluginParameters.violationFilename;
         warnAboutDeprecatedArguments(log, pluginParameters);
     }
 
@@ -190,12 +188,13 @@ public class SortPomImpl {
     }
 
     private void saveViolationFile(XmlOrderedResult xmlOrderedResult) {
-        violationFile
-                .ifPresent(vf -> log.info("Saving violation report to " + vf.getViolationFile().getAbsolutePath()));
-        violationFile
-                .map(vf -> vf.createViolationXmlContent(pomFile, xmlOrderedResult.getErrorMessage()))
-                .map(xmlOutputGenerator::getSortedXml)
-                .ifPresent(fileUtil::saveViolationFile);
+        if (violationFilename != null) {
+            log.info("Saving violation report to " + new File(violationFilename).getAbsolutePath());
+            ViolationXmlProcessor violationXmlProcessor = new ViolationXmlProcessor();
+            Document document = violationXmlProcessor.createViolationXmlContent(pomFile, xmlOrderedResult.getErrorMessage());
+            String violationXmlString = xmlOutputGenerator.getSortedXml(document);
+            fileUtil.saveViolationFile(violationXmlString);
+        }
     }
 
     public XmlOrderedResult isPomElementsSorted() {

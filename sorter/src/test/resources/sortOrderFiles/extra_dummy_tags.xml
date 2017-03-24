@@ -18,6 +18,7 @@
   </prerequisites>
   <modules>
     <module>module</module>
+    <unknown/>
   </modules>
   <properties></properties>
   <dependencyManagement>

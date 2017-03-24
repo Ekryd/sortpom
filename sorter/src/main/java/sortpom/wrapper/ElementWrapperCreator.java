@@ -44,10 +44,10 @@ public class ElementWrapperCreator {
                 pluginSortedWrapper.setSortOrder(sortPlugins);
                 return pluginSortedWrapper;
             }
+            if(isModuleElement(element)) {
+                return new ModuleSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+            }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-        }
-        if(isModuleElement(element)) {
-            return new AlphabeticalSortedWrapper(element);
         }
         if (isPropertyElement(element)) {
             return new AlphabeticalSortedWrapper(element);

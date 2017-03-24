@@ -34,7 +34,7 @@ public class ExpandEmptyElementTest {
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
     }
 
-    static Document createXmlFragment() {
+    public static Document createXmlFragment() {
         Document newDocument = new Document();
         newDocument.setRootElement(new Element("Gurka"));
         return newDocument;

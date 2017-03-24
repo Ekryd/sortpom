@@ -16,6 +16,11 @@ public class ExceptionConverterTest {
     public ExpectedException expectedException = ExpectedException.none();
     
     @Test
+    public void noExceptionShouldRunJustFine() throws MojoFailureException {
+        new ExceptionConverter(() ->{ }).executeAndConvertException();
+    }
+
+    @Test
     public void failureExceptionShouldThrowMojoFailureException() throws MojoFailureException {
         FailureException failureException = new FailureException("Gurka");
         

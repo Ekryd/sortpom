@@ -28,18 +28,9 @@ public class ModuleSortedWrapper extends SortedWrapper {
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         if (wrapper instanceof ModuleSortedWrapper) {
-            return isBeforeDependencySortedWrapper((ModuleSortedWrapper) wrapper);
+            return isBeforeAlphabeticalTextSortedWrapper((ModuleSortedWrapper) wrapper);
         }
         return super.isBefore(wrapper);
-    }
-
-    private boolean isBeforeDependencySortedWrapper(final ModuleSortedWrapper wrapper) {
-        // Sort order rules before sorting alphabetic contents.
-        if (wrapper.getSortOrder() != getSortOrder()) {
-            return super.isBefore(wrapper);
-        }
-
-        return isBeforeAlphabeticalTextSortedWrapper(wrapper);
     }
 
     private boolean isBeforeAlphabeticalTextSortedWrapper(ModuleSortedWrapper wrapper) {

@@ -8,8 +8,8 @@
   <modules>
     <module>a</module>
     <module>b</module>
-    <module>c</module>
     <module>d</module>
+    <module>c</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

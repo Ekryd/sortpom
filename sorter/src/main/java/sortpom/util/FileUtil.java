@@ -6,6 +6,7 @@ import sortpom.parameter.PluginParameters;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.UnsupportedCharsetException;
 import java.util.Optional;
 
 /**
@@ -71,7 +72,7 @@ public class FileUtil {
     public String getPomFileContent() {
         try (InputStream inputStream = new FileInputStream(pomFile)) {
             return IOUtils.toString(inputStream, encoding);
-        } catch (UnsupportedEncodingException ex) {
+        } catch (UnsupportedCharsetException ex) {
             throw new FailureException("Could not handle encoding: " + encoding, ex);
         } catch (IOException ex) {
             throw new FailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ex);

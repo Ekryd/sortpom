@@ -1,7 +1,6 @@
 package sortpom.util;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -41,48 +40,62 @@ public class FileUtilExceptionsTest {
         fileUtil.backupFile();
     }
 
-    @Ignore("This test does not work under JDK7 due to internal JDK changes")
+    private void doNotAccessRealBackupFile(FileUtil fileUtil) {
+        doNothing().when(fileUtil).createFileHandle();
+    }
+
     @Test
     public void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() throws Exception {
-        FileUtil fileUtil = createFileUtil();
-        doNotAccessRealBackupFile(fileUtil);
+        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
+        tempFile.delete();
 
-        when(backupFileMock.exists()).thenReturn(true);
-        when(backupFileMock.delete()).thenReturn(true);
-        when(pomFileMock.getPath()).thenReturn("gurka");
+        FileUtil fileUtil = createFileUtil();
+        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
 
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not create backup file to filename: backupFileName");
+        thrown.expectMessage("Could not create backup file to filename: " + tempFile.getAbsolutePath() + ".bak");
 
         fileUtil.backupFile();
     }
 
-    @Ignore("This test does not work under JDK7 due to internal JDK changes")
     @Test
     public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() throws Exception {
+        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
+        tempFile.delete();
+        
         FileUtil fileUtil = createFileUtil();
-        doNotAccessRealBackupFile(fileUtil);
-
-        when(pomFileMock.getPath()).thenReturn("gurka");
-        when(pomFileMock.getAbsolutePath()).thenReturn("pomFileName");
-
+        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
+        
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not read pom file: pomFileName");
+        thrown.expectMessage("Could not read pom file: " + tempFile.getAbsolutePath());
 
         fileUtil.getPomFileContent();
     }
 
-    @Ignore("This test does not work under JDK7 due to internal JDK changes")
+    @Test
+    public void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() throws Exception {
+        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
+        
+        FileUtil fileUtil = createFileUtil();
+        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
+        new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
+        
+        thrown.expect(FailureException.class);
+        thrown.expectMessage("Could not handle encoding: gurka-2000");
+
+        fileUtil.getPomFileContent();
+    }
+
     @Test
     public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() throws Exception {
+        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
+        tempFile.setReadOnly();
+        
         FileUtil fileUtil = createFileUtil();
-        doNotAccessRealBackupFile(fileUtil);
-
-        when(pomFileMock.getPath()).thenReturn("/\\");
-        when(pomFileMock.getAbsolutePath()).thenReturn("pomFileName");
+        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
 
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not save sorted pom file: pomFileName");
+        thrown.expectMessage("Could not save sorted pom file: " + tempFile.getAbsolutePath());
 
         fileUtil.savePomFile(null);
     }
@@ -92,11 +105,8 @@ public class FileUtilExceptionsTest {
         helper.setField("backupFile", backupFileMock);
         helper.setField("pomFile", pomFileMock);
         helper.setField("newName", "backupFileName");
+        helper.setField("backupFileExtension", ".bak");
         return spy(originalFileUtil);
-    }
-
-    private void doNotAccessRealBackupFile(FileUtil fileUtil) {
-        doNothing().when(fileUtil).createFileHandle();
     }
 
 }

@@ -18,6 +18,7 @@ public class SortPomImplUtil {
     private String sortDependencies = "";
     private String sortPlugins = "";
     private boolean sortProperties = false;
+    private boolean sortModules = false;
     private String predefinedSortOrder = "";
     private String lineSeparator = "\r\n";
     private String testPomFileName = "src/test/resources/testpom.xml";
@@ -155,6 +156,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil sortModules() {
+        sortModules = true;
+        return this;
+    }
+
     public SortPomImplUtil defaultOrderFileName(String defaultOrderFileName) {
         this.defaultOrderFileName = defaultOrderFileName;
         return this;
@@ -213,7 +219,7 @@ public class SortPomImplUtil {
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)

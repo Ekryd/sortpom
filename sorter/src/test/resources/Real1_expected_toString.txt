@@ -59,6 +59,20 @@ HierarchyWrapper{
   HierarchyWrapper{
     otherContentList=
     UnsortedWrapper{content=[NewLine]}
+    elementContent=SortedWrapper{element=[Element: <modules [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    children=
+    HierarchyWrapper{
+      elementContent=ModuleSortedWrapper{content=[Element: <module [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      children=
+      HierarchyWrapper{
+        otherContentList=
+        UnsortedWrapper{content=[Text: a]}
+        }
+      }
+    }
+  HierarchyWrapper{
+    otherContentList=
+    UnsortedWrapper{content=[NewLine]}
     elementContent=SortedWrapper{element=[Element: <build [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
     children=
     HierarchyWrapper{

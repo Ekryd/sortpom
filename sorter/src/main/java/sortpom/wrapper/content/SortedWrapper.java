@@ -45,10 +45,6 @@ public class SortedWrapper implements Wrapper<Element> {
         return true;
     }
 
-    int getSortOrder() {
-        return sortOrder;
-    }
-
     @Override
     public String toString() {
         return "SortedWrapper{" +

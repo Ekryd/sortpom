@@ -15,6 +15,8 @@ The SortPom Plugin has two goals.
 
   * **mvn sortpom:verify** only sorts the current pom.xml file if the xml elements are unsorted. This goal ignores text formatting (such as indentation and line breaks) when it verifies if the pom is sorted or not.
 
+![Icon](https://raw.githubusercontent.com/Ekryd/sortpom/master/misc/sortpom.jpg)
+
 ## Usage ##
 
 The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be [configured](https://github.com/Ekryd/sortpom/wiki/Parameters) to sort by by different standards or by custom format. By default a backup file will be created, so that you can check how the pom-file has changed.

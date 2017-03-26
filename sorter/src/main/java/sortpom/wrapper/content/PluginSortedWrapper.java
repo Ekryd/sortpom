@@ -41,10 +41,9 @@ public class PluginSortedWrapper extends SortedWrapper {
     }
 
     private boolean isBeforePluginSortedWrapper(final PluginSortedWrapper wrapper) {
-        // Sort order rules before sorting by artifactId, groupId etc.
-        if (wrapper.getSortOrder() != getSortOrder()) {
-            return super.isBefore(wrapper);
-        }
+        // SortOrder will always be same for both PluginSortedWrapper because there is only one tag under plugins
+        // that is named plugin, see sortpom.wrapper.ElementWrapperCreator.isPluginElement.
+        // So comparing getSortOrder is not needed.
 
         return childElementSorter.compareTo(wrapper.childElementSorter);
     }

@@ -39,10 +39,9 @@ public class DependencySortedWrapper extends SortedWrapper {
     }
 
     private boolean isBeforeDependencySortedWrapper(final DependencySortedWrapper wrapper) {
-        // Sort order rules before sorting by scope, groupId etc.
-        if (wrapper.getSortOrder() != getSortOrder()) {
-            return super.isBefore(wrapper);
-        }
+        // SortOrder will always be same for both DependencySortedWrapper because there is only one tag under dependencies
+        // that is named dependency, see sortpom.wrapper.ElementWrapperCreator.isDependencyElement.
+        // So comparing getSortOrder is not needed.
 
         return childElementSorter.compareTo(wrapper.childElementSorter);
     }

@@ -24,7 +24,6 @@ public class SortDependenciesTest {
      * so that it will be sorted beside dependency and plugin tags. The extra tag does not play well with
      * the pom xml validation.
      */
-
     @Test
     public final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
         SortPomImplUtil.create()

@@ -2,9 +2,6 @@ package sortpom.wrapper.content;
 
 import org.jdom.Content;
 import org.jdom.Element;
-import sortpom.parameter.DependencySortOrder;
-
-import java.util.List;
 
 /**
  * A wrapper that contains a module element. The module is sorted alphabetically.
@@ -13,6 +10,7 @@ import java.util.List;
  */
 public class ModuleSortedWrapper extends SortedWrapper {
     private final String text;
+
     /**
      * Instantiates a new child element sorted wrapper with a module element.
      *
@@ -23,7 +21,7 @@ public class ModuleSortedWrapper extends SortedWrapper {
         super(element, sortOrder);
         text = element.getTextTrim();
     }
-    
+
 
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
@@ -34,6 +32,10 @@ public class ModuleSortedWrapper extends SortedWrapper {
     }
 
     private boolean isBeforeAlphabeticalTextSortedWrapper(ModuleSortedWrapper wrapper) {
+        // SortOrder will always be same for both ModuleSortedWrapper because there is only one tag under modules
+        // that is named module, see sortpom.wrapper.ElementWrapperCreator.isModuleElement.
+        // So comparing getSortOrder is not needed.
+
         return wrapper.text.compareTo(text) >= 0;
     }
 

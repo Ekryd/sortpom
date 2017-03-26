@@ -20,7 +20,7 @@ public class ElementWrapperCreator {
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
-    public ElementWrapperCreator(ElementSortOrderMap elementNameSortOrderMap) {
+    ElementWrapperCreator(ElementSortOrderMap elementNameSortOrderMap) {
         this.elementNameSortOrderMap = elementNameSortOrderMap;
     }
 
@@ -31,7 +31,7 @@ public class ElementWrapperCreator {
         this.sortModules = pluginParameters.sortModules;
     }
 
-    public Wrapper<Element> createWrapper(Element element) {
+    Wrapper<Element> createWrapper(Element element) {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {
             if (isDependencyElement(element)) {
@@ -72,6 +72,13 @@ public class ElementWrapperCreator {
         return false;
     }
 
+    private boolean isModuleElement(final Element element) {
+        if (!sortModules) {
+            return false;
+        }
+        return isElementName(element, "module") && isElementParentName(element, "modules");
+    }
+
     private boolean isPropertyElement(final Element element) {
         if (!sortProperties) {
             return false;
@@ -80,13 +87,6 @@ public class ElementWrapperCreator {
         boolean inTheRightPlace = deepName.startsWith("/project/properties/")
                 || deepName.startsWith("/project/profiles/profile/properties/");
         return inTheRightPlace && isElementParentName(element, "properties");
-    }
-
-    private boolean isModuleElement(final Element element) {
-        if (!sortModules) {
-            return false;
-        }
-        return isElementName(element, "module") && isElementParentName(element, "modules");
     }
 
 }

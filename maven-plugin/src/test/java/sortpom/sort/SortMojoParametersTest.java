@@ -113,6 +113,11 @@ public class SortMojoParametersTest {
     }
 
     @Test
+    public void parameterSortModulesShouldEndUpInWrapperFactoryImpl() throws Exception {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortModules", elementWrapperCreator);
+    }
+
+    @Test
     public void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() throws Exception {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", elementWrapperCreator);
     }

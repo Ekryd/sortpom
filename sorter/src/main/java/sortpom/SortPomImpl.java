@@ -181,9 +181,6 @@ public class SortPomImpl {
                     saveViolationFile(xmlOrderedResult);
                     log.error(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
                     throw new FailureException(String.format(TEXT_FILE_NOT_SORTED, pomFileName));
-                default:
-                    log.error(xmlOrderedResult.getErrorMessage());
-                    throw new IllegalStateException(verifyFailType.toString());
             }
         }
     }

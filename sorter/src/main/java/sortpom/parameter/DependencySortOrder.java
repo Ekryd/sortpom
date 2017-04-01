@@ -1,6 +1,8 @@
 package sortpom.parameter;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * The plugin parameter 'sortDependencies' is parsed by this class to determine if dependencies should be sorted
@@ -11,7 +13,7 @@ import java.util.Arrays;
  */
 public class DependencySortOrder {
     private final String childElementNameList;
-    private String[] childElementNames;
+    private Collection<String> childElementNames;
 
     /**
      * Create an instance of the DependencySortOrder
@@ -29,11 +31,11 @@ public class DependencySortOrder {
      *
      * @return a list of xml element names
      */
-    public String[] getChildElementNames() {
+    public Collection<String> getChildElementNames() {
         if (childElementNames == null) {
-            childElementNames = parseChildElementNameList();
+            childElementNames = Collections.unmodifiableList(Arrays.asList(parseChildElementNameList()));
         }
-        return childElementNames.clone();
+        return childElementNames;
     }
 
     private String[] parseChildElementNameList() {
@@ -44,6 +46,9 @@ public class DependencySortOrder {
             return new String[]{"groupId", "artifactId"};
         }
         String list = childElementNameList.replaceAll("\\s", "");
+        if (list.isEmpty()) {
+            return new String[0];
+        }
         return list.split(";|,|:");
     }
 
@@ -59,13 +64,13 @@ public class DependencySortOrder {
 
     /** If the dependencies should be unsorted */
     public boolean isNoSorting() {
-        return getChildElementNames().length == 0;
+        return getChildElementNames().size() == 0;
     }
 
     @Override
     public String toString() {
         return "DependencySortOrder{" +
-                "childElementNames=" + Arrays.asList(getChildElementNames()) +
+                "childElementNames=" + getChildElementNames() +
                 '}';
     }
 }

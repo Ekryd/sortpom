@@ -4,6 +4,35 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
     <dependencies>
+        <dependency>
+            <scope>gurka</scope>
+        </dependency>
+        <dependency>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <scope>import</scope>
+        </dependency>
+        <dependency>
+            <scope>runTIME</scope>
+        </dependency>
+        <dependency>
+            <scope>system</scope>
+        </dependency>
+        <dependency>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <artifactId>c</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <artifactId>b</artifactId>
+            <scope/>
+        </dependency>
+        <dependency>
+            <artifactId>a</artifactId>
+        </dependency>
         <!-- Junit! -->
         <dependency>
             <groupId>junit</groupId>

@@ -3,9 +3,35 @@
   <modelVersion>4.0.0</modelVersion>
   <dependencies>
     <dependency>
+      <artifactId>a</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>b</artifactId>
+      <scope></scope>
+    </dependency>
+    <dependency>
+      <artifactId>c</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom</artifactId>
       <version>1.1</version>
+    </dependency>
+    <dependency>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <scope>system</scope>
+    </dependency>
+    <dependency>
+      <scope>runTIME</scope>
+    </dependency>
+    <dependency>
+      <scope>import</scope>
+    </dependency>
+    <dependency>
+      <scope>test</scope>
     </dependency>
     <!-- This is cglib -->
     <dependency>
@@ -26,6 +52,9 @@
       <artifactId>junit</artifactId>
       <version>3.8.2</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <scope>gurka</scope>
     </dependency>
   </dependencies>
 </project>

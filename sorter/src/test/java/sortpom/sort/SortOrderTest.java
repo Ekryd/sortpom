@@ -1,9 +1,17 @@
 package sortpom.sort;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
+import static org.hamcrest.Matchers.*;
+
 public class SortOrderTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void testSortDifferentClassPath() throws Exception {
@@ -80,6 +88,15 @@ public class SortOrderTest {
                 .sortDependencies("groupId,artifactId")
                 .sortPlugins("groupId,artifactId")
                 .testNoSorting("/SortDep_expected.xml");
+    }
+
+    @Test
+    public final void corruptFileShouldThrowException() throws Exception {
+        thrown.expect(FailureException.class);
+        thrown.expectMessage(allOf(endsWith("content: <project><artifactId>sortpom</artifactId>"), startsWith("Could not sort ")));
+        
+        SortPomImplUtil.create()
+                .testFiles("/Corrupt_file.xml", "/Corrupt_file.xml");
     }
 
 }

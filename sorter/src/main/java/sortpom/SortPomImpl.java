@@ -14,6 +14,7 @@ import sortpom.wrapper.WrapperFactoryImpl;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Supplier;
 
 /**
  * The implementation of the Mojo (Maven plugin) that sorts the pom file for a
@@ -111,7 +112,7 @@ public class SortPomImpl {
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
         String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
 
-        insertXmlInXmlProcessor(xml, "Could not sort pom files content: ");
+        insertXmlInXmlProcessor(xml, () -> "Could not sort " + pomFile.getAbsolutePath() + " content: ");
         xmlProcessor.sortXml();
         Document newDocument = xmlProcessor.getNewDocument();
 
@@ -202,17 +203,17 @@ public class SortPomImpl {
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
         String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
 
-        insertXmlInXmlProcessor(xml, "Could not verify pom files content: ");
+        insertXmlInXmlProcessor(xml, () -> "Could not verify " + pomFile.getAbsolutePath() + " content: ");
         xmlProcessor.sortXml();
 
         return xmlProcessor.isXmlOrdered();
     }
 
-    private void insertXmlInXmlProcessor(String xml, String errorMsg) {
+    private void insertXmlInXmlProcessor(String xml, Supplier<String> errorMsg) {
         try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
             xmlProcessor.setOriginalXml(originalXmlInputStream);
         } catch (JDOMException | IOException e) {
-            throw new FailureException(errorMsg + xml, e);
+            throw new FailureException(errorMsg.get() + xml, e);
         }
     }
 

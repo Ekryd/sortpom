@@ -15,10 +15,12 @@ public class ElementWrapperCreator {
     private DependencySortOrder sortDependencies;
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
+    private boolean sortModules;
+    
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
-    public ElementWrapperCreator(ElementSortOrderMap elementNameSortOrderMap) {
+    ElementWrapperCreator(ElementSortOrderMap elementNameSortOrderMap) {
         this.elementNameSortOrderMap = elementNameSortOrderMap;
     }
 
@@ -26,9 +28,10 @@ public class ElementWrapperCreator {
         this.sortDependencies = pluginParameters.sortDependencies;
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
+        this.sortModules = pluginParameters.sortModules;
     }
 
-    public Wrapper<Element> createWrapper(Element element) {
+    Wrapper<Element> createWrapper(Element element) {
         boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
         if (sortedBySortOrderFile) {
             if (isDependencyElement(element)) {
@@ -40,6 +43,9 @@ public class ElementWrapperCreator {
                 PluginSortedWrapper pluginSortedWrapper = new PluginSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
                 pluginSortedWrapper.setSortOrder(sortPlugins);
                 return pluginSortedWrapper;
+            }
+            if(isModuleElement(element)) {
+                return new ModuleSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
             }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         }
@@ -64,6 +70,13 @@ public class ElementWrapperCreator {
             return isElementParentName(element, "plugins") || isElementParentName(element, "reportPlugins");
         }
         return false;
+    }
+
+    private boolean isModuleElement(final Element element) {
+        if (!sortModules) {
+            return false;
+        }
+        return isElementName(element, "module") && isElementParentName(element, "modules");
     }
 
     private boolean isPropertyElement(final Element element) {

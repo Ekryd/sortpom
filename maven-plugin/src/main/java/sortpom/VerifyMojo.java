@@ -60,6 +60,12 @@ public class VerifyMojo extends AbstractMojo {
      */
     @Parameter(property = "sort.sortProperties", defaultValue = "false")
     private boolean sortProperties;
+    
+    /**
+     * Should the Maven pom sub modules be sorted alphabetically. 
+     */
+    @Parameter(property = "sort.sortModules", defaultValue = "false")
+    private boolean sortModules;
 
     /**
      * Encoding for the files.
@@ -161,7 +167,7 @@ public class VerifyMojo extends AbstractMojo {
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortPlugins, sortProperties)
+                    .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setVerifyFail(verifyFail)
                     .createPluginParameters();
 

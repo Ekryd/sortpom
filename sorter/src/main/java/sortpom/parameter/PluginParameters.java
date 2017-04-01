@@ -17,6 +17,7 @@ public class PluginParameters {
     public final DependencySortOrder sortDependencies;
     public final DependencySortOrder sortPlugins;
     public final boolean sortProperties;
+    public final boolean sortModules;
     public final boolean keepBlankLines;
     public final boolean indentBlankLines;
     public final VerifyFailType verifyFailType;
@@ -25,7 +26,7 @@ public class PluginParameters {
     PluginParameters(File pomFile, boolean createBackupFile, String backupFileExtension, String violationFilename, String encoding,
                      LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean keepBlankLines,
                      String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
-                     DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties,
+                     DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, boolean sortModules,
                      VerifyFailType verifyFailType, boolean ignoreLineSeparators) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
@@ -40,6 +41,7 @@ public class PluginParameters {
         this.sortDependencies = sortDependencies;
         this.sortPlugins = sortPlugins;
         this.sortProperties = sortProperties;
+        this.sortModules = sortModules;
         this.keepBlankLines = keepBlankLines;
         this.indentBlankLines = indentBlankLines;
         this.verifyFailType = verifyFailType;

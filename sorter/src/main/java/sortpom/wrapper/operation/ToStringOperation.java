@@ -7,19 +7,20 @@ import sortpom.wrapper.content.Wrapper;
 import java.util.List;
 
 /**
- * Xml hierarchy operation that returns xml content as readable text. Used by 
+ * Xml hierarchy operation that returns xml content as readable text. Used by
  * Used in HierarchyWrapper.processOperation(HierarchyWrapperOperation operation)
+ *
  * @author bjorn
  * @since 2013-11-02
  */
-public class ToStringOperation extends HierarchyWrapperOperation {
-    private final static String INDENT = "  ";
-    private final static int INDENT_LENGTH = INDENT.length();
+public class ToStringOperation implements HierarchyWrapperOperation {
+    private static final String INDENT = "  ";
+    private static final int INDENT_LENGTH = INDENT.length();
     private final StringBuilder builder;
     private final String baseIndent;
     private boolean processFirstOtherContent;
 
-    public ToStringOperation() {
+    ToStringOperation() {
         builder = new StringBuilder();
         baseIndent = INDENT;
     }

@@ -138,9 +138,6 @@ public class VerifyMojo extends AbstractMojo {
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    public VerifyMojo() {
-    }
-
     /**
      * Execute plugin.
      *

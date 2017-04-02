@@ -64,7 +64,7 @@ public class DependencySortOrder {
 
     /** If the dependencies should be unsorted */
     public boolean isNoSorting() {
-        return getChildElementNames().size() == 0;
+        return getChildElementNames().isEmpty();
     }
 
     @Override

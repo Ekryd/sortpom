@@ -14,7 +14,7 @@ import java.util.List;
  * @author bjorn
  * @since 2013-11-01
  */
-public class SortAttributesOperation extends HierarchyWrapperOperation {
+public class SortAttributesOperation implements HierarchyWrapperOperation {
     private static final Comparator<Attribute> ATTRIBUTE_COMPARATOR = Comparator.comparing(Attribute::getName);
 
     /** Sort attributes of each element */

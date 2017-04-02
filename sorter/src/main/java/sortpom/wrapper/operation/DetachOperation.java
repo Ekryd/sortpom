@@ -11,7 +11,7 @@ import sortpom.wrapper.content.Wrapper;
  * @author bjorn
  * @since 2013-11-01
  */
-public class DetachOperation extends HierarchyWrapperOperation {
+public class DetachOperation implements HierarchyWrapperOperation {
     /** Detach each 'other content' */
     @Override
     public void processOtherContent(Wrapper<Content> contentWrapper) {

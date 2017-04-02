@@ -10,12 +10,12 @@ import sortpom.wrapper.content.Wrapper;
  * @author bjorn
  * @since 2013-11-02
  */
-public class GetContentStructureOperation extends HierarchyWrapperOperation {
+public class GetContentStructureOperation implements HierarchyWrapperOperation {
     private Element activeElement;
     private final Element parentElement;
 
     /** Initial element does not have any parent */
-    public GetContentStructureOperation() {
+    GetContentStructureOperation() {
         this.parentElement = null;
     }
 

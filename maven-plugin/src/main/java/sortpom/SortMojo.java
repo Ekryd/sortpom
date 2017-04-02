@@ -131,9 +131,6 @@ public class SortMojo extends AbstractMojo {
 
     private final SortPomImpl sortPomImpl = new SortPomImpl();
 
-    public SortMojo() {
-    }
-
     /**
      * Execute plugin.
      *

@@ -15,18 +15,15 @@ import sortpom.wrapper.content.Wrapper;
 public class TextWrapperCreator {
     private boolean keepBlankLines;
 
-    public TextWrapperCreator() {
-    }
-
     public void setup(PluginParameters pluginParameters) {
         keepBlankLines = pluginParameters.keepBlankLines;
     }
 
-    public Wrapper<? extends Content> createWrapper(Text text) {
+    Wrapper<? extends Content> createWrapper(Text text) {
         if (isSingleNewLine(text)) {
             return ThrowAwayContentWrapper.INSTANCE;
         } else if (isBlankLineOrLines(text)) {
-            return new UnsortedWrapper<Content>(new NewlineText());
+            return new UnsortedWrapper<>(new NewlineText());
         }
         return new UnsortedWrapper<>(text);
     }

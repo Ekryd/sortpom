@@ -11,7 +11,7 @@ import java.util.List;
  * @author bjorn
  * @since 2013-11-01
  */
-public class SortChildrenOperation extends HierarchyWrapperOperation {
+public class SortChildrenOperation implements HierarchyWrapperOperation {
     
     /** Sort all children of an element */
     @Override

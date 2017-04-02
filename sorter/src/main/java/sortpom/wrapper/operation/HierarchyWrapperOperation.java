@@ -12,36 +12,36 @@ import java.util.List;
  * @author bjorn
  * @since 2013-11-01
  */
-public abstract class HierarchyWrapperOperation {
+public interface HierarchyWrapperOperation {
     /** Override this if the operation wants to do something before each element has been processed */
-    public void startOfProcess() {
+    default void startOfProcess() {
     }
 
     /** Override this if the operation wants to do something with each 'other content' that
      * belongs to the element being processed
      * @param content such as newlines and comments
      */
-    public void processOtherContent(Wrapper<Content> content) {
+    default void processOtherContent(Wrapper<Content> content) {
     }
 
     /** Override this if the operation wants to do something with the actual element being processed */
-    public void processElement(Wrapper<Element> element) {
+    default void processElement(Wrapper<Element> element) {
     }
 
     /** Override this if the operation want to manipulate the child elements of element being processed */
-    public void manipulateChildElements(List<HierarchyWrapper> children) {
+    default void manipulateChildElements(List<HierarchyWrapper> children) {
     }
 
     /** Override this if the operation wants to manipulate itself before it traverses down to the children
      * of the element being processed
      * @return the same or another instance of the implementing operation
      */
-    public HierarchyWrapperOperation createSubOperation() {
+    default HierarchyWrapperOperation createSubOperation() {
         return this;
     }
 
     /** Override this if the operation wants to do something after each element has been processed */
-    public void endOfProcess() {
+    default void endOfProcess() {
     }
 
 }

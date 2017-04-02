@@ -7,7 +7,7 @@ import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
-import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
@@ -54,9 +54,9 @@ public class WrapperFactoryImpl implements WrapperFactory {
     }
 
     /** @see WrapperFactory#createFromRootElement(org.jdom.Element) */
-    public HierarchyWrapper createFromRootElement(final Element rootElement) {
+    public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
         initializeSortOrderMap();
-        return new HierarchyWrapper(create((Content) rootElement));
+        return new HierarchyRootWrapper(create(rootElement));
     }
 
     /** Creates sort order map from chosen sort order. */

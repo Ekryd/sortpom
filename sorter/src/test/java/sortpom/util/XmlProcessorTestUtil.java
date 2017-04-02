@@ -12,7 +12,7 @@ import sortpom.wrapper.WrapperFactoryImpl;
 import sortpom.wrapper.content.AlphabeticalSortedWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
-import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
@@ -98,8 +98,8 @@ public class XmlProcessorTestUtil {
             wrapperFactory = new WrapperFactory() {
 
                 @Override
-                public HierarchyWrapper createFromRootElement(final Element rootElement) {
-                    return new HierarchyWrapper(new AlphabeticalSortedWrapper(rootElement));
+                public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
+                    return new HierarchyRootWrapper(new AlphabeticalSortedWrapper(rootElement));
                 }
 
                 @SuppressWarnings("unchecked")

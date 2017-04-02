@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Bjorn
  */
-public class HierarchyWrapper {
+class HierarchyWrapper {
     private Wrapper<Element> elementContent;
     private final List<Wrapper<Content>> otherContentList = new ArrayList<>();
     private final List<HierarchyWrapper> children = new ArrayList<>();
@@ -33,7 +33,7 @@ public class HierarchyWrapper {
     }
 
     /** Traverses the initial xml element wrapper and builds hierarchy */
-    public final void createWrappedStructure(final WrapperFactory factory) {
+    protected void createWrappedStructure(final WrapperFactory factory) {
         HierarchyWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
             Wrapper<?> wrapper = factory.create(child);
@@ -55,9 +55,6 @@ public class HierarchyWrapper {
 
     @SuppressWarnings("unchecked")
     private List<Content> castToContentList(final Wrapper<Element> elementContent) {
-        if (elementContent == null) {
-            return new ArrayList<>();
-        }
         return new ArrayList<>(elementContent.getContent().getContent());
     }
 
@@ -65,34 +62,13 @@ public class HierarchyWrapper {
         return elementContent != null;
     }
 
-    /** Detaches all xml elements */
-    public void detachStructure() {
-        processOperation(new DetachOperation());
-    }
-
-    /** Sorts the attributes of the xml elements */
-    public final void sortStructureAttributes() {
-        processOperation(new SortAttributesOperation());
-    }
-
-    /** Sorts all xml elements */
-    public final void sortStructureElements() {
-        processOperation(new SortChildrenOperation());
-    }
-
-    /** Creates a fresh xml structure */
-    public final void connectXmlStructure() {
-        GetContentStructureOperation operation = new GetContentStructureOperation();
-        processOperation(operation);
-    }
-
     /** Returns the base element */
-    public Wrapper<Element> getElementContent() {
+    Wrapper<Element> getElementContent() {
         return elementContent;
     }
 
     /** Template method to traverse xml hierarchy */
-    private void processOperation(HierarchyWrapperOperation operation) {
+    void processOperation(HierarchyWrapperOperation operation) {
         // Hook for start
         operation.startOfProcess();
 

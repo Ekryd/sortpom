@@ -6,7 +6,7 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
-import sortpom.wrapper.operation.HierarchyWrapper;
+import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class XmlProcessor {
         newDocument = (Document) originalDocument.clone();
         final Element rootElement = (Element) originalDocument.getRootElement().clone();
 
-        HierarchyWrapper rootWrapper = factory.createFromRootElement(rootElement);
+        HierarchyRootWrapper rootWrapper = factory.createFromRootElement(rootElement);
 
         rootWrapper.createWrappedStructure(factory);
         rootWrapper.detachStructure();

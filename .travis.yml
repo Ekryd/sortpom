@@ -12,3 +12,8 @@ jdk:
       
 after_success:
   - mvn clean integration-test jacoco:report coveralls:report
+  
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'

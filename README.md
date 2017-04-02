@@ -56,6 +56,6 @@ https://github.com/Ekryd/sortpom/wiki/Parameters
 The plugin is hosted i [Maven Central](http://mvnrepository.com/artifact/com.github.ekryd.sortpom/sortpom-maven-plugin) and will be downloaded automatically if you include it as a plugin in your pom file.
 
 ## Donations ##
-If you use it, then please consider some encouragement. Star it in GitHub!  
+If you use it, then please consider some encouragement. ⭐️ Star it in GitHub!  
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=JB25X84DDG5JW&lc=SE&item_name=Encourage%20the%20development&item_number=sortpom&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)

@@ -31,25 +31,10 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     }
 
     @Override
-    public boolean isContentElement() {
-        return true;
-    }
-
-    @Override
-    public boolean isSortable() {
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "AlphabeticalSortedWrapper{" +
                 "element=" +
                 element +
                 '}';
-    }
-
-    @Override
-    public String toString(String indent) {
-        return indent + toString();
     }
 }

@@ -4,7 +4,7 @@ import org.jdom.Content;
 import org.jdom.Text;
 import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.PluginParameters;
-import sortpom.wrapper.content.ThrowAwayContentWrapper;
+import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
 
@@ -19,9 +19,9 @@ public class TextWrapperCreator {
         keepBlankLines = pluginParameters.keepBlankLines;
     }
 
-    Wrapper<? extends Content> createWrapper(Text text) {
+    Wrapper<Content> createWrapper(Text text) {
         if (isSingleNewLine(text)) {
-            return ThrowAwayContentWrapper.INSTANCE;
+            return SingleNewlineInTextWrapper.INSTANCE;
         } else if (isBlankLineOrLines(text)) {
             return new UnsortedWrapper<>(new NewlineText());
         }

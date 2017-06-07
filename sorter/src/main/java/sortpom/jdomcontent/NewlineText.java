@@ -23,6 +23,7 @@ public class NewlineText extends Comment {
      * @return <code>String</code> - information about the
      * <code>Attribute</code>
      */
+    @Override
     public String toString() {
         return "[NewLine]";
     }

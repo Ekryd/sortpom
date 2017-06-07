@@ -4,36 +4,32 @@ import org.jdom.Content;
 import org.jdom.Text;
 
 /**
- * A wrapper that lets is element be unsorted
+ * A wrapper that contains a single newline, that will be thrown away.
  *
  * @author Bjorn
  */
-public final class ThrowAwayContentWrapper implements Wrapper<Text> {
-    public static final ThrowAwayContentWrapper INSTANCE = new ThrowAwayContentWrapper();
+public final class SingleNewlineInTextWrapper implements Wrapper<Content> {
+    public static final SingleNewlineInTextWrapper INSTANCE = new SingleNewlineInTextWrapper();
 
     /** Instantiates a new wrapper, whose content will be thrown away. */
-    private ThrowAwayContentWrapper() {
+    private SingleNewlineInTextWrapper() {
     }
 
-    /** @see sortpom.wrapper.content.Wrapper#getContent() */
     @Override
     public Text getContent() {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.content.Wrapper#isBefore(sortpom.wrapper.content.Wrapper) */
     @Override
     public boolean isBefore(final Wrapper<? extends Content> wrapper) {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.content.Wrapper#isContentElement() */
     @Override
     public boolean isContentElement() {
         throw new UnsupportedOperationException();
     }
 
-    /** @see sortpom.wrapper.content.Wrapper#isSortable() */
     @Override
     public boolean isSortable() {
         throw new UnsupportedOperationException();
@@ -41,11 +37,6 @@ public final class ThrowAwayContentWrapper implements Wrapper<Text> {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String toString(String indent) {
-        throw new UnsupportedOperationException();
+        return "SingleNewlineInTextWrapper";
     }
 }

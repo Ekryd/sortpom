@@ -2,7 +2,7 @@ package sortpom.wrapper.operation;
 
 import org.jdom.Content;
 import org.jdom.Element;
-import sortpom.wrapper.content.ThrowAwayContentWrapper;
+import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 import sortpom.wrapper.content.Wrapper;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ class HierarchyWrapper {
         HierarchyWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
             Wrapper<?> wrapper = factory.create(child);
-            if (wrapper instanceof ThrowAwayContentWrapper) {
+            if (wrapper instanceof SingleNewlineInTextWrapper) {
                 continue;
             }
             if (currentWrapper == null) {

@@ -26,18 +26,22 @@ public interface Wrapper<T extends Content> {
     boolean isBefore(Wrapper<? extends Content> wrapper);
 
     /**
-     * Checks if is content is of type Element.
+     * Checks if is content is of type Element. Default behaviour is that it contains an element.
      *
      * @return true, if is content element
      */
-    boolean isContentElement();
+    default boolean isContentElement() {
+        return true;
+    }
 
     /**
-     * Checks if wrapper should be sorted.
+     * Checks if wrapper should be sorted. Default behaviour is that it that the Wrapper is sortable.
      *
      * @return true, if is sortable
      */
-    boolean isSortable();
+    default boolean isSortable() {
+        return true;
+    }
 
     /**
      * Output debug-friendly string
@@ -45,5 +49,8 @@ public interface Wrapper<T extends Content> {
      * @param indent The indentation indicates nested elements
      * @return The debug string
      */
-    String toString(String indent);
+    default String toString(String indent) {
+        return indent + toString();
+    }
+
 }

@@ -53,9 +53,4 @@ public class UnsortedWrapper<T extends Content> implements Wrapper<T> {
                 "content=" + content +
                 '}';
     }
-
-    @Override
-    public String toString(String indent) {
-        return indent + toString();
-    }
 }

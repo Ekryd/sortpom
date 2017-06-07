@@ -13,27 +13,27 @@ public class IndentCharactersParameterTest {
 
     @Test
     public void zeroIndentCharactersShouldResultInEmptyIndentString() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(0, true)
-                .createPluginParameters();
+                .build();
 
         assertEquals("", pluginParameters.indentCharacters);
     }
 
     @Test
     public void oneIndentCharacterShouldResultInOneSpace() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(1, true)
-                .createPluginParameters();
+                .build();
 
         assertEquals(" ", pluginParameters.indentCharacters);
     }
 
     @Test
     public void test255IndentCharacterShouldResultIn255Space() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(255, true)
-                .createPluginParameters();
+                .build();
 
         // Test for only space
         assertEquals(true, pluginParameters.indentCharacters.matches("^ *$"));
@@ -42,9 +42,9 @@ public class IndentCharactersParameterTest {
 
     @Test
     public void minusOneIndentCharacterShouldResultInOneTab() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(-1, true)
-                .createPluginParameters();
+                .build();
 
         assertEquals("\t", pluginParameters.indentCharacters);
     }
@@ -54,9 +54,9 @@ public class IndentCharactersParameterTest {
         thrown.expect(FailureException.class);
         thrown.expectMessage("");
 
-        new PluginParametersBuilder()
+        PluginParameters.builder()
                 .setIndent(-2, true)
-                .createPluginParameters();
+                .build();
     }
 
     @Test
@@ -64,9 +64,9 @@ public class IndentCharactersParameterTest {
         thrown.expect(FailureException.class);
         thrown.expectMessage("");
 
-        new PluginParametersBuilder()
+        PluginParameters.builder()
                 .setIndent(256, true)
-                .createPluginParameters();
+                .build();
     }
 
 }

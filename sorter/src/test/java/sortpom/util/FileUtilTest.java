@@ -3,7 +3,6 @@ package sortpom.util;
 import org.junit.Assert;
 import org.junit.Test;
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.PluginParametersBuilder;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -82,10 +81,10 @@ public class FileUtilTest {
 
     private FileUtil createFileUtil(String customSortOrderFile) {
         FileUtil fileUtil = new FileUtil();
-        PluginParametersBuilder pluginParametersBuilder = new PluginParametersBuilder();
-        pluginParametersBuilder.setSortOrder(customSortOrderFile, null);
-        pluginParametersBuilder.setEncoding("UTF-8");
-        PluginParameters pluginParameters = pluginParametersBuilder.createPluginParameters();
+        PluginParameters pluginParameters = PluginParameters.builder()
+                .setSortOrder(customSortOrderFile, null)
+                .setEncoding("UTF-8")
+                .build();
         fileUtil.setup(pluginParameters);
         return fileUtil;
     }

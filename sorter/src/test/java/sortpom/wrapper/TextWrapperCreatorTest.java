@@ -3,7 +3,7 @@ package sortpom.wrapper;
 import org.jdom.Text;
 import org.junit.Before;
 import org.junit.Test;
-import sortpom.parameter.PluginParametersBuilder;
+import sortpom.parameter.PluginParameters;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,8 +16,8 @@ public class TextWrapperCreatorTest {
 
     @Before
     public void setup() {
-        textWrapperCreator.setup(new PluginParametersBuilder().setEncoding("UTF-8")
-                .setFormatting("\n", true, true).createPluginParameters());
+        textWrapperCreator.setup(PluginParameters.builder().setEncoding("UTF-8")
+                .setFormatting("\n", true, true).build());
     }
 
     @Test

@@ -12,27 +12,27 @@ public class VerifyFailParameterTest {
 
     @Test
     public void stopIgnoreCaseValueIsOk() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("sToP")
-                .createPluginParameters();
+                .build();
 
         assertEquals(VerifyFailType.STOP, pluginParameters.verifyFailType);
     }
 
     @Test
     public void warnIgnoreCaseValueIsOk() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("wArN")
-                .createPluginParameters();
+                .build();
 
         assertEquals(VerifyFailType.WARN, pluginParameters.verifyFailType);
     }
 
     @Test
     public void sortIgnoreCaseValueIsOk() {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("sOrT")
-                .createPluginParameters();
+                .build();
 
         assertEquals(VerifyFailType.SORT, pluginParameters.verifyFailType);
     }
@@ -41,27 +41,27 @@ public class VerifyFailParameterTest {
     public void nullValueIsNotOk() {
         thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: null");
 
-        new PluginParametersBuilder()
+        PluginParameters.builder()
                 .setVerifyFail(null)
-                .createPluginParameters();
+                .build();
     }
 
     @Test
     public void emptyValueIsNotOk() {
         thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: ");
 
-        new PluginParametersBuilder()
+        PluginParameters.builder()
                 .setVerifyFail("")
-                .createPluginParameters();
+                .build();
     }
 
     @Test
     public void wrongValueIsNotOk() {
         thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: gurka");
 
-        new PluginParametersBuilder()
+        PluginParameters.builder()
                 .setVerifyFail("gurka")
-                .createPluginParameters();
+                .build();
     }
 
 }

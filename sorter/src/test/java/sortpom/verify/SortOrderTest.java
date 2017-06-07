@@ -45,7 +45,7 @@ public class SortOrderTest {
     @Test
     public final void testSortWithIndentShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .nrOfIndentSpace(4)
+                .nrOfIndentSpace(42)
                 .testVerifyXmlIsOrdered("/Simple_expected_indent.xml");
     }
 

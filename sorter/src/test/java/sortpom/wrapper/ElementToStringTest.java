@@ -6,7 +6,6 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.junit.Test;
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.PluginParametersBuilder;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 
@@ -30,13 +29,13 @@ public class ElementToStringTest {
     }
 
     private String getToStringOnRootElementWrapper(String inputFileName) throws IOException, JDOMException {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null)
                 .setEncoding("UTF-8")
                 .setFormatting("\r\n", true, true)
                 .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).createPluginParameters();
+                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

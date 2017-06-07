@@ -7,7 +7,6 @@ import refutils.ReflectionHelper;
 import sortpom.XmlOutputGenerator;
 import sortpom.XmlProcessor;
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.PluginParametersBuilder;
 import sortpom.wrapper.WrapperFactoryImpl;
 import sortpom.wrapper.content.AlphabeticalSortedWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
@@ -73,14 +72,14 @@ public class XmlProcessorTestUtil {
     }
 
     private void setup(String inputFileName) throws Exception {
-        PluginParameters pluginParameters = new PluginParametersBuilder()
+        PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null)
                 .setFileOutput(false, ".bak", null)
                 .setEncoding("UTF-8")
                 .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
-                .setSortEntities("", "", false, false).createPluginParameters();
+                .setSortEntities("", "", false, false).build();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
 
         final FileUtil fileUtil = new FileUtil();

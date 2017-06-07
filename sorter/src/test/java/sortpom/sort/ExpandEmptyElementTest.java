@@ -5,17 +5,17 @@ import org.jdom.Element;
 import org.junit.Assert;
 import org.junit.Test;
 import sortpom.XmlOutputGenerator;
-import sortpom.parameter.PluginParametersBuilder;
+import sortpom.parameter.PluginParameters;
 
 public class ExpandEmptyElementTest {
     @Test
     public void trueExpandedParameterShouldExpandEmptyXmlElements() throws Exception {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(new PluginParametersBuilder()
+        xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", true, false)
                 .setIndent(2, false)
-                .createPluginParameters());
+                .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
@@ -24,11 +24,11 @@ public class ExpandEmptyElementTest {
     @Test
     public void falseExpandedParameterShouldCompressEmptyXmlElements() throws Exception {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(new PluginParametersBuilder()
+        xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", false, false)
                 .setIndent(2, false)
-                .createPluginParameters());
+                .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);

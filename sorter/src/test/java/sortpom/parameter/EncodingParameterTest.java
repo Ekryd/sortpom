@@ -27,11 +27,11 @@ public class EncodingParameterTest {
         thrown.expectMessage("Could not format pom files content");
 
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(new PluginParametersBuilder()
+        xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("gurka-2000")
                 .setFormatting("\n", true, false)
                 .setIndent(2, false)
-                .createPluginParameters());
+                .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);

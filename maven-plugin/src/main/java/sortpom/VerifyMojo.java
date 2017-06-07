@@ -8,7 +8,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 import sortpom.exception.ExceptionConverter;
 import sortpom.logger.MavenLogger;
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.PluginParametersBuilder;
 
 import java.io.File;
 
@@ -157,7 +156,7 @@ public class VerifyMojo extends AbstractMojo {
     public void setup() throws MojoFailureException {
         new ExceptionConverter(() -> {
 
-            PluginParameters pluginParameters = new PluginParametersBuilder()
+            PluginParameters pluginParameters = PluginParameters.builder()
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, violationFilename)
                     .setEncoding(encoding)
@@ -166,7 +165,7 @@ public class VerifyMojo extends AbstractMojo {
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setVerifyFail(verifyFail)
-                    .createPluginParameters();
+                    .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
             

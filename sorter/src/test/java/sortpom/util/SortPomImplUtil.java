@@ -1,7 +1,6 @@
 package sortpom.util;
 
 import sortpom.parameter.PluginParameters;
-import sortpom.parameter.PluginParametersBuilder;
 
 import java.io.File;
 import java.util.List;
@@ -88,7 +87,7 @@ public class SortPomImplUtil {
         int index = assertStartOfMessages(warningMessage, outputToViolationFile);
         assertThat(testHandler.getInfoLogger().get(index), startsWith("[INFO] The file "));
         assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
-        assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Sorting file "));
+        assertThat(testHandler.getInfoLogger().get(index), startsWith("[INFO] Sorting file "));
     }
 
     public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass, String warningMessage, boolean outputToViolationFile) {
@@ -101,7 +100,7 @@ public class SortPomImplUtil {
             assertEquals(expectedExceptionClass, e.getClass());
             int index = assertStartOfMessages(warningMessage, outputToViolationFile);
             assertThat(testHandler.getInfoLogger().get(index), startsWith("[ERROR] The file "));
-            assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
+            assertThat(testHandler.getInfoLogger().get(index), endsWith(" is not sorted"));
         }
     }
 
@@ -112,7 +111,7 @@ public class SortPomImplUtil {
 
         int index = assertStartOfMessages(warningMessage, outputToViolationFile);
         assertThat(testHandler.getInfoLogger().get(index), startsWith("[WARNING] The file "));
-        assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
+        assertThat(testHandler.getInfoLogger().get(index), endsWith(" is not sorted"));
     }
 
     private int assertStartOfMessages(String warningMessage, boolean outputToViolationFile) {
@@ -213,7 +212,7 @@ public class SortPomImplUtil {
     }
 
     private PluginParameters getPluginParameters() {
-        return new PluginParametersBuilder()
+        return PluginParameters.builder()
                 .setPomFile(testpom)
                 .setFileOutput(true, testPomBackupExtension, violationFile)
                 .setEncoding(encoding)
@@ -223,7 +222,7 @@ public class SortPomImplUtil {
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)
-                .createPluginParameters();
+                .build();
     }
 
 }

@@ -6,3 +6,5 @@ idea-plugin/out
 .project
 .classpath
 .settings
+/maven-plugin/src/it/*/interpolated-pom.xml.bak
+/maven-plugin/src/it/*/build.log

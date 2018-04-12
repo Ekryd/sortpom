@@ -42,11 +42,11 @@ public class FileUtilTest {
 
     @Test
     public void defaultSortOrderFromUrlShouldWork() throws IOException {
-        FileUtil fileUtil = createFileUtil("https://opensource.org/licenses/BSD-3-Clause");
+        FileUtil fileUtil = createFileUtil("https://en.wikipedia.org/wiki/Sweden");
 
         try {
             byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
-            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("The 3-Clause BSD License"));
+            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("Sverige"));
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was perfomed
             // Which actually makes this test a bit pointless :-(
@@ -67,7 +67,7 @@ public class FileUtilTest {
 
     @Test
     public void defaultSortOrderFromNonExistingPageShouldThrowException() throws IOException {
-        FileUtil fileUtil = createFileUtil("https://opensource.org/this.does.not.work");
+        FileUtil fileUtil = createFileUtil("https://github.com/Ekryd/sortpom/where_are_the_donations");
 
         try {
             fileUtil.getDefaultSortOrderXmlBytes();
@@ -75,7 +75,7 @@ public class FileUtilTest {
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was performed
         } catch (FileNotFoundException e) {
-            assertThat(e.getMessage(), is("https://opensource.org/this.does.not.work"));
+            assertThat(e.getMessage(), is("https://github.com/Ekryd/sortpom/where_are_the_donations"));
         }
     }
 

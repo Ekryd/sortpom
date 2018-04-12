@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Concrete implementation of a wrapper factory that sorts xml according to
  * sort order from fileUtil.
- * 
+ * <p>
  * Thank you Christian Haelg for your sortProperties patch.
  *
  * @author Bjorn Ekryd
@@ -69,12 +69,12 @@ public class WrapperFactoryImpl implements WrapperFactory {
         }
     }
 
-    private Document createDocumentFromDefaultSortOrderFile()
+    Document createDocumentFromDefaultSortOrderFile()
             throws JDOMException, IOException {
-        try (InputStream inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes())){
+        try (InputStream inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes())) {
             SAXBuilder parser = new SAXBuilder();
             return parser.build(inputStream);
-        } 
+        }
     }
 
     /**

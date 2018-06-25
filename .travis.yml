@@ -6,7 +6,7 @@ sudo: false
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 addons:
-  sonarqube:
+  sonarcloud:
     organization: "ekryd-github"
     token:
       secure: "chOQPlK5gY2Xd36Yp8Kgwfk6AkS0/ZUaKH8wGSKbBX44ggjULYbn11oW3BhlihxBcXRMdJW3+HM/Xg3GC8WlAzuSnaxwPmBdrHDB7cgs2wFr+Rk87iUrYeM0x8CZ0nEQODGhzVVWULbT66K8s/+2HawCOA/0omY2cXI8UO2vmvU="

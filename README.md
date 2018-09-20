@@ -31,6 +31,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2018-09-20: Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched
   * 2017-04-02: Released version 2.8.0 that adds support to sort modules. Thanks Monica for your pull request!
   * 2017-03-29: Released version 2.7.0 that adds support to write to a separate violation file when verifying.
   * 2017-03-18: Released version 2.6.0 that adds support to force sorting if only line breaks differ. Thanks again Benoit Guerin for your pull requests!

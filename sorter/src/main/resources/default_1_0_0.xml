@@ -3,8 +3,8 @@
 	<modelVersion />
 
 	<parent>
-		<artifactId />
 		<groupId />
+		<artifactId />
 		<version />
 		<relativePath />
 	</parent>

@@ -5,15 +5,6 @@
 			<pluginExecutionFilter>
 				<goals>
 					<goal>sort</goal>
-				</goals>
-			</pluginExecutionFilter>
-			<action>
-				<ignore />
-			</action>
-		</pluginExecution>
-		<pluginExecution>
-			<pluginExecutionFilter>
-				<goals>
 					<goal>verify</goal>
 				</goals>
 			</pluginExecutionFilter>

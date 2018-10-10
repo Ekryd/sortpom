@@ -18,7 +18,7 @@ class HierarchyWrapper {
     private final List<Wrapper<Content>> otherContentList = new ArrayList<>();
     private final List<HierarchyWrapper> children = new ArrayList<>();
 
-    public HierarchyWrapper(final Wrapper<? extends Content> wrapper) {
+    HierarchyWrapper(final Wrapper<? extends Content> wrapper) {
         addContent(wrapper);
     }
 
@@ -33,7 +33,7 @@ class HierarchyWrapper {
     }
 
     /** Traverses the initial xml element wrapper and builds hierarchy */
-    protected void createWrappedStructure(final WrapperFactory factory) {
+    void createWrappedStructure(final WrapperFactory factory) {
         HierarchyWrapper currentWrapper = null;
         for (Content child : castToContentList(elementContent)) {
             Wrapper<?> wrapper = factory.create(child);

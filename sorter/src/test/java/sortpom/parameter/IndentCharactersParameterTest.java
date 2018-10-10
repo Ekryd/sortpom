@@ -6,10 +6,11 @@ import org.junit.rules.ExpectedException;
 import sortpom.exception.FailureException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class IndentCharactersParameterTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void zeroIndentCharactersShouldResultInEmptyIndentString() {
@@ -36,7 +37,7 @@ public class IndentCharactersParameterTest {
                 .build();
 
         // Test for only space
-        assertEquals(true, pluginParameters.indentCharacters.matches("^ *$"));
+        assertTrue(pluginParameters.indentCharacters.matches("^ *$"));
         assertEquals(255, pluginParameters.indentCharacters.length());
     }
 

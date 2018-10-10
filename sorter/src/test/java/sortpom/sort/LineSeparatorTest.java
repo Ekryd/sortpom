@@ -9,7 +9,7 @@ import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
 public class LineSeparatorTest {
     @Test
-    public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() throws Exception {
+    public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
@@ -22,7 +22,7 @@ public class LineSeparatorTest {
     }
 
     @Test
-    public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() throws Exception {
+    public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
@@ -35,7 +35,7 @@ public class LineSeparatorTest {
     }
 
     @Test
-    public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() throws Exception {
+    public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")

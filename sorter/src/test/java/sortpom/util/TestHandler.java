@@ -6,8 +6,10 @@ import sortpom.SortPomImpl;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +37,11 @@ class TestHandler {
     private FileInputStream expectedSortedPomInputStream = null;
     private final File backupFile;
 
-    public TestHandler(String inputResourceFileName, PluginParameters pluginParameters) {
+    TestHandler(String inputResourceFileName, PluginParameters pluginParameters) {
         this(inputResourceFileName, null, pluginParameters);
     }
 
-    public TestHandler(String inputResourceFileName, String expectedResourceFileName, PluginParameters pluginParameters) {
+    TestHandler(String inputResourceFileName, String expectedResourceFileName, PluginParameters pluginParameters) {
         this.inputResourceFileName = inputResourceFileName;
         this.expectedResourceFileName = expectedResourceFileName;
         this.pluginParameters = pluginParameters;
@@ -47,11 +49,11 @@ class TestHandler {
         backupFile = new File(testpom.getAbsolutePath() + pluginParameters.backupFileExtension);
     }
 
-    public List<String> getInfoLogger() {
+    List<String> getInfoLogger() {
         return infoLogger;
     }
 
-    public void performTest() throws Exception {
+    void performTest() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -80,7 +82,7 @@ class TestHandler {
         }
     }
 
-    public void performTestThatSorted() throws Exception {
+    void performTestThatSorted() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -108,7 +110,7 @@ class TestHandler {
         }
     }
 
-    public void performNoSortTest() throws Exception {
+    void performNoSortTest() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -136,7 +138,7 @@ class TestHandler {
         sortPomImpl.sortPom();
     }
 
-    public XmlOrderedResult performVerify() throws Exception {
+    XmlOrderedResult performVerify() throws Exception {
         try {
             removeOldTemporaryFiles();
             FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
@@ -149,7 +151,7 @@ class TestHandler {
         }
     }
 
-    public void performTestThatDidNotSort() throws Exception {
+    void performTestThatDidNotSort() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -193,15 +195,25 @@ class TestHandler {
     }
 
     private void cleanupAfterTest() {
-        IOUtils.closeQuietly(backupFileInputStream);
-        IOUtils.closeQuietly(originalPomInputStream);
-        IOUtils.closeQuietly(actualSortedPomInputStream);
-        IOUtils.closeQuietly(expectedSortedPomInputStream);
+        closeQuietly(backupFileInputStream);
+        closeQuietly(originalPomInputStream);
+        closeQuietly(actualSortedPomInputStream);
+        closeQuietly(expectedSortedPomInputStream);
         if (testpom.exists()) {
             testpom.delete();
         }
         if (backupFile.exists()) {
             backupFile.delete();
+        }
+    }
+
+    private void closeQuietly(Closeable stream) {
+        if (stream != null) {
+            try {
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

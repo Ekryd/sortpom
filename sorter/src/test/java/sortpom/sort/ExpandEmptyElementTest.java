@@ -9,7 +9,7 @@ import sortpom.parameter.PluginParameters;
 
 public class ExpandEmptyElementTest {
     @Test
-    public void trueExpandedParameterShouldExpandEmptyXmlElements() throws Exception {
+    public void trueExpandedParameterShouldExpandEmptyXmlElements() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
@@ -22,7 +22,7 @@ public class ExpandEmptyElementTest {
     }
 
     @Test
-    public void falseExpandedParameterShouldCompressEmptyXmlElements() throws Exception {
+    public void falseExpandedParameterShouldCompressEmptyXmlElements() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")

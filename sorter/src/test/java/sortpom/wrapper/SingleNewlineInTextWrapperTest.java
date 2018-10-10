@@ -16,34 +16,34 @@ import static org.junit.Assert.assertThat;
  */
 public class SingleNewlineInTextWrapperTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testGetContent() throws Exception {
+    public void testGetContent() {
         thrown.expect(UnsupportedOperationException.class);
         SingleNewlineInTextWrapper.INSTANCE.getContent();
     }
 
     @Test
-    public void testIsBefore() throws Exception {
+    public void testIsBefore() {
         thrown.expect(UnsupportedOperationException.class);
         SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
     }
 
     @Test
-    public void testIsContentElement() throws Exception {
+    public void testIsContentElement() {
         thrown.expect(UnsupportedOperationException.class);
         SingleNewlineInTextWrapper.INSTANCE.isContentElement();
     }
 
     @Test
-    public void testIsResortable() throws Exception {
+    public void testIsResortable() {
         thrown.expect(UnsupportedOperationException.class);
         SingleNewlineInTextWrapper.INSTANCE.isSortable();
     }
 
     @Test
-    public void testToString() throws Exception {
+    public void testToString() {
         assertThat(SingleNewlineInTextWrapper.INSTANCE.toString("  "), is("  SingleNewlineInTextWrapper"));
     }
 }

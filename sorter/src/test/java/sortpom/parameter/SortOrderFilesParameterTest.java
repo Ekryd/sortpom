@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.endsWith;
 public class SortOrderFilesParameterTest {
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void incorrectCustomSortOrderShouldThrowException() throws Exception {

@@ -11,7 +11,7 @@ import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
 public class EncodingParameterTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void illegalEncodingWhenGettingPomFileShouldNotWork() throws Exception {
@@ -23,7 +23,7 @@ public class EncodingParameterTest {
     }
 
     @Test
-    public void illegalEncodingWhenGeneratingPomFileShouldNotWork() throws Exception {
+    public void illegalEncodingWhenGeneratingPomFileShouldNotWork() {
         thrown.expectMessage("Could not format pom files content");
 
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();

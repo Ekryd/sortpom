@@ -13,11 +13,11 @@ import static org.mockito.Mockito.*;
 
 public class FileUtilExceptionsTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
-    private File backupFileMock = mock(File.class);
+    private final File backupFileMock = mock(File.class);
 
-    private File pomFileMock = mock(File.class);
+    private final File pomFileMock = mock(File.class);
 
     private FileUtil originalFileUtil;
 
@@ -27,7 +27,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenOldBackupFileCannotBeDeletedAnExceptionShouldBeThrown() throws Exception {
+    public void whenOldBackupFileCannotBeDeletedAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
         doNotAccessRealBackupFile(fileUtil);
 
@@ -62,10 +62,10 @@ public class FileUtilExceptionsTest {
     public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
         tempFile.delete();
-        
+
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
-        
+
         thrown.expect(FailureException.class);
         thrown.expectMessage("Could not read pom file: " + tempFile.getAbsolutePath());
 
@@ -75,11 +75,11 @@ public class FileUtilExceptionsTest {
     @Test
     public void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        
+
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
         new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
-        
+
         thrown.expect(FailureException.class);
         thrown.expectMessage("Could not handle encoding: gurka-2000");
 
@@ -90,7 +90,7 @@ public class FileUtilExceptionsTest {
     public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
         tempFile.setReadOnly();
-        
+
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
 

@@ -20,7 +20,7 @@ public class ElementUtilTest {
     private Element child;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parent = new Element("Parent");
         child = new Element("Child");
         parent.addContent(child);
@@ -33,7 +33,7 @@ public class ElementUtilTest {
     }
 
     @Test
-    public void parentElementNameShouldBeMatched() throws Exception {
+    public void parentElementNameShouldBeMatched() {
         assertThat(ElementUtil.isElementParentName(child, "Parent"), is(true));
         assertThat(ElementUtil.isElementParentName(child, "Gurka"), is(false));
         assertThat(ElementUtil.isElementParentName(parent, "Parent"), is(false));

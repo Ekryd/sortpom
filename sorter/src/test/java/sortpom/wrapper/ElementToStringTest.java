@@ -12,6 +12,7 @@ import sortpom.wrapper.operation.HierarchyRootWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.assertEquals;
 
@@ -20,15 +21,13 @@ import static org.junit.Assert.assertEquals;
  * @since 2012-06-13
  */
 public class ElementToStringTest {
-    private static final String UTF_8 = "UTF-8";
-
     @Test
     public void testToString() throws Exception {
-        String expected = IOUtils.toString(new FileInputStream("src/test/resources/Real1_expected_toString.txt"), UTF_8);
-        assertEquals(expected, getToStringOnRootElementWrapper("Real1_input.xml"));
+        String expected = IOUtils.toString(new FileInputStream("src/test/resources/Real1_expected_toString.txt"), StandardCharsets.UTF_8);
+        assertEquals(expected, getToStringOnRootElementWrapper());
     }
 
-    private String getToStringOnRootElementWrapper(String inputFileName) throws IOException, JDOMException {
+    private String getToStringOnRootElementWrapper() throws IOException, JDOMException {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null)
                 .setEncoding("UTF-8")
@@ -40,9 +39,9 @@ public class ElementToStringTest {
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);
 
-        String xml = IOUtils.toString(new FileInputStream("src/test/resources/" + inputFileName), UTF_8);
+        String xml = IOUtils.toString(new FileInputStream("src/test/resources/" + "Real1_input.xml"), StandardCharsets.UTF_8);
         SAXBuilder parser = new SAXBuilder();
-        Document document = parser.build(new ByteArrayInputStream(xml.getBytes(UTF_8)));
+        Document document = parser.build(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
 
         WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
         wrapperFactory.setup(pluginParameters);

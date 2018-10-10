@@ -51,9 +51,9 @@ public class MultiThreadTest {
         private final String expectedResourceFileName;
         private final String predefinedSortOrder;
 
-        public TestThread(final String inputResourceFileName,
-                          final String expectedResourceFileName,
-                          final String predefinedSortOrder) {
+        TestThread(final String inputResourceFileName,
+                   final String expectedResourceFileName,
+                   final String predefinedSortOrder) {
             this.inputResourceFileName = inputResourceFileName;
             this.expectedResourceFileName = expectedResourceFileName;
             this.predefinedSortOrder = predefinedSortOrder;

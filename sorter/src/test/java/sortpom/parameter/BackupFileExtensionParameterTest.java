@@ -8,7 +8,7 @@ import sortpom.util.SortPomImplUtil;
 
 public class BackupFileExtensionParameterTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void emptyBackupFileExtensionShouldNotWork() throws Exception {

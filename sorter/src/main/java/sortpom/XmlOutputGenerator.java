@@ -1,6 +1,5 @@
 package sortpom;
 
-import org.apache.commons.io.IOUtils;
 import org.jdom.Comment;
 import org.jdom.Document;
 import org.jdom.output.Format;
@@ -33,7 +32,7 @@ public class XmlOutputGenerator {
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;
     }
-    
+
     /**
      * Returns the sorted xml as an OutputStream.
      *
@@ -48,7 +47,7 @@ public class XmlOutputGenerator {
             xmlOutputter.setFormat(createPrettyFormat());
             xmlOutputter.output(newDocument, bufferedLineOutputStream);
 
-            IOUtils.closeQuietly(bufferedLineOutputStream);
+            bufferedLineOutputStream.close();
             return sortedXml.toString(encoding);
         } catch (IOException ioex) {
             throw new FailureException("Could not format pom files content", ioex);

@@ -3,7 +3,6 @@ package sortpom.wrapper;
 import org.apache.commons.io.IOUtils;
 import org.jdom.Document;
 import org.jdom.JDOMException;
-import org.junit.Before;
 import org.junit.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
@@ -20,10 +19,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class CustomSortOrderFileTest {
     private static final String UTF_8 = "UTF-8";
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void compareDefaultSortOrderFileToString() throws IOException, JDOMException {

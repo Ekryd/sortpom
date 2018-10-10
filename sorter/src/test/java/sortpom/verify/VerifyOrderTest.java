@@ -39,7 +39,7 @@ public class VerifyOrderTest {
     }
 
     @Test
-    public void unsortedStopVerifyShouldPerformSort() throws Exception {
+    public void unsortedStopVerifyShouldPerformSort() {
         SortPomImplUtil.create()
                 .verifyFail("STOP")
                 .testVerifyFail("/Real1_input.xml", FailureException.class, "[ERROR] The xml element <version> should be placed before <name>", false);

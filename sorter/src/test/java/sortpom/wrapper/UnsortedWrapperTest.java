@@ -12,10 +12,10 @@ import sortpom.wrapper.content.UnsortedWrapper;
  */
 public class UnsortedWrapperTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testIsBefore() throws Exception {
+    public void testIsBefore() {
         thrown.expect(UnsupportedOperationException.class);
         new UnsortedWrapper<Text>(null).isBefore(null);
     }

@@ -16,16 +16,16 @@ import java.util.function.Function;
 public class ChildElementSorter {
     static final ChildElementSorter EMPTY_SORTER = new ChildElementSorter();
     private static final String GROUP_ID_NAME = "GROUPID";
-    
+
     private final LinkedHashMap<String, String> childElementTextMappedBySortedNames = new LinkedHashMap<>();
 
     public ChildElementSorter(DependencySortOrder dependencySortOrder, List<Element> children) {
         Collection<String> childElementNames = dependencySortOrder.getChildElementNames();
 
-        childElementNames.forEach(name -> 
+        childElementNames.forEach(name ->
                 childElementTextMappedBySortedNames.put(name.toUpperCase(), ""));
 
-        children.forEach(element -> 
+        children.forEach(element ->
                 childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getText()));
     }
 
@@ -33,15 +33,15 @@ public class ChildElementSorter {
     }
 
     boolean compareTo(ChildElementSorter otherChildElementSorter) {
-        Function<Map.Entry<String, String>, String> getOtherTextFunc = entry ->  
+        Function<Map.Entry<String, String>, String> getOtherTextFunc = entry ->
                 otherChildElementSorter.childElementTextMappedBySortedNames.get(entry.getKey());
-        
+
         int compare = childElementTextMappedBySortedNames.entrySet().stream()
                 .map(entry -> compareTexts(entry.getKey(), entry.getValue(), getOtherTextFunc.apply(entry)))
                 .filter(i -> i != 0)
                 .findFirst()
                 .orElse(0);
-        
+
         return compare < 0;
     }
 
@@ -52,7 +52,7 @@ public class ChildElementSorter {
         return text.compareToIgnoreCase(otherText);
     }
 
-    
+
     private int compareScope(String childElementText, String otherChildElementText) {
         return Scope.getScope(childElementText).compareTo(Scope.getScope(otherChildElementText));
     }
@@ -71,7 +71,7 @@ public class ChildElementSorter {
     private enum Scope {
         COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT, TEST, OTHER;
 
-        public static Scope getScope(String scope) {
+        static Scope getScope(String scope) {
             if (scope == null || scope.isEmpty()) {
                 return COMPILE;
             }

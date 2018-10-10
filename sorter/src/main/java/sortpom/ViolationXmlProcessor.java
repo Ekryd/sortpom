@@ -6,11 +6,13 @@ import org.jdom.Element;
 import java.io.File;
 
 /**
+ * Used to store an external violation file
+ *
  * @author bjorn
  * @since 2017-03-24
  */
-public class ViolationXmlProcessor {
-    public Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
+class ViolationXmlProcessor {
+    Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
         Element violationElement = new Element("violation");
         violationElement.setText(violationMessage);
 

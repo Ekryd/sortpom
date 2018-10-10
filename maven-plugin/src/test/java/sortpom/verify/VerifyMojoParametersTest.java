@@ -1,6 +1,5 @@
 package sortpom.verify;
 
-import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
 import refutils.ReflectionHelper;
@@ -30,8 +29,7 @@ public class VerifyMojoParametersTest {
     private XmlOutputGenerator xmlOutputGenerator;
 
     @Before
-    public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
-            IllegalAccessException, MojoFailureException {
+    public void setup() throws SecurityException, IllegalArgumentException {
         verifyMojo = new VerifyMojo();
         new ReflectionHelper(verifyMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(verifyMojo).setField("encoding", "UTF-8");

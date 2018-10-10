@@ -19,12 +19,12 @@ import static org.mockito.Mockito.*;
 public class VerifyMojoTest {
     private final SortPomImpl sortPom = mock(SortPomImpl.class);
     private VerifyMojo verifyMojo;
-    
+
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Before
-    public void setup() throws IllegalAccessException, NoSuchFieldException {
+    public void setup() {
         verifyMojo = new VerifyMojo();
         ReflectionHelper mojoHelper = new ReflectionHelper(verifyMojo);
         mojoHelper.setField(sortPom);
@@ -44,18 +44,18 @@ public class VerifyMojoTest {
     @Test
     public void thrownExceptionShouldBeConvertedToMojoExceptionInExecute() throws MojoFailureException {
         doThrow(new FailureException("Gurka")).when(sortPom).verifyPom();
-        
+
         expectedException.expect(MojoFailureException.class);
-        
+
         verifyMojo.execute();
     }
 
     @Test
     public void thrownExceptionShouldBeConvertedToMojoExceptionInSetup() throws MojoFailureException {
         doThrow(new FailureException("Gurka")).when(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
-        
+
         expectedException.expect(MojoFailureException.class);
-        
+
         verifyMojo.setup();
     }
 
@@ -64,7 +64,7 @@ public class VerifyMojoTest {
         new ReflectionHelper(verifyMojo).setField("skip", true);
 
         verifyMojo.execute();
-        
+
         verifyNoMoreInteractions(sortPom);
     }
 }

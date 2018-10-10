@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 public class AlphabeticalSortedWrapperTest {
 
     @Test
-    public void toStringWithIndentShouldWork() throws Exception {
+    public void toStringWithIndentShouldWork() {
         assertThat(new AlphabeticalSortedWrapper(new Element("Gurka")).toString("  "), is("  AlphabeticalSortedWrapper{element=[Element: <Gurka/>]}"));
         assertThat(new AlphabeticalSortedWrapper(null).toString("  "), is("  AlphabeticalSortedWrapper{element=null}"));
     }

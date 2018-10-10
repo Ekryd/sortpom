@@ -11,16 +11,16 @@ import static org.mockito.Mockito.*;
  * @since 2013-10-19
  */
 public class MavenLoggerTest {
-    private Log logMock = mock(Log.class);
+    private final Log logMock = mock(Log.class);
     private MavenLogger mavenLogger;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mavenLogger = new MavenLogger(logMock);
     }
 
     @Test
-    public void warnShouldOutputWarnLevel() throws Exception {
+    public void warnShouldOutputWarnLevel() {
         mavenLogger.warn("Gurka");
 
         verify(logMock).warn("Gurka");
@@ -28,7 +28,7 @@ public class MavenLoggerTest {
     }
 
     @Test
-    public void infoShouldOutputInfoLevel() throws Exception {
+    public void infoShouldOutputInfoLevel() {
         mavenLogger.info("Gurka");
 
         verify(logMock).info("Gurka");
@@ -36,7 +36,7 @@ public class MavenLoggerTest {
     }
 
     @Test
-    public void errorShouldOutputErrorLevel() throws Exception {
+    public void errorShouldOutputErrorLevel() {
         mavenLogger.error("Gurka");
 
         verify(logMock).error("Gurka");

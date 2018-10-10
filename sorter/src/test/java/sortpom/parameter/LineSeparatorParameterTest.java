@@ -9,10 +9,10 @@ import static org.junit.Assert.assertEquals;
 
 public class LineSeparatorParameterTest {
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void lineSeparatorWithSomethingElseShouldThrowException() throws Exception {
+    public void lineSeparatorWithSomethingElseShouldThrowException() {
         thrown.expect(FailureException.class);
         thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [42, 42, 42]");
 

@@ -17,16 +17,16 @@ import static org.mockito.Mockito.*;
 public class XmlProcessingInstructionParserTest {
 
     private XmlProcessingInstructionParser parser;
-    private SortPomLogger logger = mock(SortPomLogger.class);
+    private final SortPomLogger logger = mock(SortPomLogger.class);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parser = new XmlProcessingInstructionParser();
         parser.setup(logger);
     }
 
     @Test
-    public void multipleErrorsShouldBeReportedInLogger() throws Exception {
+    public void multipleErrorsShouldBeReportedInLogger() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -63,7 +63,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void replaceMultipleSectionShouldCreateManyTokens() throws Exception {
+    public void replaceMultipleSectionShouldCreateManyTokens() {
         String xml = "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
         parser.scanForIgnoredSections(xml);
         String replaced = parser.replaceIgnoredSections();
@@ -74,7 +74,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void revertSectionsInRearrangedOrderShouldPlaceTextInRightOrder() throws Exception {
+    public void revertSectionsInRearrangedOrderShouldPlaceTextInRightOrder() {
         String xml = "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
         parser.scanForIgnoredSections(xml);
         String replaced = parser.replaceIgnoredSections();
@@ -88,7 +88,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void noInstructionsShouldWork() throws Exception {
+    public void noInstructionsShouldWork() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +

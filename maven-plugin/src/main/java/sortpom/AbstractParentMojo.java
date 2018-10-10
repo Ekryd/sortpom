@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * Common parent for both SortMojo and VerifyMojo
  */
-public abstract class AbstractParentMojo extends AbstractMojo {
+abstract class AbstractParentMojo extends AbstractMojo {
 
     /**
      * This is the File instance that refers to the location of the pom that
@@ -112,7 +112,7 @@ public abstract class AbstractParentMojo extends AbstractMojo {
      * Set this to 'true' to bypass sortpom plugin
      */
     @Parameter(property = "sort.skip", defaultValue = "false")
-    private boolean skip;
+    boolean skip;
 
     final SortPomImpl sortPomImpl = new SortPomImpl();
 

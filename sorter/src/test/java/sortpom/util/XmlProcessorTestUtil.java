@@ -16,22 +16,22 @@ import sortpom.wrapper.operation.WrapperFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * @author bjorn
  * @since 2012-06-10
  */
 public class XmlProcessorTestUtil {
-    private static final String UTF_8 = "UTF-8";
     private boolean sortAlfabeticalOnly = false;
     private boolean keepBlankLines = false;
     private boolean indentBlankLines = false;
     private String predefinedSortOrder = "default_0_4_0";
     private boolean expandEmptyElements = true;
     private String lineSeparator = "\r\n";
-    
+
     private XmlProcessor xmlProcessor;
     private XmlOutputGenerator xmlOutputGenerator;
 
@@ -46,7 +46,7 @@ public class XmlProcessorTestUtil {
     public void testInputAndExpected(final String inputFileName, final String expectedFileName) throws Exception {
         String actual = sortXmlAndReturnResult(inputFileName);
 
-        final String expected = IOUtils.toString(new FileInputStream(expectedFileName), UTF_8);
+        final String expected = IOUtils.toString(new FileInputStream(expectedFileName), StandardCharsets.UTF_8);
 
         assertEquals(expected, actual);
     }
@@ -60,14 +60,14 @@ public class XmlProcessorTestUtil {
     public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {
         setup(inputFileName);
         xmlProcessor.sortXml();
-        assertEquals(true, xmlProcessor.isXmlOrdered().isOrdered());
+        assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputFileName, String infoMessage) throws Exception {
         setup(inputFileName);
         xmlProcessor.sortXml();
         XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
-        assertEquals(false, xmlOrdered.isOrdered());
+        assertFalse(xmlOrdered.isOrdered());
         assertEquals(infoMessage, xmlOrdered.getErrorMessage());
     }
 
@@ -80,7 +80,7 @@ public class XmlProcessorTestUtil {
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities("", "", false, false).build();
-        final String xml = IOUtils.toString(new FileInputStream(inputFileName), UTF_8);
+        final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
 
         final FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);
@@ -89,7 +89,7 @@ public class XmlProcessorTestUtil {
         ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
 
         xmlProcessor = new XmlProcessor(wrapperFactory);
-        
+
         xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(pluginParameters);
 
@@ -116,7 +116,7 @@ public class XmlProcessorTestUtil {
             new ReflectionHelper(wrapperFactory).setField(fileUtil);
         }
         new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
-        xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(UTF_8)));
+        xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
     }
 
     public XmlProcessorTestUtil sortAlfabeticalOnly() {

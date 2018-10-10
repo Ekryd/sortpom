@@ -1,6 +1,5 @@
 package sortpom.sort;
 
-import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Before;
 import org.junit.Test;
 import refutils.ReflectionHelper;
@@ -29,8 +28,7 @@ public class SortMojoParametersTest {
     private XmlOutputGenerator xmlOutputGenerator;
 
     @Before
-    public void setup() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
-            IllegalAccessException, MojoFailureException {
+    public void setup() throws SecurityException, IllegalArgumentException {
         sortMojo = new SortMojo();
         new ReflectionHelper(sortMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");

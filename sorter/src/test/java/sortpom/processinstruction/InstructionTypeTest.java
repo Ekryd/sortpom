@@ -13,19 +13,19 @@ import static sortpom.processinstruction.InstructionType.RESUME;
  */
 public class InstructionTypeTest {
     @Test
-    public void nextAfterIgnoreShouldBeResume() throws Exception {
+    public void nextAfterIgnoreShouldBeResume() {
         assertThat(IGNORE.next(), is(RESUME));
         assertThat(IGNORE.next().next(), is(IGNORE));
     }
 
     @Test
-    public void nextAfterResumeShouldBeIgnore() throws Exception {
+    public void nextAfterResumeShouldBeIgnore() {
         assertThat(RESUME.next(), is(IGNORE));
         assertThat(RESUME.next().next(), is(RESUME));
     }
 
     @Test
-    public void testContainsType() throws Exception {
+    public void testContainsType() {
         assertThat(InstructionType.containsType("ignore"), is(true));
         assertThat(InstructionType.containsType("IGNORE"), is(true));
         assertThat(InstructionType.containsType("IgNoRe"), is(true));
@@ -37,7 +37,7 @@ public class InstructionTypeTest {
     }
 
     @Test
-    public void testMatches() throws Exception {
+    public void testMatches() {
         assertThat(IGNORE.matches("ignore"), is(true));
         assertThat(IGNORE.matches("IGNORE"), is(true));
         assertThat(IGNORE.matches("IgNoRe"), is(true));

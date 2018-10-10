@@ -31,8 +31,8 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
-  * 2018-10-10: Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request!
-  * 2018-09-20: Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched
+  * 2018-10-10: Released version 2.10.0. Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request!
+  * 2018-09-20: Released version 2.9.0. Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched
   * 2017-04-02: Released version 2.8.0 that adds support to sort modules. Thanks Monica for your pull request!
   * 2017-03-29: Released version 2.7.0 that adds support to write to a separate violation file when verifying.
   * 2017-03-18: Released version 2.6.0 that adds support to force sorting if only line breaks differ. Thanks again Benoit Guerin for your pull requests!

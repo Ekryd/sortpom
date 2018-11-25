@@ -16,6 +16,8 @@ script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:son
 
 jdk:
   - oraclejdk8
+  - oraclejdk9
+  - oraclejdk11
       
 after_success:
   - mvn integration-test jacoco:report coveralls:report

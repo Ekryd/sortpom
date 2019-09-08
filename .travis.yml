@@ -2,7 +2,7 @@ language: java
 
 # We are running in container-based infrastructure and we don't need sudo
 sudo: false
-   
+
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 addons:
@@ -15,14 +15,13 @@ addons:
 script: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -B
 
 jdk:
-  - oraclejdk8
-  - oraclejdk9
+  - openjdk8
   - oraclejdk11
   - openjdk12
-      
+
 after_success:
   - mvn integration-test jacoco:report coveralls:report
-  
+
 cache:
   directories:
     - '$HOME/.m2/repository'

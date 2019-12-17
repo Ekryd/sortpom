@@ -172,6 +172,28 @@ class TestHandler {
         }
     }
 
+    void performTestOfTimestamps() throws Exception {
+        try {
+            removeOldTemporaryFiles();
+
+            FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
+            long pomTimestamp = testpom.lastModified();
+            performSorting();
+            
+            if (pluginParameters.keepTimestamp) {
+            	assertTrue(testpom.lastModified() == pomTimestamp);
+            	assertTrue(backupFile.lastModified() == pomTimestamp);
+            }
+            else {
+            	assertTrue(testpom.lastModified() > pomTimestamp);
+            	assertTrue(backupFile.lastModified() > pomTimestamp);
+            }
+            
+        } finally {
+            cleanupAfterTest();
+        }
+    }
+    
     private void performVerifyWithSort() {
         SortPomImpl sortPomImpl = new SortPomImpl();
         sortPomImpl.setup(

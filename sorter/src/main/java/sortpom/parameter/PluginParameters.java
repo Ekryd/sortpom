@@ -22,12 +22,13 @@ public class PluginParameters {
     public final boolean indentBlankLines;
     public final VerifyFailType verifyFailType;
     public final boolean ignoreLineSeparators;
+    public final boolean keepTimestamp;
 
     private PluginParameters(File pomFile, boolean createBackupFile, String backupFileExtension, String violationFilename, String encoding,
                              LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean keepBlankLines,
                              String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
                              DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, boolean sortModules,
-                             VerifyFailType verifyFailType, boolean ignoreLineSeparators) {
+                             VerifyFailType verifyFailType, boolean ignoreLineSeparators, boolean keepTimestamp) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
@@ -46,6 +47,7 @@ public class PluginParameters {
         this.indentBlankLines = indentBlankLines;
         this.verifyFailType = verifyFailType;
         this.ignoreLineSeparators = ignoreLineSeparators;
+        this.keepTimestamp = keepTimestamp;
     }
 
     /** Instantiate builder */
@@ -73,6 +75,7 @@ public class PluginParameters {
         private boolean keepBlankLines;
         private VerifyFailType verifyFailType;
         private boolean ignoreLineSeparators;
+        private boolean keepTimestamp;    
 
         private Builder() {
         }
@@ -143,13 +146,18 @@ public class PluginParameters {
             return this;
         }
 
+        public Builder setKeepTimestamp(boolean keepTimestamp) {
+        	this.keepTimestamp = keepTimestamp;
+        	return this;
+        }
+        
         /** Build the PluginParameters instance */
         public PluginParameters build() {
             return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,
                     encoding, lineSeparatorUtil, expandEmptyElements, keepBlankLines, indentCharacters, indentBlankLines,
                     predefinedSortOrder, customSortOrderFile,
                     sortDependencies, sortPlugins, sortProperties, sortModules,
-                    verifyFailType, ignoreLineSeparators);
+                    verifyFailType, ignoreLineSeparators, keepTimestamp);
         }
     }
 

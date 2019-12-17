@@ -27,6 +27,7 @@ public class SortPomImplUtil {
     private boolean keepBlankLines = false;
     private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
+    private boolean keepTimestamp = false;
     private String verifyFail = "SORT";
     private String encoding = TestHandler.UTF_8;
     private File testpom;
@@ -52,6 +53,13 @@ public class SortPomImplUtil {
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performTest();
         return testHandler.getInfoLogger();
+    }
+
+    public void testFilesWithTimestamp(final String inputResourceFileName, final String expectedResourceFileName)
+            throws Exception {
+        setup();
+        testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
+        testHandler.performTestOfTimestamps();
     }
 
     public void testNoSorting(final String inputResourceFileName)
@@ -181,6 +189,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil keepTimestamp(boolean keepTimestamp) {
+    	this.keepTimestamp = keepTimestamp;
+    	return this;
+    }
+    
     public SortPomImplUtil verifyFail(String verifyFail) {
         this.verifyFail = verifyFail;
         return this;
@@ -222,6 +235,7 @@ public class SortPomImplUtil {
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)
+                .setKeepTimestamp(keepTimestamp)
                 .build();
     }
 

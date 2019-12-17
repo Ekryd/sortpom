@@ -39,6 +39,7 @@ public class SortPomImpl {
     private String backupFileExtension;
     private VerifyFailType verifyFailType;
     private boolean ignoreLineSeparators;
+    private boolean keepTimestamp;    
     private String violationFilename;
 
     /**
@@ -66,6 +67,7 @@ public class SortPomImpl {
         backupFileExtension = pluginParameters.backupFileExtension;
         verifyFailType = pluginParameters.verifyFailType;
         ignoreLineSeparators = pluginParameters.ignoreLineSeparators;
+        keepTimestamp = pluginParameters.keepTimestamp;
         violationFilename = pluginParameters.violationFilename;
         warnAboutDeprecatedArguments(log, pluginParameters);
     }
@@ -99,6 +101,9 @@ public class SortPomImpl {
         }
         createBackupFile();
         saveSortedPomFile(sortedXml);
+        if (keepTimestamp) {
+        	log.info("File timestamps are kept");
+        }
     }
 
     /**

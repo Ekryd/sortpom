@@ -7,6 +7,9 @@ import sortpom.parameter.PluginParameters;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.FileTime;
 import java.util.Optional;
 
 /**
@@ -25,6 +28,7 @@ public class FileUtil {
     private String newName;
     private File backupFile;
     private String violationFilename;
+    private long timestamp;
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -34,6 +38,7 @@ public class FileUtil {
         this.customSortOrderFile = parameters.customSortOrderFile;
         this.predefinedSortOrder = parameters.predefinedSortOrder;
         this.violationFilename = parameters.violationFilename;
+        this.timestamp = (parameters.keepTimestamp && pomFile != null ? pomFile.lastModified() : 0L);
     }
 
     /**
@@ -43,6 +48,7 @@ public class FileUtil {
         createFileHandle();
         checkBackupFileAccess();
         createBackupFile();
+        setTimestamp(backupFile);
     }
 
     void createFileHandle() {
@@ -61,6 +67,19 @@ public class FileUtil {
             IOUtils.copy(source, newFile);
         } catch (IOException e) {
             throw new FailureException("Could not create backup file to filename: " + newName, e);
+        }
+    }
+
+    private void setTimestamp(File newFile) {
+        // when requested, keep the original's file timestamps for the created files
+        if (timestamp > 0L) {
+            try {
+                BasicFileAttributeView attributes = Files.getFileAttributeView(newFile.toPath(), BasicFileAttributeView.class);
+                FileTime time = FileTime.fromMillis(timestamp);
+                attributes.setTimes(time, time, time);
+            } catch (IOException e) {
+                throw new FailureException("Could not change timestamp of backup file: " + newName, e);
+            }
         }
     }
 
@@ -91,6 +110,7 @@ public class FileUtil {
      */
     public void savePomFile(String sortedXml) {
         saveFile(pomFile, sortedXml, "Could not save sorted pom file: " + pomFile.getAbsolutePath());
+        setTimestamp(pomFile);
     }
 
     private void saveFile(File fileToSave, String content, String errorMessage) {

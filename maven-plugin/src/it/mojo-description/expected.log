@@ -71,6 +71,11 @@ sortpom:sort
       Should blank lines in the pom-file be preserved. A maximum of one line is
       preserved between each tag.
 
+    keepTimestamp (Default: false)
+      User property: sort.keepTimestamp
+      Whether to keep the file timestamps of old POM file when creating new POM
+      file or backup file.
+
     lineSeparator (Default: ${line.separator})
       User property: sort.lineSeparator
       Line separator for sorted pom. Can be either \n, \r or \r\n

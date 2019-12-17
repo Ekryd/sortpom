@@ -18,6 +18,12 @@ import sortpom.parameter.PluginParameters;
 public class SortMojo extends AbstractParentMojo {
 
     /**
+     * Whether to keep the file timestamps of old POM file when creating new POM file or backup file.
+     */
+    @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
+    boolean keepTimestamp;
+
+    /**
      * Ignore line separators when comparing current POM with sorted one
      */
     @Parameter(property = "sort.ignoreLineSeparators", defaultValue = "true")
@@ -34,6 +40,7 @@ public class SortMojo extends AbstractParentMojo {
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setTriggers(ignoreLineSeparators)
+                    .setKeepTimestamp(keepTimestamp)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

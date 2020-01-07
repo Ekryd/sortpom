@@ -124,9 +124,9 @@ public class FileUtil {
     private void setPomfileTimestamp() {
         // when requested, keep the original's file timestamps for the created files
         if (keepTimestamp) {
+            BasicFileAttributeView attributes = Files.getFileAttributeView(pomFile.toPath(), BasicFileAttributeView.class);
+            FileTime time = FileTime.fromMillis(timestamp);
             try {
-                BasicFileAttributeView attributes = Files.getFileAttributeView(pomFile.toPath(), BasicFileAttributeView.class);
-                FileTime time = FileTime.fromMillis(timestamp);
                 attributes.setTimes(time, time, time);
             } catch (IOException e) {
                 throw new FailureException("Could not change timestamp of new pom file: " + pomFile.getAbsolutePath(), e);

@@ -40,7 +40,6 @@ public class FileUtil {
         this.predefinedSortOrder = parameters.predefinedSortOrder;
         this.violationFilename = parameters.violationFilename;
         this.keepTimestamp = parameters.keepTimestamp;
-        this.timestamp = (parameters.keepTimestamp && pomFile != null ? pomFile.lastModified() : 0L);
     }
 
     /**
@@ -50,7 +49,6 @@ public class FileUtil {
         createFileHandle();
         checkBackupFileAccess();
         createBackupFile();
-        setTimestamp(backupFile);
     }
 
     void createFileHandle() {
@@ -72,31 +70,30 @@ public class FileUtil {
         }
     }
 
-    private void setTimestamp(File newFile) {
-        // when requested, keep the original's file timestamps for the created files
-        if (timestamp > 0L) {
-            try {
-                BasicFileAttributeView attributes = Files.getFileAttributeView(newFile.toPath(), BasicFileAttributeView.class);
-                FileTime time = FileTime.fromMillis(timestamp);
-                attributes.setTimes(time, time, time);
-            } catch (IOException e) {
-                throw new FailureException("Could not change timestamp of backup file: " + newName, e);
-            }
-        }
-    }
-
     /**
      * Loads the pom file that will be sorted.
      *
      * @return Content of the file
      */
     public String getPomFileContent() {
+        String content;
         try (InputStream inputStream = new FileInputStream(pomFile)) {
-            return IOUtils.toString(inputStream, encoding);
+            content = IOUtils.toString(inputStream, encoding);
         } catch (UnsupportedCharsetException ex) {
             throw new FailureException("Could not handle encoding: " + encoding, ex);
         } catch (IOException ex) {
             throw new FailureException("Could not read pom file: " + pomFile.getAbsolutePath(), ex);
+        }
+        savePomfileTimestamp();
+        return content;
+    }
+
+    private void savePomfileTimestamp() {
+        if (keepTimestamp) {
+            timestamp = pomFile.lastModified();
+            if (timestamp == 0) {
+                throw new FailureException("Cound not save the timestamp of the pom file: " + pomFile.getAbsolutePath());
+            }
         }
     }
 
@@ -112,7 +109,7 @@ public class FileUtil {
      */
     public void savePomFile(String sortedXml) {
         saveFile(pomFile, sortedXml, "Could not save sorted pom file: " + pomFile.getAbsolutePath());
-        setTimestamp(pomFile);
+        setPomfileTimestamp();
     }
 
     private void saveFile(File fileToSave, String content, String errorMessage) {
@@ -121,6 +118,19 @@ public class FileUtil {
             IOUtils.write(content, saveFile, encoding);
         } catch (IOException e) {
             throw new FailureException(errorMessage, e);
+        }
+    }
+
+    private void setPomfileTimestamp() {
+        // when requested, keep the original's file timestamps for the created files
+        if (keepTimestamp) {
+            try {
+                BasicFileAttributeView attributes = Files.getFileAttributeView(pomFile.toPath(), BasicFileAttributeView.class);
+                FileTime time = FileTime.fromMillis(timestamp);
+                attributes.setTimes(time, time, time);
+            } catch (IOException e) {
+                throw new FailureException("Could not change timestamp of new pom file: " + pomFile.getAbsolutePath(), e);
+            }
         }
     }
 

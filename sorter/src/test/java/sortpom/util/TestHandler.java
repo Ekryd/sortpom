@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
@@ -179,21 +180,20 @@ class TestHandler {
             FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
             long pomTimestamp = testpom.lastModified();
             performSorting();
-            
+
             if (pluginParameters.keepTimestamp) {
-            	assertTrue(testpom.lastModified() == pomTimestamp);
-            	assertTrue(backupFile.lastModified() == pomTimestamp);
+                assertThat(testpom.lastModified(), is(pomTimestamp));
+                // The backup file should not be modified
+                assertThat(backupFile.lastModified(), greaterThan(pomTimestamp));
+            } else {
+                assertThat(testpom.lastModified(), greaterThan(pomTimestamp));
+                assertThat(backupFile.lastModified(), greaterThan(pomTimestamp));
             }
-            else {
-            	assertTrue(testpom.lastModified() > pomTimestamp);
-            	assertTrue(backupFile.lastModified() > pomTimestamp);
-            }
-            
         } finally {
             cleanupAfterTest();
         }
     }
-    
+
     private void performVerifyWithSort() {
         SortPomImpl sortPomImpl = new SortPomImpl();
         sortPomImpl.setup(
@@ -222,10 +222,10 @@ class TestHandler {
         closeQuietly(actualSortedPomInputStream);
         closeQuietly(expectedSortedPomInputStream);
         if (testpom.exists()) {
-            testpom.delete();
+            assertTrue(testpom.delete());
         }
         if (backupFile.exists()) {
-            backupFile.delete();
+            assertTrue(backupFile.delete());
         }
     }
 

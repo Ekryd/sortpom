@@ -75,7 +75,7 @@ public class PluginParameters {
         private boolean keepBlankLines;
         private VerifyFailType verifyFailType;
         private boolean ignoreLineSeparators;
-        private boolean keepTimestamp;    
+        private boolean keepTimestamp;
 
         private Builder() {
         }
@@ -87,10 +87,11 @@ public class PluginParameters {
         }
 
         /** Sets information regarding backup file */
-        public Builder setFileOutput(final boolean createBackupFile, final String backupFileExtension, String violationFilename) {
+        public Builder setFileOutput(final boolean createBackupFile, final String backupFileExtension, String violationFilename, boolean keepTimestamp) {
             this.createBackupFile = createBackupFile;
             this.backupFileExtension = backupFileExtension;
             this.violationFilename = violationFilename;
+            this.keepTimestamp = keepTimestamp;
             return this;
         }
 
@@ -146,11 +147,6 @@ public class PluginParameters {
             return this;
         }
 
-        public Builder setKeepTimestamp(boolean keepTimestamp) {
-        	this.keepTimestamp = keepTimestamp;
-        	return this;
-        }
-        
         /** Build the PluginParameters instance */
         public PluginParameters build() {
             return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,

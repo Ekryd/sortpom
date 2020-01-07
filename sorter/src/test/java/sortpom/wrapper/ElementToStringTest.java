@@ -29,7 +29,7 @@ public class ElementToStringTest {
 
     private String getToStringOnRootElementWrapper() throws IOException, JDOMException {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setPomFile(null).setFileOutput(false, ".bak", null)
+                .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
                 .setFormatting("\r\n", true, true)
                 .setIndent(2, false)

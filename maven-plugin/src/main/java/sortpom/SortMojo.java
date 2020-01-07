@@ -14,14 +14,8 @@ import sortpom.parameter.PluginParameters;
  * @author Bjorn Ekryd
  */
 @Mojo(name = "sort", threadSafe = true, defaultPhase = LifecyclePhase.VALIDATE)
-@SuppressWarnings({"UnusedDeclaration", "JavaDoc"})
+@SuppressWarnings({"UnusedDeclaration"})
 public class SortMojo extends AbstractParentMojo {
-
-    /**
-     * Whether to keep the file timestamps of old POM file when creating new POM file or backup file.
-     */
-    @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
-    boolean keepTimestamp;
 
     /**
      * Ignore line separators when comparing current POM with sorted one
@@ -33,14 +27,13 @@ public class SortMojo extends AbstractParentMojo {
         new ExceptionConverter(() -> {
             PluginParameters pluginParameters = PluginParameters.builder()
                     .setPomFile(pomFile)
-                    .setFileOutput(createBackupFile, backupFileExtension, null)
+                    .setFileOutput(createBackupFile, backupFileExtension, null, keepTimestamp)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                     .setTriggers(ignoreLineSeparators)
-                    .setKeepTimestamp(keepTimestamp)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
@@ -50,5 +43,5 @@ public class SortMojo extends AbstractParentMojo {
     protected void sortPom() throws MojoFailureException {
         new ExceptionConverter(sortPomImpl::sortPom).executeAndConvertException();
     }
-    
+
 }

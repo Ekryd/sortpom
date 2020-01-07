@@ -54,9 +54,9 @@ public class SortMojoParametersTest {
 
     @Test
     public void keepTimestampParameter() throws Exception {
-    	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", sortPomImpl);
+    	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", sortPomImpl, fileUtil);
     }
-    
+
     @Test
     public void backupFileExtensionParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomImpl, fileUtil);

@@ -29,6 +29,7 @@ public class FileUtil {
     private File backupFile;
     private String violationFilename;
     private long timestamp;
+    private boolean keepTimestamp;
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -38,6 +39,7 @@ public class FileUtil {
         this.customSortOrderFile = parameters.customSortOrderFile;
         this.predefinedSortOrder = parameters.predefinedSortOrder;
         this.violationFilename = parameters.violationFilename;
+        this.keepTimestamp = parameters.keepTimestamp;
         this.timestamp = (parameters.keepTimestamp && pomFile != null ? pomFile.lastModified() : 0L);
     }
 

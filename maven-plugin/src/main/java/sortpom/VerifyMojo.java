@@ -22,19 +22,19 @@ public class VerifyMojo extends AbstractParentMojo {
      */
     @Parameter(property = "sort.verifyFail", defaultValue = "sort")
     private String verifyFail;
-    
+
     /**
      * Saves the verification failure to an external xml file, recommended filename is 'target/sortpom_reports/violation.xml'.
      */
     @Parameter(property = "sort.violationFilename")
     private String violationFilename;
-    
+
     public void setup() throws MojoFailureException {
         new ExceptionConverter(() -> {
 
             PluginParameters pluginParameters = PluginParameters.builder()
                     .setPomFile(pomFile)
-                    .setFileOutput(createBackupFile, backupFileExtension, violationFilename)
+                    .setFileOutput(createBackupFile, backupFileExtension, violationFilename, keepTimestamp)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
@@ -44,7 +44,7 @@ public class VerifyMojo extends AbstractParentMojo {
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
-            
+
         }).executeAndConvertException();
     }
 

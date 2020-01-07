@@ -114,6 +114,12 @@ abstract class AbstractParentMojo extends AbstractMojo {
     @Parameter(property = "sort.skip", defaultValue = "false")
     boolean skip;
 
+    /**
+     * Whether to keep the file timestamps of old POM file when creating new POM file.
+     */
+    @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
+    boolean keepTimestamp;
+
     final SortPomImpl sortPomImpl = new SortPomImpl();
 
     /**

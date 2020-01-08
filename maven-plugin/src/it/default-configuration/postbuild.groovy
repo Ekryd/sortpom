@@ -27,6 +27,6 @@ assert !log.text.contains('sortDependencies =')
 assert !log.text.contains('sortPlugins =')
 
 assert backup.exists()
-assert expected.text.replaceAll('@pom.version@', projectversion).tokenize('\n').equals(sorted.text.tokenize('\n'))
+assert expected.text.replaceAll('@pom.version@', projectversion).tokenize('\n').equals(sorted.text.replaceAll('\r','').tokenize('\n'))
 
 return true

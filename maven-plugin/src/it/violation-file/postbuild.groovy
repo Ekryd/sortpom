@@ -9,6 +9,6 @@ assert log.text.contains('[WARNING] The xml element <modelVersion> should be pla
 assert log.text.contains('[INFO] Saving violation report to ' + violationFile.absolutePath)
 assert log.text.contains('[WARNING] The file ' + sorted.absolutePath + ' is not sorted')
 
-assert expected_violationFile.text.replaceAll('@POM_PATH@', sorted.absolutePath).tokenize('\n').equals(violationFile.text.tokenize('\n'))
+assert expected_violationFile.text.replaceAll('@POM_PATH@', sorted.absolutePath).tokenize('\n').equals(violationFile.text.replaceAll('\r','').replaceAll('\\\\','').tokenize('\n'))
 
 return true

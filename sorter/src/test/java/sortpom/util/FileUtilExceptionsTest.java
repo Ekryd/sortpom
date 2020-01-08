@@ -8,6 +8,7 @@ import refutils.ReflectionHelper;
 import sortpom.exception.FailureException;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
@@ -100,6 +101,36 @@ public class FileUtilExceptionsTest {
         fileUtil.savePomFile(null);
     }
 
+    @Test
+    public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() throws Exception {
+      File pomFile = new File("src/test/resources/full_unsorted_input.xml");
+
+      FileUtil fileUtil = createFileUtil();
+      new ReflectionHelper(fileUtil).setField("pomFile", pomFile);
+      new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
+      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilTest());
+
+      thrown.expect(FailureException.class);
+      thrown.expectMessage("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
+
+      fileUtil.getPomFileContent();
+    }
+
+    @Test
+    public void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() throws Exception {
+      File tempFile = File.createTempFile("pom", ".xml", new File("target"));
+
+      FileUtil fileUtil = createFileUtil();
+      new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
+      new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
+      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilTest());
+
+      thrown.expect(FailureException.class);
+      thrown.expectMessage("Could not change timestamp of new pom file: " + tempFile.getAbsolutePath());
+
+      fileUtil.savePomFile(null);
+    }
+
     private FileUtil createFileUtil() {
         ReflectionHelper helper = new ReflectionHelper(originalFileUtil);
         helper.setField("backupFile", backupFileMock);
@@ -109,4 +140,15 @@ public class FileUtilExceptionsTest {
         return spy(originalFileUtil);
     }
 
+    private class FileAttributeUtilTest extends FileAttributeUtil {
+        @Override
+        public long getLastModifiedTimestamp(File file) {
+          return 0;
+        }
+
+        @Override
+        public void setTimestamps(File file, long millis) throws IOException {
+          throw new IOException();
+        }
+      }
 }

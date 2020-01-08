@@ -20,11 +20,13 @@ assert log.text.contains('keepBlankLines = false')
 assert log.text.contains('nrOfIndentSpace = 2')
 assert log.text.contains('sortProperties = false')
 assert log.text.contains('skip = false')
+assert log.text.contains('keepTimestamp = false')
 
 assert !log.text.contains('predefinedSortOrder =')
 assert !log.text.contains('sortOrderFile =')
 assert !log.text.contains('sortDependencies =')
 assert !log.text.contains('sortPlugins =')
+assert !log.text.contains('File timestamps are kept')
 
 assert backup.exists()
 assert expected.text.replaceAll('@pom.version@', projectversion).tokenize('\n').equals(sorted.text.replaceAll('\r','').tokenize('\n'))

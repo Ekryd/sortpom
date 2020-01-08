@@ -7,9 +7,6 @@ import sortpom.parameter.PluginParameters;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.UnsupportedCharsetException;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributeView;
-import java.nio.file.attribute.FileTime;
 import java.util.Optional;
 
 /**
@@ -30,6 +27,8 @@ public class FileUtil {
     private String violationFilename;
     private long timestamp;
     private boolean keepTimestamp;
+
+    private FileAttributeUtil fileAttrUtils = new FileAttributeUtil();
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -90,9 +89,9 @@ public class FileUtil {
 
     private void savePomfileTimestamp() {
         if (keepTimestamp) {
-            timestamp = pomFile.lastModified();
+            timestamp = fileAttrUtils.getLastModifiedTimestamp(pomFile); 
             if (timestamp == 0) {
-                throw new FailureException("Cound not save the timestamp of the pom file: " + pomFile.getAbsolutePath());
+                throw new FailureException("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
             }
         }
     }
@@ -124,10 +123,8 @@ public class FileUtil {
     private void setPomfileTimestamp() {
         // when requested, keep the original's file timestamps for the created files
         if (keepTimestamp) {
-            BasicFileAttributeView attributes = Files.getFileAttributeView(pomFile.toPath(), BasicFileAttributeView.class);
-            FileTime time = FileTime.fromMillis(timestamp);
             try {
-                attributes.setTimes(time, time, time);
+                fileAttrUtils.setTimestamps(pomFile, timestamp);
             } catch (IOException e) {
                 throw new FailureException("Could not change timestamp of new pom file: " + pomFile.getAbsolutePath(), e);
             }

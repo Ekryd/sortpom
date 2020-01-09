@@ -8,7 +8,6 @@ assert log.text.contains('Sorting file ' + sorted.absolutePath)
 assert log.text.contains('Saved backup of ' + sorted.absolutePath + ' to ' + backup.absolutePath)
 assert log.text.contains('Saved sorted pom file to ' + sorted.absolutePath)
 assert log.text.contains('keepTimestamp = true')
-assert log.text.contains('File timestamps are kept')
 
 timestamp = timestampFile.getText('UTF-8') as Long
 assert sorted.lastModified() == timestamp

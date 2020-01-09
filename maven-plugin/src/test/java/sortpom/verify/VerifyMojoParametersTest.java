@@ -56,7 +56,7 @@ public class VerifyMojoParametersTest {
 
     @Test
     public void keepTimestampParameter() throws Exception {
-    	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", sortPomImpl, fileUtil);
+    	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
     }
 
     @Test

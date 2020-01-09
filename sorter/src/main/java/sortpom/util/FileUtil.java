@@ -28,7 +28,7 @@ public class FileUtil {
     private long timestamp;
     private boolean keepTimestamp;
 
-    private FileAttributeUtil fileAttrUtils = new FileAttributeUtil();
+    private final FileAttributeUtil fileAttrUtils = new FileAttributeUtil();
 
     /** Initializes the class with sortpom parameters. */
     public void setup(PluginParameters parameters) {
@@ -89,7 +89,7 @@ public class FileUtil {
 
     private void savePomfileTimestamp() {
         if (keepTimestamp) {
-            timestamp = fileAttrUtils.getLastModifiedTimestamp(pomFile); 
+            timestamp = fileAttrUtils.getLastModifiedTimestamp(pomFile);
             if (timestamp == 0) {
                 throw new FailureException("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
             }

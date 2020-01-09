@@ -10,6 +10,7 @@ import sortpom.exception.FailureException;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class FileUtilExceptionsTest {
@@ -48,7 +49,7 @@ public class FileUtilExceptionsTest {
     @Test
     public void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        tempFile.delete();
+        assertTrue(tempFile.delete());
 
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
@@ -62,7 +63,7 @@ public class FileUtilExceptionsTest {
     @Test
     public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        tempFile.delete();
+        assertTrue(tempFile.delete());
 
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
@@ -90,7 +91,7 @@ public class FileUtilExceptionsTest {
     @Test
     public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() throws Exception {
         File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        tempFile.setReadOnly();
+        assertTrue(tempFile.setReadOnly());
 
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
@@ -102,13 +103,13 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() throws Exception {
+    public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
       File pomFile = new File("src/test/resources/full_unsorted_input.xml");
 
       FileUtil fileUtil = createFileUtil();
       new ReflectionHelper(fileUtil).setField("pomFile", pomFile);
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
-      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilTest());
+      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilStub());
 
       thrown.expect(FailureException.class);
       thrown.expectMessage("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
@@ -123,7 +124,7 @@ public class FileUtilExceptionsTest {
       FileUtil fileUtil = createFileUtil();
       new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
-      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilTest());
+      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilStub());
 
       thrown.expect(FailureException.class);
       thrown.expectMessage("Could not change timestamp of new pom file: " + tempFile.getAbsolutePath());
@@ -140,7 +141,7 @@ public class FileUtilExceptionsTest {
         return spy(originalFileUtil);
     }
 
-    private class FileAttributeUtilTest extends FileAttributeUtil {
+    private class FileAttributeUtilStub extends FileAttributeUtil {
         @Override
         public long getLastModifiedTimestamp(File file) {
           return 0;

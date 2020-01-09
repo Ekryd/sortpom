@@ -11,11 +11,11 @@ import java.nio.file.attribute.FileTime;
  * particular, timestamps). Moving this functionality into separate class allows
  * for easier testing.
  */
-public class FileAttributeUtil {
+class FileAttributeUtil {
 
 	/**
 	 * Retrieves the timestamp of last modification of given file.
-	 * 
+	 *
 	 * @param file The file to be examined
 	 * @return Timestamp (in millis) of file's last modification
 	 */
@@ -26,7 +26,7 @@ public class FileAttributeUtil {
 	/**
 	 * Sets the access dates (creation, last modification, last access) for the
 	 * given file all to the same provided value.
-	 * 
+	 *
 	 * @param file   The file to set the dates for
 	 * @param millis The value for the access dates
 	 * @throws IOException If any I/O error occurs

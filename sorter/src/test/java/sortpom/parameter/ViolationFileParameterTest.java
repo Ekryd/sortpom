@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class ViolationFileParameterTest {
 
@@ -35,7 +36,7 @@ public class ViolationFileParameterTest {
     @Test
     public final void readOnlyViolationFileShouldReportError() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
-        tempFile.setReadOnly();
+        assertTrue(tempFile.setReadOnly());
         thrown.expect(RuntimeException.class);
         thrown.expectMessage("Could not save violation file: " + tempFile.getAbsolutePath());
 

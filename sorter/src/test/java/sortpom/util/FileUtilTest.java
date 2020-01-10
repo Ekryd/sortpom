@@ -21,8 +21,8 @@ public class FileUtilTest {
     public void defaultSortOrderFromFileShouldWork() throws Exception {
         FileUtil fileUtil = createFileUtil("Attribute_expected.xml");
 
-        byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
-        Assert.assertThat(new String(defaultSortOrderXmlBytes), startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+        String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
+        Assert.assertThat(defaultSortOrderXml, startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
                 "<projec"));
     }
 
@@ -32,7 +32,7 @@ public class FileUtilTest {
         FileUtil fileUtil = createFileUtil("zzz_Attribute_expected.xml");
 
         try {
-            fileUtil.getDefaultSortOrderXmlBytes();
+            fileUtil.getDefaultSortOrderXml();
             fail();
         } catch (IOException e) {
             assertThat(e.getMessage(), startsWith("Could not find"));
@@ -45,8 +45,8 @@ public class FileUtilTest {
         FileUtil fileUtil = createFileUtil("https://en.wikipedia.org/wiki/Sweden");
 
         try {
-            byte[] defaultSortOrderXmlBytes = fileUtil.getDefaultSortOrderXmlBytes();
-            Assert.assertThat(new String(defaultSortOrderXmlBytes), containsString("Sverige"));
+        String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
+            Assert.assertThat(defaultSortOrderXml, containsString("Sverige"));
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was perfomed
             // Which actually makes this test a bit pointless :-(
@@ -58,7 +58,7 @@ public class FileUtilTest {
         FileUtil fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 
         try {
-            fileUtil.getDefaultSortOrderXmlBytes();
+            fileUtil.getDefaultSortOrderXml();
             fail();
         } catch (UnknownHostException e) {
             assertThat(e.getMessage(), is("jgerwzuujy.fjrmzaxklj.zfgmqavbhp"));
@@ -70,7 +70,7 @@ public class FileUtilTest {
         FileUtil fileUtil = createFileUtil("https://github.com/Ekryd/sortpom/where_are_the_donations");
 
         try {
-            fileUtil.getDefaultSortOrderXmlBytes();
+            fileUtil.getDefaultSortOrderXml();
             fail();
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was performed

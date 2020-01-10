@@ -6,6 +6,7 @@ import sortpom.parameter.PluginParameters;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Files;
 import java.util.Optional;
@@ -134,16 +135,12 @@ public class FileUtil {
         }
     }
 
-    public byte[] getDefaultSortOrderXmlBytes() throws IOException {
-        return getDefaultSortOrderXml().getBytes(encoding);
-    }
-
     /**
-     * Retrieves the default sort order for sortpom
+     * Retrieves the default sort order for sortpom. A custom sort order file must always be in UTF-8
      *
      * @return Content of the default sort order file
      */
-    private String getDefaultSortOrderXml() throws IOException {
+    public String getDefaultSortOrderXml() throws IOException {
         CheckedSupplier<InputStream, IOException> createStreamFunc = () -> {
             if (customSortOrderFile != null) {
                 UrlWrapper urlWrapper = new UrlWrapper(customSortOrderFile);
@@ -159,7 +156,7 @@ public class FileUtil {
         };
 
         try (InputStream inputStream = createStreamFunc.get()) {
-            return IOUtils.toString(inputStream, encoding);
+            return IOUtils.toString(inputStream, StandardCharsets.UTF_8);
         }
     }
 

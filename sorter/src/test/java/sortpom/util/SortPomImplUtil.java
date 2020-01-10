@@ -29,7 +29,7 @@ public class SortPomImplUtil {
     private boolean indentBLankLines = false;
     private boolean keepTimestamp = false;
     private String verifyFail = "SORT";
-    private String encoding = TestHandler.UTF_8;
+    private String encoding = "UTF-8";
     private File testpom;
     private String violationFile;
 

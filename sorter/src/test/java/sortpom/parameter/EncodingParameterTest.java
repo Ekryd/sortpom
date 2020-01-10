@@ -36,4 +36,11 @@ public class EncodingParameterTest {
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
     }
+
+    @Test
+    public void differentEncodingShouldWork() throws Exception {
+        SortPomImplUtil.create()
+                .encoding("UTF-32BE")
+                .testFiles("/UTF32Encoding_input.xml", "/UTF32Encoding_expected.xml");
+    }
 }

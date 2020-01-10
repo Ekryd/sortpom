@@ -10,9 +10,7 @@ import sortpom.wrapper.content.Wrapper;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,9 +69,9 @@ public class WrapperFactoryImpl implements WrapperFactory {
 
     Document createDocumentFromDefaultSortOrderFile()
             throws JDOMException, IOException {
-        try (InputStream inputStream = new ByteArrayInputStream(fileUtil.getDefaultSortOrderXmlBytes())) {
+        try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
             SAXBuilder parser = new SAXBuilder();
-            return parser.build(inputStream);
+            return parser.build(reader);
         }
     }
 

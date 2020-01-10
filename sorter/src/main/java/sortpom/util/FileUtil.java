@@ -6,6 +6,7 @@ import sortpom.parameter.PluginParameters;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Files;
 import java.util.Optional;
@@ -79,8 +80,8 @@ public class FileUtil {
      */
     public String getPomFileContent() {
         String content;
-        try (InputStream inputStream = new FileInputStream(pomFile)) {
-            content = IOUtils.toString(inputStream, encoding);
+        try {
+            content = Files.readString(pomFile.toPath(), Charset.forName(encoding));
         } catch (UnsupportedCharsetException ex) {
             throw new FailureException("Could not handle encoding: " + encoding, ex);
         } catch (IOException ex) {
@@ -117,11 +118,7 @@ public class FileUtil {
     private void saveFile(File fileToSave, String content, String errorMessage) {
         try {
             Files.createDirectories(fileToSave.getParentFile().toPath());
-        } catch (IOException e) {
-            throw new FailureException(errorMessage, e);
-        }
-        try (FileOutputStream saveFile = new FileOutputStream(fileToSave)) {
-            IOUtils.write(content, saveFile, encoding);
+            Files.write(fileToSave.toPath(), content.getBytes(encoding));
         } catch (IOException e) {
             throw new FailureException(errorMessage, e);
         }

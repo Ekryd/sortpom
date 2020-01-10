@@ -92,7 +92,7 @@ public class FileUtilExceptionsTest {
         thrown.expect(FailureException.class);
         thrown.expectMessage("Could not save sorted pom file: " + pomFileTemp.getAbsolutePath());
 
-        fileUtil.savePomFile(null);
+        fileUtil.savePomFile("Whatever");
         assertTrue(pomFileTemp.setReadable(true));
     }
 
@@ -115,7 +115,7 @@ public class FileUtilExceptionsTest {
       thrown.expect(FailureException.class);
       thrown.expectMessage("Could not change timestamp of new pom file: " + pomFileTemp.getAbsolutePath());
 
-      fileUtil.savePomFile(null);
+      fileUtil.savePomFile("Whatever");
     }
 
     private FileUtil createFileUtil() {
@@ -125,6 +125,7 @@ public class FileUtilExceptionsTest {
         helper.setField("pomFile", pomFileTemp);
         helper.setField("newName", "backupFileName");
         helper.setField("backupFileExtension", ".bak");
+        helper.setField("encoding", "UTF-8");
         helper.setField(new FileAttributeUtilStub());
         return spy(originalFileUtil);
     }

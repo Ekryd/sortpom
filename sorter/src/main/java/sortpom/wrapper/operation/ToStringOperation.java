@@ -13,7 +13,7 @@ import java.util.List;
  * @author bjorn
  * @since 2013-11-02
  */
-public class ToStringOperation implements HierarchyWrapperOperation {
+class ToStringOperation implements HierarchyWrapperOperation {
     private static final String INDENT = "  ";
     private static final int INDENT_LENGTH = INDENT.length();
     private final StringBuilder builder;

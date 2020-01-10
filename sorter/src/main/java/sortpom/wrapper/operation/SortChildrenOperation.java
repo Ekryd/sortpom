@@ -6,13 +6,13 @@ import sortpom.wrapper.content.Wrapper;
 import java.util.List;
 
 /**
- * Xml hierarchy operation that all xml elements. Used by 
+ * Xml hierarchy operation that all xml elements. Used by
  * Used in HierarchyWrapper.processOperation(HierarchyWrapperOperation operation)
  * @author bjorn
  * @since 2013-11-01
  */
-public class SortChildrenOperation implements HierarchyWrapperOperation {
-    
+class SortChildrenOperation implements HierarchyWrapperOperation {
+
     /** Sort all children of an element */
     @Override
     public void manipulateChildElements(List<HierarchyWrapper> children) {
@@ -28,12 +28,11 @@ public class SortChildrenOperation implements HierarchyWrapperOperation {
     }
 
     private void insertChildInSortedOrder(List<HierarchyWrapper> children, int indexOfChild, HierarchyWrapper wrapperImpl, Wrapper<Element> wrapper) {
-        boolean done = false;
-        for (int j = 0; !done && j < indexOfChild; j++) {
+        for (int j = 0; j < indexOfChild; j++) {
             if (wrapper.isBefore(children.get(j).getElementContent())) {
                 children.remove(indexOfChild);
                 children.add(j, wrapperImpl);
-                done = true;
+                return;
             }
         }
     }

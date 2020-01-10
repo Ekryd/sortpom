@@ -5,12 +5,12 @@ import org.jdom.Element;
 import sortpom.wrapper.content.Wrapper;
 
 /**
- * Xml hierarchy operation that returns xml content from wrappers. Used by 
+ * Xml hierarchy operation that returns xml content from wrappers. Used by
  * Used in HierarchyWrapper.processOperation(HierarchyWrapperOperation operation)
  * @author bjorn
  * @since 2013-11-02
  */
-public class GetContentStructureOperation implements HierarchyWrapperOperation {
+class GetContentStructureOperation implements HierarchyWrapperOperation {
     private Element activeElement;
     private final Element parentElement;
 
@@ -35,7 +35,7 @@ public class GetContentStructureOperation implements HierarchyWrapperOperation {
     @Override
     public void processElement(Wrapper<Element> element) {
         activeElement = element.getContent();
-        
+
         if (parentElement != null) {
             parentElement.addContent(activeElement);
         }

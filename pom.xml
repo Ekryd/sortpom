@@ -11,10 +11,6 @@
   <name>SortPom</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>
 
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
   <modules>
     <module>sorter</module>
     <module>maven-plugin</module>
@@ -300,6 +296,9 @@
             </goals>
             <configuration>
               <rules>
+                <requireMavenVersion>
+                  <version>3.3.9</version>
+                </requireMavenVersion>
                 <requireJavaVersion>
                   <version>1.8</version>
                 </requireJavaVersion>

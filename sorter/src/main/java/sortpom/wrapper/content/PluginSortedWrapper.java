@@ -27,7 +27,7 @@ public class PluginSortedWrapper extends SortedWrapper {
 
     @SuppressWarnings("unchecked")
     public void setSortOrder(DependencySortOrder dependencySortOrder) {
-        List<Element> children = (List<Element>) getContent().getChildren();
+        List<Element> children = getContent().getChildren();
         this.childElementSorter = new ChildElementSorter(dependencySortOrder, children);
         childElementSorter.setEmptyPluginGroupIdValue(EMPTY_PLUGIN_GROUP_ID_VALUE);
     }

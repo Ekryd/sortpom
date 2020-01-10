@@ -20,7 +20,8 @@ jdk:
   - openjdk12
 
 after_success:
-  - mvn integration-test jacoco:report coveralls:report
+  - mvn integration-test jacoco:report
+  - if [ "$JAVA_HOME" = "/home/travis/oraclejdk11" ]; then mvn coveralls:report; fi
 
 cache:
   directories:

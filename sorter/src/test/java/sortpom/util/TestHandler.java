@@ -53,7 +53,7 @@ class TestHandler {
         return infoLogger;
     }
 
-    void performTest() throws Exception {
+    void performSortThatSorted() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -61,7 +61,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-            assertTrue(backupFile.exists());
+                assertTrue(backupFile.exists());
 
             backupFileInputStream = new FileInputStream(backupFile);
             String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
@@ -82,7 +82,7 @@ class TestHandler {
         }
     }
 
-    void performTestThatSorted() throws Exception {
+    void performVerifyThatSorted() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -110,7 +110,7 @@ class TestHandler {
         }
     }
 
-    void performNoSortTest() throws Exception {
+    void performSortThatDidNotSort() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -151,7 +151,7 @@ class TestHandler {
         }
     }
 
-    void performTestThatDidNotSort() throws Exception {
+    void performVerifyThatDidNotSort() throws Exception {
         try {
             removeOldTemporaryFiles();
 
@@ -172,7 +172,7 @@ class TestHandler {
         }
     }
 
-    void performTestOfTimestamps() throws Exception {
+    void performSortThatTestsTimestamps() throws Exception {
         try {
             removeOldTemporaryFiles();
 

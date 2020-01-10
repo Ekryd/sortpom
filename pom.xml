@@ -11,10 +11,6 @@
   <name>SortPom</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>
 
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
-
   <modules>
     <module>sorter</module>
     <module>maven-plugin</module>
@@ -300,6 +296,9 @@
             </goals>
             <configuration>
               <rules>
+                <requireMavenVersion>
+                  <version>3.3.9</version>
+                </requireMavenVersion>
                 <requireJavaVersion>
                   <version>1.8</version>
                 </requireJavaVersion>
@@ -337,6 +336,13 @@
         <groupId>org.eluder.coveralls</groupId>
         <artifactId>coveralls-maven-plugin</artifactId>
         <version>4.3.0</version>
+        <dependencies>
+          <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>

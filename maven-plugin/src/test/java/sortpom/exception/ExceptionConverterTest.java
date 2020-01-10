@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author bjorn
@@ -17,8 +18,10 @@ public class ExceptionConverterTest {
 
     @Test
     public void noExceptionShouldRunJustFine() throws MojoFailureException {
-        new ExceptionConverter(() -> {
-        }).executeAndConvertException();
+        ExceptionConverter exceptionConverter = new ExceptionConverter(() -> {
+        });
+        exceptionConverter.executeAndConvertException();
+        assertNotNull(exceptionConverter);
     }
 
     @Test

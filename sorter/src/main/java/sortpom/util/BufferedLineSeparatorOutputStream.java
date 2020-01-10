@@ -65,4 +65,14 @@ public class BufferedLineSeparatorOutputStream extends OutputStream {
             wrappedStream.write(ch);
         }
     }
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        write(b, 0, b.length);
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        super.write(b, off, len);
+    }
 }

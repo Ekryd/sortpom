@@ -17,15 +17,15 @@ public class FileUtilExceptionsTest {
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
-    private final File backupFileMock = mock(File.class);
-
-    private final File pomFileMock = mock(File.class);
-
-    private FileUtil originalFileUtil;
+    private File backupFileTemp;
+    private File pomFileTemp;
 
     @Before
-    public void setup() {
-        originalFileUtil = new FileUtil();
+    public void setup() throws IOException {
+        pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
+        pomFileTemp.deleteOnExit();
+        backupFileTemp = File.createTempFile("backupFile", ".xml", new File("target"));
+        backupFileTemp.deleteOnExit();
     }
 
     @Test
@@ -33,8 +33,8 @@ public class FileUtilExceptionsTest {
         FileUtil fileUtil = createFileUtil();
         doNotAccessRealBackupFile(fileUtil);
 
-        when(backupFileMock.exists()).thenReturn(true);
-        when(backupFileMock.delete()).thenReturn(false);
+        //Set backup file to a directory (which raises DirectoryNotEmptyException)
+        new ReflectionHelper(fileUtil).setField("backupFile", backupFileTemp.getParentFile());
 
         thrown.expect(FailureException.class);
         thrown.expectMessage("Could not remove old backup file, filename: backupFileName");
@@ -47,39 +47,34 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() throws Exception {
-        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        assertTrue(tempFile.delete());
+    public void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() {
+        assertTrue(pomFileTemp.delete());
 
         FileUtil fileUtil = createFileUtil();
-        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
 
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not create backup file to filename: " + tempFile.getAbsolutePath() + ".bak");
+        thrown.expectMessage("Could not create backup file to filename: " + pomFileTemp.getAbsolutePath() + ".bak");
 
         fileUtil.backupFile();
     }
 
     @Test
-    public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() throws Exception {
-        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        assertTrue(tempFile.delete());
+    public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() {
+        assertTrue(pomFileTemp.delete());
 
         FileUtil fileUtil = createFileUtil();
-        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
+        new ReflectionHelper(fileUtil).setField("pomFile", pomFileTemp);
 
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not read pom file: " + tempFile.getAbsolutePath());
+        thrown.expectMessage("Could not read pom file: " + pomFileTemp.getAbsolutePath());
 
         fileUtil.getPomFileContent();
     }
 
     @Test
-    public void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() throws Exception {
-        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-
+    public void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
-        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
+
         new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
 
         thrown.expect(FailureException.class);
@@ -89,55 +84,48 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() throws Exception {
-        File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-        assertTrue(tempFile.setReadOnly());
+    public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() {
+        assertTrue(pomFileTemp.setReadOnly());
 
         FileUtil fileUtil = createFileUtil();
-        new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
 
         thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not save sorted pom file: " + tempFile.getAbsolutePath());
+        thrown.expectMessage("Could not save sorted pom file: " + pomFileTemp.getAbsolutePath());
 
         fileUtil.savePomFile(null);
+        assertTrue(pomFileTemp.setReadable(true));
     }
 
     @Test
     public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
-      File pomFile = new File("src/test/resources/full_unsorted_input.xml");
-
       FileUtil fileUtil = createFileUtil();
-      new ReflectionHelper(fileUtil).setField("pomFile", pomFile);
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
-      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilStub());
 
       thrown.expect(FailureException.class);
-      thrown.expectMessage("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
+      thrown.expectMessage("Cound not retrieve the timestamp of the pom file: " + pomFileTemp.getAbsolutePath());
 
       fileUtil.getPomFileContent();
     }
 
     @Test
-    public void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() throws Exception {
-      File tempFile = File.createTempFile("pom", ".xml", new File("target"));
-
+    public void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() {
       FileUtil fileUtil = createFileUtil();
-      new ReflectionHelper(fileUtil).setField("pomFile", tempFile);
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
-      new ReflectionHelper(fileUtil).setField("fileAttrUtils", new FileAttributeUtilStub());
 
       thrown.expect(FailureException.class);
-      thrown.expectMessage("Could not change timestamp of new pom file: " + tempFile.getAbsolutePath());
+      thrown.expectMessage("Could not change timestamp of new pom file: " + pomFileTemp.getAbsolutePath());
 
       fileUtil.savePomFile(null);
     }
 
     private FileUtil createFileUtil() {
+        FileUtil originalFileUtil = new FileUtil();
+
         ReflectionHelper helper = new ReflectionHelper(originalFileUtil);
-        helper.setField("backupFile", backupFileMock);
-        helper.setField("pomFile", pomFileMock);
+        helper.setField("pomFile", pomFileTemp);
         helper.setField("newName", "backupFileName");
         helper.setField("backupFileExtension", ".bak");
+        helper.setField(new FileAttributeUtilStub());
         return spy(originalFileUtil);
     }
 

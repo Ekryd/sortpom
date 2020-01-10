@@ -7,6 +7,7 @@ import sortpom.parameter.PluginParameters;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.UnsupportedCharsetException;
+import java.nio.file.Files;
 import java.util.Optional;
 
 /**
@@ -56,14 +57,16 @@ public class FileUtil {
     }
 
     private void checkBackupFileAccess() {
-        if (backupFile.exists() && !backupFile.delete()) {
-            throw new FailureException("Could not remove old backup file, filename: " + newName);
+        try {
+            Files.deleteIfExists(backupFile.toPath());
+        } catch (IOException e) {
+            throw new FailureException("Could not remove old backup file, filename: " + newName, e);
         }
     }
 
     private void createBackupFile() {
-        try (FileInputStream source = new FileInputStream(pomFile); FileOutputStream newFile = new FileOutputStream(backupFile)) {
-            IOUtils.copy(source, newFile);
+        try {
+            Files.copy(pomFile.toPath(), backupFile.toPath());
         } catch (IOException e) {
             throw new FailureException("Could not create backup file to filename: " + newName, e);
         }
@@ -112,7 +115,11 @@ public class FileUtil {
     }
 
     private void saveFile(File fileToSave, String content, String errorMessage) {
-        fileToSave.getParentFile().mkdirs();
+        try {
+            Files.createDirectories(fileToSave.getParentFile().toPath());
+        } catch (IOException e) {
+            throw new FailureException(errorMessage, e);
+        }
         try (FileOutputStream saveFile = new FileOutputStream(fileToSave)) {
             IOUtils.write(content, saveFile, encoding);
         } catch (IOException e) {

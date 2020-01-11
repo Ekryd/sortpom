@@ -8,9 +8,8 @@ import sortpom.exception.FailureException;
 import sortpom.jdomcontent.NewlineText;
 import sortpom.parameter.LineSeparatorUtil;
 import sortpom.parameter.PluginParameters;
-import sortpom.util.BufferedLineSeparatorOutputStream;
+import sortpom.util.StringLineSeparatorWriter;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -39,16 +38,14 @@ public class XmlOutputGenerator {
      * @return the sorted xml
      */
     public String getSortedXml(Document newDocument) {
-        try (ByteArrayOutputStream sortedXml = new ByteArrayOutputStream()) {
-            BufferedLineSeparatorOutputStream bufferedLineOutputStream =
-                    new BufferedLineSeparatorOutputStream(lineSeparatorUtil.toString(), sortedXml);
+        try (StringLineSeparatorWriter writer = new StringLineSeparatorWriter(lineSeparatorUtil.toString())) {
 
-            XMLOutputter xmlOutputter = new PatchedXMLOutputter(bufferedLineOutputStream, indentBlankLines);
+            XMLOutputter xmlOutputter = new PatchedXMLOutputter(writer, indentBlankLines);
             xmlOutputter.setFormat(createPrettyFormat());
-            xmlOutputter.output(newDocument, bufferedLineOutputStream);
+            xmlOutputter.output(newDocument, writer);
 
-            bufferedLineOutputStream.close();
-            return sortedXml.toString(encoding);
+            writer.close();
+            return writer.toString();
         } catch (IOException ioex) {
             throw new FailureException("Could not format pom files content", ioex);
         }
@@ -64,11 +61,11 @@ public class XmlOutputGenerator {
     }
 
     private static class PatchedXMLOutputter extends XMLOutputter {
-        private final BufferedLineSeparatorOutputStream bufferedLineOutputStream;
+        private final StringLineSeparatorWriter stringLineSeparatorWriter;
         private final boolean indentBlankLines;
 
-        PatchedXMLOutputter(BufferedLineSeparatorOutputStream bufferedLineOutputStream, boolean indentBlankLines) {
-            this.bufferedLineOutputStream = bufferedLineOutputStream;
+        PatchedXMLOutputter(StringLineSeparatorWriter stringLineSeparatorWriter, boolean indentBlankLines) {
+            this.stringLineSeparatorWriter = stringLineSeparatorWriter;
             this.indentBlankLines = indentBlankLines;
             XMLOutputter.preserveFormat.setLineSeparator("\n");
         }
@@ -90,7 +87,7 @@ public class XmlOutputGenerator {
             stringWriter.flush();
 
             // Remove all inset that has just been written since last newline
-            bufferedLineOutputStream.clearLineBuffer();
+            stringLineSeparatorWriter.clearLineBuffer();
         }
     }
 }

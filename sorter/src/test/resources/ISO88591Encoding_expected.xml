@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>sortpom</groupId>
+  <artifactId>sortpom</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>cheesymock</groupId>
+      <artifactId>cheesymock</artifactId>
+      <version>1.2-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <properties>
+    <compileSource>1.6</compileSource>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <defaultGoal>install</defaultGoal>
+  </build>
+  <name>SortPom</name>
+  <description>Sorts the pom file</description>
+</project>

@@ -44,7 +44,6 @@ public class XmlOutputGenerator {
             xmlOutputter.setFormat(createPrettyFormat());
             xmlOutputter.output(newDocument, writer);
 
-            writer.close();
             return writer.toString();
         } catch (IOException ioex) {
             throw new FailureException("Could not format pom files content", ioex);

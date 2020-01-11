@@ -14,7 +14,7 @@ public class StringLineSeparatorWriter extends Writer {
     private static final char NEWLINE = '\n';
     private final String lineSeparator;
     private boolean wasNewLine = false;
-    private final StringBuffer lineBuffer = new StringBuffer();
+    private final StringBuilder lineBuffer = new StringBuilder();
     private final StringWriter out = new StringWriter();
 
     public StringLineSeparatorWriter(final String lineSeparator) {
@@ -65,30 +65,44 @@ public class StringLineSeparatorWriter extends Writer {
         out.write(lineSeparator);
     }
 
+    /** Remove everything that has happened since last line break. Used to clear empty lines in the XML **/
     public void clearLineBuffer() {
         lineBuffer.delete(0, lineBuffer.length());
     }
 
     @Override
     public String toString() {
+        writeCharacterBuffer();
         return out.toString();
     }
 
+    /**
+     * Only write string or write single character is allowed
+     */
     @Override
     public void write(char[] cbuf) {
-        throw new UnsupportedOperationException("Only write string is allowed");
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Only write string or write single character is allowed
+     */
     @Override
     public void write(String str, int off, int len) {
-        throw new UnsupportedOperationException("Only write string is allowed");
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Only write string or write single character is allowed
+     */
     @Override
     public void write(char[] cbuf, int off, int len) {
-        throw new UnsupportedOperationException("Only write string is allowed");
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * This method will not perform anything. Flushing is only done when toString method is called
+     */
     @Override
     public void flush() {
         // Nope, no manual flushing

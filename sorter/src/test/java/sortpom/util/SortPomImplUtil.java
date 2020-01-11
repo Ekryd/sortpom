@@ -210,7 +210,7 @@ public class SortPomImplUtil {
     }
 
     public SortPomImplUtil testPomFileNameUniqueNumber(int uniqueNumber) {
-        this.testPomFileName = "src/test/resources/testpom" +
+        this.testPomFileName = "target/testpom" +
                 uniqueNumber + ".xml";
         return this;
     }

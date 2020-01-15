@@ -33,7 +33,7 @@ public class CustomSortOrderFileTest {
                 .setFormatting("\r\n", true, true)
                 .setIndent(2, false)
                 .setSortOrder("src/test/resources/sortOrderFiles/with_newline_tags.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();
+                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", "groupId,artifactId", true, true).build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

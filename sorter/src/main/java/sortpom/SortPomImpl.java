@@ -77,6 +77,12 @@ public class SortPomImpl {
         if (pluginParameters.sortDependencies.isDeprecatedValueFalse()) {
             log.warn("[DEPRECATED] The 'false' value in sortDependencies is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!");
         }
+        if (pluginParameters.sortExclusions.isDeprecatedValueTrue()) {
+            log.warn("[DEPRECATED] The 'true' value in sortExclusions is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");
+        }
+        if (pluginParameters.sortExclusions.isDeprecatedValueFalse()) {
+            log.warn("[DEPRECATED] The 'false' value in sortExclusions is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!");
+        }
         if (pluginParameters.sortPlugins.isDeprecatedValueTrue()) {
             log.warn("[DEPRECATED] The 'true' value in sortPlugins is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");
         }

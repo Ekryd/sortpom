@@ -13,6 +13,7 @@ import static sortpom.wrapper.ElementUtil.*;
  */
 public class ElementWrapperCreator {
     private DependencySortOrder sortDependencies;
+    private DependencySortOrder sortExclusions;
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
@@ -26,6 +27,7 @@ public class ElementWrapperCreator {
 
     public void setup(PluginParameters pluginParameters) {
         this.sortDependencies = pluginParameters.sortDependencies;
+        this.sortExclusions = pluginParameters.sortExclusions;
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
         this.sortModules = pluginParameters.sortModules;
@@ -38,6 +40,11 @@ public class ElementWrapperCreator {
                 DependencySortedWrapper dependencySortedWrapper = new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
                 dependencySortedWrapper.setSortOrder(sortDependencies);
                 return dependencySortedWrapper;
+            }
+            if (isExclusionElement(element)) {
+                ExclusionSortedWrapper exclusionSortedWrapper = new ExclusionSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+                exclusionSortedWrapper.setSortOrder(sortExclusions);
+                return exclusionSortedWrapper;
             }
             if (isPluginElement(element)) {
                 PluginSortedWrapper pluginSortedWrapper = new PluginSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
@@ -60,6 +67,13 @@ public class ElementWrapperCreator {
             return false;
         }
         return isElementName(element, "dependency") && isElementParentName(element, "dependencies");
+    }
+
+    private boolean isExclusionElement(final Element element) {
+        if (sortExclusions.isNoSorting()) {
+            return false;
+        }
+        return isElementName(element, "exclusion") && isElementParentName(element, "exclusions");
     }
 
     private boolean isPluginElement(final Element element) {

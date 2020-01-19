@@ -13,11 +13,11 @@ import static sortpom.wrapper.ElementUtil.*;
  */
 public class ElementWrapperCreator {
     private DependencySortOrder sortDependencies;
-    private DependencySortOrder sortExclusions;
+    private DependencySortOrder sortDependencyExclusions;
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
-    
+
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
@@ -27,7 +27,7 @@ public class ElementWrapperCreator {
 
     public void setup(PluginParameters pluginParameters) {
         this.sortDependencies = pluginParameters.sortDependencies;
-        this.sortExclusions = pluginParameters.sortExclusions;
+        this.sortDependencyExclusions = pluginParameters.sortDependencyExclusions;
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
         this.sortModules = pluginParameters.sortModules;
@@ -43,7 +43,7 @@ public class ElementWrapperCreator {
             }
             if (isExclusionElement(element)) {
                 ExclusionSortedWrapper exclusionSortedWrapper = new ExclusionSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-                exclusionSortedWrapper.setSortOrder(sortExclusions);
+                exclusionSortedWrapper.setSortOrder(sortDependencyExclusions);
                 return exclusionSortedWrapper;
             }
             if (isPluginElement(element)) {
@@ -70,7 +70,7 @@ public class ElementWrapperCreator {
     }
 
     private boolean isExclusionElement(final Element element) {
-        if (sortExclusions.isNoSorting()) {
+        if (sortDependencyExclusions.isNoSorting()) {
             return false;
         }
         return isElementName(element, "exclusion") && isElementParentName(element, "exclusions");

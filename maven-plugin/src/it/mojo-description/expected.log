@@ -105,10 +105,10 @@ sortpom:sort
       scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST. The
       list can be separated by ',;:'
 
-    sortExclusions
-      User property: sort.sortExclusions
-      Comma-separated ordered list how exclusions should be sorted. Example:
-      groupId,artifactId The list can be separated by ',;:'
+    sortDependencyExclusions
+      User property: sort.sortDependencyExclusions
+      Comma-separated ordered list how exclusions, for dependencies, should be
+      sorted. Example: groupId,artifactId The list can be separated by ',;:'
 
     sortModules (Default: false)
       User property: sort.sortModules
@@ -197,10 +197,10 @@ sortpom:verify
       scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST. The
       list can be separated by ',;:'
 
-    sortExclusions
-      User property: sort.sortExclusions
-      Comma-separated ordered list how exclusions should be sorted. Example:
-      groupId,artifactId The list can be separated by ',;:'
+    sortDependencyExclusions
+      User property: sort.sortDependencyExclusions
+      Comma-separated ordered list how exclusions, for dependencies, should be
+      sorted. Example: groupId,artifactId The list can be separated by ',;:'
 
     sortModules (Default: false)
       User property: sort.sortModules

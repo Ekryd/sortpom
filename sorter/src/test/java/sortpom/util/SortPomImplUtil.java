@@ -15,7 +15,7 @@ public class SortPomImplUtil {
 
     private String defaultOrderFileName = "default_0_4_0.xml";
     private String sortDependencies = "";
-    private String sortExclusions = "";
+    private String sortDependencyExclusions = "";
     private String sortPlugins = "";
     private boolean sortProperties = false;
     private boolean sortModules = false;
@@ -154,8 +154,8 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil sortExclusions(String sortOrder) {
-        sortExclusions = sortOrder;
+    public SortPomImplUtil sortDependencyExclusions(String sortOrder) {
+        sortDependencyExclusions = sortOrder;
         return this;
     }
 
@@ -237,7 +237,7 @@ public class SortPomImplUtil {
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortExclusions, sortPlugins, sortProperties, sortModules)
+                .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)

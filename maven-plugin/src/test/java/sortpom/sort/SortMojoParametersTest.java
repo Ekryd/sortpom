@@ -108,11 +108,19 @@ public class SortMojoParametersTest {
     }
 
     @Test
+    public void parameterSortDependencyExclusionsShouldEndUpInElementWrapperCreator() throws Exception {
+        testParameterMoveFromMojoToRestOfApplication("sortDependencyExclusions", "groupId,scope");
+
+        Object sortDependencyExclusions = new ReflectionHelper(elementWrapperCreator).getField("sortDependencyExclusions");
+        assertThat(sortDependencyExclusions.toString(), is("DependencySortOrder{childElementNames=[groupId, scope]}"));
+    }
+
+    @Test
     public void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
-        Object sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
-        assertThat(sortDependencies.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
+        Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
+        assertThat(sortPlugins.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
     }
 
     @Test

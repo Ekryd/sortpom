@@ -77,11 +77,11 @@ public class SortPomImpl {
         if (pluginParameters.sortDependencies.isDeprecatedValueFalse()) {
             log.warn("[DEPRECATED] The 'false' value in sortDependencies is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!");
         }
-        if (pluginParameters.sortExclusions.isDeprecatedValueTrue()) {
-            log.warn("[DEPRECATED] The 'true' value in sortExclusions is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");
+        if (pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue()) {
+            throw new FailureException("The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.");
         }
-        if (pluginParameters.sortExclusions.isDeprecatedValueFalse()) {
-            log.warn("[DEPRECATED] The 'false' value in sortExclusions is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!");
+        if (pluginParameters.sortDependencyExclusions.isDeprecatedValueFalse()) {
+            throw new FailureException("The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
         }
         if (pluginParameters.sortPlugins.isDeprecatedValueTrue()) {
             log.warn("[DEPRECATED] The 'true' value in sortPlugins is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");

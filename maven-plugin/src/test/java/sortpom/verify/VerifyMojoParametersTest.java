@@ -118,8 +118,8 @@ public class VerifyMojoParametersTest {
     public void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
-        Object sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
-        assertThat(sortDependencies.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
+        Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
+        assertThat(sortPlugins.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
     }
 
     @Test

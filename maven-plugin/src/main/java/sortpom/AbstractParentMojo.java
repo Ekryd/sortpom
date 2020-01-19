@@ -89,11 +89,11 @@ abstract class AbstractParentMojo extends AbstractMojo {
     String sortDependencies;
 
     /**
-     * Comma-separated ordered list how exclusions should be sorted. Example: groupId,artifactId
+     * Comma-separated ordered list how exclusions, for dependencies, should be sorted. Example: groupId,artifactId
      * The list can be separated by ",;:"
      */
-    @Parameter(property = "sort.sortExclusions")
-    String sortExclusions;
+    @Parameter(property = "sort.sortDependencyExclusions")
+    String sortDependencyExclusions;
 
     /**
      * Comma-separated ordered list how plugins should be sorted. Example: groupId,artifactId

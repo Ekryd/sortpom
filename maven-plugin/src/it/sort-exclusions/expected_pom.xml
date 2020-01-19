@@ -73,7 +73,7 @@
               <goal>sort</goal>
             </goals>
             <configuration>
-              <sortExclusions>groupId,artifactId</sortExclusions>
+              <sortDependencyExclusions>groupId,artifactId</sortDependencyExclusions>
             </configuration>
           </execution>
         </executions>

@@ -39,7 +39,7 @@ public class VerifyMojo extends AbstractParentMojo {
                     .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortExclusions, sortPlugins, sortProperties, sortModules)
+                    .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules)
                     .setVerifyFail(verifyFail)
                     .build();
 

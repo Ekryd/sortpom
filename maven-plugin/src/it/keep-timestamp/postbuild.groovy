@@ -11,6 +11,6 @@ assert log.text.contains('keepTimestamp = true')
 
 timestamp = timestampFile.getText('UTF-8') as Long
 assert sorted.lastModified() == timestamp
-assert backup.lastModified() > timestamp
+// Do not assert anything about the backup file, since that timestamp is OS dependent
 
 return true

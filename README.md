@@ -31,6 +31,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks Christoph for your pull request!
   * 2018-10-10: Released version 2.10.0. Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request!
   * 2018-09-20: Released version 2.9.0. Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched
   * 2017-04-02: Released version 2.8.0 that adds support to sort modules. Thanks Monica for your pull request!
@@ -42,11 +43,6 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.
-  * 2015-02-04: Received an Open Source license for Structure101. Thank you [Structure101](http://structure101.com/)!
-  * 2013-11-23: Hurrah! Got a donation. Thank you Bastian!
-  * 2013-10-01: Hurrah! Got an donation. Thank you Khalid!
-  * 2012-11-05: Hurrah! Got an donation. Thank you Michael!
-  * 2012-06-12: Hurrah! Got an donation. Thank you Reuben!
 
 ## Versions ##
 https://github.com/Ekryd/sortpom/wiki/Versions

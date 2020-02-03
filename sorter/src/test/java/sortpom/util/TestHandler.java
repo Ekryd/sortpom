@@ -182,11 +182,10 @@ class TestHandler {
 
             if (pluginParameters.keepTimestamp) {
                 assertThat(testpom.lastModified(), is(pomTimestamp));
-                // The backup file should not be modified
-                assertThat(backupFile.lastModified(), greaterThan(pomTimestamp));
+                // Do not assert anything about the backup file, since that timestamp is OS dependent
             } else {
                 assertThat(testpom.lastModified(), greaterThan(pomTimestamp));
-                assertThat(backupFile.lastModified(), greaterThan(pomTimestamp));
+                // Do not assert anything about the backup file, since that timestamp is OS dependent
             }
         } finally {
             cleanupAfterTest();

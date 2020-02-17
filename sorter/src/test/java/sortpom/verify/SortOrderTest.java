@@ -1,6 +1,6 @@
 package sortpom.verify;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 public class SortOrderTest {
@@ -64,7 +64,6 @@ public class SortOrderTest {
                 .sortPlugins("true")
                 .testVerifyXmlIsOrdered("/SortDep_expected.xml");
     }
-
 
     @Test
     public final void testSortDifferentClassPathShouldAffectVerify() throws Exception {
@@ -148,6 +147,5 @@ public class SortOrderTest {
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",
                         "The xml element <groupId>cheesymock</groupId> should be placed before <groupId>junit</groupId>");
     }
-    
-    
+
 }

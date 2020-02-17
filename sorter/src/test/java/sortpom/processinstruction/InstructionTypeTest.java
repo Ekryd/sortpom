@@ -1,9 +1,9 @@
 package sortpom.processinstruction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static sortpom.processinstruction.InstructionType.IGNORE;
 import static sortpom.processinstruction.InstructionType.RESUME;
 

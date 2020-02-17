@@ -3,7 +3,7 @@ package sortpom.wrapper;
 import org.apache.commons.io.IOUtils;
 import org.jdom.Document;
 import org.jdom.JDOMException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
@@ -11,7 +11,7 @@ import sortpom.wrapper.operation.HierarchyRootWrapper;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author bjorn
@@ -48,6 +48,5 @@ public class CustomSortOrderFileTest {
 
         return rootWrapper.toString();
     }
-
 
 }

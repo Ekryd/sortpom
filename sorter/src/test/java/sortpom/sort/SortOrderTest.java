@@ -1,17 +1,17 @@
 package sortpom.sort;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SortOrderTest {
-
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void testSortDifferentClassPath() throws Exception {
@@ -91,12 +91,14 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void corruptFileShouldThrowException() throws Exception {
-        thrown.expect(FailureException.class);
-        thrown.expectMessage(allOf(endsWith("content: <project><artifactId>sortpom</artifactId>"), startsWith("Could not sort ")));
+    public final void corruptFileShouldThrowException() {
 
-        SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .testFiles("/Corrupt_file.xml", "/Corrupt_file.xml");
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), allOf(endsWith("content: <project><artifactId>sortpom</artifactId>"), startsWith("Could not sort ")));
     }
 
 }

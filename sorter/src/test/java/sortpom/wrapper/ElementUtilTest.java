@@ -1,14 +1,14 @@
 package sortpom.wrapper;
 
 import org.jdom.Element;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author bjorn
@@ -19,7 +19,7 @@ public class ElementUtilTest {
     private Element parent;
     private Element child;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         parent = new Element("Parent");
         child = new Element("Child");

@@ -1,10 +1,12 @@
 package sortpom.logger;
 
 import org.apache.maven.plugin.logging.Log;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author bjorn
@@ -14,7 +16,7 @@ public class MavenLoggerTest {
     private final Log logMock = mock(Log.class);
     private MavenLogger mavenLogger;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         mavenLogger = new MavenLogger(logMock);
     }

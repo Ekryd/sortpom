@@ -1,6 +1,6 @@
 package sortpom.verify;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 

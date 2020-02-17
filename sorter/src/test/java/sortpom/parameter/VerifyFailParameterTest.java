@@ -1,14 +1,16 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import sortpom.exception.FailureException;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VerifyFailParameterTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void stopIgnoreCaseValueIsOk() {
@@ -39,29 +41,38 @@ public class VerifyFailParameterTest {
 
     @Test
     public void nullValueIsNotOk() {
-        thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: null");
 
-        PluginParameters.builder()
+        final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail(null)
                 .build();
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: null")));
     }
 
     @Test
     public void emptyValueIsNotOk() {
-        thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: ");
 
-        PluginParameters.builder()
+        final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail("")
                 .build();
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: ")));
     }
 
     @Test
     public void wrongValueIsNotOk() {
-        thrown.expectMessage("verifyFail must be either SORT, WARN or STOP. Was: gurka");
 
-        PluginParameters.builder()
+        final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail("gurka")
                 .build();
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: gurka")));
     }
 
 }

@@ -1,26 +1,28 @@
 package sortpom.util;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import refutils.ReflectionHelper;
 import sortpom.exception.FailureException;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.spy;
 
 public class FileUtilExceptionsTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     private File backupFileTemp;
     private File pomFileTemp;
 
-    @Before
+    @BeforeEach
     public void setup() throws IOException {
         pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
         pomFileTemp.deleteOnExit();
@@ -36,10 +38,11 @@ public class FileUtilExceptionsTest {
         //Set backup file to a directory (which raises DirectoryNotEmptyException)
         new ReflectionHelper(fileUtil).setField("backupFile", backupFileTemp.getParentFile());
 
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not remove old backup file, filename: backupFileName");
+        final Executable testMethod = () -> fileUtil.backupFile();
 
-        fileUtil.backupFile();
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not remove old backup file, filename: backupFileName")));
     }
 
     private void doNotAccessRealBackupFile(FileUtil fileUtil) {
@@ -52,10 +55,11 @@ public class FileUtilExceptionsTest {
 
         FileUtil fileUtil = createFileUtil();
 
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not create backup file to filename: " + pomFileTemp.getAbsolutePath() + ".bak");
+        final Executable testMethod = () -> fileUtil.backupFile();
 
-        fileUtil.backupFile();
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not create backup file to filename: " + pomFileTemp.getAbsolutePath() + ".bak")));
     }
 
     @Test
@@ -65,10 +69,11 @@ public class FileUtilExceptionsTest {
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", pomFileTemp);
 
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not read pom file: " + pomFileTemp.getAbsolutePath());
+        final Executable testMethod = () -> fileUtil.getPomFileContent();
 
-        fileUtil.getPomFileContent();
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not read pom file: " + pomFileTemp.getAbsolutePath())));
     }
 
     @Test
@@ -77,10 +82,11 @@ public class FileUtilExceptionsTest {
 
         new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
 
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not handle encoding: gurka-2000");
+        final Executable testMethod = () -> fileUtil.getPomFileContent();
 
-        fileUtil.getPomFileContent();
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not handle encoding: gurka-2000")));
     }
 
     @Test
@@ -89,10 +95,11 @@ public class FileUtilExceptionsTest {
 
         FileUtil fileUtil = createFileUtil();
 
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not save sorted pom file: " + pomFileTemp.getAbsolutePath());
+        final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
 
-        fileUtil.savePomFile("Whatever");
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not save sorted pom file: " + pomFileTemp.getAbsolutePath())));
         assertTrue(pomFileTemp.setReadable(true));
     }
 
@@ -101,10 +108,11 @@ public class FileUtilExceptionsTest {
       FileUtil fileUtil = createFileUtil();
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-      thrown.expect(FailureException.class);
-      thrown.expectMessage("Cound not retrieve the timestamp of the pom file: " + pomFileTemp.getAbsolutePath());
+        final Executable testMethod = () -> fileUtil.getPomFileContent();
 
-      fileUtil.getPomFileContent();
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Cound not retrieve the timestamp of the pom file: " + pomFileTemp.getAbsolutePath())));
     }
 
     @Test
@@ -112,10 +120,11 @@ public class FileUtilExceptionsTest {
       FileUtil fileUtil = createFileUtil();
       new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-      thrown.expect(FailureException.class);
-      thrown.expectMessage("Could not change timestamp of new pom file: " + pomFileTemp.getAbsolutePath());
+      final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
 
-      fileUtil.savePomFile("Whatever");
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not change timestamp of new pom file: " + pomFileTemp.getAbsolutePath())));
     }
 
     private FileUtil createFileUtil() {
@@ -140,5 +149,6 @@ public class FileUtilExceptionsTest {
         public void setTimestamps(File file, long millis) throws IOException {
           throw new IOException();
         }
-      }
+    }
+
 }

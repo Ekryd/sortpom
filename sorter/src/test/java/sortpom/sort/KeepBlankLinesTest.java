@@ -1,11 +1,11 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 import sortpom.util.XmlProcessorTestUtil;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertThat;
 
 public class KeepBlankLinesTest {
     @Test
@@ -58,19 +58,18 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .lineSeparator("\n")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\n  <artifactId>whitespace-test</artifactId>\n  <version>"));
         assertThat(actual, containsString(",\nembedded,\nand"));
     }
 
-    
     @Test
     public final void allLineBreaksInXmlShouldBeCarriageReturnNewlines() throws Exception {
         String actual = XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .lineSeparator("\r\n")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\r\n  <artifactId>whitespace-test</artifactId>\r\n  <version>"));
         assertThat(actual, containsString(",\r\nembedded,\r\nand"));
     }
@@ -81,7 +80,7 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .lineSeparator("\r")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\r  <artifactId>whitespace-test</artifactId>\r  <version>"));
         assertThat(actual, containsString(",\rembedded,\rand"));
     }
@@ -92,19 +91,18 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .lineSeparator("\n")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\n  <artifactId>whitespace-test</artifactId>\n  <version>"));
         assertThat(actual, containsString(",\nembedded,\nand"));
     }
 
-    
     @Test
     public final void allLineBreaksInXmlShouldBeCarriageReturnNewlines2() throws Exception {
         String actual = XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .lineSeparator("\r\n")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\r\n  <artifactId>whitespace-test</artifactId>\r\n  <version>"));
         assertThat(actual, containsString(",\r\nembedded,\r\nand"));
     }
@@ -115,7 +113,7 @@ public class KeepBlankLinesTest {
                 .keepBlankLines()
                 .lineSeparator("\r")
                 .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
-        
+
         assertThat(actual, containsString("</groupId>\r  <artifactId>whitespace-test</artifactId>\r  <version>"));
         assertThat(actual, containsString(",\rembedded,\rand"));
     }

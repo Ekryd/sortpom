@@ -57,7 +57,7 @@ public class FileUtilTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("Test was failing in 2.11.0 branch so disabled")
     public void defaultSortOrderFromNonExistingHostShouldThrowException() {
         FileUtil fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 

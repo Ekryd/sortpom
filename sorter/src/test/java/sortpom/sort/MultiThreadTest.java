@@ -1,14 +1,18 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MultiThreadTest {
     private final AtomicInteger counter = new AtomicInteger(1);

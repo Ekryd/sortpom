@@ -1,13 +1,9 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 public class IgnoreLineSeparatorsTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void ignoringLineSeparatorsShouldNotSort() throws Exception {

@@ -5,9 +5,13 @@ import sortpom.parameter.PluginParameters;
 import java.io.File;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class SortPomImplUtil {
 
@@ -75,7 +79,7 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
-        assertTrue("Expected that xml is ordered, ", xmlOrderedResult.isOrdered());
+        assertTrue(xmlOrderedResult.isOrdered(), "Expected that xml is ordered, ");
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputResourceFileName, CharSequence warningMessage)
@@ -83,7 +87,7 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
-        assertFalse("Expected that xml is not ordered, ", xmlOrderedResult.isOrdered());
+        assertFalse(xmlOrderedResult.isOrdered(), "Expected that xml is not ordered, ");
         assertEquals(warningMessage, xmlOrderedResult.getErrorMessage());
     }
 

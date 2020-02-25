@@ -1,26 +1,25 @@
 package sortpom.parameter;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
 import java.io.File;
 import java.nio.charset.Charset;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ViolationFileParameterTest {
 
     private static final String FILENAME_WITH_DIRECTORIES = "target/sortpom_reports/1/violation.xml";
     private static final String FILENAME_WITHOUT_DIRECTORIES = "target/violation.xml";
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public final void violationFileCanBeOverwritten() throws Exception {
@@ -37,15 +36,17 @@ public class ViolationFileParameterTest {
     public final void readOnlyViolationFileShouldReportError() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
         assertTrue(tempFile.setReadOnly());
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Could not save violation file: " + tempFile.getAbsolutePath());
 
-        SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .violationFile(tempFile.getAbsolutePath())
                 .testVerifySort("/full_unsorted_input.xml",
                         "/full_expected.xml",
                         "[INFO] The xml element <modelVersion> should be placed before <parent>",
                         true);
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("Could not save violation file: " + tempFile.getAbsolutePath())));
     }
 
     @Test

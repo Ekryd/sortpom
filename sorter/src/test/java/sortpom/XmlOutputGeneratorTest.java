@@ -1,14 +1,17 @@
 package sortpom;
 
 import org.jdom.Document;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
 
 import java.io.IOException;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
@@ -18,13 +21,9 @@ import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
  * @since 2020-01-12
  */
 public class XmlOutputGeneratorTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void simulateIOExceptionToTriggerExceptionMessage() {
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("Could not format pom files content");
 
         Document document = spy(createXmlFragment());
         // Simulate an IOException (a check one, no less)
@@ -37,6 +36,11 @@ public class XmlOutputGeneratorTest {
                 .setFormatting("\n", true, false)
                 .build());
 
-        xmlOutputGenerator.getSortedXml(document);
+        final Executable testMethod = () -> xmlOutputGenerator.getSortedXml(document);
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not format pom files content")));
     }
+
 }

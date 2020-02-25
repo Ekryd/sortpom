@@ -1,7 +1,7 @@
 package sortpom.verify;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 import sortpom.SortPomImpl;
 import sortpom.VerifyMojo;
@@ -14,8 +14,9 @@ import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.mock;
 
 public class VerifyMojoParametersTest {
@@ -28,7 +29,7 @@ public class VerifyMojoParametersTest {
     private TextWrapperCreator textWrapperCreator;
     private XmlOutputGenerator xmlOutputGenerator;
 
-    @Before
+    @BeforeEach
     public void setup() throws SecurityException, IllegalArgumentException {
         verifyMojo = new VerifyMojo();
         new ReflectionHelper(verifyMojo).setField("lineSeparator", "\n");
@@ -78,14 +79,16 @@ public class VerifyMojoParametersTest {
     public void lineSeparatorParameter() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        assertEquals("\r", new ReflectionHelper(xmlOutputGenerator).getField("lineSeparatorUtil").toString());
+        final Object lineSeparatorUtil = new ReflectionHelper(xmlOutputGenerator).getField("lineSeparatorUtil");
+
+        assertThat("\r", lineSeparatorUtil.toString(), is(equalTo("\r")));
     }
 
     @Test
     public void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
-        assertEquals("      ", new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters"));
+        assertThat(new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters"), is(equalTo("      ")));
     }
 
     @Test
@@ -103,7 +106,7 @@ public class VerifyMojoParametersTest {
         testParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
         Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
-        assertEquals("sortOrderFile.gurka", actual);
+        assertThat(actual, is(equalTo("sortOrderFile.gurka")));
     }
 
     @Test
@@ -146,7 +149,9 @@ public class VerifyMojoParametersTest {
     public void parameterVerifyFailShouldEndUpInXmlProcessor() throws Exception {
         testParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
 
-        assertEquals(VerifyFailType.STOP, new ReflectionHelper(sortPomImpl).getField("verifyFailType"));
+        final Object verifyFailType = new ReflectionHelper(sortPomImpl).getField("verifyFailType");
+
+        assertThat(verifyFailType, is(equalTo(VerifyFailType.STOP)));
     }
 
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
@@ -158,7 +163,8 @@ public class VerifyMojoParametersTest {
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
-            assertSame(parameterValue, actual);
+
+            assertThat(actual, is(equalTo(parameterValue)));
         }
     }
 
@@ -171,7 +177,8 @@ public class VerifyMojoParametersTest {
 
         for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
             Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
-            assertEquals(true, actual);
+
+            assertThat(actual, is(equalTo(true)));
         }
     }
 

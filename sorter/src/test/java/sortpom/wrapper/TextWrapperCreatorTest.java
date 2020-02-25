@@ -1,12 +1,12 @@
 package sortpom.wrapper;
 
 import org.jdom.Text;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author bjorn
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class TextWrapperCreatorTest {
     private final TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
 
-    @Before
+    @BeforeEach
     public void setup() {
         textWrapperCreator.setup(PluginParameters.builder().setEncoding("UTF-8")
                 .setFormatting("\n", true, true).build());

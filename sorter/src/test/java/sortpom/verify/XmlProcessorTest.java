@@ -1,6 +1,6 @@
 package sortpom.verify;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.XmlProcessorTestUtil;
 
 public class XmlProcessorTest {
@@ -16,7 +16,6 @@ public class XmlProcessorTest {
         XmlProcessorTestUtil.create().testVerifyXmlIsOrdered(
                 "src/test/resources/MultilineComment_expected.xml");
     }
-
 
     @Test
     public final void testSortXmlAttributesShouldAffectVerify() throws Exception {

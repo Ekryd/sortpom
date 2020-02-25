@@ -1,30 +1,33 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.XmlOutputGenerator;
+import sortpom.exception.FailureException;
 import sortpom.util.FileUtil;
 import sortpom.util.SortPomImplUtil;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
 public class EncodingParameterTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void illegalEncodingWhenGettingPomFileShouldNotWork() throws Exception {
-        thrown.expectMessage("gurka-2000");
+    public void illegalEncodingWhenGettingPomFileShouldNotWork() {
 
-        SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .encoding("gurka-2000")
                 .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("Could not handle encoding: gurka-2000")));
     }
 
     @Test
@@ -52,12 +55,12 @@ public class EncodingParameterTest {
         builder.setEncoding("gurka-2000");
         fileUtil.setup(builder.build());
 
-        try {
-            fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");
-        } catch (Exception ex) {
-            assertThat(ex.getCause().getClass().getName(), is("java.io.UnsupportedEncodingException"));
-            assertThat(ex.getCause().getMessage(), is("gurka-2000"));
-        }
+        final Executable testMethod = () -> fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");;
+
+        final RuntimeException thrown = assertThrows(RuntimeException.class, testMethod);
+
+        assertThat(thrown.getCause().getClass().getName(), is("java.io.UnsupportedEncodingException"));
+        assertThat(thrown.getCause().getMessage(), is("gurka-2000"));
     }
 
     @Test
@@ -80,4 +83,5 @@ public class EncodingParameterTest {
                 .encoding("ISO-8859-1")
                 .testFiles("/ISO88591Encoding_input.xml", "/ISO88591Encoding_expected.xml");
     }
+
 }

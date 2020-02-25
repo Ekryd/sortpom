@@ -1,12 +1,12 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class SortDependenciesTest {
 
@@ -71,7 +71,6 @@ public class SortDependenciesTest {
                 .sortDependencies("true")
                 .sortPlugins("true")
                 .testFilesAndReturnLogs("/Simple_input.xml", "/Simple_expected_sortDep.xml");
-
 
         assertThat(logs.get(0), is("[WARNING] [DEPRECATED] The 'true' value in sortDependencies is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!"));
     }

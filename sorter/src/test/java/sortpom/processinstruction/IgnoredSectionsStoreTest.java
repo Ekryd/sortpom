@@ -1,13 +1,13 @@
 package sortpom.processinstruction;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author bjorn
@@ -19,7 +19,7 @@ public class IgnoredSectionsStoreTest {
     private ArrayList<String> ignoredSections;
 
     @SuppressWarnings("unchecked")
-    @Before
+    @BeforeEach
     public void setUp() {
         ignoredSectionsStore = new IgnoredSectionsStore();
         ignoredSections = new ReflectionHelper(ignoredSectionsStore).getField(ArrayList.class);

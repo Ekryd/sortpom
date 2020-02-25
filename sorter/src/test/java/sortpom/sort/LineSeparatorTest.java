@@ -1,10 +1,10 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
 public class LineSeparatorTest {

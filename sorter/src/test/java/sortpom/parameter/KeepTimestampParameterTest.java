@@ -1,7 +1,6 @@
 package sortpom.parameter;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 public class KeepTimestampParameterTest {
@@ -15,7 +14,6 @@ public class KeepTimestampParameterTest {
             .testFilesWithTimestamp("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
     }
 
-
     @Test
     public final void whenKeepTimestampIsSetTimestampsShouldRemain() throws Exception {
     	SortPomImplUtil.create()
@@ -24,5 +22,5 @@ public class KeepTimestampParameterTest {
 	    	.keepTimestamp(true)
 	    	.testFilesWithTimestamp("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
     }
-    
+
 }

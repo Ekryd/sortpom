@@ -2,10 +2,11 @@ package sortpom.sort;
 
 import org.jdom.Document;
 import org.jdom.Element;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpandEmptyElementTest {
     @Test
@@ -18,7 +19,7 @@ public class ExpandEmptyElementTest {
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
     }
 
     @Test
@@ -31,7 +32,7 @@ public class ExpandEmptyElementTest {
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        Assert.assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
     }
 
     public static Document createXmlFragment() {

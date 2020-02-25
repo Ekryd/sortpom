@@ -1,12 +1,14 @@
 package sortpom.processinstruction;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import sortpom.logger.SortPomLogger;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author bjorn
@@ -16,8 +18,7 @@ public class SortpomPiScannerTest {
     private SortpomPiScanner sortpomPiScanner;
     private final SortPomLogger logger = mock(SortPomLogger.class);
 
-
-    @Before
+    @BeforeEach
     public void setUp() {
         sortpomPiScanner = new SortpomPiScanner(logger);
     }

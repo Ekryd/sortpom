@@ -38,7 +38,7 @@ public class FileUtilExceptionsTest {
         //Set backup file to a directory (which raises DirectoryNotEmptyException)
         new ReflectionHelper(fileUtil).setField("backupFile", backupFileTemp.getParentFile());
 
-        final Executable testMethod = () -> fileUtil.backupFile();
+        final Executable testMethod = fileUtil::backupFile;
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -55,7 +55,7 @@ public class FileUtilExceptionsTest {
 
         FileUtil fileUtil = createFileUtil();
 
-        final Executable testMethod = () -> fileUtil.backupFile();
+        final Executable testMethod = fileUtil::backupFile;
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -69,7 +69,7 @@ public class FileUtilExceptionsTest {
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("pomFile", pomFileTemp);
 
-        final Executable testMethod = () -> fileUtil.getPomFileContent();
+        final Executable testMethod = fileUtil::getPomFileContent;
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -82,7 +82,7 @@ public class FileUtilExceptionsTest {
 
         new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
 
-        final Executable testMethod = () -> fileUtil.getPomFileContent();
+        final Executable testMethod = fileUtil::getPomFileContent;
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -105,10 +105,10 @@ public class FileUtilExceptionsTest {
 
     @Test
     public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
-      FileUtil fileUtil = createFileUtil();
-      new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
+        FileUtil fileUtil = createFileUtil();
+        new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-        final Executable testMethod = () -> fileUtil.getPomFileContent();
+        final Executable testMethod = fileUtil::getPomFileContent;
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -117,10 +117,10 @@ public class FileUtilExceptionsTest {
 
     @Test
     public void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() {
-      FileUtil fileUtil = createFileUtil();
-      new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
+        FileUtil fileUtil = createFileUtil();
+        new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-      final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
+        final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -139,15 +139,15 @@ public class FileUtilExceptionsTest {
         return spy(originalFileUtil);
     }
 
-    private class FileAttributeUtilStub extends FileAttributeUtil {
+    private static class FileAttributeUtilStub extends FileAttributeUtil {
         @Override
         public long getLastModifiedTimestamp(File file) {
-          return 0;
+            return 0;
         }
 
         @Override
         public void setTimestamps(File file, long millis) throws IOException {
-          throw new IOException();
+            throw new IOException();
         }
     }
 

@@ -1,8 +1,6 @@
 package sortpom.util;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import sortpom.parameter.PluginParameters;
 
 import java.io.FileNotFoundException;
@@ -10,10 +8,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -35,9 +30,7 @@ public class FileUtilTest {
     public void defaultSortOrderFromNonExistingShouldThrowException() {
         FileUtil fileUtil = createFileUtil("zzz_Attribute_expected.xml");
 
-        final Executable testMethod = () -> fileUtil.getDefaultSortOrderXml();
-
-        final IOException thrown = assertThrows(IOException.class, testMethod);
+        final IOException thrown = assertThrows(IOException.class, fileUtil::getDefaultSortOrderXml);
 
         assertThat(thrown.getMessage(), startsWith("Could not find"));
         assertThat(thrown.getMessage(), endsWith("or zzz_Attribute_expected.xml in classpath"));
@@ -48,7 +41,7 @@ public class FileUtilTest {
         FileUtil fileUtil = createFileUtil("https://en.wikipedia.org/wiki/Sweden");
 
         try {
-        String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
+            String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
             assertThat(defaultSortOrderXml, containsString("Sverige"));
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was perfomed
@@ -57,13 +50,10 @@ public class FileUtilTest {
     }
 
     @Test
-    @Disabled("Test was failing in 2.11.0 branch so disabled")
     public void defaultSortOrderFromNonExistingHostShouldThrowException() {
         FileUtil fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 
-        final Executable testMethod = () -> fileUtil.getDefaultSortOrderXml();
-
-        final UnknownHostException thrown = assertThrows(UnknownHostException.class, testMethod);
+        final UnknownHostException thrown = assertThrows(UnknownHostException.class, fileUtil::getDefaultSortOrderXml);
 
         assertThat(thrown.getMessage(), is("jgerwzuujy.fjrmzaxklj.zfgmqavbhp"));
     }

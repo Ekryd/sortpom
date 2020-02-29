@@ -31,7 +31,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
-  * 2020-02-29: All JUnit tests are converted to version 5. Thanks John for your pull request!
+  * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you!
   * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks Christoph for your pull request!
   * 2018-10-10: Released version 2.10.0. Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request!
   * 2018-09-20: Released version 2.9.0. Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched

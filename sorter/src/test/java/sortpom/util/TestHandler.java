@@ -16,9 +16,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author bjorn
@@ -64,7 +62,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-                assertTrue(backupFile.exists());
+            assertTrue(backupFile.exists());
 
             backupFileInputStream = new FileInputStream(backupFile);
             String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
@@ -121,7 +119,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-            assertFalse(backupFile.exists());
+            assertFalse(backupFile.exists(), "No sort expected, backupfile exists");
 
             actualSortedPomInputStream = new FileInputStream(testpom);
             String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);

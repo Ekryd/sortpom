@@ -35,9 +35,19 @@ public class SortPropertiesTest {
     public final void sortingOfFullPomFileShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testFiles("/SortProp_input.xml", "/SortProp_expected.xml");
+    }
+
+    @Test
+    public final void duplicatePropertiesShouldNotTriggerSorting() throws Exception {
+        SortPomImplUtil.create()
+                .sortProperties()
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
+                .lineSeparator("\n")
+                .testNoSorting("/SortProp_input_duplicate.xml");
     }
 }

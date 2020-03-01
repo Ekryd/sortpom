@@ -32,6 +32,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you!
+  * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
   * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks Christoph for your pull request!
   * 2018-10-10: Released version 2.10.0. Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request!
   * 2018-09-20: Released version 2.9.0. Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched
@@ -39,8 +40,6 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2017-03-29: Released version 2.7.0 that adds support to write to a separate violation file when verifying.
   * 2017-03-18: Released version 2.6.0 that adds support to force sorting if only line breaks differ. Thanks again Benoit Guerin for your pull requests!
   * 2017-02-18: Benoit Guerin supplied Maven invoker tests to the plugin. Thank you! 
-  * 2016-12-24: Renewed Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
-  * 2016-05-06: Received an Open Source license for JProfiler. Thank you [ej-technologies](http://www.ej-technologies.com/products/jprofiler/overview.html)!
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.

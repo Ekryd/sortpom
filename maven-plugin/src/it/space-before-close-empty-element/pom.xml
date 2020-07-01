@@ -28,11 +28,11 @@
               <goal>sort</goal>
             </goals>
             <configuration>
-              <spaceBeforeCloseEmptyElement />
+              <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
               <expandEmptyElements>false</expandEmptyElements>
-              <keepBlankLines>true</keepBlankLines>
+              <keepBlankLines />
               <nrOfIndentSpace>4</nrOfIndentSpace>
-              <indentBlankLines>true</indentBlankLines>
+              <indentBlankLines />
             </configuration>
           </execution>
         </executions>

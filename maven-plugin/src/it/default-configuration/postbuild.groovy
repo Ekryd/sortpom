@@ -21,6 +21,7 @@ assert log.text.contains('nrOfIndentSpace = 2')
 assert log.text.contains('sortProperties = false')
 assert log.text.contains('skip = false')
 assert log.text.contains('keepTimestamp = false')
+assert log.text.contains('spaceBeforeCloseEmptyElement = true')
 
 assert !log.text.contains('predefinedSortOrder =')
 assert !log.text.contains('sortOrderFile =')

@@ -33,4 +33,30 @@ class ExpandEmptyElementTest {
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
     }
+
+    @Test
+    void spaceBeforeCloseEmptyElementShouldKeepSpace() {
+        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+        xmlOutputGenerator.setup(PluginParameters.builder()
+                .setEncoding("UTF-8")
+                .setFormatting("\n", false, true, false)
+                .setIndent(2, false)
+                .build());
+
+        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
+    }
+
+    @Test
+    void noSpaceBeforeCloseEmptyElementShouldNotKeepSpace() {
+        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+        xmlOutputGenerator.setup(PluginParameters.builder()
+                .setEncoding("UTF-8")
+                .setFormatting("\n", false, false, false)
+                .setIndent(2, false)
+                .build());
+
+        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka/>\n", actual);
+    }
 }

@@ -1,14 +1,13 @@
 package sortpom.sort;
 
-import org.jdom.Document;
-import org.jdom.Element;
 import org.junit.jupiter.api.Test;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
-public class ExpandEmptyElementTest {
+class ExpandEmptyElementTest {
     @Test
     void trueExpandedParameterShouldExpandEmptyXmlElements() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
@@ -33,11 +32,5 @@ public class ExpandEmptyElementTest {
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
         assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
-    }
-
-    public static Document createXmlFragment() {
-        Document newDocument = new Document();
-        newDocument.setRootElement(new Element("Gurka"));
-        return newDocument;
     }
 }

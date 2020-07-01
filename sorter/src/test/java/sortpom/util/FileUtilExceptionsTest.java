@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
-public class FileUtilExceptionsTest {
+class FileUtilExceptionsTest {
 
     private File backupFileTemp;
     private File pomFileTemp;

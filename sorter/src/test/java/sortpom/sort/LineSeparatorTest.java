@@ -5,7 +5,7 @@ import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
 class LineSeparatorTest {
     @Test

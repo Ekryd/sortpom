@@ -14,7 +14,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
-import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
 /**
  * @author bjorn

@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
 class EncodingParameterTest {
 

@@ -119,7 +119,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
      * Set this to 'true' to bypass sortpom plugin
      */
     @Parameter(property = "sort.skip", defaultValue = "false")
-    boolean skip;
+    private boolean skip;
 
     /**
      * Whether to keep the file timestamps of old POM file when creating new POM file.

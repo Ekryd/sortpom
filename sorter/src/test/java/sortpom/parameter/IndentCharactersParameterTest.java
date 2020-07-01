@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IndentCharactersParameterTest {
+class IndentCharactersParameterTest {
 
     @Test
-    public void zeroIndentCharactersShouldResultInEmptyIndentString() {
+    void zeroIndentCharactersShouldResultInEmptyIndentString() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(0, true)
                 .build();
@@ -23,7 +23,7 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void oneIndentCharacterShouldResultInOneSpace() {
+    void oneIndentCharacterShouldResultInOneSpace() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(1, true)
                 .build();
@@ -32,7 +32,7 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void test255IndentCharacterShouldResultIn255Space() {
+    void test255IndentCharacterShouldResultIn255Space() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(255, true)
                 .build();
@@ -43,7 +43,7 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void minusOneIndentCharacterShouldResultInOneTab() {
+    void minusOneIndentCharacterShouldResultInOneTab() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setIndent(-1, true)
                 .build();
@@ -52,7 +52,7 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void minusTwoShouldFail() {
+    void minusTwoShouldFail() {
 
         final Executable testMethod = () -> PluginParameters.builder()
                 .setIndent(-2, true)
@@ -64,7 +64,7 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void moreThan255ShouldFail() {
+    void moreThan255ShouldFail() {
 
         final Executable testMethod = () -> PluginParameters.builder()
                 .setIndent(256, true)

@@ -14,17 +14,17 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @author bjorn
  * @since 2013-12-28
  */
-public class SortpomPiScannerTest {
+class SortpomPiScannerTest {
     private SortpomPiScanner sortpomPiScanner;
     private final SortPomLogger logger = mock(SortPomLogger.class);
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         sortpomPiScanner = new SortpomPiScanner(logger);
     }
 
     @Test
-    public void scanNoInstructionsShouldWork() {
+    void scanNoInstructionsShouldWork() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -47,7 +47,7 @@ public class SortpomPiScannerTest {
     }
 
     @Test
-    public void correctIgnoreShouldNotReportError() {
+    void correctIgnoreShouldNotReportError() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -71,7 +71,7 @@ public class SortpomPiScannerTest {
     }
 
     @Test
-    public void unterminatedIgnoreShouldReportError() {
+    void unterminatedIgnoreShouldReportError() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -97,7 +97,7 @@ public class SortpomPiScannerTest {
     }
 
     @Test
-    public void unknownInstructionShouldReportError() {
+    void unknownInstructionShouldReportError() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -123,7 +123,7 @@ public class SortpomPiScannerTest {
     }
 
     @Test
-    public void unexpectedResumeShouldReportError() {
+    void unexpectedResumeShouldReportError() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -149,7 +149,7 @@ public class SortpomPiScannerTest {
     }
 
     @Test
-    public void multipleErrorsShouldBeReportedInLogger() {
+    void multipleErrorsShouldBeReportedInLogger() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +

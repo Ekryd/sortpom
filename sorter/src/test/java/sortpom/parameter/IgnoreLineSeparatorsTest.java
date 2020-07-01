@@ -3,10 +3,10 @@ package sortpom.parameter;
 import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class IgnoreLineSeparatorsTest {
+class IgnoreLineSeparatorsTest {
 
     @Test
-    public final void ignoringLineSeparatorsShouldNotSort() throws Exception {
+    final void ignoringLineSeparatorsShouldNotSort() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .ignoreLineSeparators(true)
@@ -14,7 +14,7 @@ public class IgnoreLineSeparatorsTest {
     }
 
     @Test
-    public final void doNotIgnoreLineSeparatorsShouldSort() throws Exception {
+    final void doNotIgnoreLineSeparatorsShouldSort() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .ignoreLineSeparators(false)

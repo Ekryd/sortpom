@@ -23,7 +23,7 @@ public class FileUtilExceptionsTest {
     private File pomFileTemp;
 
     @BeforeEach
-    public void setup() throws IOException {
+    void setup() throws IOException {
         pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
         pomFileTemp.deleteOnExit();
         backupFileTemp = File.createTempFile("backupFile", ".xml", new File("target"));
@@ -31,7 +31,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenOldBackupFileCannotBeDeletedAnExceptionShouldBeThrown() {
+    void whenOldBackupFileCannotBeDeletedAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
         doNotAccessRealBackupFile(fileUtil);
 
@@ -50,7 +50,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() {
+    void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() {
         assertTrue(pomFileTemp.delete());
 
         FileUtil fileUtil = createFileUtil();
@@ -63,7 +63,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileCannotBeReadAnExceptionShouldBeThrown() {
+    void whenPomFileCannotBeReadAnExceptionShouldBeThrown() {
         assertTrue(pomFileTemp.delete());
 
         FileUtil fileUtil = createFileUtil();
@@ -77,7 +77,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() {
+    void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
 
         new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
@@ -90,7 +90,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() {
+    void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() {
         assertTrue(pomFileTemp.setReadOnly());
 
         FileUtil fileUtil = createFileUtil();
@@ -104,7 +104,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
+    void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
@@ -116,7 +116,7 @@ public class FileUtilExceptionsTest {
     }
 
     @Test
-    public void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() {
+    void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() {
         FileUtil fileUtil = createFileUtil();
         new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 

@@ -10,10 +10,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class VerifyFailParameterTest {
+class VerifyFailParameterTest {
 
     @Test
-    public void stopIgnoreCaseValueIsOk() {
+    void stopIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("sToP")
                 .build();
@@ -22,7 +22,7 @@ public class VerifyFailParameterTest {
     }
 
     @Test
-    public void warnIgnoreCaseValueIsOk() {
+    void warnIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("wArN")
                 .build();
@@ -31,7 +31,7 @@ public class VerifyFailParameterTest {
     }
 
     @Test
-    public void sortIgnoreCaseValueIsOk() {
+    void sortIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("sOrT")
                 .build();
@@ -40,7 +40,7 @@ public class VerifyFailParameterTest {
     }
 
     @Test
-    public void nullValueIsNotOk() {
+    void nullValueIsNotOk() {
 
         final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail(null)
@@ -52,7 +52,7 @@ public class VerifyFailParameterTest {
     }
 
     @Test
-    public void emptyValueIsNotOk() {
+    void emptyValueIsNotOk() {
 
         final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail("")
@@ -64,7 +64,7 @@ public class VerifyFailParameterTest {
     }
 
     @Test
-    public void wrongValueIsNotOk() {
+    void wrongValueIsNotOk() {
 
         final Executable testMethod = () -> PluginParameters.builder()
                 .setVerifyFail("gurka")

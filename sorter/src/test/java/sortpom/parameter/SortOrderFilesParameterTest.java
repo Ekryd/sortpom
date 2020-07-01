@@ -11,10 +11,10 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SortOrderFilesParameterTest {
+class SortOrderFilesParameterTest {
 
     @Test
-    public final void incorrectCustomSortOrderShouldThrowException() {
+    final void incorrectCustomSortOrderShouldThrowException() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
@@ -26,7 +26,7 @@ public class SortOrderFilesParameterTest {
     }
 
     @Test
-    public final void incorrectPredefinedSortOrderShouldThrowException() {
+    final void incorrectPredefinedSortOrderShouldThrowException() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
@@ -40,7 +40,7 @@ public class SortOrderFilesParameterTest {
     }
 
     @Test
-    public final void incorrectCustomSortOrderShouldThrowException2() {
+    final void incorrectCustomSortOrderShouldThrowException2() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
@@ -52,7 +52,7 @@ public class SortOrderFilesParameterTest {
     }
 
     @Test
-    public final void incorrectPredefinedSortOrderShouldThrowException2() {
+    final void incorrectPredefinedSortOrderShouldThrowException2() {
 
         final Executable testMethod = () ->SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")

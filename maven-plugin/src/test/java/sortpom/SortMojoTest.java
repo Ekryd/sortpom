@@ -23,12 +23,12 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @author bjorn
  * @since 2012-08-23
  */
-public class SortMojoTest {
+class SortMojoTest {
     private final SortPomImpl sortPom = mock(SortPomImpl.class);
     private SortMojo sortMojo;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         sortMojo = new SortMojo();
         ReflectionHelper mojoHelper = new ReflectionHelper(sortMojo);
         mojoHelper.setField(sortPom);
@@ -36,7 +36,7 @@ public class SortMojoTest {
     }
 
     @Test
-    public void executeShouldStartMojo() throws Exception {
+    void executeShouldStartMojo() throws Exception {
         sortMojo.execute();
 
         verify(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
@@ -45,7 +45,7 @@ public class SortMojoTest {
     }
 
     @Test
-    public void thrownExceptionShouldBeConvertedToMojoException() {
+    void thrownExceptionShouldBeConvertedToMojoException() {
         doThrow(new FailureException("Gurka")).when(sortPom).sortPom();
 
         final Executable testMethod = () -> sortMojo.execute();
@@ -56,7 +56,7 @@ public class SortMojoTest {
     }
 
     @Test
-    public void thrownExceptionShouldBeConvertedToMojoExceptionInSetup() {
+    void thrownExceptionShouldBeConvertedToMojoExceptionInSetup() {
         doThrow(new FailureException("Gurka")).when(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
 
         final Executable testMethod = () -> sortMojo.setup();
@@ -67,7 +67,7 @@ public class SortMojoTest {
     }
 
     @Test
-    public void skipParameterShouldSkipExecution() throws Exception {
+    void skipParameterShouldSkipExecution() throws Exception {
         new ReflectionHelper(sortMojo).setField("skip", true);
 
         sortMojo.execute();

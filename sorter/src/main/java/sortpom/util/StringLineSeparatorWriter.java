@@ -79,30 +79,6 @@ public class StringLineSeparatorWriter extends XmlWriter {
     }
 
     /**
-     * Only write string or write single character is allowed
-     */
-    @Override
-    public void write(char[] cbuf) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Only write string or write single character is allowed
-     */
-    @Override
-    public void write(String str, int off, int len) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Only write string or write single character is allowed
-     */
-    @Override
-    public void write(char[] cbuf, int off, int len) {
-        throw new UnsupportedOperationException();
-    }
-
-    /**
      * This method will not perform anything. Flushing is only done when toString method is called
      */
     @Override

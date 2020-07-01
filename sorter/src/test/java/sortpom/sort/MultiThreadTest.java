@@ -14,11 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MultiThreadTest {
+class MultiThreadTest {
     private final AtomicInteger counter = new AtomicInteger(1);
 
     @Test
-    public final void multipleSortingsShouldNotInterfereWithEachOther() throws InterruptedException, ExecutionException {
+    final void multipleSortingsShouldNotInterfereWithEachOther() throws InterruptedException, ExecutionException {
         ExecutorService executorService = new ScheduledThreadPoolExecutor(10);
         for (int a = 0; a < 10; a++) {
             testOneConcurrentLoop(executorService);

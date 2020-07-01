@@ -10,10 +10,10 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BackupFileExtensionParameterTest {
+class BackupFileExtensionParameterTest {
 
     @Test
-    public final void emptyBackupFileExtensionShouldNotWork() {
+    final void emptyBackupFileExtensionShouldNotWork() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .backupFileExtension("")

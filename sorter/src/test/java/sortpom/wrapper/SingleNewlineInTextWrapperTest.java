@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author bjorn
  * @since 2012-06-14
  */
-public class SingleNewlineInTextWrapperTest {
+class SingleNewlineInTextWrapperTest {
 
     @Test
-    public void testGetContent() {
+    void testGetContent() {
 
         final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.getContent();
 
@@ -28,7 +28,7 @@ public class SingleNewlineInTextWrapperTest {
     }
 
     @Test
-    public void testIsBefore() {
+    void testIsBefore() {
 
         final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
 
@@ -38,7 +38,7 @@ public class SingleNewlineInTextWrapperTest {
     }
 
     @Test
-    public void testIsContentElement() {
+    void testIsContentElement() {
 
         final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isContentElement();
 
@@ -48,7 +48,7 @@ public class SingleNewlineInTextWrapperTest {
     }
 
     @Test
-    public void testIsResortable() {
+    void testIsResortable() {
 
         final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isSortable();
 
@@ -58,7 +58,7 @@ public class SingleNewlineInTextWrapperTest {
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertThat(SingleNewlineInTextWrapper.INSTANCE.toString("  "), is("  SingleNewlineInTextWrapper"));
     }
 

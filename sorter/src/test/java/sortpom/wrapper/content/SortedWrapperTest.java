@@ -10,10 +10,10 @@ import static org.hamcrest.Matchers.is;
  * @author bjorn
  * @since 2016-07-30
  */
-public class SortedWrapperTest {
+class SortedWrapperTest {
 
     @Test
-    public void toStringWithIndentShouldWork() {
+    void toStringWithIndentShouldWork() {
         assertThat(new SortedWrapper(new Element("Gurka"), 123).toString("  "), is("  SortedWrapper{element=[Element: <Gurka/>]}"));
         assertThat(new SortedWrapper(null, 123).toString("  "), is("  SortedWrapper{element=null}"));
     }

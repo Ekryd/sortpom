@@ -11,63 +11,63 @@ import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SortOrderTest {
+class SortOrderTest {
 
     @Test
-    public final void testSortDifferentClassPath() throws Exception {
+    final void testSortDifferentClassPath() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
     }
 
     @Test
-    public final void testSortDifferentRelativePath() throws Exception {
+    final void testSortDifferentRelativePath() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("src/test/resources/difforder/differentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
     }
 
     @Test
-    public final void testSortXmlCharacterl() throws Exception {
+    final void testSortXmlCharacterl() throws Exception {
         SortPomImplUtil.create().testFiles("/Character_input.xml", "/Character_expected.xml");
     }
 
     @Test
-    public final void testSortXmlComplex() throws Exception {
+    final void testSortXmlComplex() throws Exception {
         SortPomImplUtil.create().testFiles("/Complex_input.xml", "/Complex_expected.xml");
     }
 
     @Test
-    public final void testSortXmlFullFromAlfabeticalOrder() throws Exception {
+    final void testSortXmlFullFromAlfabeticalOrder() throws Exception {
         SortPomImplUtil.create().testFiles("/full_alfa_input.xml", "/full_expected.xml");
     }
 
     @Test
-    public final void testSortXmlFull() throws Exception {
+    final void testSortXmlFull() throws Exception {
         SortPomImplUtil.create()
                 .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
     }
 
     @Test
-    public final void testSortXmlReal1() throws Exception {
+    final void testSortXmlReal1() throws Exception {
         SortPomImplUtil.create()
                 .testFiles("/Real1_input.xml", "/Real1_expected.xml");
     }
 
     @Test
-    public final void testSortXmlSimple() throws Exception {
+    final void testSortXmlSimple() throws Exception {
         SortPomImplUtil.create().testFiles("/Simple_input.xml", "/Simple_expected.xml");
     }
 
     @Test
-    public final void testSortWithIndent() throws Exception {
+    final void testSortWithIndent() throws Exception {
         SortPomImplUtil.create()
                 .nrOfIndentSpace(4)
                 .testFiles("/Simple_input.xml", "/Simple_expected_indent.xml");
     }
 
     @Test
-    public final void testSortWithDependencySortSimple() throws Exception {
+    final void testSortWithDependencySortSimple() throws Exception {
         SortPomImplUtil.create()
                 .sortDependencies("true")
                 .sortPlugins("true")
@@ -75,7 +75,7 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void testSortWithDependencySortFull() throws Exception {
+    final void testSortWithDependencySortFull() throws Exception {
         SortPomImplUtil.create()
                 .sortDependencies("true")
                 .sortPlugins("true")
@@ -83,7 +83,7 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void sortedFileShouldNotBeSorted() throws Exception {
+    final void sortedFileShouldNotBeSorted() throws Exception {
         SortPomImplUtil.create()
                 .sortDependencies("groupId,artifactId")
                 .sortPlugins("groupId,artifactId")
@@ -91,7 +91,7 @@ public class SortOrderTest {
     }
 
     @Test
-    public final void corruptFileShouldThrowException() {
+    final void corruptFileShouldThrowException() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .testFiles("/Corrupt_file.xml", "/Corrupt_file.xml");

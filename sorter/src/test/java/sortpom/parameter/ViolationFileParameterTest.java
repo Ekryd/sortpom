@@ -16,13 +16,13 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ViolationFileParameterTest {
+class ViolationFileParameterTest {
 
     private static final String FILENAME_WITH_DIRECTORIES = "target/sortpom_reports/1/violation.xml";
     private static final String FILENAME_WITHOUT_DIRECTORIES = "target/violation.xml";
 
     @Test
-    public final void violationFileCanBeOverwritten() throws Exception {
+    final void violationFileCanBeOverwritten() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
         SortPomImplUtil.create()
                 .violationFile(tempFile.getAbsolutePath())
@@ -33,7 +33,7 @@ public class ViolationFileParameterTest {
     }
 
     @Test
-    public final void readOnlyViolationFileShouldReportError() throws Exception {
+    final void readOnlyViolationFileShouldReportError() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
         assertTrue(tempFile.setReadOnly());
 
@@ -50,7 +50,7 @@ public class ViolationFileParameterTest {
     }
 
     @Test
-    public final void violationFileShouldBeCreatedOnVerificationStop() {
+    final void violationFileShouldBeCreatedOnVerificationStop() {
         new File(FILENAME_WITHOUT_DIRECTORIES).delete();
 
         SortPomImplUtil.create()
@@ -65,7 +65,7 @@ public class ViolationFileParameterTest {
     }
 
     @Test
-    public final void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() throws Exception {
+    final void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() throws Exception {
         new File(FILENAME_WITH_DIRECTORIES).delete();
 
         SortPomImplUtil.create()
@@ -79,7 +79,7 @@ public class ViolationFileParameterTest {
     }
 
     @Test
-    public final void violationFileContentShouldBeEncodedOnVerificationSort() throws Exception {
+    final void violationFileContentShouldBeEncodedOnVerificationSort() throws Exception {
         new File(FILENAME_WITH_DIRECTORIES).delete();
 
         SortPomImplUtil.create()

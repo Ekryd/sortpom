@@ -8,10 +8,10 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class SortDependenciesTest {
+class SortDependenciesTest {
 
     @Test
-    public final void scopeInSortDependenciesShouldSortByScope() throws Exception {
+    final void scopeInSortDependenciesShouldSortByScope() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("custom_1.xml")
                 .sortDependencies("scope,GROUPID,artifactId")
@@ -25,7 +25,7 @@ public class SortDependenciesTest {
      * the pom xml validation.
      */
     @Test
-    public final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
+    final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("sortOrderFiles/extra_dummy_tags.xml")
                 .sortDependencies("scope,groupId,artifactId")
@@ -35,7 +35,7 @@ public class SortDependenciesTest {
     }
 
     @Test
-    public final void defaultGroupIdForPluginsShouldWork() throws Exception {
+    final void defaultGroupIdForPluginsShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("custom_1.xml")
                 .sortPlugins("groupId,artifactId")
@@ -45,7 +45,7 @@ public class SortDependenciesTest {
     }
 
     @Test
-    public final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
         List<String> logs = SortPomImplUtil.create()
                 .defaultOrderFileName("custom_1.xml")
                 .sortPlugins("true")
@@ -57,7 +57,7 @@ public class SortDependenciesTest {
     }
 
     @Test
-    public final void deprecatedSortPluginsFalseMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsFalseMessageShouldWork() throws Exception {
         List<String> logs = SortPomImplUtil.create()
                 .sortPlugins("false")
                 .testFilesAndReturnLogs("/full_unsorted_input.xml", "/full_expected.xml");
@@ -66,7 +66,7 @@ public class SortDependenciesTest {
     }
 
     @Test
-    public final void deprecatedSortDependenciesTrueMessageShouldWork() throws Exception {
+    final void deprecatedSortDependenciesTrueMessageShouldWork() throws Exception {
         List<String> logs = SortPomImplUtil.create()
                 .sortDependencies("true")
                 .sortPlugins("true")
@@ -76,7 +76,7 @@ public class SortDependenciesTest {
     }
 
     @Test
-    public final void deprecatedSortDependenciesFalseMessageShouldWork() throws Exception {
+    final void deprecatedSortDependenciesFalseMessageShouldWork() throws Exception {
         List<String> logs = SortPomImplUtil.create()
                 .sortDependencies("false")
                 .testFilesAndReturnLogs("/full_unsorted_input.xml", "/full_expected.xml");

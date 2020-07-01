@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author bjorn
  * @since 2012-06-14
  */
-public class UnsortedWrapperTest {
+class UnsortedWrapperTest {
 
     @Test
-    public void testIsBefore() {
+    void testIsBefore() {
 
         final Executable testMethod = () -> new UnsortedWrapper<Text>(null)
                 .isBefore(null);;

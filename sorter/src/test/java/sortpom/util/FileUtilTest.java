@@ -16,9 +16,9 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author bjorn
  * @since 2013-08-16
  */
-public class FileUtilTest {
+class FileUtilTest {
     @Test
-    public void defaultSortOrderFromFileShouldWork() throws Exception {
+    void defaultSortOrderFromFileShouldWork() throws Exception {
         FileUtil fileUtil = createFileUtil("Attribute_expected.xml");
 
         String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
@@ -27,7 +27,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void defaultSortOrderFromNonExistingShouldThrowException() {
+    void defaultSortOrderFromNonExistingShouldThrowException() {
         FileUtil fileUtil = createFileUtil("zzz_Attribute_expected.xml");
 
         final IOException thrown = assertThrows(IOException.class, fileUtil::getDefaultSortOrderXml);
@@ -37,7 +37,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void defaultSortOrderFromUrlShouldWork() throws IOException {
+    void defaultSortOrderFromUrlShouldWork() throws IOException {
         FileUtil fileUtil = createFileUtil("https://en.wikipedia.org/wiki/Sweden");
 
         try {
@@ -50,7 +50,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void defaultSortOrderFromNonExistingHostShouldThrowException() {
+    void defaultSortOrderFromNonExistingHostShouldThrowException() {
         FileUtil fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 
         final UnknownHostException thrown = assertThrows(UnknownHostException.class, fileUtil::getDefaultSortOrderXml);
@@ -59,7 +59,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void defaultSortOrderFromNonExistingPageShouldThrowException() throws IOException {
+    void defaultSortOrderFromNonExistingPageShouldThrowException() throws IOException {
         FileUtil fileUtil = createFileUtil("https://github.com/Ekryd/sortpom/where_are_the_donations");
 
         try {

@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author bjorn
  * @since 2013-10-19
  */
-public class ExceptionConverterTest {
+class ExceptionConverterTest {
 
     @Test
-    public void noExceptionShouldRunJustFine() throws MojoFailureException {
+    void noExceptionShouldRunJustFine() throws MojoFailureException {
         ExceptionConverter exceptionConverter = new ExceptionConverter(() -> {
         });
         exceptionConverter.executeAndConvertException();
@@ -26,7 +26,7 @@ public class ExceptionConverterTest {
     }
 
     @Test
-    public void failureExceptionShouldThrowMojoFailureException() {
+    void failureExceptionShouldThrowMojoFailureException() {
         FailureException failureException = new FailureException("Gurka");
 
         final Executable testMethod = () -> new ExceptionConverter(() -> {
@@ -39,7 +39,7 @@ public class ExceptionConverterTest {
     }
 
     @Test
-    public void failureExceptionShouldKeepCause() {
+    void failureExceptionShouldKeepCause() {
         IllegalArgumentException cause = new IllegalArgumentException("not valid");
         FailureException failureException = new FailureException("Gurka", cause);
 

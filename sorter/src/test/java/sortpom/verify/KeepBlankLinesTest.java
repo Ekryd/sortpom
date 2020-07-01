@@ -4,22 +4,22 @@ import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 import sortpom.util.XmlProcessorTestUtil;
 
-public class KeepBlankLinesTest {
+class KeepBlankLinesTest {
     @Test
-    public final void emptyLinesInXmlShouldNotAffectVerify() throws Exception {
+    final void emptyLinesInXmlShouldNotAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
     }
 
     @Test
-    public final void emptyLinesInXmlShouldNotAffectVerify2() throws Exception {
+    final void emptyLinesInXmlShouldNotAffectVerify2() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
     }
 
     @Test
-    public final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify() throws Exception {
+    final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .indentBlankLines()
@@ -27,14 +27,14 @@ public class KeepBlankLinesTest {
     }
 
     @Test
-    public final void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
+    final void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
         SortPomImplUtil.create()
                 .keepBlankLines()
                 .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
 
     @Test
-    public final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() throws Exception {
+    final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() throws Exception {
         SortPomImplUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
@@ -42,7 +42,7 @@ public class KeepBlankLinesTest {
     }
 
     @Test
-    public final void unsortedXmlAndIndentParameterShouldAffectVerify() throws Exception {
+    final void unsortedXmlAndIndentParameterShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .keepBlankLines()
                 .indentBLankLines()
@@ -51,14 +51,14 @@ public class KeepBlankLinesTest {
     }
 
     @Test
-    public final void simpleLineBreaksShouldNotAffectVerify() throws Exception {
+    final void simpleLineBreaksShouldNotAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .testVerifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
     }
 
     @Test
-    public final void unsortedXmlShouldAffectVerify() throws Exception {
+    final void unsortedXmlShouldAffectVerify() throws Exception {
         XmlProcessorTestUtil.create()
                 .keepBlankLines()
                 .testVerifyXmlIsNotOrdered("src/test/resources/LineBreak_input.xml",

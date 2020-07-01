@@ -3,10 +3,10 @@ package sortpom.verify;
 import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class SortPropertiesTest {
+class SortPropertiesTest {
 
     @Test
-    public final void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
+    final void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
@@ -14,7 +14,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortPropertyParameterShouldNotAffectVerify() throws Exception {
+    final void sortPropertyParameterShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .lineSeparator("\n")
@@ -23,7 +23,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify() throws Exception {
+    final void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
@@ -32,7 +32,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
+    final void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .sortPlugins("true")
@@ -42,7 +42,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void namedParametersInSortFileShouldAffectVerify() throws Exception {
+    final void namedParametersInSortFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
@@ -51,7 +51,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortPropertyParameterShouldAffectVerify() throws Exception {
+    final void sortPropertyParameterShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .lineSeparator("\n")
@@ -61,7 +61,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify() throws Exception {
+    final void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
@@ -71,7 +71,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
+    final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .sortPlugins("true")

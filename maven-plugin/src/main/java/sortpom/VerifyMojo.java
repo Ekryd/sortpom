@@ -36,7 +36,7 @@ public class VerifyMojo extends AbstractParentMojo {
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, violationFilename, keepTimestamp)
                     .setEncoding(encoding)
-                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
+                    .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)

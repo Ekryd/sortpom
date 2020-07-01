@@ -194,8 +194,8 @@ public class SortPomImplUtil {
     }
 
     public SortPomImplUtil keepTimestamp(boolean keepTimestamp) {
-    	this.keepTimestamp = keepTimestamp;
-    	return this;
+        this.keepTimestamp = keepTimestamp;
+        return this;
     }
 
     public SortPomImplUtil verifyFail(String verifyFail) {
@@ -233,7 +233,7 @@ public class SortPomImplUtil {
                 .setPomFile(testpom)
                 .setFileOutput(true, testPomBackupExtension, violationFile, keepTimestamp)
                 .setEncoding(encoding)
-                .setFormatting(lineSeparator, true, keepBlankLines)
+                .setFormatting(lineSeparator, true, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)

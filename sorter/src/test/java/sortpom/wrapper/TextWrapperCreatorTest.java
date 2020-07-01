@@ -12,17 +12,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author bjorn
  * @since 2012-06-19
  */
-public class TextWrapperCreatorTest {
+class TextWrapperCreatorTest {
     private final TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         textWrapperCreator.setup(PluginParameters.builder().setEncoding("UTF-8")
-                .setFormatting("\n", true, true).build());
+                .setFormatting("\n", true, true, true).build());
     }
 
     @Test
-    public void testIsEmptyLine() {
+    void testIsEmptyLine() {
         assertFalse(textWrapperCreator.isBlankLineOrLines(new Text("\n      sortpom\n  ")));
         assertFalse(textWrapperCreator.isBlankLineOrLines(new Text("sortpom")));
         assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("\n  ")));

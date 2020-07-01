@@ -1,7 +1,6 @@
 package sortpom.util;
 
 import java.io.StringWriter;
-import java.io.Writer;
 
 /**
  * Makes sure that all line endings are written in the same way. Keeps a buffer
@@ -10,14 +9,15 @@ import java.io.Writer;
  *
  * @author Bjorn
  */
-public class StringLineSeparatorWriter extends Writer {
+public class StringLineSeparatorWriter extends XmlWriter {
     private static final char NEWLINE = '\n';
     private final String lineSeparator;
     private boolean wasNewLine = false;
     private final StringBuilder lineBuffer = new StringBuilder();
-    private final StringWriter out = new StringWriter();
+    private final StringWriter out;
 
-    public StringLineSeparatorWriter(final String lineSeparator) {
+    StringLineSeparatorWriter(StringWriter out, final String lineSeparator) {
+        this.out = out;
         this.lineSeparator = lineSeparator;
     }
 
@@ -65,7 +65,9 @@ public class StringLineSeparatorWriter extends Writer {
         out.write(lineSeparator);
     }
 
-    /** Remove everything that has happened since last line break. Used to clear empty lines in the XML **/
+    /**
+     * Remove everything that has happened since last line break. Used to clear empty lines in the XML
+     **/
     public void clearLineBuffer() {
         lineBuffer.delete(0, lineBuffer.length());
     }

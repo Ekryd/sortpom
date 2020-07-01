@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+import java.io.StringWriter;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -13,23 +15,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author bjorn
  * @since 2020-01-11
  */
-public class StringLineSeparatorWriterTest {
+class StringLineSeparatorWriterTest {
 
     private StringLineSeparatorWriter writer;
 
     @BeforeEach
-    public void setUp() {
-        writer = new StringLineSeparatorWriter("separator");
+    void setUp() {
+        StringWriter out = new StringWriter();
+        writer = new StringLineSeparatorWriter(out, "separator");
     }
 
     @Test
-    public void writeNewlineShouldBeConvertedToSeparator1() {
+    void writeNewlineShouldBeConvertedToSeparator1() {
         writer.write("Hey\nYou!");
         assertThat(writer.toString(), is("HeyseparatorYou!"));
     }
 
     @Test
-    public void writeNewlineShouldBeConvertedToSeparator2() {
+    void writeNewlineShouldBeConvertedToSeparator2() {
         writer.write("Hello");
         writer.write('&');
         writer.write('\n');
@@ -38,7 +41,7 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void clearExtraNewlinesShouldWork() {
+    void clearExtraNewlinesShouldWork() {
         writer.write("<xml>\n");
 
         //The spaces should be removed
@@ -50,7 +53,7 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void testWriteDeprecated1() {
+    void testWriteDeprecated1() {
 
         final Executable testMethod = () -> writer.write(new char[0]);
 
@@ -60,7 +63,7 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void testWriteDeprecated2() {
+    void testWriteDeprecated2() {
 
         final Executable testMethod = () -> writer.write("", 0, 0);
 
@@ -70,7 +73,7 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void testWriteDeprecated3() {
+    void testWriteDeprecated3() {
 
         final Executable testMethod = () -> writer.write(new char[0], 0, 0);
 

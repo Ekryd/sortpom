@@ -20,10 +20,10 @@ import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
  * @author bjorn
  * @since 2020-01-12
  */
-public class XmlOutputGeneratorTest {
+class XmlOutputGeneratorTest {
 
     @Test
-    public void simulateIOExceptionToTriggerExceptionMessage() {
+    void simulateIOExceptionToTriggerExceptionMessage() {
 
         Document document = spy(createXmlFragment());
         // Simulate an IOException (a check one, no less)
@@ -33,7 +33,7 @@ public class XmlOutputGeneratorTest {
 
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
-                .setFormatting("\n", true, false)
+                .setFormatting("\n", true, true, false)
                 .build());
 
         final Executable testMethod = () -> xmlOutputGenerator.getSortedXml(document);

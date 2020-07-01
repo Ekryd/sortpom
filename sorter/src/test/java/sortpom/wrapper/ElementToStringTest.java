@@ -20,9 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author bjorn
  * @since 2012-06-13
  */
-public class ElementToStringTest {
+class ElementToStringTest {
     @Test
-    public void testToString() throws Exception {
+    void testToString() throws Exception {
         String expected = IOUtils.toString(new FileInputStream("src/test/resources/Real1_expected_toString.txt"), StandardCharsets.UTF_8);
         assertEquals(expected, getToStringOnRootElementWrapper());
     }
@@ -31,7 +31,7 @@ public class ElementToStringTest {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
-                .setFormatting("\r\n", true, true)
+                .setFormatting("\r\n", true, true, true)
                 .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
                 .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();

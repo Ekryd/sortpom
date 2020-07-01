@@ -78,7 +78,7 @@ public class XmlProcessorTestUtil {
                 .setPomFile(null)
                 .setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
-                .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
+                .setFormatting(lineSeparator, expandEmptyElements, true, keepBlankLines)
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities("", "", false, false).build();

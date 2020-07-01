@@ -10,14 +10,14 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LineSeparatorParameterTest {
+class LineSeparatorParameterTest {
 
     @Test
-    public void lineSeparatorWithSomethingElseShouldThrowException() {
+    void lineSeparatorWithSomethingElseShouldThrowException() {
 
-        final Executable testMethod = () ->PluginParameters.builder()
+        final Executable testMethod = () -> PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("***", false, false)
+                .setFormatting("***", false, true, false)
                 .setIndent(2, false);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
@@ -26,17 +26,17 @@ public class LineSeparatorParameterTest {
     }
 
     @Test
-    public void testCharInput() {
-        assertEquals("\n", PluginParameters.builder().setFormatting("\n", true, true).build().lineSeparatorUtil.toString());
-        assertEquals("\r", PluginParameters.builder().setFormatting("\r", true, true).build().lineSeparatorUtil.toString());
-        assertEquals("\r\n", PluginParameters.builder().setFormatting("\r\n", true, true).build().lineSeparatorUtil.toString());
+    void testCharInput() {
+        assertEquals("\n", PluginParameters.builder().setFormatting("\n", true, true, true).build().lineSeparatorUtil.toString());
+        assertEquals("\r", PluginParameters.builder().setFormatting("\r", true, true, true).build().lineSeparatorUtil.toString());
+        assertEquals("\r\n", PluginParameters.builder().setFormatting("\r\n", true, true, true).build().lineSeparatorUtil.toString());
     }
 
     @Test
-    public void testFailedInput1() {
+    void testFailedInput1() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setFormatting("\nn", true, true);
+                .setFormatting("\nn", true, true, true);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -44,10 +44,10 @@ public class LineSeparatorParameterTest {
     }
 
     @Test
-    public void testFailedInput2() {
+    void testFailedInput2() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setFormatting("\n\n", true, true);
+                .setFormatting("\n\n", true, true, true);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -55,10 +55,10 @@ public class LineSeparatorParameterTest {
     }
 
     @Test
-    public void testFailedInput3() {
+    void testFailedInput3() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setFormatting("gurka", true, true);
+                .setFormatting("gurka", true, true, true);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -66,10 +66,10 @@ public class LineSeparatorParameterTest {
     }
 
     @Test
-    public void testFailedInput4() {
+    void testFailedInput4() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setFormatting("", true, true);
+                .setFormatting("", true, true, true);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -77,13 +77,13 @@ public class LineSeparatorParameterTest {
     }
 
     @Test
-    public void testMixedInput() {
+    void testMixedInput() {
         assertEquals("\r\n", new LineSeparatorUtil("\\r\n").toString());
         assertEquals("\r\n", new LineSeparatorUtil("\r\\n").toString());
     }
 
     @Test
-    public void testStringInput() {
+    void testStringInput() {
         assertEquals("\n", new LineSeparatorUtil("\\n").toString());
         assertEquals("\r", new LineSeparatorUtil("\\r").toString());
         assertEquals("\r\n", new LineSeparatorUtil("\\r\\n").toString());

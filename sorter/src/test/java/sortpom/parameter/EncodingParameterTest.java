@@ -16,10 +16,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
-public class EncodingParameterTest {
+class EncodingParameterTest {
 
     @Test
-    public void illegalEncodingWhenGettingPomFileShouldNotWork() {
+    void illegalEncodingWhenGettingPomFileShouldNotWork() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .encoding("gurka-2000")
@@ -31,11 +31,11 @@ public class EncodingParameterTest {
     }
 
     @Test
-    public void illegalEncodingWhenGeneratingPomFileShouldWork() {
+    void illegalEncodingWhenGeneratingPomFileShouldWork() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("gurka-2000")
-                .setFormatting("\n", true, false)
+                .setFormatting("\n", true, true, false)
                 .setIndent(2, false)
                 .build());
 
@@ -44,7 +44,7 @@ public class EncodingParameterTest {
     }
 
     @Test
-    public void illegalEncodingWhenSavingPomFileShouldNotWork() throws IOException {
+    void illegalEncodingWhenSavingPomFileShouldNotWork() throws IOException {
         File pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
         pomFileTemp.deleteOnExit();
 
@@ -55,7 +55,7 @@ public class EncodingParameterTest {
         builder.setEncoding("gurka-2000");
         fileUtil.setup(builder.build());
 
-        final Executable testMethod = () -> fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");;
+        final Executable testMethod = () -> fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");
 
         final RuntimeException thrown = assertThrows(RuntimeException.class, testMethod);
 
@@ -64,21 +64,21 @@ public class EncodingParameterTest {
     }
 
     @Test
-    public void differentEncodingShouldWork1() throws Exception {
+    void differentEncodingShouldWork1() throws Exception {
         SortPomImplUtil.create()
                 .encoding("UTF-32BE")
                 .testFiles("/UTF32Encoding_input.xml", "/UTF32Encoding_expected.xml");
     }
 
     @Test
-    public void differentEncodingShouldWork2() throws Exception {
+    void differentEncodingShouldWork2() throws Exception {
         SortPomImplUtil.create()
                 .encoding("UTF-16")
                 .testFiles("/UTF16Encoding_input.xml", "/UTF16Encoding_expected.xml");
     }
 
     @Test
-    public void differentEncodingShouldWork3() throws Exception {
+    void differentEncodingShouldWork3() throws Exception {
         SortPomImplUtil.create()
                 .encoding("ISO-8859-1")
                 .testFiles("/ISO88591Encoding_input.xml", "/ISO88591Encoding_expected.xml");

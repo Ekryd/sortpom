@@ -6,9 +6,9 @@ import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import sortpom.exception.FailureException;
 import sortpom.jdomcontent.NewlineText;
-import sortpom.parameter.LineSeparatorUtil;
 import sortpom.parameter.PluginParameters;
-import sortpom.util.StringLineSeparatorWriter;
+import sortpom.util.WriterFactory;
+import sortpom.util.XmlWriter;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -18,15 +18,17 @@ import java.io.Writer;
  */
 public class XmlOutputGenerator {
     private String encoding;
-    private LineSeparatorUtil lineSeparatorUtil;
     private String indentCharacters;
     private boolean expandEmptyElements;
     private boolean indentBlankLines;
+    private WriterFactory writerFactory = new WriterFactory();
 
-    /** Setup default configuration */
+    /**
+     * Setup default configuration
+     */
     public void setup(PluginParameters pluginParameters) {
+        writerFactory.setup(pluginParameters);
         this.indentCharacters = pluginParameters.indentCharacters;
-        this.lineSeparatorUtil = pluginParameters.lineSeparatorUtil;
         this.encoding = pluginParameters.encoding;
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;
@@ -38,7 +40,7 @@ public class XmlOutputGenerator {
      * @return the sorted xml
      */
     public String getSortedXml(Document newDocument) {
-        try (StringLineSeparatorWriter writer = new StringLineSeparatorWriter(lineSeparatorUtil.toString())) {
+        try (XmlWriter writer = writerFactory.getWriter()) {
 
             XMLOutputter xmlOutputter = new PatchedXMLOutputter(writer, indentBlankLines);
             xmlOutputter.setFormat(createPrettyFormat());
@@ -60,16 +62,18 @@ public class XmlOutputGenerator {
     }
 
     private static class PatchedXMLOutputter extends XMLOutputter {
-        private final StringLineSeparatorWriter stringLineSeparatorWriter;
+        private final XmlWriter writer;
         private final boolean indentBlankLines;
 
-        PatchedXMLOutputter(StringLineSeparatorWriter stringLineSeparatorWriter, boolean indentBlankLines) {
-            this.stringLineSeparatorWriter = stringLineSeparatorWriter;
+        PatchedXMLOutputter(XmlWriter writer, boolean indentBlankLines) {
+            this.writer = writer;
             this.indentBlankLines = indentBlankLines;
             XMLOutputter.preserveFormat.setLineSeparator("\n");
         }
 
-        /** Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline */
+        /**
+         * Stop XMLOutputter from printing comment <!-- --> chars if it is just a newline
+         */
         @Override
         protected void printComment(Writer stringWriter, Comment comment) throws IOException {
             if (comment instanceof NewlineText) {
@@ -86,7 +90,7 @@ public class XmlOutputGenerator {
             stringWriter.flush();
 
             // Remove all inset that has just been written since last newline
-            stringLineSeparatorWriter.clearLineBuffer();
+            writer.clearLineBuffer();
         }
     }
 }

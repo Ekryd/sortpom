@@ -7,13 +7,13 @@ import sortpom.parameter.PluginParameters;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
 
-public class LineSeparatorTest {
+class LineSeparatorTest {
     @Test
-    public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() {
+    void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", false, false)
+                .setFormatting("\n", false, true, false)
                 .setIndent(2, false)
                 .build());
 
@@ -22,11 +22,11 @@ public class LineSeparatorTest {
     }
 
     @Test
-    public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() {
+    void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\r", false, false)
+                .setFormatting("\r", false, true, false)
                 .setIndent(2, false)
                 .build());
 
@@ -35,11 +35,11 @@ public class LineSeparatorTest {
     }
 
     @Test
-    public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() {
+    void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\r\n", false, false)
+                .setFormatting("\r\n", false, true, false)
                 .setIndent(2, false)
                 .build());
 

@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpandEmptyElementTest {
     @Test
-    public void trueExpandedParameterShouldExpandEmptyXmlElements() {
+    void trueExpandedParameterShouldExpandEmptyXmlElements() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", true, false)
+                .setFormatting("\n", true, true, false)
                 .setIndent(2, false)
                 .build());
 
@@ -23,11 +23,11 @@ public class ExpandEmptyElementTest {
     }
 
     @Test
-    public void falseExpandedParameterShouldCompressEmptyXmlElements() {
+    void falseExpandedParameterShouldCompressEmptyXmlElements() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", false, false)
+                .setFormatting("\n", false, true, false)
                 .setIndent(2, false)
                 .build());
 

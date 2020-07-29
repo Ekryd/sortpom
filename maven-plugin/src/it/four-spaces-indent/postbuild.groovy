@@ -8,10 +8,6 @@ assert log.text.contains('Sorting file ' + sorted.absolutePath)
 assert log.text.contains('Saved backup of ' + sorted.absolutePath + ' to ' + backup.absolutePath)
 assert log.text.contains('Saved sorted pom file to ' + sorted.absolutePath)
 assert backup.exists()
-
-def expectedText = expected.text.replaceAll('@pom.version@', projectversion)
-def sortedText = sorted.text.replaceAll('\r', '')
-
-assert expectedText.equals(sortedText)
+assert expected.text.replaceAll('@pom.version@', projectversion).tokenize('\n').equals(sorted.text.replaceAll('\r','').tokenize('\n'))
 
 return true

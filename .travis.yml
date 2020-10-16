@@ -20,6 +20,7 @@ jdk:
   - openjdk12
   - openjdk13
   - openjdk14
+  - openjdk15
 
 after_success:
   - mvn integration-test jacoco:report

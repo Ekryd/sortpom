@@ -274,7 +274,9 @@
         <executions>
           <execution>
             <id>default-descriptor</id>
-            <phase>process-classes</phase>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
           </execution>
           <execution>
             <id>help-goal</id>
@@ -348,12 +350,6 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <executions>
-          <execution>
-            <id>pre-unit-test</id>
-            <goals>
-              <goal>prepare-agent</goal>
-            </goals>
-          </execution>
           <!-- create the invoker.mavenOpts variable, containing what is needed for the agent to run during the integration tests. -->
           <execution>
             <id>pre-integration-test</id>
@@ -363,6 +359,12 @@
             <configuration>
               <propertyName>invoker.mavenOpts</propertyName>
             </configuration>
+          </execution>
+          <execution>
+            <id>pre-unit-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
           </execution>
           <!-- merge the two data files of jacoco (the one for the unit tests, the other for the integration tests) into only one file, and generate only one report (disabling the two others) -->
           <execution>

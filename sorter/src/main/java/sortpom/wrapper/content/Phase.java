@@ -100,7 +100,7 @@ interface Phase {
             }
             return Arrays.stream(StandardPhase.values())
                     .filter(p -> phase.equalsIgnoreCase(p.text))
-                    .map(p -> (Phase) p)
+                    .map(Phase.class::cast)
                     .findFirst();
         }
 

@@ -105,6 +105,11 @@ sortpom:sort
       scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST. The
       list can be separated by ',;:'
 
+    sortExecutions (Default: false)
+      User property: sort.sortExecutions
+      Should the Maven pom execution sections be sorted by phase and then
+      alphabetically.
+
     sortModules (Default: false)
       User property: sort.sortModules
       Should the Maven pom sub modules be sorted alphabetically.
@@ -196,6 +201,11 @@ sortpom:verify
       scope,groupId,artifactId. If scope is specified in the list then the
       scope ranking is COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST. The
       list can be separated by ',;:'
+
+    sortExecutions (Default: false)
+      User property: sort.sortExecutions
+      Should the Maven pom execution sections be sorted by phase and then
+      alphabetically.
 
     sortModules (Default: false)
       User property: sort.sortModules

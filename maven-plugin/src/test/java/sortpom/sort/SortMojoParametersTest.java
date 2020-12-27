@@ -138,6 +138,11 @@ class SortMojoParametersTest {
     }
 
     @Test
+    void parameterSortExecutionsShouldEndUpInWrapperFactoryImpl() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortExecutions", elementWrapperCreator);
+    }
+
+    @Test
     void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", elementWrapperCreator);
     }
@@ -162,8 +167,8 @@ class SortMojoParametersTest {
             throw new RuntimeException(e);
         }
 
-        for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
-            Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
+        for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
+            Object actual = new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
             assertThat(actual, is(equalTo(parameterValue)));
         }
@@ -179,8 +184,8 @@ class SortMojoParametersTest {
             throw new RuntimeException(e);
         }
 
-        for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
-            Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
+        for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
+            boolean actual = (boolean) new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
             assertThat(actual, is(equalTo(true)));
         }

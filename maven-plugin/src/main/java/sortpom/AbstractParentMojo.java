@@ -116,6 +116,12 @@ abstract class AbstractParentMojo extends AbstractMojo {
     boolean sortModules;
 
     /**
+     * Should the Maven pom execution sections be sorted by phase and then alphabetically.
+     */
+    @Parameter(property = "sort.sortExecutions", defaultValue = "false")
+    boolean sortExecutions;
+
+    /**
      * Set this to 'true' to bypass sortpom plugin
      */
     @Parameter(property = "sort.skip", defaultValue = "false")

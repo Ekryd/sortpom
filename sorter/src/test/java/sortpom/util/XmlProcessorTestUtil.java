@@ -23,11 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author bjorn
- * @since 2012-06-10
+ * Test utility
  */
 public class XmlProcessorTestUtil {
-    private boolean sortAlfabeticalOnly = false;
+    private boolean sortAlphabeticalOnly = false;
     private boolean keepBlankLines = false;
     private boolean indentBlankLines = false;
     private String predefinedSortOrder = "default_0_4_0";
@@ -81,7 +80,7 @@ public class XmlProcessorTestUtil {
                 .setFormatting(lineSeparator, expandEmptyElements, true, keepBlankLines)
                 .setIndent(2, indentBlankLines)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
-                .setSortEntities("", "", false, false).build();
+                .setSortEntities("", "", false, false, false).build();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
 
         final FileUtil fileUtil = new FileUtil();
@@ -95,7 +94,7 @@ public class XmlProcessorTestUtil {
         xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(pluginParameters);
 
-        if (sortAlfabeticalOnly) {
+        if (sortAlphabeticalOnly) {
             wrapperFactory = new WrapperFactory() {
 
                 @Override
@@ -121,8 +120,8 @@ public class XmlProcessorTestUtil {
         xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
     }
 
-    public XmlProcessorTestUtil sortAlfabeticalOnly() {
-        sortAlfabeticalOnly = true;
+    public XmlProcessorTestUtil sortAlphabeticalOnly() {
+        sortAlphabeticalOnly = true;
         return this;
     }
 

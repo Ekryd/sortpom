@@ -16,10 +16,6 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author bjorn
- * @since 2012-06-13
- */
 class ElementToStringTest {
     @Test
     void testToString() throws Exception {
@@ -34,7 +30,7 @@ class ElementToStringTest {
                 .setFormatting("\r\n", true, true, true)
                 .setIndent(2, false)
                 .setSortOrder("default_0_4_0.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();
+                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true, true).build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

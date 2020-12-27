@@ -270,7 +270,7 @@ HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <executions [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
           children=
           HierarchyWrapper{
-            elementContent=SortedWrapper{element=[Element: <execution [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+            elementContent=ExecutionSortedWrapper{phase=PRE_SITE, id='show-plugin-versions'}
             children=
             HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <id [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
@@ -378,7 +378,7 @@ HierarchyWrapper{
           elementContent=SortedWrapper{element=[Element: <executions [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
           children=
           HierarchyWrapper{
-            elementContent=SortedWrapper{element=[Element: <execution [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+            elementContent=ExecutionSortedWrapper{phase=VALIDATE, id='copy-resources'}
             children=
             HierarchyWrapper{
               elementContent=SortedWrapper{element=[Element: <id [Namespace: http://maven.apache.org/POM/4.0.0]/>]}

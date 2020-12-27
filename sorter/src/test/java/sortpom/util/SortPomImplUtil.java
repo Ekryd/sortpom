@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/** Test utility to enter sort parameters */
 public class SortPomImplUtil {
 
     private TestHandler testHandler;
@@ -22,6 +23,7 @@ public class SortPomImplUtil {
     private String sortPlugins = "";
     private boolean sortProperties = false;
     private boolean sortModules = false;
+    private boolean sortExecutions = false;
     private String predefinedSortOrder = "";
     private String lineSeparator = "\r\n";
     private String testPomFileName = "src/test/resources/testpom.xml";
@@ -172,6 +174,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil sortExecutions() {
+        sortExecutions = true;
+        return this;
+    }
+
     public SortPomImplUtil defaultOrderFileName(String defaultOrderFileName) {
         this.defaultOrderFileName = defaultOrderFileName;
         return this;
@@ -235,7 +242,7 @@ public class SortPomImplUtil {
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
+                .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail)
                 .setTriggers(ignoreLineSeparators)

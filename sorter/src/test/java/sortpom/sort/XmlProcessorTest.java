@@ -32,7 +32,7 @@ class XmlProcessorTest {
     @Test
     final void testSortXmlFullToAlfabetical() throws Exception {
         XmlProcessorTestUtil.create()
-                .sortAlfabeticalOnly()
+                .sortAlphabeticalOnly()
                 .testInputAndExpected(
                         "src/test/resources/full_unsorted_input.xml", "src/test/resources/full_alfa_input.xml");
     }

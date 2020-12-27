@@ -14,10 +14,6 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author bjorn
- * @since 2018-04-12
- */
 class CustomSortOrderFileTest {
     @Test
     void compareDefaultSortOrderFileToString() throws IOException, JDOMException {
@@ -32,7 +28,7 @@ class CustomSortOrderFileTest {
                 .setFormatting("\r\n", true, true, true)
                 .setIndent(2, false)
                 .setSortOrder("src/test/resources/sortOrderFiles/with_newline_tags.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true).build();
+                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", true, true, true).build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

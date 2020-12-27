@@ -19,6 +19,7 @@ public class PluginParameters {
     public final DependencySortOrder sortPlugins;
     public final boolean sortProperties;
     public final boolean sortModules;
+    public final boolean sortExecutions;
     public final boolean keepBlankLines;
     public final boolean indentBlankLines;
     public final VerifyFailType verifyFailType;
@@ -29,7 +30,7 @@ public class PluginParameters {
                              LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean spaceBeforeCloseEmptyElement, boolean keepBlankLines,
                              String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
                              DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, boolean sortModules,
-                             VerifyFailType verifyFailType, boolean ignoreLineSeparators, boolean keepTimestamp) {
+                             boolean sortExecutions, VerifyFailType verifyFailType, boolean ignoreLineSeparators, boolean keepTimestamp) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
@@ -45,6 +46,7 @@ public class PluginParameters {
         this.sortPlugins = sortPlugins;
         this.sortProperties = sortProperties;
         this.sortModules = sortModules;
+        this.sortExecutions = sortExecutions;
         this.keepBlankLines = keepBlankLines;
         this.indentBlankLines = indentBlankLines;
         this.verifyFailType = verifyFailType;
@@ -75,6 +77,7 @@ public class PluginParameters {
         private DependencySortOrder sortPlugins;
         private boolean sortProperties;
         private boolean sortModules;
+        private boolean sortExecutions;
         private boolean keepBlankLines;
         private VerifyFailType verifyFailType;
         private boolean ignoreLineSeparators;
@@ -132,11 +135,12 @@ public class PluginParameters {
 
         /** Sets if any additional pom file elements should be sorted */
         public Builder setSortEntities(final String sortDependencies, final String sortPlugins,
-                                       final boolean sortProperties, final boolean sortModules) {
+                                       final boolean sortProperties, final boolean sortModules, boolean sortExecutions) {
             this.sortDependencies = new DependencySortOrder(sortDependencies);
             this.sortPlugins = new DependencySortOrder(sortPlugins);
             this.sortProperties = sortProperties;
             this.sortModules = sortModules;
+            this.sortExecutions = sortExecutions;
             return this;
         }
 
@@ -157,7 +161,7 @@ public class PluginParameters {
             return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,
                     encoding, lineSeparatorUtil, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines, indentCharacters, indentBlankLines,
                     predefinedSortOrder, customSortOrderFile,
-                    sortDependencies, sortPlugins, sortProperties, sortModules,
+                    sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions,
                     verifyFailType, ignoreLineSeparators, keepTimestamp);
         }
     }

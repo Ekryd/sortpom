@@ -32,7 +32,7 @@ public class SortMojo extends AbstractParentMojo {
                     .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
                     .setIndent(nrOfIndentSpace, indentBlankLines)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules)
+                    .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions)
                     .setTriggers(ignoreLineSeparators)
                     .build();
 

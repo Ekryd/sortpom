@@ -17,15 +17,15 @@ interface Phase {
         if (o2 == null) {
             return 1;
         }
-        if (o1 instanceof OtherPhase) {
-            if (o2 instanceof OtherPhase) {
-                return ((OtherPhase) o1).text.compareTo(((OtherPhase) o2).text);
+        if (o1 instanceof NonStandardPhase) {
+            if (o2 instanceof NonStandardPhase) {
+                return o1.getText().compareTo(o2.getText());
             } else {
                 return 1;
             }
         }
         StandardPhase so1 = (StandardPhase) o1;
-        if (o2 instanceof OtherPhase) {
+        if (o2 instanceof NonStandardPhase) {
             return -1;
         }
         return so1.compareTo((StandardPhase) o2);
@@ -33,13 +33,13 @@ interface Phase {
 
     static Phase getPhase(String name) {
         Optional<Phase> phase = StandardPhase.getPhase(name);
-        return phase.orElse(new OtherPhase(name));
+        return phase.orElse(new NonStandardPhase(name));
     }
 
-    class OtherPhase implements Phase {
+    class NonStandardPhase implements Phase {
         private final String text;
 
-        public OtherPhase(String text) {
+        public NonStandardPhase(String text) {
             this.text = text.toLowerCase();
         }
 
@@ -50,7 +50,7 @@ interface Phase {
 
         @Override
         public String toString() {
-            return "OtherPhase{" +
+            return "NonStandardPhase{" +
                     "text='" + text + '\'' +
                     '}';
         }

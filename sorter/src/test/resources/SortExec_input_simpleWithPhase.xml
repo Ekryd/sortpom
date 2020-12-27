@@ -32,6 +32,9 @@
                         <phase>package</phase>
                     </execution>
                     <execution>
+                        <id>a</id>
+                    </execution>
+                    <execution>
                         <id>c</id>
                         <phase>compile</phase>
                     </execution>
@@ -41,9 +44,6 @@
                     </execution>
                     <execution>
                         <id>c</id>
-                    </execution>
-                    <execution>
-                        <id>a</id>
                     </execution>
                     <execution>
                         <goals>nope</goals>

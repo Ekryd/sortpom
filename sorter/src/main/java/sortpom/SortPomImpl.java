@@ -125,7 +125,7 @@ public class SortPomImpl {
 
     private boolean pomFileIsSorted(String xml, String sortedXml) {
         if (ignoreLineSeparators) {
-            return xml.replaceAll("\\n|\\r", "").equals(sortedXml.replaceAll("\\n|\\r", ""));
+            return xml.replaceAll("[\\n\\r]", "").equals(sortedXml.replaceAll("[\\n\\r]", ""));
         } else {
             return xml.equals(sortedXml);
         }

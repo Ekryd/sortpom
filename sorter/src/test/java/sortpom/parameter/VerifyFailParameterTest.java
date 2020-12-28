@@ -2,6 +2,9 @@ package sortpom.parameter;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import sortpom.exception.FailureException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,40 +42,18 @@ class VerifyFailParameterTest {
         assertEquals(VerifyFailType.SORT, pluginParameters.verifyFailType);
     }
 
-    @Test
-    void nullValueIsNotOk() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = "gurka")
+    void verifyFailFaultyValues(String value) {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setVerifyFail(null)
+                .setVerifyFail(value)
                 .build();
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
-        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: null")));
-    }
-
-    @Test
-    void emptyValueIsNotOk() {
-
-        final Executable testMethod = () -> PluginParameters.builder()
-                .setVerifyFail("")
-                .build();
-
-        final FailureException thrown = assertThrows(FailureException.class, testMethod);
-
-        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: ")));
-    }
-
-    @Test
-    void wrongValueIsNotOk() {
-
-        final Executable testMethod = () -> PluginParameters.builder()
-                .setVerifyFail("gurka")
-                .build();
-
-        final FailureException thrown = assertThrows(FailureException.class, testMethod);
-
-        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: gurka")));
+        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: " + value)));
     }
 
 }

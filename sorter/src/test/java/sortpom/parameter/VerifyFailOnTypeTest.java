@@ -13,33 +13,35 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class VerifyFailParameterTest {
-
+/**
+ *
+ */
+class VerifyFailOnTypeTest {
     @Test
-    void stopIgnoreCaseValueIsOk() {
+    void xmlElementsIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setVerifyFail("sToP", "strict")
+                .setVerifyFail("STOP", "XMLElements")
                 .build();
 
-        assertEquals(VerifyFailType.STOP, pluginParameters.verifyFailType);
+        assertEquals(VerifyFailOnType.XMLELEMENTS, pluginParameters.verifyFailOn);
     }
 
     @Test
-    void warnIgnoreCaseValueIsOk() {
+    void linesIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setVerifyFail("wArN", "strict")
+                .setVerifyFail("STOP", "liNES")
                 .build();
 
-        assertEquals(VerifyFailType.WARN, pluginParameters.verifyFailType);
+        assertEquals(VerifyFailOnType.LINES, pluginParameters.verifyFailOn);
     }
 
     @Test
-    void sortIgnoreCaseValueIsOk() {
+    void strictIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setVerifyFail("sOrT", "strict")
+                .setVerifyFail("STOP", "stRIct")
                 .build();
 
-        assertEquals(VerifyFailType.SORT, pluginParameters.verifyFailType);
+        assertEquals(VerifyFailOnType.STRICT, pluginParameters.verifyFailOn);
     }
 
     @ParameterizedTest
@@ -48,12 +50,13 @@ class VerifyFailParameterTest {
     void verifyFailFaultyValues(String value) {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setVerifyFail(value, "strict")
+                .setVerifyFail("STOP", value)
                 .build();
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
-        assertThat(thrown.getMessage(), is(equalTo("verifyFail must be either SORT, WARN or STOP. Was: " + value)));
+        assertThat(thrown.getMessage(), is(equalTo("verifyFailOn must be either xmlElements, lines or strict. Was: " + value)));
     }
+
 
 }

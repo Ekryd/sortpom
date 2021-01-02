@@ -23,6 +23,7 @@ public class PluginParameters {
     public final boolean keepBlankLines;
     public final boolean indentBlankLines;
     public final VerifyFailType verifyFailType;
+    public final VerifyFailOnType verifyFailOn;
     public final boolean ignoreLineSeparators;
     public final boolean keepTimestamp;
 
@@ -30,7 +31,7 @@ public class PluginParameters {
                              LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean spaceBeforeCloseEmptyElement, boolean keepBlankLines,
                              String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
                              DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, boolean sortModules,
-                             boolean sortExecutions, VerifyFailType verifyFailType, boolean ignoreLineSeparators, boolean keepTimestamp) {
+                             boolean sortExecutions, VerifyFailType verifyFailType, VerifyFailOnType verifyFailOn, boolean ignoreLineSeparators, boolean keepTimestamp) {
         this.pomFile = pomFile;
         this.createBackupFile = createBackupFile;
         this.backupFileExtension = backupFileExtension;
@@ -50,6 +51,7 @@ public class PluginParameters {
         this.keepBlankLines = keepBlankLines;
         this.indentBlankLines = indentBlankLines;
         this.verifyFailType = verifyFailType;
+        this.verifyFailOn = verifyFailOn;
         this.ignoreLineSeparators = ignoreLineSeparators;
         this.keepTimestamp = keepTimestamp;
     }
@@ -80,6 +82,7 @@ public class PluginParameters {
         private boolean sortExecutions;
         private boolean keepBlankLines;
         private VerifyFailType verifyFailType;
+        private VerifyFailOnType verifyFailOn;
         private boolean ignoreLineSeparators;
         private boolean keepTimestamp;
 
@@ -145,8 +148,9 @@ public class PluginParameters {
         }
 
         /** Sets the verify operation behaviour */
-        public Builder setVerifyFail(String verifyFail) {
+        public Builder setVerifyFail(String verifyFail, String verifyFailOn) {
             this.verifyFailType = VerifyFailType.fromString(verifyFail);
+            this.verifyFailOn = VerifyFailOnType.fromString(verifyFailOn);
             return this;
         }
 
@@ -162,7 +166,8 @@ public class PluginParameters {
                     encoding, lineSeparatorUtil, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines, indentCharacters, indentBlankLines,
                     predefinedSortOrder, customSortOrderFile,
                     sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions,
-                    verifyFailType, ignoreLineSeparators, keepTimestamp);
+                    verifyFailType, verifyFailOn, 
+                    ignoreLineSeparators, keepTimestamp);
         }
     }
 

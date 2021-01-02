@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sortpom>
+  <file filename="@POM_PATH@">
+    <violation>The xml element &lt;modelVersion&gt; should be placed before &lt;name&gt;</violation>
+  </file>
+</sortpom>

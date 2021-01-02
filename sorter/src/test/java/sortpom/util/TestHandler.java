@@ -2,7 +2,7 @@ package sortpom.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import sortpom.SortPomImpl;
+import sortpom.SortPomService;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class TestHandler {
 
-    private final SortPomImpl sortPomImpl = new SortPomImpl();
+    private final SortPomService sortPomImpl = new SortPomService();
 
     private final List<String> infoLogger = new ArrayList<>();
     private final String inputResourceFileName;
@@ -194,7 +194,7 @@ class TestHandler {
     }
 
     private void performVerifyWithSort() {
-        SortPomImpl sortPomImpl = new SortPomImpl();
+        SortPomService sortPomImpl = new SortPomService();
         sortPomImpl.setup(
                 createDummyLog(),
                 pluginParameters);

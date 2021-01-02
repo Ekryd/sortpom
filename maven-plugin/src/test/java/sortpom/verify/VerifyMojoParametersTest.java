@@ -4,7 +4,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
-import sortpom.SortPomImpl;
+import sortpom.SortPomService;
 import sortpom.VerifyMojo;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.VerifyFailType;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.mock;
 class VerifyMojoParametersTest {
     private final File pomFile = mock(File.class);
 
-    private SortPomImpl sortPomImpl;
+    private SortPomService sortPomImpl;
     private FileUtil fileUtil;
     private VerifyMojo verifyMojo;
     private ElementWrapperCreator elementWrapperCreator;
@@ -39,7 +39,7 @@ class VerifyMojoParametersTest {
         new ReflectionHelper(verifyMojo).setField("encoding", "UTF-8");
         new ReflectionHelper(verifyMojo).setField("verifyFail", "SORT");
 
-        sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
+        sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomService.class);
         ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
         fileUtil = sortPomImplHelper.getField(FileUtil.class);
         xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);

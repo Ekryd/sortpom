@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 import sortpom.SortMojo;
-import sortpom.SortPomImpl;
+import sortpom.SortPomService;
 import sortpom.XmlOutputGenerator;
 import sortpom.util.FileUtil;
 import sortpom.util.WriterFactory;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.mock;
 class SortMojoParametersTest {
     private final File pomFile = mock(File.class);
 
-    private SortPomImpl sortPomImpl;
+    private SortPomService sortPomImpl;
     private FileUtil fileUtil;
     private SortMojo sortMojo;
     private ElementWrapperCreator elementWrapperCreator;
@@ -37,7 +37,7 @@ class SortMojoParametersTest {
         new ReflectionHelper(sortMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");
 
-        sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
+        sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomService.class);
         ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
         fileUtil = sortPomImplHelper.getField(FileUtil.class);
         xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);

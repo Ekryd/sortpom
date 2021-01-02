@@ -22,7 +22,7 @@ import java.util.function.Supplier;
  *
  * @author Bjorn Ekryd
  */
-public class SortPomImpl {
+public class SortPomService {
 
     private static final String TEXT_FILE_NOT_SORTED = "The file %s is not sorted";
     private final FileUtil fileUtil;
@@ -45,7 +45,7 @@ public class SortPomImpl {
      * Instantiates a new sort pom mojo and initiates dependencies to other
      * classes.
      */
-    public SortPomImpl() {
+    public SortPomService() {
         fileUtil = new FileUtil();
         wrapperFactory = new WrapperFactoryImpl(fileUtil);
         xmlProcessor = new XmlProcessor(wrapperFactory);

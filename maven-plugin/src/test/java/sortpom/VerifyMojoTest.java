@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @since 2012-08-23
  */
 class VerifyMojoTest {
-    private final SortPomImpl sortPom = mock(SortPomImpl.class);
+    private final SortPomService sortPom = mock(SortPomService.class);
     private VerifyMojo verifyMojo;
 
     @BeforeEach

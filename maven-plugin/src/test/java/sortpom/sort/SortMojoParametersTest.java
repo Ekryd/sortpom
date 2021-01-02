@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 import sortpom.SortMojo;
+import sortpom.SortPomImpl;
 import sortpom.SortPomService;
 import sortpom.XmlOutputGenerator;
 import sortpom.util.FileUtil;
@@ -23,7 +24,8 @@ import static org.mockito.Mockito.mock;
 class SortMojoParametersTest {
     private final File pomFile = mock(File.class);
 
-    private SortPomService sortPomImpl;
+    private SortPomImpl sortPomImpl;
+    private SortPomService sortPomService;
     private FileUtil fileUtil;
     private SortMojo sortMojo;
     private ElementWrapperCreator elementWrapperCreator;
@@ -37,11 +39,12 @@ class SortMojoParametersTest {
         new ReflectionHelper(sortMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");
 
-        sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomService.class);
-        ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
-        fileUtil = sortPomImplHelper.getField(FileUtil.class);
-        xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);
-        WrapperFactoryImpl wrapperFactoryImpl = sortPomImplHelper.getField(WrapperFactoryImpl.class);
+        sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
+        sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
+        ReflectionHelper sortPomServiceHelper = new ReflectionHelper(sortPomService);
+        fileUtil = sortPomServiceHelper.getField(FileUtil.class);
+        xmlOutputGenerator = sortPomServiceHelper.getField(XmlOutputGenerator.class);
+        WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
         writerFactory = new ReflectionHelper(xmlOutputGenerator).getField(WriterFactory.class);
@@ -64,12 +67,12 @@ class SortMojoParametersTest {
 
     @Test
     void backupFileExtensionParameter() {
-        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomImpl, fileUtil);
+        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomService, fileUtil);
     }
 
     @Test
     void encodingParameter() {
-        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlOutputGenerator);
+        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomService, xmlOutputGenerator);
     }
 
     @Test

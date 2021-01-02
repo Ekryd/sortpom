@@ -235,6 +235,11 @@ sortpom:verify
       What should happen if verification fails. Can be either 'sort', 'warn' or
       'stop'
 
+    verifyFailOn (Default: xmlElements)
+      User property: sort.verifyFailOn
+      What kind of differences should trigger verify failure. Can be either
+      'xmlElements', 'lines' or 'strict'
+
     violationFilename
       User property: sort.violationFilename
       Saves the verification failure to an external xml file, recommended

@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @since 2012-08-23
  */
 class VerifyMojoTest {
-    private final SortPomService sortPom = mock(SortPomService.class);
+    private final SortPomImpl sortPom = mock(SortPomImpl.class);
     private VerifyMojo verifyMojo;
 
     @BeforeEach
@@ -34,6 +34,7 @@ class VerifyMojoTest {
         mojoHelper.setField(sortPom);
         mojoHelper.setField("lineSeparator", "\n");
         mojoHelper.setField("verifyFail", "SORT");
+        mojoHelper.setField("verifyFailOn", "xmlElements");
     }
 
     @Test

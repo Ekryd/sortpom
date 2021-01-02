@@ -4,6 +4,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
+import sortpom.SortPomImpl;
 import sortpom.SortPomService;
 import sortpom.VerifyMojo;
 import sortpom.XmlOutputGenerator;
@@ -24,7 +25,8 @@ import static org.mockito.Mockito.mock;
 class VerifyMojoParametersTest {
     private final File pomFile = mock(File.class);
 
-    private SortPomService sortPomImpl;
+    private SortPomImpl sortPomImpl;
+    private SortPomService sortPomService;
     private FileUtil fileUtil;
     private VerifyMojo verifyMojo;
     private ElementWrapperCreator elementWrapperCreator;
@@ -38,12 +40,14 @@ class VerifyMojoParametersTest {
         new ReflectionHelper(verifyMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(verifyMojo).setField("encoding", "UTF-8");
         new ReflectionHelper(verifyMojo).setField("verifyFail", "SORT");
+        new ReflectionHelper(verifyMojo).setField("verifyFailOn", "xmlElements");
 
-        sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomService.class);
-        ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
-        fileUtil = sortPomImplHelper.getField(FileUtil.class);
-        xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);
-        WrapperFactoryImpl wrapperFactoryImpl = sortPomImplHelper.getField(WrapperFactoryImpl.class);
+        sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
+        sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
+        ReflectionHelper sortPomServiceHelper = new ReflectionHelper(sortPomService);
+        fileUtil = sortPomServiceHelper.getField(FileUtil.class);
+        xmlOutputGenerator = sortPomServiceHelper.getField(XmlOutputGenerator.class);
+        WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
         writerFactory = new ReflectionHelper(xmlOutputGenerator).getField(WriterFactory.class);
@@ -66,17 +70,17 @@ class VerifyMojoParametersTest {
 
     @Test
     void backupFileExtensionParameter() {
-        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomImpl, fileUtil);
+        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomService, fileUtil);
     }
 
     @Test
     void violationFilenameParameterShouldBeFound() {
-        testParameterMoveFromMojoToRestOfApplication("violationFilename", "violets.are", sortPomImpl, fileUtil);
+        testParameterMoveFromMojoToRestOfApplication("violationFilename", "violets.are", sortPomService, fileUtil);
     }
 
     @Test
     void encodingParameter() {
-        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlOutputGenerator);
+        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomService, xmlOutputGenerator);
     }
 
     @Test

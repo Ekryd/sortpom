@@ -2,6 +2,8 @@ package sortpom.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import refutils.ReflectionHelper;
+import sortpom.SortPomImpl;
 import sortpom.SortPomService;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
@@ -10,6 +12,8 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class TestHandler {
 
-    private final SortPomService sortPomImpl = new SortPomService();
+    private final SortPomImpl sortPomImpl = new SortPomImpl();
 
     private final List<String> infoLogger = new ArrayList<>();
     private final String inputResourceFileName;
@@ -194,7 +198,7 @@ class TestHandler {
     }
 
     private void performVerifyWithSort() {
-        SortPomService sortPomImpl = new SortPomService();
+        SortPomImpl sortPomImpl = new SortPomImpl();
         sortPomImpl.setup(
                 createDummyLog(),
                 pluginParameters);
@@ -202,11 +206,14 @@ class TestHandler {
         sortPomImpl.verifyPom();
     }
 
-    private XmlOrderedResult isVerifyOk() {
+    private XmlOrderedResult isVerifyOk() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         sortPomImpl.setup(
                 createDummyLog(),
                 pluginParameters);
-        return sortPomImpl.isPomElementsSorted();
+        SortPomService sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
+        Method isPomElementsSorted = SortPomService.class.getDeclaredMethod("isPomElementsSorted");
+        isPomElementsSorted.setAccessible(true);
+        return (XmlOrderedResult) isPomElementsSorted.invoke(sortPomService);
     }
 
     private void removeOldTemporaryFiles() {

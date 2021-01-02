@@ -133,7 +133,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
     @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
     boolean keepTimestamp;
 
-    final SortPomService sortPomImpl = new SortPomService();
+    final SortPomImpl sortPomImpl = new SortPomImpl();
 
     /**
      * Execute plugin.

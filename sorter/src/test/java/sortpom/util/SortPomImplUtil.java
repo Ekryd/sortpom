@@ -39,6 +39,7 @@ public class SortPomImplUtil {
     private String encoding = "UTF-8";
     private File testpom;
     private String violationFile;
+    private boolean createBackupFile = true;
 
     private SortPomImplUtil() {
     }
@@ -237,6 +238,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil createBackupFile(boolean createBackupFile) {
+        this.createBackupFile = createBackupFile;
+        return this;
+    }
+
     private void setup() {
         testpom = new File(testPomFileName);
     }
@@ -244,7 +250,7 @@ public class SortPomImplUtil {
     private PluginParameters getPluginParameters() {
         return PluginParameters.builder()
                 .setPomFile(testpom)
-                .setFileOutput(true, testPomBackupExtension, violationFile, keepTimestamp)
+                .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, true, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines)

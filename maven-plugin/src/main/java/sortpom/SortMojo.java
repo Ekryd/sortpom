@@ -3,7 +3,6 @@ package sortpom;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.apache.maven.plugins.annotations.Parameter;
 import sortpom.exception.ExceptionConverter;
 import sortpom.logger.MavenLogger;
 import sortpom.parameter.PluginParameters;
@@ -16,12 +15,6 @@ import sortpom.parameter.PluginParameters;
 @Mojo(name = "sort", threadSafe = true, defaultPhase = LifecyclePhase.VALIDATE)
 @SuppressWarnings({"UnusedDeclaration"})
 public class SortMojo extends AbstractParentMojo {
-
-    /**
-     * Ignore line separators when comparing current POM with sorted one
-     */
-    @Parameter(property = "sort.ignoreLineSeparators", defaultValue = "true")
-    private boolean ignoreLineSeparators;
 
     public void setup() throws MojoFailureException {
         new ExceptionConverter(() -> {

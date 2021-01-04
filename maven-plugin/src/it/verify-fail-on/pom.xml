@@ -25,8 +25,8 @@
             </goals>
             <configuration>
               <violationFilename>target/sortpom_reports/violation.xml</violationFilename>
-              <verifyFail>warn</verifyFail>
-              <verifyFailOn>lines</verifyFailOn>
+              <verifyFail>stop</verifyFail>
+              <verifyFailOn>Strict</verifyFailOn>
             </configuration>
           </execution>
         </executions>

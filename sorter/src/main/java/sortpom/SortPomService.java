@@ -10,10 +10,7 @@ import sortpom.util.FileUtil;
 import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.util.function.Supplier;
+import java.io.*;
 
 /**
  * The implementation of the Mojo (Maven plugin) that sorts the pom file for a
@@ -22,7 +19,6 @@ import java.util.function.Supplier;
  * @author Bjorn Ekryd
  */
 public class SortPomService {
-
     private final FileUtil fileUtil;
     private final XmlProcessor xmlProcessor;
     private final WrapperFactoryImpl wrapperFactory;
@@ -35,13 +31,17 @@ public class SortPomService {
     private String backupFileExtension;
     private boolean ignoreLineSeparators;
     private String violationFilename;
+    private boolean createBackupFile;
+
+    private String originalXml;
+    private String sortedXml;
 
     /**
      * Instantiates a new sort pom mojo and initiates dependencies to other
      * classes.
      */
-    public SortPomService(FileUtil fileUtil) {
-        this.fileUtil = fileUtil;
+    public SortPomService() {
+        this.fileUtil = new FileUtil();
         this.wrapperFactory = new WrapperFactoryImpl(fileUtil);
         this.xmlProcessor = new XmlProcessor(wrapperFactory);
         this.xmlProcessingInstructionParser = new XmlProcessingInstructionParser();
@@ -60,47 +60,79 @@ public class SortPomService {
         this.backupFileExtension = pluginParameters.backupFileExtension;
         this.ignoreLineSeparators = pluginParameters.ignoreLineSeparators;
         this.violationFilename = pluginParameters.violationFilename;
+        this.createBackupFile = pluginParameters.createBackupFile;
     }
 
-    /**
-     * Sorts the incoming xml.
-     *
-     * @param originalXml the xml that should be sorted.
-     * @return the sorted xml
-     */
-    String sortXml(final String originalXml) {
+    /** Fetches and sorts the original xml. */
+    void sortOriginalXml() {
+        originalXml = fileUtil.getPomFileContent();
         xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
         String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
 
-        insertXmlInXmlProcessor(xml, () -> "Could not sort " + pomFile.getAbsolutePath() + " content: ");
+        try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
+            xmlProcessor.setOriginalXml(originalXmlInputStream);
+        } catch (JDOMException | IOException e) {
+            throw new FailureException("Could not sort " + pomFile.getAbsolutePath() + " content: " + xml, e);
+        }
         xmlProcessor.sortXml();
-        Document newDocument = xmlProcessor.getNewDocument();
+    }
 
-        String sortedXml = xmlOutputGenerator.getSortedXml(newDocument);
+    /** Generates the sorted XML */
+    void generateSortedXml() {
+        if (sortedXml != null) {
+            return;
+        }
+        sortedXml = xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
         if (xmlProcessingInstructionParser.existsIgnoredSections()) {
             sortedXml = xmlProcessingInstructionParser.revertIgnoredSections(sortedXml);
         }
-        return sortedXml;
     }
 
-    boolean pomFileIsSorted(String xml, String sortedXml) {
-        if (ignoreLineSeparators) {
-            return xml.replaceAll("[\\n\\r]", "").equals(sortedXml.replaceAll("[\\n\\r]", ""));
-        } else {
-            return xml.equals(sortedXml);
-        }
-    }
-
-    /**
-     * Creates the backup file for pom.
-     */
+    /** Creates the backup file for pom. */
     void createBackupFile() {
+        if (!createBackupFile) {
+            return;
+        }
         if (backupFileExtension.trim().length() == 0) {
             throw new FailureException("Could not create backup file, extension name was empty");
         }
         fileUtil.backupFile();
         log.info(String.format("Saved backup of %s to %s%s", pomFile.getAbsolutePath(),
                 pomFile.getAbsolutePath(), backupFileExtension));
+    }
+
+    void saveGeneratedXml() {
+        fileUtil.savePomFile(sortedXml);
+    }
+
+
+    XmlOrderedResult isOriginalXmlStringSorted() {
+        int line = 1;
+        try (BufferedReader originalXmlReader = new BufferedReader(new StringReader(originalXml));
+             BufferedReader sortedXmlReader = new BufferedReader(new StringReader(sortedXml))) {
+            String originalXmlLine, sortedXmlLine;
+
+            while ((originalXmlLine = originalXmlReader.readLine()) != null &
+                    (sortedXmlLine = sortedXmlReader.readLine()) != null) {
+                if (!originalXmlLine.equals(sortedXmlLine)) {
+                    return XmlOrderedResult.lineDiffers(line, "'" + sortedXmlLine + "'");
+                }
+                line++;
+            }
+            if (originalXmlLine != null || sortedXmlLine != null) {
+                return XmlOrderedResult.lineDiffers(line, sortedXmlLine == null ? "empty" : "'" + sortedXmlLine + "'");
+            }
+        } catch (IOException ioex) {
+            throw new FailureException(ioex.getMessage(), ioex);
+        }
+        if (ignoreLineSeparators || originalXml.equals(sortedXml)) {
+            return XmlOrderedResult.ordered();
+        }
+        return XmlOrderedResult.lineSeparatorCharactersDiffer();
+    }
+
+    XmlOrderedResult isOriginalXmlElementsSorted() {
+        return xmlProcessor.isXmlOrdered();
     }
 
     void saveViolationFile(XmlOrderedResult xmlOrderedResult) {
@@ -110,25 +142,6 @@ public class SortPomService {
             Document document = violationXmlProcessor.createViolationXmlContent(pomFile, xmlOrderedResult.getErrorMessage());
             String violationXmlString = xmlOutputGenerator.getSortedXml(document);
             fileUtil.saveViolationFile(violationXmlString);
-        }
-    }
-
-    XmlOrderedResult isPomElementsSorted() {
-        String originalXml = fileUtil.getPomFileContent();
-        xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
-        String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
-
-        insertXmlInXmlProcessor(xml, () -> "Could not verify " + pomFile.getAbsolutePath() + " content: ");
-        xmlProcessor.sortXml();
-
-        return xmlProcessor.isXmlOrdered();
-    }
-
-    private void insertXmlInXmlProcessor(String xml, Supplier<String> errorMsg) {
-        try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
-            xmlProcessor.setOriginalXml(originalXmlInputStream);
-        } catch (JDOMException | IOException e) {
-            throw new FailureException(errorMsg.get() + xml, e);
         }
     }
 

@@ -5,7 +5,8 @@ import sortpom.exception.FailureException;
 import java.util.Arrays;
 
 public enum VerifyFailOnType {
-    XMLELEMENTS, LINES, STRICT;
+    XMLELEMENTS,
+    STRICT;
 
     static VerifyFailOnType fromString(String verifyFailOn) {
         if (verifyFailOn == null) {

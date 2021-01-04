@@ -60,7 +60,7 @@ class VerifyMojoParametersTest {
 
     @Test
     void createBackupFileParameter() {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomImpl);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomService);
     }
 
     @Test

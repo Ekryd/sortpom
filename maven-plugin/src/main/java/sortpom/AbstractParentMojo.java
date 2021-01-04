@@ -70,6 +70,12 @@ abstract class AbstractParentMojo extends AbstractMojo {
     int nrOfIndentSpace;
 
     /**
+     * Ignore line separators when comparing current POM with sorted one
+     */
+    @Parameter(property = "sort.ignoreLineSeparators", defaultValue = "true")
+    boolean ignoreLineSeparators;
+
+    /**
      * Should blank lines (if preserved) have indentation.
      */
     @Parameter(property = "sort.indentBlankLines", defaultValue = "false")

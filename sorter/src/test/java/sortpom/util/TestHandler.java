@@ -2,9 +2,7 @@ package sortpom.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import refutils.ReflectionHelper;
 import sortpom.SortPomImpl;
-import sortpom.SortPomService;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
@@ -95,15 +93,17 @@ class TestHandler {
             performVerifyWithSort();
 
             assertTrue(testpom.exists());
-            assertTrue(backupFile.exists());
+            if (pluginParameters.createBackupFile) {
+                assertTrue(backupFile.exists());
 
-            backupFileInputStream = new FileInputStream(backupFile);
-            String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
+                backupFileInputStream = new FileInputStream(backupFile);
+                String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
 
-            originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-            String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
-            assertEquals(expectedBackup, actualBackup);
-
+                originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
+                String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
+                assertEquals(expectedBackup, actualBackup);
+            }
+            
             actualSortedPomInputStream = new FileInputStream(testpom);
             String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
 
@@ -123,7 +123,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-            assertFalse(backupFile.exists(), "No sort expected, backupfile exists");
+            assertFalse(backupFile.exists(), "No sort expected, backup file exists");
 
             actualSortedPomInputStream = new FileInputStream(testpom);
             String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
@@ -210,10 +210,11 @@ class TestHandler {
         sortPomImpl.setup(
                 createDummyLog(),
                 pluginParameters);
-        SortPomService sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
-        Method isPomElementsSorted = SortPomService.class.getDeclaredMethod("isPomElementsSorted");
-        isPomElementsSorted.setAccessible(true);
-        return (XmlOrderedResult) isPomElementsSorted.invoke(sortPomService);
+
+        Method getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
+        getVerificationResult.setAccessible(true);
+
+        return (XmlOrderedResult) getVerificationResult.invoke(sortPomImpl);
     }
 
     private void removeOldTemporaryFiles() {

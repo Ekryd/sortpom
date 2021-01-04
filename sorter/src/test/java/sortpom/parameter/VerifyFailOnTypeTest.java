@@ -27,15 +27,6 @@ class VerifyFailOnTypeTest {
     }
 
     @Test
-    void linesIgnoreCaseValueIsOk() {
-        PluginParameters pluginParameters = PluginParameters.builder()
-                .setVerifyFail("STOP", "liNES")
-                .build();
-
-        assertEquals(VerifyFailOnType.LINES, pluginParameters.verifyFailOn);
-    }
-
-    @Test
     void strictIgnoreCaseValueIsOk() {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setVerifyFail("STOP", "stRIct")

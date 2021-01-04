@@ -24,7 +24,8 @@ public class VerifyMojo extends AbstractParentMojo {
     private String verifyFail;
 
     /**
-     * What kind of differences should trigger verify failure. Can be either 'xmlElements', 'lines' or 'strict'
+     * What kind of differences should trigger verify failure. Can be either 'xmlElements' or 'strict'. Can be combined
+     * with ignoreLineSeparators
      */
     @Parameter(property = "sort.verifyFailOn", defaultValue = "xmlElements")
     private String verifyFailOn;

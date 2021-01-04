@@ -159,6 +159,10 @@ sortpom:verify
       Should empty xml elements be expanded or not. Example:
       <configuration></configuration> or <configuration/>
 
+    ignoreLineSeparators (Default: true)
+      User property: sort.ignoreLineSeparators
+      Ignore line separators when comparing current POM with sorted one
+
     indentBlankLines (Default: false)
       User property: sort.indentBlankLines
       Should blank lines (if preserved) have indentation.
@@ -238,7 +242,7 @@ sortpom:verify
     verifyFailOn (Default: xmlElements)
       User property: sort.verifyFailOn
       What kind of differences should trigger verify failure. Can be either
-      'xmlElements', 'lines' or 'strict'
+      'xmlElements' or 'strict'. Can be combined with ignoreLineSeparators
 
     violationFilename
       User property: sort.violationFilename

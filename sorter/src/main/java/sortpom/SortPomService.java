@@ -107,17 +107,19 @@ public class SortPomService {
 
 
     XmlOrderedResult isOriginalXmlStringSorted() {
-        int line = 1;
         try (BufferedReader originalXmlReader = new BufferedReader(new StringReader(originalXml));
              BufferedReader sortedXmlReader = new BufferedReader(new StringReader(sortedXml))) {
-            String originalXmlLine, sortedXmlLine;
+            String originalXmlLine = originalXmlReader.readLine();
+            String sortedXmlLine = sortedXmlReader.readLine();
+            int line = 1;
 
-            while ((originalXmlLine = originalXmlReader.readLine()) != null &
-                    (sortedXmlLine = sortedXmlReader.readLine()) != null) {
+            while (originalXmlLine != null && sortedXmlLine != null) {
                 if (!originalXmlLine.equals(sortedXmlLine)) {
                     return XmlOrderedResult.lineDiffers(line, "'" + sortedXmlLine + "'");
                 }
                 line++;
+                originalXmlLine = originalXmlReader.readLine();
+                sortedXmlLine = sortedXmlReader.readLine();
             }
             if (originalXmlLine != null || sortedXmlLine != null) {
                 return XmlOrderedResult.lineDiffers(line, sortedXmlLine == null ? "empty" : "'" + sortedXmlLine + "'");

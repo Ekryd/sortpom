@@ -36,6 +36,6 @@ public class TextWrapperCreator {
         if (!keepBlankLines) {
             return false;
         }
-        return content.getText().matches("^\\s*?(\\r|\\n)\\s*$");
+        return content.getText().matches("^\\s*?([\\r\\n])\\s*$");
     }
 }

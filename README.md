@@ -1,6 +1,6 @@
 # Sortpom Maven Plugin ![Icon](https://raw.githubusercontent.com/Ekryd/sortpom/master/misc/Sortpom.png)
 
-[![Build Status](https://travis-ci.org/Ekryd/sortpom.svg?branch=master)](https://travis-ci.org/Ekryd/sortpom)
+[![Build Status](https://circleci.com/gh/Ekryd/sortpom.svg?style=svg)](https://app.circleci.com/pipelines/github/Ekryd/sortpom)
 [![Coverage Status](https://coveralls.io/repos/github/Ekryd/sortpom/badge.svg?branch=master)](https://coveralls.io/github/Ekryd/sortpom?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.ekryd.sortpom%3Asortpom-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.ekryd.sortpom%3Asortpom-parent)
@@ -32,6 +32,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!

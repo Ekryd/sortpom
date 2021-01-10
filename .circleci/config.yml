@@ -3,7 +3,31 @@ version: 2.1
 orbs:
   maven: circleci/maven@0.0.12
 
+shared: &shared
+  steps:
+    - checkout
+    - restore_cache:
+        key: sortpom-cache-{{ checksum "pom.xml" }}
+    - run: mvn dependency:go-offline
+    - save_cache:
+        paths:
+          - ~/.m2
+        key: sortpom-cache--{{ checksum "pom.xml" }}
+    - run: mvn clean install
+      
+jobs:
+  jdk8:
+    docker:
+      - image: circleci/openjdk:8-jdk-stretch
+    <<: *shared
+  jdk11:
+    docker:
+      - image: circleci/openjdk:11-jdk-stretch
+    <<: *shared
+    
 workflows:
-  maven_test:
+  work:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - jdk8
+      - jdk11
+        

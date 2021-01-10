@@ -9,7 +9,7 @@ shared: &shared
     - restore_cache:
         key: sortpom-cache-{{ checksum "pom.xml" }}
     - run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -DskipInvocation=true -B -V
-    - run: mvn integration-test
+    - run: mvn integration-test -B -V
     - save_cache:
         paths:
           - ~/.m2
@@ -28,7 +28,8 @@ jobs:
       - restore_cache:
           key: sortpom-cache-{{ checksum "pom.xml" }}
       - run: mvn clean jacoco:prepare-agent install -DskipTests=true -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
-      - run: mvn integration-test jacoco:report coveralls:report
+      - run: mvn integration-test -B -V
+      - run: mvn jacoco:report coveralls:report -B -V
       - save_cache:
           paths:
             - ~/.m2

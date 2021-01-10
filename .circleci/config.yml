@@ -8,12 +8,11 @@ shared: &shared
     - checkout
     - restore_cache:
         key: sortpom-cache-{{ checksum "pom.xml" }}
-    - run: mvn dependency:go-offline
+    - run: mvn clean install
     - save_cache:
         paths:
           - ~/.m2
         key: sortpom-cache--{{ checksum "pom.xml" }}
-    - run: mvn clean install
       
 jobs:
   jdk8:

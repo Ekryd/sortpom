@@ -28,8 +28,8 @@ jobs:
       - restore_cache:
           key: sortpom-cache-{{ checksum "pom.xml" }}
       - run: mvn clean jacoco:prepare-agent install -DskipTests=true -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
-      - run: mvn integration-test -B -V
-      - run: mvn jacoco:report coveralls:report -B -V
+#      - run: mvn integration-test -B -V
+      - run: mvn jacoco:report coveralls:report -B -V -DrepoToken=$COVERALLS_REPO_TOKEN
       - save_cache:
           paths:
             - ~/.m2

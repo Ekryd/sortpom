@@ -20,6 +20,22 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk-stretch
     <<: *shared
+  jdk12:
+    docker:
+      - image: circleci/openjdk:12-jdk-stretch
+    <<: *shared
+  jdk13:
+    docker:
+      - image: circleci/openjdk:13-jdk-stretch
+    <<: *shared
+  jdk14:
+    docker:
+      - image: circleci/openjdk:14-jdk-stretch
+    <<: *shared
+  jdk15:
+    docker:
+      - image: circleci/openjdk:15-jdk-stretch
+    <<: *shared
   jdk11:
     docker:
       - image: circleci/openjdk:11-jdk-stretch
@@ -39,6 +55,10 @@ jobs:
 workflows:
   work:
     jobs:
-#      - jdk8
+      - jdk8
       - jdk11
+      - jdk12
+      - jdk13
+      - jdk14
+      - jdk15
         

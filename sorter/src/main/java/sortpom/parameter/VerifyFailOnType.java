@@ -10,11 +10,11 @@ public enum VerifyFailOnType {
 
     static VerifyFailOnType fromString(String verifyFailOn) {
         if (verifyFailOn == null) {
-            throw new FailureException("verifyFailOn must be either xmlElements, lines or strict. Was: null");
+            throw new FailureException("verifyFailOn must be either xmlElements or strict. Was: null");
         }
         return Arrays.stream(VerifyFailOnType.values())
                 .filter(e -> e.toString().equalsIgnoreCase(verifyFailOn))
                 .findAny()
-                .orElseThrow(() -> new FailureException("verifyFailOn must be either xmlElements, lines or strict. Was: " + verifyFailOn));
+                .orElseThrow(() -> new FailureException("verifyFailOn must be either xmlElements or strict. Was: " + verifyFailOn));
     }
 }

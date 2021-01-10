@@ -46,7 +46,7 @@ class VerifyFailOnTypeTest {
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
-        assertThat(thrown.getMessage(), is(equalTo("verifyFailOn must be either xmlElements, lines or strict. Was: " + value)));
+        assertThat(thrown.getMessage(), is(equalTo("verifyFailOn must be either xmlElements or strict. Was: " + value)));
     }
 
 

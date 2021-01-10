@@ -8,8 +8,7 @@ shared: &shared
     - checkout
     - restore_cache:
         key: sortpom-cache-{{ checksum "pom.xml" }}
-    - run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
-    - run: mvn integration-test -B
+    - run: mvn clean install -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
     - save_cache:
         paths:
           - ~/.m2

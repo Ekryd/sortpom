@@ -32,7 +32,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
-  * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82] (/../../issues/82)
+  * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82](/../../issues/82)
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)

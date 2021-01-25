@@ -1,7 +1,9 @@
 package sortpom;
 
+import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
+import org.jdom.Element;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 import sortpom.exception.FailureException;
@@ -12,6 +14,7 @@ import sortpom.util.XmlWriter;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 
 /**
  * Handles all generation of xml.
@@ -91,6 +94,19 @@ public class XmlOutputGenerator {
 
             // Remove all inset that has just been written since last newline
             writer.clearLineBuffer();
+        }
+
+        @Override
+        protected void printAttributes(Writer out, List attributes, Element parent, NamespaceStack namespaces) throws IOException {
+            if (attributes.size() == 1) {
+                Object attributeObject = attributes.get(0);
+                if (attributeObject instanceof Attribute && "schemaLocation".equals(((Attribute) attributeObject).getName())) {
+                    out.write(currentFormat.getLineSeparator());
+                    out.write(currentFormat.getIndent());
+                    out.write(currentFormat.getIndent());
+                }
+            }
+            super.printAttributes(out, attributes, parent, namespaces);
         }
     }
 }

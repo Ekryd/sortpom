@@ -164,6 +164,11 @@ class VerifyMojoParametersTest {
     }
 
     @Test
+    void parameterIndentSchemaLocationShouldEndUpInXmlProcessor() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentSchemaLocation", xmlOutputGenerator);
+    }
+
+    @Test
     void parameterVerifyFailShouldEndUpInXmlProcessor() {
         testParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
 

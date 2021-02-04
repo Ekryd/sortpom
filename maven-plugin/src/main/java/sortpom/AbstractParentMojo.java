@@ -82,6 +82,13 @@ abstract class AbstractParentMojo extends AbstractMojo {
     boolean indentBlankLines;
 
     /**
+     * Should the schema location attribute of project (top level xml element) be placed on a new line. The attribute
+     * will be indented (2 * nrOfIndentSpace + 1 space) characters. 
+     */
+    @Parameter(property = "sort.indentSchemaLocation", defaultValue = "false")
+    boolean indentSchemaLocation;
+
+    /**
      * Choose between a number of predefined sort order files.
      */
     @Parameter(property = "sort.predefinedSortOrder")

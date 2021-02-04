@@ -24,7 +24,8 @@ public class XmlOutputGenerator {
     private String indentCharacters;
     private boolean expandEmptyElements;
     private boolean indentBlankLines;
-    private WriterFactory writerFactory = new WriterFactory();
+    private boolean indentSchemaLocation;
+    private final WriterFactory writerFactory = new WriterFactory();
 
     /**
      * Setup default configuration
@@ -35,6 +36,7 @@ public class XmlOutputGenerator {
         this.encoding = pluginParameters.encoding;
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;
+        this.indentSchemaLocation = pluginParameters.indentSchemaLocation;
     }
 
     /**
@@ -45,7 +47,7 @@ public class XmlOutputGenerator {
     public String getSortedXml(Document newDocument) {
         try (XmlWriter writer = writerFactory.getWriter()) {
 
-            XMLOutputter xmlOutputter = new PatchedXMLOutputter(writer, indentBlankLines);
+            XMLOutputter xmlOutputter = new PatchedXMLOutputter(writer, indentBlankLines, indentSchemaLocation);
             xmlOutputter.setFormat(createPrettyFormat());
             xmlOutputter.output(newDocument, writer);
 
@@ -67,10 +69,12 @@ public class XmlOutputGenerator {
     private static class PatchedXMLOutputter extends XMLOutputter {
         private final XmlWriter writer;
         private final boolean indentBlankLines;
+        private final boolean indentSchemaLocation;
 
-        PatchedXMLOutputter(XmlWriter writer, boolean indentBlankLines) {
+        PatchedXMLOutputter(XmlWriter writer, boolean indentBlankLines, boolean indentSchemaLocation) {
             this.writer = writer;
             this.indentBlankLines = indentBlankLines;
+            this.indentSchemaLocation = indentSchemaLocation;
             XMLOutputter.preserveFormat.setLineSeparator("\n");
         }
 
@@ -98,7 +102,7 @@ public class XmlOutputGenerator {
 
         @Override
         protected void printAttributes(Writer out, List attributes, Element parent, NamespaceStack namespaces) throws IOException {
-            if (attributes.size() == 1) {
+            if (indentSchemaLocation && attributes.size() == 1) {
                 Object attributeObject = attributes.get(0);
                 if (attributeObject instanceof Attribute && "schemaLocation".equals(((Attribute) attributeObject).getName())) {
                     out.write(currentFormat.getLineSeparator());

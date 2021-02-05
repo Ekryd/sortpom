@@ -36,7 +36,7 @@ class EncodingParameterTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("gurka-2000")
                 .setFormatting("\n", true, true, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());

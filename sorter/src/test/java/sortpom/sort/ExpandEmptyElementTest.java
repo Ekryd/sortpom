@@ -14,7 +14,7 @@ class ExpandEmptyElementTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", true, true, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
@@ -27,7 +27,7 @@ class ExpandEmptyElementTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", false, true, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
@@ -40,7 +40,7 @@ class ExpandEmptyElementTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", false, true, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
@@ -53,7 +53,7 @@ class ExpandEmptyElementTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("\n", false, false, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());

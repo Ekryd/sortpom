@@ -16,7 +16,7 @@ class IndentCharactersParameterTest {
     @Test
     void zeroIndentCharactersShouldResultInEmptyIndentString() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(0, true)
+                .setIndent(0, true, false)
                 .build();
 
         assertEquals("", pluginParameters.indentCharacters);
@@ -25,7 +25,7 @@ class IndentCharactersParameterTest {
     @Test
     void oneIndentCharacterShouldResultInOneSpace() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(1, true)
+                .setIndent(1, true, false)
                 .build();
 
         assertEquals(" ", pluginParameters.indentCharacters);
@@ -34,7 +34,7 @@ class IndentCharactersParameterTest {
     @Test
     void test255IndentCharacterShouldResultIn255Space() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(255, true)
+                .setIndent(255, true, false)
                 .build();
 
         // Test for only space
@@ -45,7 +45,7 @@ class IndentCharactersParameterTest {
     @Test
     void minusOneIndentCharacterShouldResultInOneTab() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(-1, true)
+                .setIndent(-1, true, false)
                 .build();
 
         assertEquals("\t", pluginParameters.indentCharacters);
@@ -55,7 +55,7 @@ class IndentCharactersParameterTest {
     void minusTwoShouldFail() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setIndent(-2, true)
+                .setIndent(-2, true, false)
                 .build();
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
@@ -67,7 +67,7 @@ class IndentCharactersParameterTest {
     void moreThan255ShouldFail() {
 
         final Executable testMethod = () -> PluginParameters.builder()
-                .setIndent(256, true)
+                .setIndent(256, true, false)
                 .build();
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);

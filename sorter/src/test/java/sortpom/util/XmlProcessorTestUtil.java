@@ -78,7 +78,7 @@ public class XmlProcessorTestUtil {
                 .setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
                 .setFormatting(lineSeparator, expandEmptyElements, true, keepBlankLines)
-                .setIndent(2, indentBlankLines)
+                .setIndent(2, indentBlankLines, false)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
                 .setSortEntities("", "", false, false, false).build();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);

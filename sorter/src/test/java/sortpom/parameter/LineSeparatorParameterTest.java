@@ -23,7 +23,7 @@ class LineSeparatorParameterTest {
         final Executable testMethod = () -> PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("***", false, true, false)
-                .setIndent(2, false);
+                .setIndent(2, false, false);
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 

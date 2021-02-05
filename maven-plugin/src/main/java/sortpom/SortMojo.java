@@ -23,7 +23,7 @@ public class SortMojo extends AbstractParentMojo {
                     .setFileOutput(createBackupFile, backupFileExtension, null, keepTimestamp)
                     .setEncoding(encoding)
                     .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
-                    .setIndent(nrOfIndentSpace, indentBlankLines)
+                    .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions)
                     .setTriggers(ignoreLineSeparators)

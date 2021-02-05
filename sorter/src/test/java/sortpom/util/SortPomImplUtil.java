@@ -33,6 +33,7 @@ public class SortPomImplUtil {
     private boolean keepBlankLines = false;
     private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
+    private boolean indentSchemaLocation = false;
     private boolean keepTimestamp = false;
     private String verifyFail = "SORT";
     private String verifyFailOn = "xmlElements";
@@ -156,6 +157,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil indentSchemaLocation() {
+        indentSchemaLocation = true;
+        return this;
+    }
+
     public SortPomImplUtil sortDependencies(String sortOrder) {
         sortDependencies = sortOrder;
         return this;
@@ -253,7 +259,7 @@ public class SortPomImplUtil {
                 .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
                 .setEncoding(encoding)
                 .setFormatting(lineSeparator, true, true, keepBlankLines)
-                .setIndent(nrOfIndentSpace, indentBLankLines)
+                .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation)
                 .setSortEntities(sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
                 .setVerifyFail(verifyFail, verifyFailOn)

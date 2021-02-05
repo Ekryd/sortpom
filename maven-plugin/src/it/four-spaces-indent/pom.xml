@@ -33,6 +33,7 @@
               <keepBlankLines>true</keepBlankLines>
               <nrOfIndentSpace>4</nrOfIndentSpace>
               <indentBlankLines>true</indentBlankLines>
+              <indentSchemaLocation>true</indentSchemaLocation>
             </configuration>
           </execution>
         </executions>

@@ -16,7 +16,7 @@ class LineSeparatorTest {
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting(lineSeparator, false, true, false)
-                .setIndent(2, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());

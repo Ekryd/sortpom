@@ -160,6 +160,11 @@ class SortMojoParametersTest {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", xmlOutputGenerator);
     }
 
+    @Test
+    void parameterIndentSchemaLocationShouldEndUpInXmlProcessor() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentSchemaLocation", xmlOutputGenerator);
+    }
+
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
                                                               Object... whereParameterCanBeFound) {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);

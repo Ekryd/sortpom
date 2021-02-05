@@ -66,6 +66,12 @@ sortpom:sort
       User property: sort.indentBlankLines
       Should blank lines (if preserved) have indentation.
 
+    indentSchemaLocation (Default: false)
+      User property: sort.indentSchemaLocation
+      Should the schema location attribute of project (top level xml element)
+      be placed on a new line. The attribute will be indented (2 *
+      nrOfIndentSpace + 1 space) characters.
+
     keepBlankLines (Default: false)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
@@ -166,6 +172,12 @@ sortpom:verify
     indentBlankLines (Default: false)
       User property: sort.indentBlankLines
       Should blank lines (if preserved) have indentation.
+
+    indentSchemaLocation (Default: false)
+      User property: sort.indentSchemaLocation
+      Should the schema location attribute of project (top level xml element)
+      be placed on a new line. The attribute will be indented (2 *
+      nrOfIndentSpace + 1 space) characters.
 
     keepBlankLines (Default: false)
       User property: sort.keepBlankLines

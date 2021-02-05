@@ -22,6 +22,7 @@ public class PluginParameters {
     public final boolean sortExecutions;
     public final boolean keepBlankLines;
     public final boolean indentBlankLines;
+    public final boolean indentSchemaLocation;
     public final VerifyFailType verifyFailType;
     public final VerifyFailOnType verifyFailOn;
     public final boolean ignoreLineSeparators;
@@ -29,7 +30,7 @@ public class PluginParameters {
 
     private PluginParameters(File pomFile, boolean createBackupFile, String backupFileExtension, String violationFilename, String encoding,
                              LineSeparatorUtil lineSeparatorUtil, boolean expandEmptyElements, boolean spaceBeforeCloseEmptyElement, boolean keepBlankLines,
-                             String indentCharacters, boolean indentBlankLines, String predefinedSortOrder, String customSortOrderFile,
+                             String indentCharacters, boolean indentBlankLines, boolean indentSchemaLocation, String predefinedSortOrder, String customSortOrderFile,
                              DependencySortOrder sortDependencies, DependencySortOrder sortPlugins, boolean sortProperties, boolean sortModules,
                              boolean sortExecutions, VerifyFailType verifyFailType, VerifyFailOnType verifyFailOn, boolean ignoreLineSeparators, boolean keepTimestamp) {
         this.pomFile = pomFile;
@@ -50,6 +51,7 @@ public class PluginParameters {
         this.sortExecutions = sortExecutions;
         this.keepBlankLines = keepBlankLines;
         this.indentBlankLines = indentBlankLines;
+        this.indentSchemaLocation = indentSchemaLocation;
         this.verifyFailType = verifyFailType;
         this.verifyFailOn = verifyFailOn;
         this.ignoreLineSeparators = ignoreLineSeparators;
@@ -71,6 +73,7 @@ public class PluginParameters {
         private LineSeparatorUtil lineSeparatorUtil;
         private String indentCharacters;
         private boolean indentBlankLines;
+        private boolean indentSchemaLocation;
         private boolean expandEmptyElements;
         private boolean spaceBeforeCloseEmptyElement;
         private String predefinedSortOrder;
@@ -123,9 +126,10 @@ public class PluginParameters {
         }
 
         /** Sets indent information that is used when the pom file is sorted */
-        public Builder setIndent(final int nrOfIndentSpace, final boolean indentBlankLines) {
+        public Builder setIndent(final int nrOfIndentSpace, final boolean indentBlankLines, boolean indentSchemaLocation) {
             this.indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
             this.indentBlankLines = indentBlankLines;
+            this.indentSchemaLocation = indentSchemaLocation;
             return this;
         }
 
@@ -163,10 +167,11 @@ public class PluginParameters {
         /** Build the PluginParameters instance */
         public PluginParameters build() {
             return new PluginParameters(pomFile, createBackupFile, backupFileExtension, violationFilename,
-                    encoding, lineSeparatorUtil, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines, indentCharacters, indentBlankLines,
+                    encoding, lineSeparatorUtil, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines, 
+                    indentCharacters, indentBlankLines, indentSchemaLocation, 
                     predefinedSortOrder, customSortOrderFile,
                     sortDependencies, sortPlugins, sortProperties, sortModules, sortExecutions,
-                    verifyFailType, verifyFailOn, 
+                    verifyFailType, verifyFailOn,
                     ignoreLineSeparators, keepTimestamp);
         }
     }

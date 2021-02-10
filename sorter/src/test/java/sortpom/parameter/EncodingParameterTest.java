@@ -1,39 +1,42 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.XmlOutputGenerator;
+import sortpom.exception.FailureException;
 import sortpom.util.FileUtil;
 import sortpom.util.SortPomImplUtil;
 
 import java.io.File;
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
-public class EncodingParameterTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+class EncodingParameterTest {
 
     @Test
-    public void illegalEncodingWhenGettingPomFileShouldNotWork() throws Exception {
-        thrown.expectMessage("gurka-2000");
+    void illegalEncodingWhenGettingPomFileShouldNotWork() {
 
-        SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .encoding("gurka-2000")
                 .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("Could not handle encoding: gurka-2000")));
     }
 
     @Test
-    public void illegalEncodingWhenGeneratingPomFileShouldWork() {
+    void illegalEncodingWhenGeneratingPomFileShouldWork() {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("gurka-2000")
-                .setFormatting("\n", true, false)
-                .setIndent(2, false)
+                .setFormatting("\n", true, true, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
@@ -41,7 +44,7 @@ public class EncodingParameterTest {
     }
 
     @Test
-    public void illegalEncodingWhenSavingPomFileShouldNotWork() throws IOException {
+    void illegalEncodingWhenSavingPomFileShouldNotWork() throws IOException {
         File pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
         pomFileTemp.deleteOnExit();
 
@@ -52,32 +55,33 @@ public class EncodingParameterTest {
         builder.setEncoding("gurka-2000");
         fileUtil.setup(builder.build());
 
-        try {
-            fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");
-        } catch (Exception ex) {
-            assertThat(ex.getCause().getClass().getName(), is("java.io.UnsupportedEncodingException"));
-            assertThat(ex.getCause().getMessage(), is("gurka-2000"));
-        }
+        final Executable testMethod = () -> fileUtil.savePomFile("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");
+
+        final RuntimeException thrown = assertThrows(RuntimeException.class, testMethod);
+
+        assertThat(thrown.getCause().getClass().getName(), is("java.io.UnsupportedEncodingException"));
+        assertThat(thrown.getCause().getMessage(), is("gurka-2000"));
     }
 
     @Test
-    public void differentEncodingShouldWork1() throws Exception {
+    void differentEncodingShouldWork1() throws Exception {
         SortPomImplUtil.create()
                 .encoding("UTF-32BE")
                 .testFiles("/UTF32Encoding_input.xml", "/UTF32Encoding_expected.xml");
     }
 
     @Test
-    public void differentEncodingShouldWork2() throws Exception {
+    void differentEncodingShouldWork2() throws Exception {
         SortPomImplUtil.create()
                 .encoding("UTF-16")
                 .testFiles("/UTF16Encoding_input.xml", "/UTF16Encoding_expected.xml");
     }
 
     @Test
-    public void differentEncodingShouldWork3() throws Exception {
+    void differentEncodingShouldWork3() throws Exception {
         SortPomImplUtil.create()
                 .encoding("ISO-8859-1")
                 .testFiles("/ISO88591Encoding_input.xml", "/ISO88591Encoding_expected.xml");
     }
+
 }

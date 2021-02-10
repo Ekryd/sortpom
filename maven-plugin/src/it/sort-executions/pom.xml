@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.ekryd.sortpom.its</groupId>
+  <artifactId>sort-dependencies</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SortPom Plugin :: ITs :: Sort dependencies</name>
+  <description>Test sorting dependencies</description>
+  <url>no-url</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>@pom.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <configuration>
+              <sortExecutions>true</sortExecutions>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+<plugin>
+        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+        <artifactId>echo-maven-plugin</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <message>Hi!</message>
+        </configuration>
+  <executions>
+    <execution>
+      <id>03-flight-from-the-weasels</id>
+      <phase>initialize</phase>
+      <goals>
+        <goal>echo</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>adventures</id>
+      <phase>initialize</phase>
+      <goals>
+        <goal>echo</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>more adventures</id>
+      <phase>validate</phase>
+      <goals>
+        <goal>echo</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>02-escape</id>
+      <phase>initialize</phase>
+      <goals>
+        <goal>echo</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>01-imprisonment</id>
+      <phase>initialize</phase>
+      <goals>
+        <goal>echo</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>    </plugins>
+  </build>
+</project>

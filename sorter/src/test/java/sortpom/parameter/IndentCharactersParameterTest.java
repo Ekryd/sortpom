@@ -1,39 +1,40 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class IndentCharactersParameterTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+class IndentCharactersParameterTest {
 
     @Test
-    public void zeroIndentCharactersShouldResultInEmptyIndentString() {
+    void zeroIndentCharactersShouldResultInEmptyIndentString() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(0, true)
+                .setIndent(0, true, false)
                 .build();
 
         assertEquals("", pluginParameters.indentCharacters);
     }
 
     @Test
-    public void oneIndentCharacterShouldResultInOneSpace() {
+    void oneIndentCharacterShouldResultInOneSpace() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(1, true)
+                .setIndent(1, true, false)
                 .build();
 
         assertEquals(" ", pluginParameters.indentCharacters);
     }
 
     @Test
-    public void test255IndentCharacterShouldResultIn255Space() {
+    void test255IndentCharacterShouldResultIn255Space() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(255, true)
+                .setIndent(255, true, false)
                 .build();
 
         // Test for only space
@@ -42,32 +43,36 @@ public class IndentCharactersParameterTest {
     }
 
     @Test
-    public void minusOneIndentCharacterShouldResultInOneTab() {
+    void minusOneIndentCharacterShouldResultInOneTab() {
         PluginParameters pluginParameters = PluginParameters.builder()
-                .setIndent(-1, true)
+                .setIndent(-1, true, false)
                 .build();
 
         assertEquals("\t", pluginParameters.indentCharacters);
     }
 
     @Test
-    public void minusTwoShouldFail() {
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("");
+    void minusTwoShouldFail() {
 
-        PluginParameters.builder()
-                .setIndent(-2, true)
+        final Executable testMethod = () -> PluginParameters.builder()
+                .setIndent(-2, true, false)
                 .build();
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("nrOfIndentSpace cannot be below -1 or above 255, was: -2")));
     }
 
     @Test
-    public void moreThan255ShouldFail() {
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("");
+    void moreThan255ShouldFail() {
 
-        PluginParameters.builder()
-                .setIndent(256, true)
+        final Executable testMethod = () -> PluginParameters.builder()
+                .setIndent(256, true, false)
                 .build();
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("nrOfIndentSpace cannot be below -1 or above 255, was: 256")));
     }
 
 }

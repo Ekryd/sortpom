@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sortpom>
+  <file filename="@POM_PATH@">
+    <violation>The line 13 is not considered sorted, should be '  &lt;/properties&gt;'</violation>
+  </file>
+</sortpom>

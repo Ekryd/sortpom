@@ -1,0 +1,63 @@
+version: 2.1
+
+orbs:
+  maven: circleci/maven@0.0.12
+
+shared: &shared
+  steps:
+    - checkout
+    - restore_cache:
+        key: sortpom-cache-{{ checksum "pom.xml" }}
+    - run: mvn clean install -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
+    - save_cache:
+        paths:
+          - ~/.m2
+        key: sortpom-cache--{{ checksum "pom.xml" }}
+      
+jobs:
+  jdk8:
+    docker:
+      - image: cimg/openjdk:8.0
+    <<: *shared
+  jdk12:
+    docker:
+      - image: cimg/openjdk:12.0
+    <<: *shared
+  jdk13:
+    docker:
+      - image: cimg/openjdk:13.0
+    <<: *shared
+  jdk14:
+    docker:
+      - image: cimg/openjdk:14.0
+    <<: *shared
+  jdk15:
+    docker:
+      - image: cimg/openjdk:15.0
+    <<: *shared
+  jdk11:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - restore_cache:
+          key: sortpom-cache-{{ checksum "pom.xml" }}
+      - run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -Dinvoker.skip=true -B -V
+      - run: mvn clean jacoco:prepare-agent integration-test jacoco:report -B
+      - run: mvn coveralls:report -B -DrepoToken=$COVERALLS_REPO_TOKEN
+      - run: mvn sonar:sonar -Dsonar.projectKey=com.github.ekryd.sortpom:sortpom-parent -Dsonar.organization=ekryd-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARCLOUD_TOKEN
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: sortpom-cache--{{ checksum "pom.xml" }}
+        
+workflows:
+  work:
+    jobs:
+      - jdk8
+      - jdk11
+      - jdk12
+      - jdk13
+      - jdk14
+      - jdk15
+        

@@ -1,9 +1,9 @@
 package sortpom.processinstruction;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static sortpom.processinstruction.InstructionType.IGNORE;
 import static sortpom.processinstruction.InstructionType.RESUME;
 
@@ -11,21 +11,21 @@ import static sortpom.processinstruction.InstructionType.RESUME;
  * @author bjorn
  * @since 2013-12-28
  */
-public class InstructionTypeTest {
+class InstructionTypeTest {
     @Test
-    public void nextAfterIgnoreShouldBeResume() {
+    void nextAfterIgnoreShouldBeResume() {
         assertThat(IGNORE.next(), is(RESUME));
         assertThat(IGNORE.next().next(), is(IGNORE));
     }
 
     @Test
-    public void nextAfterResumeShouldBeIgnore() {
+    void nextAfterResumeShouldBeIgnore() {
         assertThat(RESUME.next(), is(IGNORE));
         assertThat(RESUME.next().next(), is(RESUME));
     }
 
     @Test
-    public void testContainsType() {
+    void testContainsType() {
         assertThat(InstructionType.containsType("ignore"), is(true));
         assertThat(InstructionType.containsType("IGNORE"), is(true));
         assertThat(InstructionType.containsType("IgNoRe"), is(true));
@@ -37,7 +37,7 @@ public class InstructionTypeTest {
     }
 
     @Test
-    public void testMatches() {
+    void testMatches() {
         assertThat(IGNORE.matches("ignore"), is(true));
         assertThat(IGNORE.matches("IGNORE"), is(true));
         assertThat(IGNORE.matches("IgNoRe"), is(true));

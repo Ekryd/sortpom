@@ -10,12 +10,15 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author bjorn
@@ -61,7 +64,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-                assertTrue(backupFile.exists());
+            assertTrue(backupFile.exists());
 
             backupFileInputStream = new FileInputStream(backupFile);
             String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
@@ -90,15 +93,17 @@ class TestHandler {
             performVerifyWithSort();
 
             assertTrue(testpom.exists());
-            assertTrue(backupFile.exists());
+            if (pluginParameters.createBackupFile) {
+                assertTrue(backupFile.exists());
 
-            backupFileInputStream = new FileInputStream(backupFile);
-            String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
+                backupFileInputStream = new FileInputStream(backupFile);
+                String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
 
-            originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-            String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
-            assertEquals(expectedBackup, actualBackup);
-
+                originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
+                String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
+                assertEquals(expectedBackup, actualBackup);
+            }
+            
             actualSortedPomInputStream = new FileInputStream(testpom);
             String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
 
@@ -118,7 +123,7 @@ class TestHandler {
             performSorting();
 
             assertTrue(testpom.exists());
-            assertFalse(backupFile.exists());
+            assertFalse(backupFile.exists(), "No sort expected, backup file exists");
 
             actualSortedPomInputStream = new FileInputStream(testpom);
             String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
@@ -201,11 +206,15 @@ class TestHandler {
         sortPomImpl.verifyPom();
     }
 
-    private XmlOrderedResult isVerifyOk() {
+    private XmlOrderedResult isVerifyOk() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         sortPomImpl.setup(
                 createDummyLog(),
                 pluginParameters);
-        return sortPomImpl.isPomElementsSorted();
+
+        Method getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
+        getVerificationResult.setAccessible(true);
+
+        return (XmlOrderedResult) getVerificationResult.invoke(sortPomImpl);
     }
 
     private void removeOldTemporaryFiles() {

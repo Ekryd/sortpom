@@ -1,12 +1,12 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class SortOrderFilesTest {
+class SortOrderFilesTest {
 
     @Test
-    public final void correctCustomSortOrderShouldSortThePm() throws Exception {
+    final void correctCustomSortOrderShouldSortThePm() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/differentOrder.xml")
                 .lineSeparator("\n")
@@ -14,7 +14,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public final void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
+    final void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_0_4_0")
                 .lineSeparator("\n")
@@ -23,7 +23,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public final void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
+    final void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("custom_1")
                 .lineSeparator("\n")
@@ -32,7 +32,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public final void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
+    final void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("recommended_2008_06")
                 .lineSeparator("\n")
@@ -41,7 +41,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public final void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
+    final void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_1_0_0")
                 .lineSeparator("\n")
@@ -50,7 +50,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public final void defaultPredefinedSortOrderShouldWork() throws Exception {
+    final void defaultPredefinedSortOrderShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder(null)
                 .lineSeparator("\n")
@@ -59,7 +59,7 @@ public class SortOrderFilesTest {
     }
 
     @Test
-    public void xmlDeviationsShouldNotHarmPlugin() throws Exception {
+    void xmlDeviationsShouldNotHarmPlugin() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");

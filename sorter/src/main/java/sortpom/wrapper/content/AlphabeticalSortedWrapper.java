@@ -27,7 +27,7 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     }
 
     private boolean isBeforeAlphabeticalSortedWrapper(AlphabeticalSortedWrapper wrapper) {
-        return wrapper.getContent().getName().compareTo(getContent().getName()) >= 0;
+        return wrapper.getContent().getName().compareTo(getContent().getName()) > 0;
     }
 
     @Override

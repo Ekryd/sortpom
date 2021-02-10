@@ -33,6 +33,6 @@ The following is likely to happen:
   * I will accept the new feature
   * I will make changes to your code to fit my mindset how the plugin works
   * You will make changes to your code to create the optimal feature
-  * I will demand 100% test coverage. That includes BOTH unit tests and integration test
+  * I will demand 100% test coverage. That includes both unit tests and integration test
   * We will have conversations about the best design for the functionality and how to name things
-  * Before the release, you will do the final acceptance tests for the feature. After all, you are customer
+  * Before the release, you will do the final acceptance tests for the feature. After all, you are the customer

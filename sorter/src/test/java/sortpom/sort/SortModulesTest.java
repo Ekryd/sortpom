@@ -1,11 +1,11 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class SortModulesTest {
+class SortModulesTest {
     @Test
-    public final void sortingOfPomFileWithSubmodulesShouldWork() throws Exception {
+    final void sortingOfPomFileWithSubmodulesShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .sortPlugins("true")
@@ -15,7 +15,7 @@ public class SortModulesTest {
                 .testFiles("/SortModules_input.xml", "/SortModules_expected.xml");
     }
     @Test
-    public final void sortingOfPomFileWithSubmodulesAndExtraElementsShouldWork() throws Exception {
+    final void sortingOfPomFileWithSubmodulesAndExtraElementsShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("sortOrderFiles/extra_dummy_tags.xml")
                 .sortProperties()
@@ -26,7 +26,7 @@ public class SortModulesTest {
                 .testFiles("/SortModules_input_extra_elements.xml", "/SortModules_expected_extra_elements.xml");
     }
     @Test
-    public final void sortingOfPomFileWithSubmodulesNotEnabled() throws Exception {
+    final void sortingOfPomFileWithSubmodulesNotEnabled() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .sortPlugins("true")

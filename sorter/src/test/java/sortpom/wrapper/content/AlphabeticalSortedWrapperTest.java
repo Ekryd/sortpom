@@ -1,19 +1,19 @@
 package sortpom.wrapper.content;
 
 import org.jdom.Element;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author bjorn
  * @since 2016-07-30
  */
-public class AlphabeticalSortedWrapperTest {
+class AlphabeticalSortedWrapperTest {
 
     @Test
-    public void toStringWithIndentShouldWork() {
+    void toStringWithIndentShouldWork() {
         assertThat(new AlphabeticalSortedWrapper(new Element("Gurka")).toString("  "), is("  AlphabeticalSortedWrapper{element=[Element: <Gurka/>]}"));
         assertThat(new AlphabeticalSortedWrapper(null).toString("  "), is("  AlphabeticalSortedWrapper{element=null}"));
     }

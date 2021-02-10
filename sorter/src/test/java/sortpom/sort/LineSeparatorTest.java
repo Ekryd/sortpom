@@ -1,50 +1,26 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
-import static org.junit.Assert.assertEquals;
-import static sortpom.sort.ExpandEmptyElementTest.createXmlFragment;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static sortpom.sort.XmlFragment.createXmlFragment;
 
-public class LineSeparatorTest {
-    @Test
-    public void formattingXmlWithNewlineShouldResultInOneLineBreakAtEnd() {
+class LineSeparatorTest {
+    @ParameterizedTest
+    @ValueSource(strings = {"\n", "\r", "\r\n"})
+    void formattingXmlWithLineEndingsShouldResultInOneLineBreakAtEnd(String lineSeparator) {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", false, false)
-                .setIndent(2, false)
+                .setFormatting(lineSeparator, false, true, false)
+                .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
+        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + lineSeparator +
+                "<Gurka />" + lineSeparator, actual);
     }
-
-    @Test
-    public void formattingXmlWithCRShouldResultInOneLineBreakAtEnd() {
-        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(PluginParameters.builder()
-                .setEncoding("UTF-8")
-                .setFormatting("\r", false, false)
-                .setIndent(2, false)
-                .build());
-
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r<Gurka />\r", actual);
-    }
-
-    @Test
-    public void formattingXmlWithCRNLShouldResultInOneLineBreakAtEnd() {
-        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(PluginParameters.builder()
-                .setEncoding("UTF-8")
-                .setFormatting("\r\n", false, false)
-                .setIndent(2, false)
-                .build());
-
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<Gurka />\r\n", actual);
-    }
-
 }

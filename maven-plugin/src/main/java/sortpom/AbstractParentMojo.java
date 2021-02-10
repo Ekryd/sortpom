@@ -50,6 +50,13 @@ abstract class AbstractParentMojo extends AbstractMojo {
     boolean expandEmptyElements;
 
     /**
+     * Should non-expanded empty xml element have space before closing tag. Example:
+     * &lt;configuration /&gt; or &lt;configuration/&gt;
+     */
+    @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "true")
+    boolean spaceBeforeCloseEmptyElement;
+
+    /**
      * Should blank lines in the pom-file be preserved. A maximum of one line is preserved between each tag.
      */
     @Parameter(property = "sort.keepBlankLines", defaultValue = "false")
@@ -63,10 +70,23 @@ abstract class AbstractParentMojo extends AbstractMojo {
     int nrOfIndentSpace;
 
     /**
+     * Ignore line separators when comparing current POM with sorted one
+     */
+    @Parameter(property = "sort.ignoreLineSeparators", defaultValue = "true")
+    boolean ignoreLineSeparators;
+
+    /**
      * Should blank lines (if preserved) have indentation.
      */
     @Parameter(property = "sort.indentBlankLines", defaultValue = "false")
     boolean indentBlankLines;
+
+    /**
+     * Should the schema location attribute of project (top level xml element) be placed on a new line. The attribute
+     * will be indented (2 * nrOfIndentSpace + 1 space) characters. 
+     */
+    @Parameter(property = "sort.indentSchemaLocation", defaultValue = "false")
+    boolean indentSchemaLocation;
 
     /**
      * Choose between a number of predefined sort order files.
@@ -116,10 +136,16 @@ abstract class AbstractParentMojo extends AbstractMojo {
     boolean sortModules;
 
     /**
+     * Should the Maven pom execution sections be sorted by phase and then alphabetically.
+     */
+    @Parameter(property = "sort.sortExecutions", defaultValue = "false")
+    boolean sortExecutions;
+
+    /**
      * Set this to 'true' to bypass sortpom plugin
      */
     @Parameter(property = "sort.skip", defaultValue = "false")
-    boolean skip;
+    private boolean skip;
 
     /**
      * Whether to keep the file timestamps of old POM file when creating new POM file.

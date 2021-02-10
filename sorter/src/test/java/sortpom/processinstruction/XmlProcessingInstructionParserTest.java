@@ -1,32 +1,35 @@
 package sortpom.processinstruction;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author bjorn
  * @since 2013-12-28
  */
-public class XmlProcessingInstructionParserTest {
+class XmlProcessingInstructionParserTest {
 
     private XmlProcessingInstructionParser parser;
     private final SortPomLogger logger = mock(SortPomLogger.class);
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         parser = new XmlProcessingInstructionParser();
         parser.setup(logger);
     }
 
     @Test
-    public void multipleErrorsShouldBeReportedInLogger() {
+    void multipleErrorsShouldBeReportedInLogger() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -48,12 +51,12 @@ public class XmlProcessingInstructionParserTest {
                 "    <?sortpom ignore?>" +
                 "  <version>1.0.0-SNAPSHOT</version>\n" +
                 "</project>";
-        try {
-            parser.scanForIgnoredSections(xml);
-            fail();
-        } catch (FailureException fex) {
-            assertThat(fex.getMessage(), is("Xml contained unexpected sortpom instruction 'resume'. Please use expected instruction <?sortpom IGNORE?>"));
-        }
+
+        final Executable testMethod = () -> parser.scanForIgnoredSections(xml);
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is("Xml contained unexpected sortpom instruction 'resume'. Please use expected instruction <?sortpom IGNORE?>"));
 
         verify(logger).error("Xml contained unexpected sortpom instruction 'resume'. Please use expected instruction <?sortpom IGNORE?>");
         verify(logger).error("Xml contained unknown sortpom instruction 'token='0''. Please use <?sortpom IGNORE?> or <?sortpom RESUME?>");
@@ -63,7 +66,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void replaceMultipleSectionShouldCreateManyTokens() {
+    void replaceMultipleSectionShouldCreateManyTokens() {
         String xml = "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
         parser.scanForIgnoredSections(xml);
         String replaced = parser.replaceIgnoredSections();
@@ -74,7 +77,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void revertSectionsInRearrangedOrderShouldPlaceTextInRightOrder() {
+    void revertSectionsInRearrangedOrderShouldPlaceTextInRightOrder() {
         String xml = "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
         parser.scanForIgnoredSections(xml);
         String replaced = parser.replaceIgnoredSections();
@@ -88,7 +91,7 @@ public class XmlProcessingInstructionParserTest {
     }
 
     @Test
-    public void noInstructionsShouldWork() {
+    void noInstructionsShouldWork() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +

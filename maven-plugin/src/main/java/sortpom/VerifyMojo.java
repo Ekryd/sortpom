@@ -24,6 +24,13 @@ public class VerifyMojo extends AbstractParentMojo {
     private String verifyFail;
 
     /**
+     * What kind of differences should trigger verify failure. Can be either 'xmlElements' or 'strict'. Can be combined
+     * with ignoreLineSeparators
+     */
+    @Parameter(property = "sort.verifyFailOn", defaultValue = "xmlElements")
+    private String verifyFailOn;
+
+    /**
      * Saves the verification failure to an external xml file, recommended filename is 'target/sortpom_reports/violation.xml'.
      */
     @Parameter(property = "sort.violationFilename")
@@ -36,11 +43,11 @@ public class VerifyMojo extends AbstractParentMojo {
                     .setPomFile(pomFile)
                     .setFileOutput(createBackupFile, backupFileExtension, violationFilename, keepTimestamp)
                     .setEncoding(encoding)
-                    .setFormatting(lineSeparator, expandEmptyElements, keepBlankLines)
-                    .setIndent(nrOfIndentSpace, indentBlankLines)
+                    .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
+                    .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules)
-                    .setVerifyFail(verifyFail)
+                    .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
+                    .setVerifyFail(verifyFail, verifyFailOn)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

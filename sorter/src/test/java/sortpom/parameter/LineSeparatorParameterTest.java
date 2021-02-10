@@ -1,68 +1,72 @@
 package sortpom.parameter;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import sortpom.exception.FailureException;
 
-import static org.junit.Assert.assertEquals;
+import java.util.stream.Stream;
 
-public class LineSeparatorParameterTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class LineSeparatorParameterTest {
 
     @Test
-    public void lineSeparatorWithSomethingElseShouldThrowException() {
-        thrown.expect(FailureException.class);
-        thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [42, 42, 42]");
+    void lineSeparatorWithSomethingElseShouldThrowException() {
 
-        PluginParameters.builder()
+        final Executable testMethod = () -> PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("***", false, false)
-                .setIndent(2, false);
+                .setFormatting("***", false, true, false)
+                .setIndent(2, false, false);
 
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [42, 42, 42]")));
     }
 
     @Test
-    public void testCharInput() {
-        assertEquals("\n", PluginParameters.builder().setFormatting("\n", true, true).build().lineSeparatorUtil.toString());
-        assertEquals("\r", PluginParameters.builder().setFormatting("\r", true, true).build().lineSeparatorUtil.toString());
-        assertEquals("\r\n", PluginParameters.builder().setFormatting("\r\n", true, true).build().lineSeparatorUtil.toString());
+    void testCharInput() {
+        assertEquals("\n", PluginParameters.builder().setFormatting("\n", true, true, true).build().lineSeparatorUtil.toString());
+        assertEquals("\r", PluginParameters.builder().setFormatting("\r", true, true, true).build().lineSeparatorUtil.toString());
+        assertEquals("\r\n", PluginParameters.builder().setFormatting("\r\n", true, true, true).build().lineSeparatorUtil.toString());
+    }
+
+    private static Stream<Arguments> provideSeparators() {
+        return Stream.of(
+                Arguments.of("\nn", "[10, 110]"),
+                Arguments.of("\n\n", "[10, 10]"),
+                Arguments.of("gurka", "[103, 117, 114, 107, 97]"),
+                Arguments.of("", "[]")
+        );
+    }
+    
+    @ParameterizedTest
+    @MethodSource("provideSeparators")
+    void testFailedInput(String lineSeparator, String expectedChars) {
+
+        final Executable testMethod = () -> PluginParameters.builder()
+                .setFormatting(lineSeparator, true, true, true);
+
+        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(equalTo("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were " + 
+                expectedChars)));
     }
 
     @Test
-    public void testFailedInput1() {
-        thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 110]");
-
-        PluginParameters.builder().setFormatting("\nn", true, true);
-    }
-
-    @Test
-    public void testFailedInput2() {
-        thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [10, 10]");
-        PluginParameters.builder().setFormatting("\n\n", true, true);
-    }
-
-    @Test
-    public void testFailedInput3() {
-        thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were [103, 117, 114, 107, 97]");
-        PluginParameters.builder().setFormatting("gurka", true, true);
-    }
-
-    @Test
-    public void testFailedInput4() {
-        thrown.expectMessage("LineSeparator must be either \\n, \\r or \\r\\n, but separator characters were []");
-        PluginParameters.builder().setFormatting("", true, true);
-    }
-
-    @Test
-    public void testMixedInput() {
+    void testMixedInput() {
         assertEquals("\r\n", new LineSeparatorUtil("\\r\n").toString());
         assertEquals("\r\n", new LineSeparatorUtil("\r\\n").toString());
     }
 
     @Test
-    public void testStringInput() {
+    void testStringInput() {
         assertEquals("\n", new LineSeparatorUtil("\\n").toString());
         assertEquals("\r", new LineSeparatorUtil("\\r").toString());
         assertEquals("\r\n", new LineSeparatorUtil("\\r\\n").toString());

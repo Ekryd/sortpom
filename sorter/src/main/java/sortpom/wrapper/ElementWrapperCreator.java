@@ -8,8 +8,7 @@ import sortpom.wrapper.content.*;
 import static sortpom.wrapper.ElementUtil.*;
 
 /**
- * @author bjorn
- * @since 2012-05-19
+ * Create wrappers around xml elements. The wrappers help to sort the XML element among themselves.
  */
 public class ElementWrapperCreator {
     private DependencySortOrder sortDependencies;
@@ -17,7 +16,8 @@ public class ElementWrapperCreator {
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
-
+    private boolean sortExecutions;
+    
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
@@ -31,6 +31,7 @@ public class ElementWrapperCreator {
         this.sortPlugins = pluginParameters.sortPlugins;
         this.sortProperties = pluginParameters.sortProperties;
         this.sortModules = pluginParameters.sortModules;
+        this.sortExecutions = pluginParameters.sortExecutions;
     }
 
     Wrapper<Element> createWrapper(Element element) {
@@ -53,6 +54,9 @@ public class ElementWrapperCreator {
             }
             if(isModuleElement(element)) {
                 return new ModuleSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+            }
+            if(isExecutionElement(element)) {
+                return new ExecutionSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
             }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         }
@@ -91,6 +95,13 @@ public class ElementWrapperCreator {
             return false;
         }
         return isElementName(element, "module") && isElementParentName(element, "modules");
+    }
+
+    private boolean isExecutionElement(final Element element) {
+        if (!sortExecutions) {
+            return false;
+        }
+        return isElementName(element, "execution") && isElementParentName(element, "executions");
     }
 
     private boolean isPropertyElement(final Element element) {

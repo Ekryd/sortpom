@@ -1,12 +1,12 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class ReportPluginsTest {
+class ReportPluginsTest {
 
     @Test
-    public final void sortReportPluginsByArtifactIdWithCustomSortOrderFileShouldWork() throws Exception {
+    final void sortReportPluginsByArtifactIdWithCustomSortOrderFileShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("sortOrderFiles/custom_report_plugins.xml")
                 .lineSeparator("\r\n")
@@ -16,7 +16,7 @@ public class ReportPluginsTest {
     }
 
     @Test
-    public final void sortReportPluginsByGroupIdWithCustomSortOrderFileShouldWork() throws Exception {
+    final void sortReportPluginsByGroupIdWithCustomSortOrderFileShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("sortOrderFiles/custom_report_plugins.xml")
                 .lineSeparator("\r\n")

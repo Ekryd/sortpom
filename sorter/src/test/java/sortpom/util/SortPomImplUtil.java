@@ -5,10 +5,15 @@ import sortpom.parameter.PluginParameters;
 import java.io.File;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+/** Test utility to enter sort parameters */
 public class SortPomImplUtil {
 
     private TestHandler testHandler;
@@ -19,6 +24,7 @@ public class SortPomImplUtil {
     private String sortPlugins = "";
     private boolean sortProperties = false;
     private boolean sortModules = false;
+    private boolean sortExecutions = false;
     private String predefinedSortOrder = "";
     private String lineSeparator = "\r\n";
     private String testPomFileName = "src/test/resources/testpom.xml";
@@ -28,11 +34,14 @@ public class SortPomImplUtil {
     private boolean keepBlankLines = false;
     private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
+    private boolean indentSchemaLocation = false;
     private boolean keepTimestamp = false;
     private String verifyFail = "SORT";
+    private String verifyFailOn = "xmlElements";
     private String encoding = "UTF-8";
     private File testpom;
     private String violationFile;
+    private boolean createBackupFile = true;
 
     private SortPomImplUtil() {
     }
@@ -76,7 +85,7 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
-        assertTrue("Expected that xml is ordered, ", xmlOrderedResult.isOrdered());
+        assertTrue(xmlOrderedResult.isOrdered(), "Expected that xml is ordered, ");
     }
 
     public void testVerifyXmlIsNotOrdered(final String inputResourceFileName, CharSequence warningMessage)
@@ -84,7 +93,7 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
         XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
-        assertFalse("Expected that xml is not ordered, ", xmlOrderedResult.isOrdered());
+        assertFalse(xmlOrderedResult.isOrdered(), "Expected that xml is not ordered, ");
         assertEquals(warningMessage, xmlOrderedResult.getErrorMessage());
     }
 
@@ -149,6 +158,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil indentSchemaLocation() {
+        indentSchemaLocation = true;
+        return this;
+    }
+
     public SortPomImplUtil sortDependencies(String sortOrder) {
         sortDependencies = sortOrder;
         return this;
@@ -174,6 +188,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil sortExecutions() {
+        sortExecutions = true;
+        return this;
+    }
+
     public SortPomImplUtil defaultOrderFileName(String defaultOrderFileName) {
         this.defaultOrderFileName = defaultOrderFileName;
         return this;
@@ -196,12 +215,17 @@ public class SortPomImplUtil {
     }
 
     public SortPomImplUtil keepTimestamp(boolean keepTimestamp) {
-    	this.keepTimestamp = keepTimestamp;
-    	return this;
+        this.keepTimestamp = keepTimestamp;
+        return this;
     }
 
     public SortPomImplUtil verifyFail(String verifyFail) {
         this.verifyFail = verifyFail;
+        return this;
+    }
+
+    public SortPomImplUtil verifyFailOn(String verifyFailOn) {
+        this.verifyFailOn = verifyFailOn;
         return this;
     }
 
@@ -226,6 +250,11 @@ public class SortPomImplUtil {
         return this;
     }
 
+    public SortPomImplUtil createBackupFile(boolean createBackupFile) {
+        this.createBackupFile = createBackupFile;
+        return this;
+    }
+
     private void setup() {
         testpom = new File(testPomFileName);
     }
@@ -233,13 +262,13 @@ public class SortPomImplUtil {
     private PluginParameters getPluginParameters() {
         return PluginParameters.builder()
                 .setPomFile(testpom)
-                .setFileOutput(true, testPomBackupExtension, violationFile, keepTimestamp)
+                .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
                 .setEncoding(encoding)
-                .setFormatting(lineSeparator, true, keepBlankLines)
-                .setIndent(nrOfIndentSpace, indentBLankLines)
-                .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules)
+                .setFormatting(lineSeparator, true, true, keepBlankLines)
+                .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation)
+                .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
                 .setSortOrder(defaultOrderFileName, predefinedSortOrder)
-                .setVerifyFail(verifyFail)
+                .setVerifyFail(verifyFail, verifyFailOn)
                 .setTriggers(ignoreLineSeparators)
                 .build();
     }

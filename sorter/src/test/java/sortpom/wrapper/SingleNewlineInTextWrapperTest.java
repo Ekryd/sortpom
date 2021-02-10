@@ -1,12 +1,13 @@
 package sortpom.wrapper;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * All method should throw exception since the element should be throw away, except for the toString method
@@ -14,36 +15,51 @@ import static org.junit.Assert.assertThat;
  * @author bjorn
  * @since 2012-06-14
  */
-public class SingleNewlineInTextWrapperTest {
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
+class SingleNewlineInTextWrapperTest {
 
     @Test
-    public void testGetContent() {
-        thrown.expect(UnsupportedOperationException.class);
-        SingleNewlineInTextWrapper.INSTANCE.getContent();
+    void testGetContent() {
+
+        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.getContent();
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testIsBefore() {
-        thrown.expect(UnsupportedOperationException.class);
-        SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
+    void testIsBefore() {
+
+        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testIsContentElement() {
-        thrown.expect(UnsupportedOperationException.class);
-        SingleNewlineInTextWrapper.INSTANCE.isContentElement();
+    void testIsContentElement() {
+
+        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isContentElement();
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testIsResortable() {
-        thrown.expect(UnsupportedOperationException.class);
-        SingleNewlineInTextWrapper.INSTANCE.isSortable();
+    void testIsResortable() {
+
+        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isSortable();
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testToString() {
+    void testToString() {
         assertThat(SingleNewlineInTextWrapper.INSTANCE.toString("  "), is("  SingleNewlineInTextWrapper"));
     }
+
 }

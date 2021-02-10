@@ -1,106 +1,126 @@
 package sortpom.sort;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.apache.maven.plugin.MojoFailureException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 import sortpom.SortMojo;
 import sortpom.SortPomImpl;
+import sortpom.SortPomService;
 import sortpom.XmlOutputGenerator;
 import sortpom.util.FileUtil;
+import sortpom.util.WriterFactory;
 import sortpom.wrapper.ElementWrapperCreator;
 import sortpom.wrapper.TextWrapperCreator;
 import sortpom.wrapper.WrapperFactoryImpl;
 
 import java.io.File;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.mock;
 
-public class SortMojoParametersTest {
+class SortMojoParametersTest {
     private final File pomFile = mock(File.class);
 
     private SortPomImpl sortPomImpl;
+    private SortPomService sortPomService;
     private FileUtil fileUtil;
     private SortMojo sortMojo;
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
     private XmlOutputGenerator xmlOutputGenerator;
+    private WriterFactory writerFactory;
 
-    @Before
-    public void setup() throws SecurityException, IllegalArgumentException {
+    @BeforeEach
+    void setup() throws SecurityException, IllegalArgumentException {
         sortMojo = new SortMojo();
         new ReflectionHelper(sortMojo).setField("lineSeparator", "\n");
         new ReflectionHelper(sortMojo).setField("encoding", "UTF-8");
 
         sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
-        ReflectionHelper sortPomImplHelper = new ReflectionHelper(sortPomImpl);
-        fileUtil = sortPomImplHelper.getField(FileUtil.class);
-        xmlOutputGenerator = sortPomImplHelper.getField(XmlOutputGenerator.class);
-        WrapperFactoryImpl wrapperFactoryImpl = sortPomImplHelper.getField(WrapperFactoryImpl.class);
+        sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
+        ReflectionHelper sortPomServiceHelper = new ReflectionHelper(sortPomService);
+        fileUtil = sortPomServiceHelper.getField(FileUtil.class);
+        xmlOutputGenerator = sortPomServiceHelper.getField(XmlOutputGenerator.class);
+        WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
+        writerFactory = new ReflectionHelper(xmlOutputGenerator).getField(WriterFactory.class);
     }
 
     @Test
-    public void pomFileParameter() throws Exception {
+    void pomFileParameter() {
         testParameterMoveFromMojoToRestOfApplication("pomFile", pomFile, sortPomImpl, fileUtil);
     }
 
     @Test
-    public void createBackupFileParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomImpl);
+    void createBackupFileParameter() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomService);
     }
 
     @Test
-    public void keepTimestampParameter() throws Exception {
+    void keepTimestampParameter() {
     	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
     }
 
     @Test
-    public void backupFileExtensionParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomImpl, fileUtil);
+    void backupFileExtensionParameter() {
+        testParameterMoveFromMojoToRestOfApplication("backupFileExtension", ".gurka", sortPomService, fileUtil);
     }
 
     @Test
-    public void encodingParameter() throws Exception {
-        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomImpl, xmlOutputGenerator);
+    void encodingParameter() {
+        testParameterMoveFromMojoToRestOfApplication("encoding", "GURKA-2000", fileUtil, sortPomService, xmlOutputGenerator);
     }
 
     @Test
-    public void lineSeparatorParameter() throws Exception {
+    void lineSeparatorParameter() {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        assertEquals("\r", new ReflectionHelper(xmlOutputGenerator).getField("lineSeparatorUtil").toString());
+        final Object lineSeparatorUtil = new ReflectionHelper(writerFactory)
+                .getField("lineSeparatorUtil");
+
+        assertThat(lineSeparatorUtil.toString(), is(equalTo("\r")));
     }
 
     @Test
-    public void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() throws Exception {
+    void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() {
         testParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
-        assertEquals("      ", new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters"));
+        final Object indentCharacters = new ReflectionHelper(xmlOutputGenerator)
+                .getField("indentCharacters");
+
+        assertThat(indentCharacters, is(equalTo("      ")));
     }
 
     @Test
-    public void expandEmptyElementsParameter() throws Exception {
+    void expandEmptyElementsParameter() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("expandEmptyElements", xmlOutputGenerator);
     }
 
     @Test
-    public void predefinedSortOrderParameter() throws Exception {
+    void spaceBeforeCloseEmptyElementParameter() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("spaceBeforeCloseEmptyElement", writerFactory);
+    }
+
+    @Test
+    void predefinedSortOrderParameter() {
         testParameterMoveFromMojoToRestOfApplication("predefinedSortOrder", "tomatoSort", fileUtil);
     }
 
     @Test
-    public void parameterSortOrderFileShouldEndUpInFileUtil() throws Exception {
+    void parameterSortOrderFileShouldEndUpInFileUtil() {
         testParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
         Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
-        assertEquals("sortOrderFile.gurka", actual);
+
+        assertThat(actual, is(equalTo("sortOrderFile.gurka")));
     }
 
     @Test
-    public void parameterSortDependenciesShouldEndUpInElementWrapperCreator() throws Exception {
+    void parameterSortDependenciesShouldEndUpInElementWrapperCreator() {
         testParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
 
         Object sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
@@ -116,7 +136,7 @@ public class SortMojoParametersTest {
     }
 
     @Test
-    public void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() throws Exception {
+    void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() {
         testParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
         Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
@@ -124,48 +144,66 @@ public class SortMojoParametersTest {
     }
 
     @Test
-    public void parameterSortModulesShouldEndUpInWrapperFactoryImpl() throws Exception {
+    void parameterSortModulesShouldEndUpInWrapperFactoryImpl() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("sortModules", elementWrapperCreator);
     }
 
     @Test
-    public void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() throws Exception {
+    void parameterSortExecutionsShouldEndUpInWrapperFactoryImpl() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("sortExecutions", elementWrapperCreator);
+    }
+
+    @Test
+    void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", elementWrapperCreator);
     }
 
     @Test
-    public void parameterKeepBlankLineShouldEndUpInXmlProcessor() throws Exception {
+    void parameterKeepBlankLineShouldEndUpInXmlProcessor() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", textWrapperCreator);
     }
 
     @Test
-    public void parameterIndentBlankLineShouldEndUpInXmlProcessor() throws Exception {
+    void parameterIndentBlankLineShouldEndUpInXmlProcessor() {
         testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", xmlOutputGenerator);
     }
 
+    @Test
+    void parameterIndentSchemaLocationShouldEndUpInXmlProcessor() {
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("indentSchemaLocation", xmlOutputGenerator);
+    }
+
     private void testParameterMoveFromMojoToRestOfApplication(String parameterName, Object parameterValue,
-                                                              Object... whereParameterCanBeFound) throws
-            Exception {
+                                                              Object... whereParameterCanBeFound) {
         new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 
-        sortMojo.setup();
+        try {
+            sortMojo.setup();
+        } catch (MojoFailureException e) {
+            throw new RuntimeException(e);
+        }
 
-        for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
-            Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
-            assertSame(parameterValue, actual);
+        for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
+            Object actual = new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
+
+            assertThat(actual, is(equalTo(parameterValue)));
         }
     }
 
     private void testParameterMoveFromMojoToRestOfApplicationForBoolean(String parameterName,
-                                                                        Object... whereParameterCanBeFound) throws
-            Exception {
+                                                                        Object... whereParameterCanBeFound) {
         new ReflectionHelper(sortMojo).setField(parameterName, true);
 
-        sortMojo.setup();
+        try {
+            sortMojo.setup();
+        } catch (MojoFailureException e) {
+            throw new RuntimeException(e);
+        }
 
-        for (Object someInstanceThatContainparameter : whereParameterCanBeFound) {
-            Object actual = new ReflectionHelper(someInstanceThatContainparameter).getField(parameterName);
-            assertEquals(true, actual);
+        for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
+            boolean actual = (boolean) new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
+
+            assertThat(actual, is(equalTo(true)));
         }
     }
 

@@ -1,12 +1,12 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class SortPropertiesTest {
+class SortPropertiesTest {
 
     @Test
-    public final void namedParametersInSortFileShouldSortThemFirst() throws Exception {
+    final void namedParametersInSortFileShouldSortThemFirst() throws Exception {
         SortPomImplUtil.create()
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
@@ -14,7 +14,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortPropertyParameterShouldSortAlphabetically() throws Exception {
+    final void sortPropertyParameterShouldSortAlphabetically() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
                 .lineSeparator("\n")
@@ -23,7 +23,7 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
+    final void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
                 .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
@@ -32,12 +32,22 @@ public class SortPropertiesTest {
     }
 
     @Test
-    public final void sortingOfFullPomFileShouldWork() throws Exception {
+    final void sortingOfFullPomFileShouldWork() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testFiles("/SortProp_input.xml", "/SortProp_expected.xml");
+    }
+
+    @Test
+    final void duplicatePropertiesShouldNotTriggerSorting() throws Exception {
+        SortPomImplUtil.create()
+                .sortProperties()
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
+                .lineSeparator("\n")
+                .testNoSorting("/SortProp_input_duplicate.xml");
     }
 }

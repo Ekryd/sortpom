@@ -39,6 +39,15 @@ public final class XmlOrderedResult {
                 name, newElementText, name, name, originalElementText, name));
     }
 
+    public static XmlOrderedResult lineDiffers(int lineNumber, String sortedXmlLine) {
+        return new XmlOrderedResult(false, String.format("The line %d is not considered sorted, should be %s",
+                lineNumber, sortedXmlLine));
+    }
+
+    public static XmlOrderedResult lineSeparatorCharactersDiffer() {
+        return new XmlOrderedResult(false, "The line separator characters differ from sorted pom");
+    }
+
     /** Returns true when verification tells that the pom file was sorted */
     public boolean isOrdered() {
         return ordered;

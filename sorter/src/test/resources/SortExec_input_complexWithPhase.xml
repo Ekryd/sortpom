@@ -1,0 +1,161 @@
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                <artifactId>echo-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <message>Hi!</message>
+                </configuration>
+                <executions>
+                    <dummyTag></dummyTag>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>same phase, no</goals>
+                    </execution>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>same phase, significant</goals>
+                    </execution>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>same phase, change</goals>
+                    </execution>
+                    <execution>
+                        <id>c</id>
+                        <goals>same id, no</goals>
+                    </execution>
+                    <execution>
+                        <id>c</id>
+                        <goals>same id, change</goals>
+                    </execution>
+                    <execution>
+                        <goals>only goal, no</goals>
+                    </execution>
+                    <execution>
+                        <goals>only goal, change</goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>of.toad.hall</groupId>
+                    <artifactId>toad</artifactId>
+                    <executions>
+                        <execution>
+                            <id>03-flight-from-the-weasels</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>adventures</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>more adventures</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>02-escape</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>01-imprisonment</id>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>exec</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <profiles>
+        <profile>
+            <id>execution sort order listing</id>
+            <build>
+                <plugins>
+                    <plugin>
+                <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                <artifactId>echo-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <message>Hi!</message>
+                </configuration>
+                        <executions>
+<execution>
+<!-- 6.2.2. unknown phase, sort by phase value and then *id* -->
+    <id>second</id>
+    <phase>tomato</phase>
+</execution>                            
+<execution>
+<!-- 6.2.1. unknown phase, sort by phase value and then *id* -->
+    <id>first</id>
+    <phase>tomato</phase>
+</execution>                            
+<execution>
+<!-- 6.1. unknown phase, sort by *phase* value and then id -->
+    <id>before tomato</id>
+    <phase>cucumber</phase>
+</execution>                            
+<execution>
+<!-- 5. unknown phase and no id, sort by phase value -->
+    <phase>cucumber</phase>
+</execution>                            
+<execution>
+<!-- 4.2.2. standard phase, sort by phase order and then by *id* -->
+    <id>second</id>
+    <phase>package</phase>
+</execution>                            
+<execution>
+<!-- 4.2.1. standard phase, sort by phase order and then by *id* -->
+    <id>first</id>
+    <phase>package</phase>
+</execution>                            
+<execution>
+<!-- 4.1. standard phase, sort by *phase order* and then by id -->
+    <id>before package</id>
+    <phase>clean</phase>
+</execution>                            
+<execution>
+<!-- 3. standard phase and no id -->
+    <phase>clean</phase>
+</execution>                            
+<execution>
+<!-- 2.2. no phase, sort by id -->
+    <id>second</id>
+</execution>                            
+<execution>
+<!-- 2.1. no phase, sort by id -->
+    <id>first</id>
+</execution>                            
+<execution>
+<!-- 1. no phase and id is first -->
+    <goals><goal>echo</goal></goals>
+</execution>                            
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

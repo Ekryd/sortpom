@@ -1,37 +1,38 @@
 package sortpom.util;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
+import java.io.StringWriter;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author bjorn
  * @since 2020-01-11
  */
-public class StringLineSeparatorWriterTest {
+class StringLineSeparatorWriterTest {
 
     private StringLineSeparatorWriter writer;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Before
-    public void setUp() {
-        writer = new StringLineSeparatorWriter("separator");
+    @BeforeEach
+    void setUp() {
+        StringWriter out = new StringWriter();
+        writer = new StringLineSeparatorWriter(out, "separator");
     }
 
     @Test
-    public void writeNewlineShouldBeConvertedToSeparator1() {
+    void writeNewlineShouldBeConvertedToSeparator1() {
         writer.write("Hey\nYou!");
         assertThat(writer.toString(), is("HeyseparatorYou!"));
     }
 
     @Test
-    public void writeNewlineShouldBeConvertedToSeparator2() {
+    void writeNewlineShouldBeConvertedToSeparator2() {
         writer.write("Hello");
         writer.write('&');
         writer.write('\n');
@@ -40,7 +41,7 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void clearExtraNewlinesShouldWork() {
+    void clearExtraNewlinesShouldWork() {
         writer.write("<xml>\n");
 
         //The spaces should be removed
@@ -52,25 +53,33 @@ public class StringLineSeparatorWriterTest {
     }
 
     @Test
-    public void testWriteDeprecated1() {
-        expectedException.expect(UnsupportedOperationException.class);
+    void testWriteDeprecated1() {
 
-        writer.write(new char[0]);
+        final Executable testMethod = () -> writer.write(new char[0]);
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testWriteDeprecated2() {
-        expectedException.expect(UnsupportedOperationException.class);
+    void testWriteDeprecated2() {
 
-        writer.write("", 0, 0);
+        final Executable testMethod = () -> writer.write("", 0, 0);
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
 
     @Test
-    public void testWriteDeprecated3() {
-        expectedException.expect(UnsupportedOperationException.class);
+    void testWriteDeprecated3() {
 
-        writer.write(new char[0], 0, 0);
+        final Executable testMethod = () -> writer.write(new char[0], 0, 0);
+
+        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+
+        assertThat(thrown.getMessage(), is(nullValue()));
     }
-
 
 }

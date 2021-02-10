@@ -1,11 +1,11 @@
 package sortpom.sort;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
-public class KeepTrailingCommentsTest {
+class KeepTrailingCommentsTest {
     @Test
-    public final void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
+    final void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
         SortPomImplUtil.create()
                 .sortDependencies("scope,groupId,artifactId")
                 .lineSeparator("\r\n")

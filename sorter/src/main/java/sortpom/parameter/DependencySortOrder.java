@@ -49,7 +49,7 @@ public class DependencySortOrder {
         if (list.isEmpty()) {
             return new String[0];
         }
-        return list.split(";|,|:");
+        return list.split("[;,:]");
     }
 
     /** Earlier versions only accepted the values 'true' and 'false' as parameter values */

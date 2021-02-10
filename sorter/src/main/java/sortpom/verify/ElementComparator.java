@@ -18,11 +18,6 @@ public class ElementComparator {
         this.newElement = newElement;
     }
 
-    private ElementComparator(Object originalElement, Object newElement) {
-        this.originalElement = (Element) originalElement;
-        this.newElement = (Element) newElement;
-    }
-
     public XmlOrderedResult isElementOrdered() {
         if (!originalElement.getName().equals(newElement.getName())) {
             return XmlOrderedResult.nameDiffers(originalElement.getName(), newElement.getName());
@@ -30,6 +25,7 @@ public class ElementComparator {
         if (isEqualsIgnoringWhitespace()) {
             return XmlOrderedResult.textContentDiffers(originalElement.getName(), originalElement.getText(), newElement.getText());
         }
+        //noinspection unchecked
         return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
     }
 
@@ -37,7 +33,7 @@ public class ElementComparator {
         return !originalElement.getText().replaceAll("\\s", "").equals(newElement.getText().replaceAll("\\s", ""));
     }
 
-    private XmlOrderedResult isChildrenOrdered(String name, List originalElementChildren, List newElementChildren) {
+    private XmlOrderedResult isChildrenOrdered(String name, List<Element> originalElementChildren, List<Element> newElementChildren) {
         int size = Math.min(originalElementChildren.size(), newElementChildren.size());
         for (int i = 0; i < size; i++) {
             ElementComparator elementComparator = new ElementComparator(originalElementChildren.get(i), newElementChildren.get(i));

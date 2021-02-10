@@ -1,32 +1,32 @@
 package sortpom.processinstruction;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
 
 import java.util.ArrayList;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 /**
  * @author bjorn
  * @since 2013-12-28
  */
-public class IgnoredSectionsStoreTest {
+class IgnoredSectionsStoreTest {
 
     private IgnoredSectionsStore ignoredSectionsStore;
     private ArrayList<String> ignoredSections;
 
     @SuppressWarnings("unchecked")
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         ignoredSectionsStore = new IgnoredSectionsStore();
         ignoredSections = new ReflectionHelper(ignoredSectionsStore).getField(ArrayList.class);
     }
 
     @Test
-    public void replaceNoSectionShouldReturnSameXml() {
+    void replaceNoSectionShouldReturnSameXml() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "  <artifactId>sortpom</artifactId>\n" +
@@ -49,7 +49,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void replaceOneSectionShouldCreateOneToken() {
+    void replaceOneSectionShouldCreateOneToken() {
         String xml = "abc<?sortpom ignore?>def<?sortpom resume?>cba";
         String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
@@ -59,7 +59,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void replaceMultipleSectionShouldCreateManyTokens() {
+    void replaceMultipleSectionShouldCreateManyTokens() {
         String xml = "abc<?sortpom ignore?>def1<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def2<?sortPom reSUME?>cba";
         String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
@@ -70,7 +70,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void replaceMultipleLineXmlShouldCreateManyTokens() {
+    void replaceMultipleLineXmlShouldCreateManyTokens() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "\n" +
@@ -128,7 +128,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void revertTokensInOrderShouldWork() {
+    void revertTokensInOrderShouldWork() {
         String xml = "abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba";
         ignoredSections.add("<?sortpom ignore?>def1<?sortpom resume?>");
         ignoredSections.add("<?SORTPOM Ignore?>def2<?sortPom reSUME?>");
@@ -138,7 +138,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void revertTokensInRearrangedOrderShouldPlaceTextInRightOrder() {
+    void revertTokensInRearrangedOrderShouldPlaceTextInRightOrder() {
         String xml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
         ignoredSections.add("<?sortpom ignore?>def0<?sortpom resume?>");
         ignoredSections.add("<?SORTPOM Ignore?>def1<?sortPom reSUME?>");
@@ -148,7 +148,7 @@ public class IgnoredSectionsStoreTest {
     }
 
     @Test
-    public void revertTokensInMultipleLinesShouldPlaceTextInRightOrder() {
+    void revertTokensInMultipleLinesShouldPlaceTextInRightOrder() {
         String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n" +
                 "\n" +

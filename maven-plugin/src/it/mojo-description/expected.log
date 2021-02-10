@@ -66,6 +66,12 @@ sortpom:sort
       User property: sort.indentBlankLines
       Should blank lines (if preserved) have indentation.
 
+    indentSchemaLocation (Default: false)
+      User property: sort.indentSchemaLocation
+      Should the schema location attribute of project (top level xml element)
+      be placed on a new line. The attribute will be indented (2 *
+      nrOfIndentSpace + 1 space) characters.
+
     keepBlankLines (Default: false)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
@@ -110,6 +116,11 @@ sortpom:sort
       Comma-separated ordered list how exclusions, for dependencies, should be
       sorted. Example: groupId,artifactId The list can be separated by ',;:'
 
+    sortExecutions (Default: false)
+      User property: sort.sortExecutions
+      Should the Maven pom execution sections be sorted by phase and then
+      alphabetically.
+
     sortModules (Default: false)
       User property: sort.sortModules
       Should the Maven pom sub modules be sorted alphabetically.
@@ -127,6 +138,11 @@ sortpom:sort
       User property: sort.sortProperties
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
+
+    spaceBeforeCloseEmptyElement (Default: true)
+      User property: sort.spaceBeforeCloseEmptyElement
+      Should non-expanded empty xml element have space before closing tag.
+      Example: <configuration /> or <configuration/>
 
 sortpom:verify
   Description: Verifies that the pom.xml is sorted. If the verification fails
@@ -154,9 +170,19 @@ sortpom:verify
       Should empty xml elements be expanded or not. Example:
       <configuration></configuration> or <configuration/>
 
+    ignoreLineSeparators (Default: true)
+      User property: sort.ignoreLineSeparators
+      Ignore line separators when comparing current POM with sorted one
+
     indentBlankLines (Default: false)
       User property: sort.indentBlankLines
       Should blank lines (if preserved) have indentation.
+
+    indentSchemaLocation (Default: false)
+      User property: sort.indentSchemaLocation
+      Should the schema location attribute of project (top level xml element)
+      be placed on a new line. The attribute will be indented (2 *
+      nrOfIndentSpace + 1 space) characters.
 
     keepBlankLines (Default: false)
       User property: sort.keepBlankLines
@@ -202,6 +228,11 @@ sortpom:verify
       Comma-separated ordered list how exclusions, for dependencies, should be
       sorted. Example: groupId,artifactId The list can be separated by ',;:'
 
+    sortExecutions (Default: false)
+      User property: sort.sortExecutions
+      Should the Maven pom execution sections be sorted by phase and then
+      alphabetically.
+
     sortModules (Default: false)
       User property: sort.sortModules
       Should the Maven pom sub modules be sorted alphabetically.
@@ -220,10 +251,20 @@ sortpom:verify
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
 
+    spaceBeforeCloseEmptyElement (Default: true)
+      User property: sort.spaceBeforeCloseEmptyElement
+      Should non-expanded empty xml element have space before closing tag.
+      Example: <configuration /> or <configuration/>
+
     verifyFail (Default: sort)
       User property: sort.verifyFail
       What should happen if verification fails. Can be either 'sort', 'warn' or
       'stop'
+
+    verifyFailOn (Default: xmlElements)
+      User property: sort.verifyFailOn
+      What kind of differences should trigger verify failure. Can be either
+      'xmlElements' or 'strict'. Can be combined with ignoreLineSeparators
 
     violationFilename
       User property: sort.violationFilename

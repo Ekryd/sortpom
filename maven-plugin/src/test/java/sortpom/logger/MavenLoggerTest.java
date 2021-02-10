@@ -1,26 +1,28 @@
 package sortpom.logger;
 
 import org.apache.maven.plugin.logging.Log;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
  * @author bjorn
  * @since 2013-10-19
  */
-public class MavenLoggerTest {
+class MavenLoggerTest {
     private final Log logMock = mock(Log.class);
     private MavenLogger mavenLogger;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         mavenLogger = new MavenLogger(logMock);
     }
 
     @Test
-    public void warnShouldOutputWarnLevel() {
+    void warnShouldOutputWarnLevel() {
         mavenLogger.warn("Gurka");
 
         verify(logMock).warn("Gurka");
@@ -28,7 +30,7 @@ public class MavenLoggerTest {
     }
 
     @Test
-    public void infoShouldOutputInfoLevel() {
+    void infoShouldOutputInfoLevel() {
         mavenLogger.info("Gurka");
 
         verify(logMock).info("Gurka");
@@ -36,7 +38,7 @@ public class MavenLoggerTest {
     }
 
     @Test
-    public void errorShouldOutputErrorLevel() {
+    void errorShouldOutputErrorLevel() {
         mavenLogger.error("Gurka");
 
         verify(logMock).error("Gurka");

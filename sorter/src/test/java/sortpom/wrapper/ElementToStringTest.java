@@ -4,7 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.jdom.Document;
 import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
@@ -14,15 +14,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author bjorn
- * @since 2012-06-13
- */
-public class ElementToStringTest {
+class ElementToStringTest {
     @Test
-    public void testToString() throws Exception {
+    void testToString() throws Exception {
         String expected = IOUtils.toString(new FileInputStream("src/test/resources/Real1_expected_toString.txt"), StandardCharsets.UTF_8);
         assertEquals(expected, getToStringOnRootElementWrapper());
     }
@@ -31,10 +27,10 @@ public class ElementToStringTest {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
-                .setFormatting("\r\n", true, true)
-                .setIndent(2, false)
+                .setFormatting("\r\n", true, true, true)
+                .setIndent(2, false, false)
                 .setSortOrder("default_0_4_0.xml", null)
-                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", "groupId,artifactId", true, true).build();
+                .setSortEntities("scope,groupId,artifactId", "groupId,artifactId", "groupId,artifactId", true, true, true).build();
 
         FileUtil fileUtil = new FileUtil();
         fileUtil.setup(pluginParameters);

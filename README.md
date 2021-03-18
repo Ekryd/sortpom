@@ -32,18 +32,13 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
+  * 2021-01-16: Released version 2.14.0 that adds support for indentSchemaLocation to break apart the long project declaration line at the top of the pom [#85](/../../issues/85)
   * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82](/../../issues/82)
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
   * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks Christoph for your pull request! [#68](/../../issues/68) [#69](/../../issues/69)
-  * 2018-10-10: Released version 2.10.0. Eclipse users will not get 'Plugin execution not covered by lifecycle configuration' error anymore. Thanks Andrea for your pull request! [#66](/../../issues/66)
-  * 2018-09-20: Released version 2.9.0. Updated the default order to match Maven xsd. The parent element will get artifactId and groupId switched [#65](/../../issues/65)
-  * 2017-04-02: Released version 2.8.0 that adds support to sort modules. Thanks Monica for your pull request! [#54](/../../issues/54)
-  * 2017-03-29: Released version 2.7.0 that adds support to write to a separate violation file when verifying. [#44](/../../issues/44)
-  * 2017-03-18: Released version 2.6.0 that adds support to force sorting if only line breaks differ. Thanks again Benoit Guerin for your pull requests! [#46](/../../issues/46)
-  * 2017-02-18: Benoit Guerin supplied Maven invoker tests to the plugin. Thank you! [#47](/../../issues/47)
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.

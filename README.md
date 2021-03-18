@@ -32,7 +32,7 @@ For a example how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
-  * 2021-01-16: Released version 2.14.0 that adds support for indentSchemaLocation to break apart the long project declaration line at the top of the pom [#85](/../../issues/85)
+  * 2021-03-18: Released version 2.14.0 that adds support for indentSchemaLocation to break apart the long project declaration line at the top of the pom [#85](/../../issues/85)
   * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82](/../../issues/82)
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)

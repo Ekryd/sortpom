@@ -230,7 +230,7 @@
           <!-- Coverage -->
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.5</version>
+          <version>0.8.6</version>
           <configuration>
             <excludes>
               <exclude>**/*HelpMojo.class</exclude>

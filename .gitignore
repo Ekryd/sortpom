@@ -8,3 +8,4 @@ idea-plugin/out
 .settings
 /maven-plugin/src/it/*/interpolated-pom.xml.bak
 /maven-plugin/src/it/*/build.log
+.java-version

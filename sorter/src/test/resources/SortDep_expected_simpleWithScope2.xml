@@ -3,6 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
   <dependencies>
     <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-framework-bom</artifactId>
+      <version>4.3.8.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+    <dependency>
       <artifactId>a</artifactId>
     </dependency>
     <dependency>
@@ -26,9 +33,6 @@
     </dependency>
     <dependency>
       <scope>runTIME</scope>
-    </dependency>
-    <dependency>
-      <scope>import</scope>
     </dependency>
     <dependency>
       <scope>test</scope>

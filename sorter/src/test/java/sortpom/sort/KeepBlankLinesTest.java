@@ -118,4 +118,17 @@ class KeepBlankLinesTest {
         assertThat(actual, containsString(",\rembedded,\rand"));
     }
 
+    @Test
+    final void artifactIdsWithLineBreaksShouldBeTrimmedBeforeSorting() throws Exception {
+        XmlProcessorTestUtil.create()
+                .lineSeparator("\n")
+                .keepBlankLines()
+                .expandEmptyElements(false)
+                .sortModules()
+                .sortDependencies("scope,groupId,artifactId")
+                .sortProperties()
+                .sortPlugins("groupId,artifactId")
+                .noSpaceBeforeCloseEmptyElement()
+                .testInputAndExpected("src/test/resources/LineBreak_input3.xml", "src/test/resources/LineBreak_expected3.xml");
+    }
 }

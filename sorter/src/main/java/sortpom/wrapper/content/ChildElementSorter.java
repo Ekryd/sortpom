@@ -26,7 +26,7 @@ public class ChildElementSorter {
                 childElementTextMappedBySortedNames.put(name.toUpperCase(), ""));
 
         children.forEach(element ->
-                childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getText()));
+                childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getTextTrim()));
     }
 
     private ChildElementSorter() {

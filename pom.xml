@@ -127,7 +127,6 @@
             <sortProperties>true</sortProperties>
             <keepBlankLines>true</keepBlankLines>
             <sortDependencies>scope,groupId,artifactId</sortDependencies>
-            <sortPlugins>groupId,artifactId</sortPlugins>
             <indentSchemaLocation>true</indentSchemaLocation>
           </configuration>
         </plugin>

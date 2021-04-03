@@ -20,6 +20,19 @@
       <artifactId>cglib</artifactId>
       <version>2.2</version>
       <scope>test</scope>
+      <exclusions>
+        <this is="dummy">
+          <element></element>
+        </this>
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.sonatype.aether</groupId>
+          <artifactId>aether</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>cheesymock</groupId>

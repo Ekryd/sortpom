@@ -78,7 +78,6 @@ class TestHandler {
 
             expectedSortedPomInputStream = new FileInputStream("src/test/resources/" + expectedResourceFileName);
             String expectedSorted = IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
-            assertThat(actualSorted, is(expectedSorted));
             assertEquals(expectedSorted, actualSorted);
         } finally {
             cleanupAfterTest();

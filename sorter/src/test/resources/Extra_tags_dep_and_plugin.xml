@@ -24,6 +24,19 @@
       <artifactId>cglib</artifactId>
       <version>2.2</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>activation</artifactId>
+        </exclusion>
+        <this is="dummy">
+          <element></element>
+        </this>
+        <exclusion>
+          <groupId>org.sonatype.aether</groupId>
+          <artifactId>aether</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <this is="dummy">
       <element></element>

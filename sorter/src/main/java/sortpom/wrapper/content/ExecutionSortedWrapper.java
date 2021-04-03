@@ -33,13 +33,13 @@ public class ExecutionSortedWrapper extends SortedWrapper {
 
         phase = children.stream()
                 .filter(e -> e.getName().equals("phase") && e.getText() != null)
-                .map(e -> Phase.getPhase(e.getText()))
+                .map(e -> Phase.getPhase(e.getTextTrim()))
                 .findFirst()
                 .orElse(null);
 
         id = children.stream()
                 .filter(e -> e.getName().equals("id"))
-                .map(Element::getText)
+                .map(Element::getTextTrim)
                 .findFirst()
                 .orElse("");
 

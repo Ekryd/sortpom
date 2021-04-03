@@ -52,12 +52,31 @@ jobs:
           key: sortpom-cache--{{ checksum "pom.xml" }}
         
 workflows:
+  version: 2
   work:
     jobs:
       - jdk8
-      - jdk11
-      - jdk12
-      - jdk13
-      - jdk14
-      - jdk15
+      - jdk12:
+          requires:
+            - jdk8
+      - jdk13:
+          requires:
+            - jdk8
+      - jdk14:
+          requires:
+            - jdk8
+      - jdk15:
+          requires:
+            - jdk8
+      - jdk11:
+          filters:  # using regex filters requires the entire branch to match
+            branches:              
+              only:  # only branches matching the below regex filters will run
+                - master
+          requires:
+            - jdk8
+            - jdk12
+            - jdk13
+            - jdk14
+            - jdk15
         

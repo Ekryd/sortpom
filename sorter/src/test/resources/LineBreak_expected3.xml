@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.ekryd.sortpom.its</groupId>
+  <artifactId>default-configuration</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>2.14.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <configuration>
+              <keepBlankLines>true</keepBlankLines>
+              <createBackupFile>false</createBackupFile>
+              <expandEmptyElements>false</expandEmptyElements>
+              <sortModules>true</sortModules>
+              <sortDependencies>scope,groupId,artifactId</sortDependencies>
+              <sortProperties>true</sortProperties>
+              <sortPlugins>groupId,artifactId</sortPlugins>
+              <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

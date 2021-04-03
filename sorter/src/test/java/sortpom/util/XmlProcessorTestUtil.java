@@ -18,9 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test utility
@@ -35,6 +33,11 @@ public class XmlProcessorTestUtil {
 
     private XmlProcessor xmlProcessor;
     private XmlOutputGenerator xmlOutputGenerator;
+    private boolean spaceBeforeCloseEmptyElement = true;
+    private boolean sortModules = false;
+    private String sortDependencies;
+    private String sortPlugins;
+    private boolean sortProperties = false;
 
 
     public static XmlProcessorTestUtil create() {
@@ -77,10 +80,10 @@ public class XmlProcessorTestUtil {
                 .setPomFile(null)
                 .setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
-                .setFormatting(lineSeparator, expandEmptyElements, true, keepBlankLines)
+                .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
                 .setIndent(2, indentBlankLines, false)
                 .setSortOrder(predefinedSortOrder + ".xml", null)
-                .setSortEntities("", "", "", false, false, false).build();
+                .setSortEntities(sortDependencies, "", sortPlugins, sortProperties, sortModules, false).build();
         final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
 
         final FileUtil fileUtil = new FileUtil();
@@ -142,6 +145,31 @@ public class XmlProcessorTestUtil {
 
     public XmlProcessorTestUtil predefinedSortOrder(String predefinedSortOrder) {
         this.predefinedSortOrder = predefinedSortOrder;
+        return this;
+    }
+
+    public XmlProcessorTestUtil sortModules() {
+        this.sortModules = true;
+        return this;
+    }
+
+    public XmlProcessorTestUtil sortDependencies(String sortDependencies) {
+        this.sortDependencies = sortDependencies;
+        return this;
+    }
+
+    public XmlProcessorTestUtil sortPlugins(String sortPlugins) {
+        this.sortPlugins = sortPlugins;
+        return this;
+    }
+
+    public XmlProcessorTestUtil noSpaceBeforeCloseEmptyElement() {
+        this.spaceBeforeCloseEmptyElement = false;
+        return this;
+    }
+
+    public XmlProcessorTestUtil sortProperties() {
+        this.sortProperties = true;
         return this;
     }
 

@@ -20,14 +20,14 @@ The SortPom Plugin has two goals.
 
 ## Usage ##
 
-The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be [configured](https://github.com/Ekryd/sortpom/wiki/Parameters) to sort by by different standards or by custom format. By default a backup file will be created, so that you can check how the pom-file has changed.
+The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be [configured](https://github.com/Ekryd/sortpom/wiki/Parameters) to sort by different standards or by a custom format. A backup file will be created, by default, so that you can check how the pom-file has changed.
 
 Sortpom works best if it is run every time during Maven compilation. [Configure](https://github.com/Ekryd/sortpom/wiki/Parameters) it once and then forget about it. If you want to perform a simple test what the plugin does then open a command prompt in your project home and enter
 ```
 mvn com.github.ekryd.sortpom:sortpom-maven-plugin:sort -Dsort.keepBlankLines -Dsort.predefinedSortOrder=custom_1
 ```
 
-For a example how the plugin can be configured to run every time you build your project see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
+An example of how the plugin can be configured to run every time you build your project see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
@@ -40,7 +40,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
-  * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks Christoph for your pull request! [#68](/../../issues/68) [#69](/../../issues/69)
+  * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks, Christoph for your pull request! [#68](/../../issues/68) [#69](/../../issues/69)
   * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.

@@ -583,6 +583,30 @@ HierarchyWrapper{
           UnsortedWrapper{content=[Text: test]}
           }
         }
+      HierarchyWrapper{
+        elementContent=SortedWrapper{element=[Element: <exclusions [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+        children=
+        HierarchyWrapper{
+          elementContent=ExclusionSortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[asm, asm-util]}}
+          children=
+          HierarchyWrapper{
+            elementContent=SortedWrapper{element=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+            children=
+            HierarchyWrapper{
+              otherContentList=
+              UnsortedWrapper{content=[Text: asm]}
+              }
+            }
+          HierarchyWrapper{
+            elementContent=SortedWrapper{element=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+            children=
+            HierarchyWrapper{
+              otherContentList=
+              UnsortedWrapper{content=[Text: asm-util]}
+              }
+            }
+          }
+        }
       }
     HierarchyWrapper{
       elementContent=DependencySortedWrapper{childElementSorter=ChildElementSorter{childElementTexts=[test, cheesymock, cheesymock]}}

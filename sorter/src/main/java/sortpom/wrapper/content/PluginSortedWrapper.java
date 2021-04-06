@@ -12,7 +12,6 @@ import java.util.List;
  * @author Bjorn Ekryd
  */
 public class PluginSortedWrapper extends SortedWrapper {
-    private static final String EMPTY_PLUGIN_GROUP_ID_VALUE = "org.apache.maven.plugins";
     private ChildElementSorter childElementSorter = ChildElementSorter.EMPTY_SORTER;
 
     /**
@@ -29,7 +28,7 @@ public class PluginSortedWrapper extends SortedWrapper {
     public void setSortOrder(DependencySortOrder dependencySortOrder) {
         List<Element> children = getContent().getChildren();
         this.childElementSorter = new ChildElementSorter(dependencySortOrder, children);
-        childElementSorter.setEmptyPluginGroupIdValue(EMPTY_PLUGIN_GROUP_ID_VALUE);
+        childElementSorter.emptyGroupIdIsFilledWithDefaultMavenGroupId();
     }
 
     @Override

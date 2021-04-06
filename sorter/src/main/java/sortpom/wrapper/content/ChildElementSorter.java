@@ -16,6 +16,7 @@ import java.util.function.Function;
 public class ChildElementSorter {
     static final ChildElementSorter EMPTY_SORTER = new ChildElementSorter();
     private static final String GROUP_ID_NAME = "GROUPID";
+    private static final String EMPTY_PLUGIN_GROUP_ID_VALUE = "org.apache.maven.plugins";
 
     private final LinkedHashMap<String, String> childElementTextMappedBySortedNames = new LinkedHashMap<>();
 
@@ -57,8 +58,8 @@ public class ChildElementSorter {
         return Scope.getScope(childElementText).compareTo(Scope.getScope(otherChildElementText));
     }
 
-    void setEmptyPluginGroupIdValue(String defaultValue) {
-        childElementTextMappedBySortedNames.computeIfPresent(GROUP_ID_NAME, (k, oldValue) -> oldValue.isEmpty() ? defaultValue : oldValue);
+    void emptyGroupIdIsFilledWithDefaultMavenGroupId() {
+        childElementTextMappedBySortedNames.computeIfPresent(GROUP_ID_NAME, (k, oldValue) -> oldValue.isEmpty() ? EMPTY_PLUGIN_GROUP_ID_VALUE : oldValue);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class ChildElementSorter {
     }
 
     private enum Scope {
-        COMPILE, PROVIDED, SYSTEM, RUNTIME, IMPORT, TEST, OTHER;
+        IMPORT, COMPILE, PROVIDED, SYSTEM, RUNTIME, TEST, OTHER;
 
         static Scope getScope(String scope) {
             if (scope == null || scope.isEmpty()) {

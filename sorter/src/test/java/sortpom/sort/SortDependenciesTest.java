@@ -83,4 +83,20 @@ class SortDependenciesTest {
 
         assertThat(logs.get(0), is("[WARNING] [DEPRECATED] The 'false' value in sortDependencies is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!"));
     }
+    
+     @Test
+    final void sortPluginsByExecutionIdShouldPutNoExecutionLast() throws Exception {
+        SortPomImplUtil.create()
+                .defaultOrderFileName("custom_1.xml")
+                .lineSeparator("\n")
+                .sortProperties()
+                .sortDependencies("scope,groupId,artifactId")
+                .sortPlugins("executionId,groupId,artifactId")
+                .keepBlankLines()
+                .indentSchemaLocation()
+                .testFiles("/SortPluginsByExecutionId_input.xml", 
+                        "/SortPluginsByExecutionId_input.xml");
+    }
+
+
 }

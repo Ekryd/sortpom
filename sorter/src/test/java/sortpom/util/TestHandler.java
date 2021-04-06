@@ -63,8 +63,8 @@ class TestHandler {
             FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
             performSorting();
 
-            assertTrue(testpom.exists());
-            assertTrue(backupFile.exists());
+            assertTrue(testpom.exists(), "The pom file must exist");
+            assertTrue(backupFile.exists(), "There must be a backup file");
 
             backupFileInputStream = new FileInputStream(backupFile);
             String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
@@ -78,7 +78,6 @@ class TestHandler {
 
             expectedSortedPomInputStream = new FileInputStream("src/test/resources/" + expectedResourceFileName);
             String expectedSorted = IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
-            assertThat(actualSorted, is(expectedSorted));
             assertEquals(expectedSorted, actualSorted);
         } finally {
             cleanupAfterTest();

@@ -3,10 +3,7 @@ package sortpom.wrapper.content;
 import org.jdom.Element;
 import sortpom.parameter.DependencySortOrder;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -16,6 +13,7 @@ import java.util.function.Function;
 public class ChildElementSorter {
     static final ChildElementSorter EMPTY_SORTER = new ChildElementSorter();
     private static final String GROUP_ID_NAME = "GROUPID";
+    private static final String EXECUTION_ID_NAME = "EXECUTIONID";
 
     private final LinkedHashMap<String, String> childElementTextMappedBySortedNames = new LinkedHashMap<>();
 
@@ -25,10 +23,33 @@ public class ChildElementSorter {
         childElementNames.forEach(name ->
                 childElementTextMappedBySortedNames.put(name.toUpperCase(), ""));
 
-        children.forEach(element ->
+        Optional<Map.Entry<String, String>> executionIdEntry = childElementTextMappedBySortedNames.entrySet().stream()
+                .filter(e -> EXECUTION_ID_NAME.equals(e.getKey()))
+                .findFirst();
+
+        children.forEach(element -> 
                 childElementTextMappedBySortedNames.replace(element.getName().toUpperCase(), element.getTextTrim()));
+    
+        executionIdEntry.ifPresent(entry -> entry.setValue(getNestedExecutionIdValue(children))); 
     }
 
+    private String getNestedExecutionIdValue(List<Element> children) {
+        return children.stream()
+                .filter(elem -> elem.getName().equalsIgnoreCase("Executions"))
+                .flatMap(elem -> getChildren(elem).stream())
+                .filter(elem -> elem.getName().equalsIgnoreCase("Execution"))
+                .flatMap(elem -> getChildren(elem).stream())
+                .filter(elem -> elem.getName().equalsIgnoreCase("Id"))
+                .findFirst()
+                .map(Element::getTextTrim)
+                .orElse("");
+    }
+
+    private List<Element> getChildren(Element element) {
+        //noinspection unchecked
+        return (List<Element>) element.getChildren();
+    }
+    
     private ChildElementSorter() {
     }
 

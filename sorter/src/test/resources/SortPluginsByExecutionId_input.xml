@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -386,58 +387,27 @@
       </plugin>
     </plugins>
   </build>
-
-  <!-- Misc -->
-  <url>https://github.com/Ekryd/sortpom/</url>
-  <inceptionYear>2009</inceptionYear>
-
-  <licenses>
-    <license>
-      <name>New BSD License</name>
-      <url>http://en.wikipedia.org/wiki/BSD_licenses</url>
-      <distribution>repo</distribution>
-      <comments>Whatever</comments>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <id>bjorn.ekryd</id>
-      <name>Björn Ekryd</name>
-      <email>bjorn.ekryd(at)gmail(dot)com</email>
-      <url>http://www.linkedin.com/in/bjornekryd</url>
-      <roles>
-        <role>Architect</role>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
-
-  <scm>
-    <connection>scm:git:https://github.com/Ekryd/sortpom.git</connection>
-    <developerConnection>scm:git:https://github.com/Ekryd/sortpom.git</developerConnection>
-    <url>https://github.com/Ekryd/sortpom</url>
-    <tag>HEAD</tag>
-  </scm>
-  <issueManagement>
-    <system>GitHub</system>
-    <url>https://github.com/Ekryd/sortpom/issues</url>
-  </issueManagement>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
+  
   <!-- Profiles -->
   <profiles>
     <profile>
       <id>distribution</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>2_attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -457,23 +427,9 @@
             </configuration>
             <executions>
               <execution>
-                <id>attach-javadoc</id>
+                <id>1_attach-javadoc</id>
                 <goals>
                   <goal>jar</goal>
-                </goals>
-                <phase>verify</phase>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>3.2.1</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
                 </goals>
                 <phase>verify</phase>
               </execution>
@@ -485,7 +441,7 @@
             <version>1.6</version>
             <executions>
               <execution>
-                <id>sign-artifacts</id>
+                <id>3_sign-artifacts</id>
                 <goals>
                   <goal>sign</goal>
                 </goals>

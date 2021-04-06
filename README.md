@@ -32,7 +32,9 @@ An example of how the plugin can be configured to run every time you build your 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
-  * 2021-03-31: Heads up! The upcoming release 2.15.0 will contain a breaking change. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93)
+Added 
+  * Heads up! The upcoming release will contain a breaking change. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93)
+  * 2021-04-06: Released version 2.15.0 that adds support for sortDependencyExclusions to sort dependency exclusions by groupId and/or artifactId
   * 2021-03-30: Released version 2.14.1 that fixes sorting of dependencies and plugins if artifactId or groupId contains a line break [#99](/../../issues/99)
   * 2021-03-18: Released version 2.14.0 that adds support for indentSchemaLocation to break apart the long project declaration line at the top of the pom [#85](/../../issues/85)
   * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82](/../../issues/82)

@@ -96,7 +96,7 @@ sortpom:sort
       This is the File instance that refers to the location of the pom that
       should be sorted.
 
-    predefinedSortOrder
+    predefinedSortOrder (Default: recommended_2008_06)
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
 
@@ -208,7 +208,7 @@ sortpom:verify
       This is the File instance that refers to the location of the pom that
       should be sorted.
 
-    predefinedSortOrder
+    predefinedSortOrder (Default: recommended_2008_06)
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
 

@@ -7,30 +7,37 @@ class XmlProcessorTest {
 
     @Test
     final void testSortXmlAttributes() throws Exception {
-        XmlProcessorTestUtil.create().testInputAndExpected(
-                "src/test/resources/Attribute_input.xml", "src/test/resources/Attribute_expected.xml");
+        XmlProcessorTestUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testInputAndExpected(
+                        "src/test/resources/Attribute_input.xml", "src/test/resources/Attribute_expected.xml");
     }
 
     @Test
     final void testSortXmlCharacter() throws Exception {
-        XmlProcessorTestUtil.create().testInputAndExpected(
-                "src/test/resources/Character_input.xml", "src/test/resources/Character_expected.xml");
+        XmlProcessorTestUtil.create()
+                .testInputAndExpected(
+                        "src/test/resources/Character_input.xml", "src/test/resources/Character_expected.xml");
     }
 
     @Test
     final void testSortXmlComplex() throws Exception {
-        XmlProcessorTestUtil.create().testInputAndExpected(
-                "src/test/resources/Complex_input.xml", "src/test/resources/Complex_expected.xml");
+        XmlProcessorTestUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testInputAndExpected(
+                        "src/test/resources/Complex_input.xml", "src/test/resources/Complex_expected.xml");
     }
 
     @Test
     final void testSortXmlFullFromAlphabeticalOrder() throws Exception {
-        XmlProcessorTestUtil.create().testInputAndExpected(
-                "src/test/resources/full_alfa_input.xml", "src/test/resources/full_expected.xml");
+        XmlProcessorTestUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testInputAndExpected(
+                        "src/test/resources/full_alfa_input.xml", "src/test/resources/full_expected.xml");
     }
 
     @Test
-    final void testSortXmlFullToAlfabetical() throws Exception {
+    final void testSortXmlFullToAlphabetical() throws Exception {
         XmlProcessorTestUtil.create()
                 .sortAlphabeticalOnly()
                 .testInputAndExpected(
@@ -46,8 +53,9 @@ class XmlProcessorTest {
 
     @Test
     final void testSortXmlReal1() throws Exception {
-        XmlProcessorTestUtil.create().testInputAndExpected(
-                "src/test/resources/Real1_input.xml", "src/test/resources/Real1_expected.xml");
+        XmlProcessorTestUtil.create()
+                .testInputAndExpected(
+                        "src/test/resources/Real1_input.xml", "src/test/resources/Real1_expected.xml");
     }
 
     @Test

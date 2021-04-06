@@ -21,12 +21,14 @@ class SortOrderTest {
     @Test
     final void testSortXmlComplexShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .testVerifyXmlIsOrdered("/Complex_expected.xml");
     }
 
     @Test
-    final void testSortXmlFullFromAlfabeticalOrderShouldNotAffectVerify() throws Exception {
+    final void testSortXmlFullFromAlphabeticalOrderShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .testVerifyXmlIsOrdered("/full_expected.xml");
     }
 
@@ -88,7 +90,7 @@ class SortOrderTest {
     }
 
     @Test
-    final void testSortXmlFullFromAlfabeticalOrderShouldAffectVerify() throws Exception {
+    final void testSortXmlFullFromAlphabeticalOrderShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .testVerifyXmlIsNotOrdered("/full_alfa_input.xml",
                         "The xml element <modelVersion> should be placed before <artifactId>");
@@ -142,6 +144,7 @@ class SortOrderTest {
     @Test
     final void testSortWithDependencySortFullShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .sortDependencies("groupId,artifactId")
                 .sortPlugins("groupId,artifactId")
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",

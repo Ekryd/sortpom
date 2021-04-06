@@ -28,23 +28,28 @@ class SortOrderTest {
     }
 
     @Test
-    final void testSortXmlCharacterl() throws Exception {
+    final void testSortXmlCharacter() throws Exception {
         SortPomImplUtil.create().testFiles("/Character_input.xml", "/Character_expected.xml");
     }
 
     @Test
     final void testSortXmlComplex() throws Exception {
-        SortPomImplUtil.create().testFiles("/Complex_input.xml", "/Complex_expected.xml");
+        SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testFiles("/Complex_input.xml", "/Complex_expected.xml");
     }
 
     @Test
-    final void testSortXmlFullFromAlfabeticalOrder() throws Exception {
-        SortPomImplUtil.create().testFiles("/full_alfa_input.xml", "/full_expected.xml");
+    final void testSortXmlFullFromAlphabeticalOrder() throws Exception {
+        SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testFiles("/full_alfa_input.xml", "/full_expected.xml");
     }
 
     @Test
     final void testSortXmlFull() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
     }
 

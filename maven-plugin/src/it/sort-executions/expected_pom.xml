@@ -32,46 +32,46 @@
         <groupId>com.github.ekryd.echo-maven-plugin</groupId>
         <artifactId>echo-maven-plugin</artifactId>
         <version>1.2.0</version>
-        <executions>
-          <execution>
-            <id>more adventures</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>01-imprisonment</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>02-escape</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>03-flight-from-the-weasels</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>adventures</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>echo</goal>
-            </goals>
-          </execution>
-        </executions>
         <configuration>
           <message>Hi!</message>
         </configuration>
+        <executions>
+          <execution>
+            <id>more adventures</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>validate</phase>
+          </execution>
+          <execution>
+            <id>01-imprisonment</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+          <execution>
+            <id>02-escape</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+          <execution>
+            <id>03-flight-from-the-weasels</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+          <execution>
+            <id>adventures</id>
+            <goals>
+              <goal>echo</goal>
+            </goals>
+            <phase>initialize</phase>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

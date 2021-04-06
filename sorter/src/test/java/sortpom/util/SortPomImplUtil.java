@@ -3,29 +3,25 @@ package sortpom.util;
 import sortpom.parameter.PluginParameters;
 
 import java.io.File;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /** Test utility to enter sort parameters */
 public class SortPomImplUtil {
 
     private TestHandler testHandler;
 
-    private String customSortOrderFile = "default_0_4_0.xml";
+    private String customSortOrderFile;
     private String sortDependencies = "";
     private String sortDependencyExclusions = "";
     private String sortPlugins = "";
     private boolean sortProperties = false;
     private boolean sortModules = false;
     private boolean sortExecutions = false;
-    private String predefinedSortOrder = "";
+    private String predefinedSortOrder = "recommended_2008_06";
     private String lineSeparator = "\r\n";
     private String testPomFileName = "src/test/resources/testpom.xml";
     private String testPomBackupExtension = ".testExtension";
@@ -55,14 +51,6 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performSortThatSorted();
-    }
-
-    public List<String> testFilesAndReturnLogs(final String inputResourceFileName, final String expectedResourceFileName)
-            throws Exception {
-        setup();
-        testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
-        testHandler.performSortThatSorted();
-        return testHandler.getInfoLogger();
     }
 
     public void testFilesWithTimestamp(final String inputResourceFileName, final String expectedResourceFileName)
@@ -193,8 +181,8 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil customSortOrderFile(String defaultOrderFileName) {
-        this.customSortOrderFile = defaultOrderFileName;
+    public SortPomImplUtil customSortOrderFile(String customSortOrderFile) {
+        this.customSortOrderFile = customSortOrderFile;
         return this;
     }
 

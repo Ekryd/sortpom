@@ -91,7 +91,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
     /**
      * Choose between a number of predefined sort order files.
      */
-    @Parameter(property = "sort.predefinedSortOrder")
+    @Parameter(property = "sort.predefinedSortOrder", defaultValue = "recommended_2008_06")
     String predefinedSortOrder;
 
     /**

@@ -17,7 +17,6 @@ import java.util.Optional;
  * @author Bjorn
  */
 public class FileUtil {
-    private static final String DEFAULT_SORT_ORDER_FILENAME = "default_1_0_0";
     private static final String XML_FILE_EXTENSION = ".xml";
     private File pomFile;
     private String backupFileExtension;
@@ -95,7 +94,7 @@ public class FileUtil {
         if (keepTimestamp) {
             timestamp = fileAttrUtils.getLastModifiedTimestamp(pomFile);
             if (timestamp == 0) {
-                throw new FailureException("Cound not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
+                throw new FailureException("Could not retrieve the timestamp of the pom file: " + pomFile.getAbsolutePath());
             }
         }
     }
@@ -149,10 +148,8 @@ public class FileUtil {
                 } else {
                     return openCustomSortOrderFile();
                 }
-            } else if (predefinedSortOrder != null) {
-                return getPredefinedSortOrder(predefinedSortOrder);
-            }
-            return getPredefinedSortOrder(DEFAULT_SORT_ORDER_FILENAME);
+            } 
+            return getPredefinedSortOrder(predefinedSortOrder);
         };
 
         try (InputStream inputStream = createStreamFunc.get()) {

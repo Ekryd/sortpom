@@ -74,6 +74,7 @@ class SortPropertiesTest {
     final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
+                .predefinedSortOrder("default_0_4_0")
                 .sortPlugins("groupId,artifactId")
                 .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")

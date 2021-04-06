@@ -25,6 +25,7 @@ class ViolationFileParameterTest {
     final void violationFileCanBeOverwritten() throws Exception {
         File tempFile = File.createTempFile("violation", ".xml", new File("target"));
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .violationFile(tempFile.getAbsolutePath())
                 .testVerifySort("/full_unsorted_input.xml",
                         "/full_expected.xml",
@@ -83,6 +84,7 @@ class ViolationFileParameterTest {
         new File(FILENAME_WITH_DIRECTORIES).delete();
 
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .verifyFail("Sort")
                 .violationFile(FILENAME_WITH_DIRECTORIES)
                 .testVerifySort("/full_unsorted_input.xml",

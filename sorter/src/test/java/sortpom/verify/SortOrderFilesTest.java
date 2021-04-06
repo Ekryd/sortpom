@@ -1,7 +1,14 @@
 package sortpom.verify;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import sortpom.util.SortPomImplUtil;
+
+import java.lang.reflect.InvocationTargetException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SortOrderFilesTest {
     @Test
@@ -54,11 +61,16 @@ class SortOrderFilesTest {
     }
 
     @Test
-    final void defaultPredefinedSortOrderShouldWork() throws Exception {
-        SortPomImplUtil.create()
-                .predefinedSortOrder(null)
-                .lineSeparator("\n")
-                .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
+    final void illegalPredefinedSortOrderShouldReportError() {
+        Executable testMethod = () ->
+                SortPomImplUtil.create()
+                        .predefinedSortOrder("special.xml")
+                        .lineSeparator("\n")
+                        .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
+
+        final InvocationTargetException thrown = assertThrows(InvocationTargetException.class, testMethod);
+
+        assertThat(thrown.getCause().getMessage(), is("Cannot find special.xml.xml among the predefined plugin resources"));
     }
 
     @Test

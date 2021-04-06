@@ -44,6 +44,7 @@ class SortPropertiesTest {
     @Test
     final void duplicatePropertiesShouldNotTriggerSorting() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .sortProperties()
                 .sortPlugins("groupId,artifactId")
                 .sortDependencies("groupId,artifactId")

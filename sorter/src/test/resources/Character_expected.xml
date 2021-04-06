@@ -4,12 +4,12 @@
   <groupId>sortpom</groupId>
   <artifactId>sortpom</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <name>SortPom</name>
+  <description>Här använder vi åäö</description>
   <!-- Egenskaper för projektet -->
   <properties>
     <compileSource>1.6</compileSource>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <reporting></reporting>
-  <name>SortPom</name>
-  <description>Här använder vi åäö</description>
 </project>

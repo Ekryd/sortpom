@@ -66,6 +66,7 @@ class EncodingParameterTest {
     @Test
     void differentEncodingShouldWork1() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .encoding("UTF-32BE")
                 .testFiles("/UTF32Encoding_input.xml", "/UTF32Encoding_expected.xml");
     }
@@ -73,6 +74,7 @@ class EncodingParameterTest {
     @Test
     void differentEncodingShouldWork2() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .encoding("UTF-16")
                 .testFiles("/UTF16Encoding_input.xml", "/UTF16Encoding_expected.xml");
     }
@@ -80,6 +82,7 @@ class EncodingParameterTest {
     @Test
     void differentEncodingShouldWork3() throws Exception {
         SortPomImplUtil.create()
+                .predefinedSortOrder("default_0_4_0")
                 .encoding("ISO-8859-1")
                 .testFiles("/ISO88591Encoding_input.xml", "/ISO88591Encoding_expected.xml");
     }

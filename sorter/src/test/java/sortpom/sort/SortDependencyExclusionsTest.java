@@ -15,7 +15,7 @@ class SortDependencyExclusionsTest {
     final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
         Executable testMethod = () ->
             SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencyExclusions("true")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)
@@ -30,7 +30,7 @@ class SortDependencyExclusionsTest {
     final void deprecatedSortPluginsFalseMessageShouldWork() throws Exception {
         Executable testMethod = () ->
             SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencyExclusions("false")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)
@@ -44,7 +44,7 @@ class SortDependencyExclusionsTest {
     @Test
     final void sortGroupIdForExclusionsShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencyExclusions("groupId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(2)
@@ -54,7 +54,7 @@ class SortDependencyExclusionsTest {
     @Test
     final void sortArtifactIdForExclusionsShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencyExclusions("artifactId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(2)
@@ -64,7 +64,7 @@ class SortDependencyExclusionsTest {
     @Test
     final void sortGroupIdAndArtifactIdForExclusionsShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencyExclusions("groupId,artifactId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(2)

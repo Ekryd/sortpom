@@ -8,7 +8,7 @@ class SortPropertiesTest {
     @Test
     final void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/SortedProperties_output.xml");
     }
@@ -26,7 +26,7 @@ class SortPropertiesTest {
     final void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testVerifyXmlIsOrdered("/SortedProperties_output_alfa2.xml");
     }
@@ -44,7 +44,7 @@ class SortPropertiesTest {
     @Test
     final void namedParametersInSortFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
                         "The xml element <project.build.sourceEncoding> should be placed before <other>");
@@ -64,7 +64,7 @@ class SortPropertiesTest {
     final void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
                         "The xml element <project.build.sourceEncoding> should be placed before <other>");

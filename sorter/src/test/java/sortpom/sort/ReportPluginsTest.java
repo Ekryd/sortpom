@@ -8,7 +8,7 @@ class ReportPluginsTest {
     @Test
     final void sortReportPluginsByArtifactIdWithCustomSortOrderFileShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("sortOrderFiles/custom_report_plugins.xml")
+                .customSortOrderFile("sortOrderFiles/custom_report_plugins.xml")
                 .lineSeparator("\r\n")
                 .sortPlugins("artifactId,groupId")
                 .testFiles("/ReportPlugins_input.xml",
@@ -18,7 +18,7 @@ class ReportPluginsTest {
     @Test
     final void sortReportPluginsByGroupIdWithCustomSortOrderFileShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("sortOrderFiles/custom_report_plugins.xml")
+                .customSortOrderFile("sortOrderFiles/custom_report_plugins.xml")
                 .lineSeparator("\r\n")
                 .sortPlugins("groupId,artifactId")
                 .testFiles("/ReportPlugins_input.xml",

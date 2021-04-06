@@ -8,7 +8,7 @@ class SortPropertiesTest {
     @Test
     final void namedParametersInSortFileShouldSortThemFirst() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testFiles("/SortedProperties_input.xml", "/SortedProperties_output.xml");
     }
@@ -26,7 +26,7 @@ class SortPropertiesTest {
     final void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testFiles("/SortedProperties_input.xml", "/SortedProperties_output_alfa2.xml");
     }

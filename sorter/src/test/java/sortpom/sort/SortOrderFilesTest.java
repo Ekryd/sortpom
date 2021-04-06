@@ -8,7 +8,7 @@ class SortOrderFilesTest {
     @Test
     final void correctCustomSortOrderShouldSortThePm() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
     }

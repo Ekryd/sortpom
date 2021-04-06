@@ -7,7 +7,7 @@ class SortOrderFilesTest {
     @Test
     final void sortedCustomSortOrderShouldNotTriggerVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
     }
@@ -15,7 +15,7 @@ class SortOrderFilesTest {
     @Test
     final void unsortedCustomSortOrderShouldTriggerVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml",
                         "The xml element <modelVersion> should be placed before <parent>");

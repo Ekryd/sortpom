@@ -17,7 +17,7 @@ class SortModulesTest {
     @Test
     final void sortingOfPomFileWithSubmodulesAndExtraElementsShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("sortOrderFiles/extra_dummy_tags.xml")
+                .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
                 .sortProperties()
                 .sortPlugins("true")
                 .sortModules()

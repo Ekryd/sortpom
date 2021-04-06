@@ -8,7 +8,7 @@ class SortOrderTest {
     @Test
     final void testSortDifferentClassPathShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .testVerifyXmlIsOrdered("/full_differentorder_expected.xml");
     }
 
@@ -68,7 +68,7 @@ class SortOrderTest {
     @Test
     final void testSortDifferentClassPathShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .testVerifyXmlIsNotOrdered("/full_unsorted_input.xml",
                         "The xml element <modelVersion> should be placed before <parent>");
     }

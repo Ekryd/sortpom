@@ -13,7 +13,7 @@ class SortDependenciesTest {
     @Test
     final void scopeInSortDependenciesShouldSortByScope() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortDependencies("scope,GROUPID,artifactId")
                 .lineSeparator("\r\n")
                 .testFiles("/SortDep_input_simpleWithScope.xml", "/SortDep_expected_simpleWithScope2.xml");
@@ -28,7 +28,7 @@ class SortDependenciesTest {
     @Test
     final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("sortOrderFiles/extra_dummy_tags.xml")
+                .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
                 .sortDependencies("scope,groupId,artifactId")
                 .sortDependencyExclusions("groupId,artifactId")
                 .sortPlugins("groupId,artifactId")
@@ -39,7 +39,7 @@ class SortDependenciesTest {
     @Test
     final void defaultGroupIdForPluginsShouldWork() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortPlugins("groupId,artifactId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)
@@ -49,7 +49,7 @@ class SortDependenciesTest {
     @Test
     final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
         List<String> logs = SortPomImplUtil.create()
-                .defaultOrderFileName("custom_1.xml")
+                .customSortOrderFile("custom_1.xml")
                 .sortPlugins("true")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)

@@ -16,14 +16,14 @@ class SortOrderTest {
     @Test
     final void testSortDifferentClassPath() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
     }
 
     @Test
     final void testSortDifferentRelativePath() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("src/test/resources/difforder/differentOrder.xml")
+                .customSortOrderFile("src/test/resources/difforder/differentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
     }
 

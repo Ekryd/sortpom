@@ -52,16 +52,16 @@ class SortOrderTest {
     @Test
     final void testSortWithDependencySortSimpleShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
-                .sortPlugins("true")
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testVerifyXmlIsOrdered("/Simple_expected_sortDep.xml");
     }
 
     @Test
     final void testSortWithDependencySortFullShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
-                .sortPlugins("true")
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testVerifyXmlIsOrdered("/SortDep_expected.xml");
     }
 
@@ -118,7 +118,7 @@ class SortOrderTest {
     @Test
     final void sortedDependenciesWithDifferentChildrenShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
+                .sortDependencies("groupId,artifactId")
                 .testVerifyXmlIsNotOrdered("/SortDepSimple_input.xml",
                         "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
@@ -126,7 +126,7 @@ class SortOrderTest {
     @Test
     final void sortedDependenciesWithDifferentNamesShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
+                .sortDependencies("groupId,artifactId")
                 .testVerifyXmlIsNotOrdered("/SortDepSimple2_input.xml",
                         "The xml element <groupId>cglib</groupId> should be placed before <groupId>junit</groupId>");
     }
@@ -134,7 +134,7 @@ class SortOrderTest {
     @Test
     final void sortedDependenciesWithSameNameShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
+                .sortDependencies("groupId,artifactId")
                 .testVerifyXmlIsNotOrdered("/SortDepSimple3_input.xml",
                         "The xml element <dependency> with 2 child elements should be placed before element <dependency> with 4 child elements");
     }
@@ -142,8 +142,8 @@ class SortOrderTest {
     @Test
     final void testSortWithDependencySortFullShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
-                .sortPlugins("true")
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testVerifyXmlIsNotOrdered("/SortDep_input.xml",
                         "The xml element <groupId>cheesymock</groupId> should be placed before <groupId>junit</groupId>");
     }

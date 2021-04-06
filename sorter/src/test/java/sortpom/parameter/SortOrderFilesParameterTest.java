@@ -59,7 +59,7 @@ class SortOrderFilesParameterTest {
     @Test
     final void incorrectPredefinedSortOrderShouldThrowException2() {
 
-        final Executable testMethod = () ->SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");

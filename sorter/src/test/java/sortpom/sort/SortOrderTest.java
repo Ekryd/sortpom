@@ -69,16 +69,16 @@ class SortOrderTest {
     @Test
     final void testSortWithDependencySortSimple() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
-                .sortPlugins("true")
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml");
     }
 
     @Test
     final void testSortWithDependencySortFull() throws Exception {
         SortPomImplUtil.create()
-                .sortDependencies("true")
-                .sortPlugins("true")
+                .sortDependencies("groupId,artifactId")
+                .sortPlugins("groupId,artifactId")
                 .testFiles("/SortDep_input.xml", "/SortDep_expected.xml");
     }
 

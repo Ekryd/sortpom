@@ -19,7 +19,7 @@ class SortDependencyExclusionsTest {
                 .sortDependencyExclusions("true")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)
-                .testFilesAndReturnLogs("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
+                .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
@@ -34,7 +34,7 @@ class SortDependencyExclusionsTest {
                 .sortDependencyExclusions("false")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(4)
-                .testFilesAndReturnLogs("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
+                .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 

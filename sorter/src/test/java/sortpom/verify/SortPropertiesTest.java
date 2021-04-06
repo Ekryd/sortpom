@@ -35,8 +35,8 @@ class SortPropertiesTest {
     final void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/SortProp_expected.xml");
     }
@@ -74,8 +74,8 @@ class SortPropertiesTest {
     final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortProp_input.xml",
                         "The xml element <commons.beanutils.version> should be placed before <commons.io.version>");

@@ -19,9 +19,9 @@ class IndentationTest {
         String expectedFile = "/SortModules_expectedIndent" + indent + ".xml";
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
+                .sortPlugins("groupId,artifactId")
                 .sortModules()
-                .sortDependencies("true")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(indent)
                 .testFiles("/SortModules_input.xml", expectedFile);
@@ -33,9 +33,9 @@ class IndentationTest {
         String expectedFile = "/SortModules_expectedSchemaIndent" + indent + ".xml";
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
+                .sortPlugins("groupId,artifactId")
                 .sortModules()
-                .sortDependencies("true")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .nrOfIndentSpace(indent)
                 .indentSchemaLocation()

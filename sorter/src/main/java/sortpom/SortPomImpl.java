@@ -39,10 +39,10 @@ public class SortPomImpl {
 
     private void warnAboutDeprecatedArguments(SortPomLogger log, PluginParameters pluginParameters) {
         if (pluginParameters.sortDependencies.isDeprecatedValueTrue()) {
-            log.warn("[DEPRECATED] The 'true' value in sortDependencies is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");
+            throw new FailureException("The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.");
         }
         if (pluginParameters.sortDependencies.isDeprecatedValueFalse()) {
-            log.warn("[DEPRECATED] The 'false' value in sortDependencies is not used anymore, please use empty value '' or omit sortDependencies instead. In the next major version 'true' or 'false' will cause an error!");
+            throw new FailureException("The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
         }
         if (pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue()) {
             throw new FailureException("The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.");
@@ -51,10 +51,10 @@ public class SortPomImpl {
             throw new FailureException("The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
         }
         if (pluginParameters.sortPlugins.isDeprecatedValueTrue()) {
-            log.warn("[DEPRECATED] The 'true' value in sortPlugins is not used anymore, please use value 'groupId,artifactId' instead. In the next major version 'true' or 'false' will cause an error!");
+            throw new FailureException("The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.");
         }
         if (pluginParameters.sortPlugins.isDeprecatedValueFalse()) {
-            log.warn("[DEPRECATED] The 'false' value in sortPlugins is not used anymore, please use empty value '' or omit sortPlugins instead. In the next major version 'true' or 'false' will cause an error!");
+            throw new FailureException("The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
         }
     }
 

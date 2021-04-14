@@ -53,7 +53,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
      * Should non-expanded empty xml element have space before closing tag. Example:
      * &lt;configuration /&gt; or &lt;configuration/&gt;
      */
-    @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "true")
+    @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "false")
     boolean spaceBeforeCloseEmptyElement;
 
     /**

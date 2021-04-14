@@ -139,7 +139,7 @@ sortpom:sort
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
 
-    spaceBeforeCloseEmptyElement (Default: true)
+    spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
       Should non-expanded empty xml element have space before closing tag.
       Example: <configuration /> or <configuration/>
@@ -251,7 +251,7 @@ sortpom:verify
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
 
-    spaceBeforeCloseEmptyElement (Default: true)
+    spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
       Should non-expanded empty xml element have space before closing tag.
       Example: <configuration /> or <configuration/>

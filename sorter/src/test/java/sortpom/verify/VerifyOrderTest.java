@@ -37,6 +37,7 @@ class VerifyOrderTest {
     @Test
     void unsortedDefaultVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
+                .noKeepBlankLines()
                 .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", 
                         "[INFO] The xml element <version> should be placed before <name>", false);
     }
@@ -45,6 +46,7 @@ class VerifyOrderTest {
     void unsortedDefaultStrictVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
                 .verifyFailOn("STRICT")
+                .noKeepBlankLines()
                 .createBackupFile(false)
                 .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", 
                         "[INFO] The line 1 is not considered sorted, should be '<?xml version=\"1.0\" encoding=\"UTF-8\"?>'", false);
@@ -53,6 +55,7 @@ class VerifyOrderTest {
     @Test
     void unsortedSortVerifyShouldPerformSort() throws Exception {
         SortPomImplUtil.create()
+                .noKeepBlankLines()
                 .verifyFail("SORT")
                 .testVerifySort("/Real1_input.xml", "/Real1_expected.xml", 
                         "[INFO] The xml element <version> should be placed before <name>", false);

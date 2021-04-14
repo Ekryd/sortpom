@@ -37,7 +37,6 @@ class KeepBlankLinesTest {
     final void emptyRowsInLargePomShouldBePreserved2() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_0_4_0")
-                .keepBlankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines.xml");
     }
 
@@ -45,7 +44,6 @@ class KeepBlankLinesTest {
     final void emptyRowsInLargePomShouldBePreservedAndIndented2() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_0_4_0")
-                .keepBlankLines()
                 .indentBLankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines_indented.xml");
     }

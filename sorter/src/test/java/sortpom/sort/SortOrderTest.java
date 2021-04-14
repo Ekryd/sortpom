@@ -56,6 +56,7 @@ class SortOrderTest {
     @Test
     final void testSortXmlReal1() throws Exception {
         SortPomImplUtil.create()
+                .noKeepBlankLines()
                 .testFiles("/Real1_input.xml", "/Real1_expected.xml");
     }
 

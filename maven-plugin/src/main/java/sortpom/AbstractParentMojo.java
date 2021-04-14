@@ -59,7 +59,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
     /**
      * Should blank lines in the pom-file be preserved. A maximum of one line is preserved between each tag.
      */
-    @Parameter(property = "sort.keepBlankLines", defaultValue = "false")
+    @Parameter(property = "sort.keepBlankLines", defaultValue = "true")
     boolean keepBlankLines;
 
     /**

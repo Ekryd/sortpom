@@ -33,7 +33,6 @@ class KeepBlankLinesTest {
     final void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_0_4_0")
-                .keepBlankLines()
                 .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
 
@@ -41,7 +40,6 @@ class KeepBlankLinesTest {
     final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() throws Exception {
         SortPomImplUtil.create()
                 .predefinedSortOrder("default_0_4_0")
-                .keepBlankLines()
                 .indentBLankLines()
                 .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
     }
@@ -49,7 +47,6 @@ class KeepBlankLinesTest {
     @Test
     final void unsortedXmlAndIndentParameterShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .keepBlankLines()
                 .indentBLankLines()
                 .testVerifyXmlIsNotOrdered("/EmptyRow_input.xml",
                         "The xml element <modelVersion> should be placed before <artifactId>");

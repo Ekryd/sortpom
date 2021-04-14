@@ -27,7 +27,7 @@ public class SortPomImplUtil {
     private String testPomBackupExtension = ".testExtension";
 
     private int nrOfIndentSpace = 2;
-    private boolean keepBlankLines = false;
+    private boolean keepBlankLines = true;
     private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
     private boolean indentSchemaLocation = false;
@@ -136,8 +136,8 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil keepBlankLines() {
-        keepBlankLines = true;
+    public SortPomImplUtil noKeepBlankLines() {
+        keepBlankLines = false;
         return this;
     }
 

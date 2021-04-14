@@ -72,7 +72,7 @@ sortpom:sort
       be placed on a new line. The attribute will be indented (2 *
       nrOfIndentSpace + 1 space) characters.
 
-    keepBlankLines (Default: false)
+    keepBlankLines (Default: true)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
       preserved between each tag.
@@ -184,7 +184,7 @@ sortpom:verify
       be placed on a new line. The attribute will be indented (2 *
       nrOfIndentSpace + 1 space) characters.
 
-    keepBlankLines (Default: false)
+    keepBlankLines (Default: true)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
       preserved between each tag.

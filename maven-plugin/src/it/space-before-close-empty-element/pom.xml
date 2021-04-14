@@ -30,7 +30,6 @@
             <configuration>
               <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
               <expandEmptyElements>false</expandEmptyElements>
-              <keepBlankLines />
               <nrOfIndentSpace>4</nrOfIndentSpace>
               <indentBlankLines />
             </configuration>

@@ -1,62 +1,44 @@
 package sortpom.sort;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static sortpom.sort.XmlFragment.createXmlFragment;
 
 class ExpandEmptyElementTest {
-    @Test
-    void trueExpandedParameterShouldExpandEmptyXmlElements() {
-        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(PluginParameters.builder()
-                .setEncoding("UTF-8")
-                .setFormatting("\n", true, true, false)
-                .setIndent(2, false, false)
-                .build());
+    private static Stream<Arguments> testValues() {
+        return Stream.of(
+                //expandEmptyElements, spaceBeforeCloseEmptyElement, expected
+                arguments("true", "true", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n"),
+                arguments("false", "true", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n"),
+                arguments("false", "false", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka/>\n"),
 
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n", actual);
+                // The spaceBeforeCloseEmptyElement does not affect expanded elements
+                arguments("true", "false", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n")
+        );
     }
 
-    @Test
-    void falseExpandedParameterShouldCompressEmptyXmlElements() {
+    @ParameterizedTest
+    @MethodSource("testValues")
+    void expandEmptyElementsAndKeepSpaceShouldAffectOutputXml(
+            boolean expandEmptyElements,
+            boolean spaceBeforeCloseEmptyElement,
+            String expectedValue) {
         XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
         xmlOutputGenerator.setup(PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("\n", false, true, false)
+                .setFormatting("\n", expandEmptyElements, spaceBeforeCloseEmptyElement, false)
                 .setIndent(2, false, false)
                 .build());
 
         String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
-    }
-
-    @Test
-    void spaceBeforeCloseEmptyElementShouldKeepSpace() {
-        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(PluginParameters.builder()
-                .setEncoding("UTF-8")
-                .setFormatting("\n", false, true, false)
-                .setIndent(2, false, false)
-                .build());
-
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka />\n", actual);
-    }
-
-    @Test
-    void noSpaceBeforeCloseEmptyElementShouldNotKeepSpace() {
-        XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(PluginParameters.builder()
-                .setEncoding("UTF-8")
-                .setFormatting("\n", false, false, false)
-                .setIndent(2, false, false)
-                .build());
-
-        String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-        assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka/>\n", actual);
+        assertEquals(expectedValue, actual);
     }
 }

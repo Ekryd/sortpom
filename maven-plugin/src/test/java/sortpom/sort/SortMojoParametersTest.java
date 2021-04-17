@@ -62,7 +62,7 @@ class SortMojoParametersTest {
 
     @Test
     void keepTimestampParameter() {
-    	testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
     }
 
     @Test
@@ -128,7 +128,7 @@ class SortMojoParametersTest {
     }
 
     @Test
-    public void parameterSortDependencyExclusionsShouldEndUpInElementWrapperCreator() throws Exception {
+    void parameterSortDependencyExclusionsShouldEndUpInElementWrapperCreator() {
         testParameterMoveFromMojoToRestOfApplication("sortDependencyExclusions", "groupId,scope");
 
         Object sortDependencyExclusions = new ReflectionHelper(elementWrapperCreator).getField("sortDependencyExclusions");

@@ -34,10 +34,10 @@ public class SortPomImpl {
 
         sortPomService.setup(log, pluginParameters);
 
-        warnAboutDeprecatedArguments(log, pluginParameters);
+        warnAboutDeprecatedArguments(pluginParameters);
     }
 
-    private void warnAboutDeprecatedArguments(SortPomLogger log, PluginParameters pluginParameters) {
+    private void warnAboutDeprecatedArguments(PluginParameters pluginParameters) {
         if (pluginParameters.sortDependencies.isDeprecatedValueTrue()) {
             throw new FailureException("The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.");
         }

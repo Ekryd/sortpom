@@ -11,6 +11,8 @@
         <?sortpom resume?>
   <version>1.0</version>
   <packaging>jar</packaging>
+  <name>SortPom Sorter</name>
+  <description>The sorting functionality</description>
 
   <dependencies>
     <dependency>
@@ -42,7 +44,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <name>SortPom Sorter</name>
-  <description>The sorting functionality</description>
 
 </project>

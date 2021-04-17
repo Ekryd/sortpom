@@ -8,7 +8,7 @@ class SortPropertiesTest {
     @Test
     final void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/SortedProperties_output.xml");
     }
@@ -26,7 +26,7 @@ class SortPropertiesTest {
     final void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testVerifyXmlIsOrdered("/SortedProperties_output_alfa2.xml");
     }
@@ -35,8 +35,8 @@ class SortPropertiesTest {
     final void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/SortProp_expected.xml");
     }
@@ -44,7 +44,7 @@ class SortPropertiesTest {
     @Test
     final void namedParametersInSortFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
                         "The xml element <project.build.sourceEncoding> should be placed before <other>");
@@ -64,7 +64,7 @@ class SortPropertiesTest {
     final void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .lineSeparator("\n")
-                .defaultOrderFileName("difforder/sortedPropertiesOrder.xml")
+                .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
                 .sortProperties()
                 .testVerifyXmlIsNotOrdered("/SortedProperties_input.xml",
                         "The xml element <project.build.sourceEncoding> should be placed before <other>");
@@ -74,8 +74,9 @@ class SortPropertiesTest {
     final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
         SortPomImplUtil.create()
                 .sortProperties()
-                .sortPlugins("true")
-                .sortDependencies("true")
+                .predefinedSortOrder("default_0_4_0")
+                .sortPlugins("groupId,artifactId")
+                .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
                 .testVerifyXmlIsNotOrdered("/SortProp_input.xml",
                         "The xml element <commons.beanutils.version> should be placed before <commons.io.version>");

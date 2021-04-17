@@ -17,7 +17,7 @@ class BackupFileExtensionParameterTest {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
                 .backupFileExtension("")
-                .defaultOrderFileName("difforder/differentOrder.xml")
+                .customSortOrderFile("difforder/differentOrder.xml")
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
 

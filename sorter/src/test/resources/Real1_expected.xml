@@ -4,6 +4,16 @@
   <groupId>sortpom</groupId>
   <artifactId>sortpom</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <!-- Basics -->
+  <name>SortPom</name>
+  <description>Sorts the pom file</description>
+  <modules>
+    <module>a</module>
+  </modules>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <compileSource>1.6</compileSource>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.jdom</groupId>
@@ -35,13 +45,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <modules>
-    <module>a</module>
-  </modules>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <compileSource>1.6</compileSource>
-  </properties>
   <build>
     <defaultGoal>verify</defaultGoal>
     <resources>
@@ -52,6 +55,9 @@
         <directory>src\main\resources</directory>
       </resource>
     </resources>
+    <pluginManagement>
+      <plugins></plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -127,9 +133,6 @@
         <version>2.0.1</version>
       </plugin>
     </plugins>
-    <pluginManagement>
-      <plugins></plugins>
-    </pluginManagement>
   </build>
   <reporting>
     <plugins>
@@ -172,7 +175,4 @@
       </plugin>
     </plugins>
   </reporting>
-  <!-- Basics -->
-  <name>SortPom</name>
-  <description>Sorts the pom file</description>
 </project>

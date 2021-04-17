@@ -3,35 +3,31 @@ package sortpom.util;
 import sortpom.parameter.PluginParameters;
 
 import java.io.File;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /** Test utility to enter sort parameters */
 public class SortPomImplUtil {
 
     private TestHandler testHandler;
 
-    private String defaultOrderFileName = "default_0_4_0.xml";
+    private String customSortOrderFile;
     private String sortDependencies = "";
     private String sortDependencyExclusions = "";
     private String sortPlugins = "";
     private boolean sortProperties = false;
     private boolean sortModules = false;
     private boolean sortExecutions = false;
-    private String predefinedSortOrder = "";
+    private String predefinedSortOrder = "recommended_2008_06";
     private String lineSeparator = "\r\n";
     private String testPomFileName = "src/test/resources/testpom.xml";
     private String testPomBackupExtension = ".testExtension";
 
     private int nrOfIndentSpace = 2;
-    private boolean keepBlankLines = false;
+    private boolean keepBlankLines = true;
     private boolean ignoreLineSeparators = true;
     private boolean indentBLankLines = false;
     private boolean indentSchemaLocation = false;
@@ -55,14 +51,6 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performSortThatSorted();
-    }
-
-    public List<String> testFilesAndReturnLogs(final String inputResourceFileName, final String expectedResourceFileName)
-            throws Exception {
-        setup();
-        testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
-        testHandler.performSortThatSorted();
-        return testHandler.getInfoLogger();
     }
 
     public void testFilesWithTimestamp(final String inputResourceFileName, final String expectedResourceFileName)
@@ -148,8 +136,8 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil keepBlankLines() {
-        keepBlankLines = true;
+    public SortPomImplUtil noKeepBlankLines() {
+        keepBlankLines = false;
         return this;
     }
 
@@ -193,14 +181,14 @@ public class SortPomImplUtil {
         return this;
     }
 
-    public SortPomImplUtil defaultOrderFileName(String defaultOrderFileName) {
-        this.defaultOrderFileName = defaultOrderFileName;
+    public SortPomImplUtil customSortOrderFile(String customSortOrderFile) {
+        this.customSortOrderFile = customSortOrderFile;
         return this;
     }
 
     public SortPomImplUtil predefinedSortOrder(String predefinedSortOrder) {
         this.predefinedSortOrder = predefinedSortOrder;
-        this.defaultOrderFileName = null;
+        this.customSortOrderFile = null;
         return this;
     }
 
@@ -264,10 +252,10 @@ public class SortPomImplUtil {
                 .setPomFile(testpom)
                 .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
                 .setEncoding(encoding)
-                .setFormatting(lineSeparator, true, true, keepBlankLines)
+                .setFormatting(lineSeparator, true, false, keepBlankLines)
                 .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation)
                 .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
-                .setSortOrder(defaultOrderFileName, predefinedSortOrder)
+                .setSortOrder(customSortOrderFile, predefinedSortOrder)
                 .setVerifyFail(verifyFail, verifyFailOn)
                 .setTriggers(ignoreLineSeparators)
                 .build();

@@ -39,12 +39,6 @@ public class DependencySortOrder {
     }
 
     private String[] parseChildElementNameList() {
-        if (isDeprecatedValueFalse()) {
-            return new String[0];
-        }
-        if (isDeprecatedValueTrue()) {
-            return new String[]{"groupId", "artifactId"};
-        }
         String list = childElementNameList.replaceAll("\\s", "");
         if (list.isEmpty()) {
             return new String[0];

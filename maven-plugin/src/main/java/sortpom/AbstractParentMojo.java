@@ -53,13 +53,13 @@ abstract class AbstractParentMojo extends AbstractMojo {
      * Should non-expanded empty xml element have space before closing tag. Example:
      * &lt;configuration /&gt; or &lt;configuration/&gt;
      */
-    @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "true")
+    @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "false")
     boolean spaceBeforeCloseEmptyElement;
 
     /**
      * Should blank lines in the pom-file be preserved. A maximum of one line is preserved between each tag.
      */
-    @Parameter(property = "sort.keepBlankLines", defaultValue = "false")
+    @Parameter(property = "sort.keepBlankLines", defaultValue = "true")
     boolean keepBlankLines;
 
     /**
@@ -83,7 +83,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
 
     /**
      * Should the schema location attribute of project (top level xml element) be placed on a new line. The attribute
-     * will be indented (2 * nrOfIndentSpace + 1 space) characters. 
+     * will be indented (2 * nrOfIndentSpace + 1 space) characters.
      */
     @Parameter(property = "sort.indentSchemaLocation", defaultValue = "false")
     boolean indentSchemaLocation;
@@ -91,7 +91,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
     /**
      * Choose between a number of predefined sort order files.
      */
-    @Parameter(property = "sort.predefinedSortOrder")
+    @Parameter(property = "sort.predefinedSortOrder", defaultValue = "recommended_2008_06")
     String predefinedSortOrder;
 
     /**

@@ -112,7 +112,7 @@ class FileUtilExceptionsTest {
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
-        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Cound not retrieve the timestamp of the pom file: " + pomFileTemp.getAbsolutePath())));
+        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Could not retrieve the timestamp of the pom file: " + pomFileTemp.getAbsolutePath())));
     }
 
     @Test

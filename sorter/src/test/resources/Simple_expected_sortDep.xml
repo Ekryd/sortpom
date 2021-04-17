@@ -4,6 +4,12 @@
   <groupId>sortpom</groupId>
   <artifactId>sortpom</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <name>SortPom</name>
+  <description>Sorts the pom file</description>
+  <properties>
+    <compileSource>1.6</compileSource>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>cglib</groupId>
@@ -24,14 +30,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <properties>
-    <compileSource>1.6</compileSource>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
   <build>
     <defaultGoal>install</defaultGoal>
   </build>
   <reporting></reporting>
-  <name>SortPom</name>
-  <description>Sorts the pom file</description>
 </project>

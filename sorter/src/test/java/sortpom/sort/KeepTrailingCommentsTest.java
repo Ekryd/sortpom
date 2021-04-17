@@ -9,7 +9,6 @@ class KeepTrailingCommentsTest {
         SortPomImplUtil.create()
                 .sortDependencies("scope,groupId,artifactId")
                 .lineSeparator("\r\n")
-                .keepBlankLines()
                 .testFiles("/TrailingComment_input.xml", "/TrailingComment_expected.xml");
     }
 

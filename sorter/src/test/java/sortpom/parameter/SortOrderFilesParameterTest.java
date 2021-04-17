@@ -20,7 +20,7 @@ class SortOrderFilesParameterTest {
     final void incorrectCustomSortOrderShouldThrowException() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
+                .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
 
         final FailureException thrown = assertThrows(FailureException.class, testMethod);
@@ -46,7 +46,7 @@ class SortOrderFilesParameterTest {
     final void incorrectCustomSortOrderShouldThrowException2() {
 
         final Executable testMethod = () -> SortPomImplUtil.create()
-                .defaultOrderFileName("difforder/VERYdifferentOrder.xml")
+                .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
 
         final InvocationTargetException thrown = assertThrows(InvocationTargetException.class, testMethod);
@@ -59,7 +59,7 @@ class SortOrderFilesParameterTest {
     @Test
     final void incorrectPredefinedSortOrderShouldThrowException2() {
 
-        final Executable testMethod = () ->SortPomImplUtil.create()
+        final Executable testMethod = () -> SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");

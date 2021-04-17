@@ -7,8 +7,9 @@ class XmlProcessorTest {
 
     @Test
     final void testSortXmlAttributesShouldNotAffectVerify() throws Exception {
-        XmlProcessorTestUtil.create().testVerifyXmlIsOrdered(
-                "src/test/resources/Attribute_expected.xml");
+        XmlProcessorTestUtil.create()
+                .predefinedSortOrder("default_0_4_0")
+                .testVerifyXmlIsOrdered("src/test/resources/Attribute_expected.xml");
     }
 
     @Test

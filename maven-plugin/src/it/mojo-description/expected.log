@@ -72,7 +72,7 @@ sortpom:sort
       be placed on a new line. The attribute will be indented (2 *
       nrOfIndentSpace + 1 space) characters.
 
-    keepBlankLines (Default: false)
+    keepBlankLines (Default: true)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
       preserved between each tag.
@@ -96,7 +96,7 @@ sortpom:sort
       This is the File instance that refers to the location of the pom that
       should be sorted.
 
-    predefinedSortOrder
+    predefinedSortOrder (Default: recommended_2008_06)
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
 
@@ -139,7 +139,7 @@ sortpom:sort
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
 
-    spaceBeforeCloseEmptyElement (Default: true)
+    spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
       Should non-expanded empty xml element have space before closing tag.
       Example: <configuration /> or <configuration/>
@@ -184,7 +184,7 @@ sortpom:verify
       be placed on a new line. The attribute will be indented (2 *
       nrOfIndentSpace + 1 space) characters.
 
-    keepBlankLines (Default: false)
+    keepBlankLines (Default: true)
       User property: sort.keepBlankLines
       Should blank lines in the pom-file be preserved. A maximum of one line is
       preserved between each tag.
@@ -208,7 +208,7 @@ sortpom:verify
       This is the File instance that refers to the location of the pom that
       should be sorted.
 
-    predefinedSortOrder
+    predefinedSortOrder (Default: recommended_2008_06)
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
 
@@ -251,7 +251,7 @@ sortpom:verify
       Should the Maven pom properties be sorted alphabetically. Affects both
       project/properties and project/profiles/profile/properties
 
-    spaceBeforeCloseEmptyElement (Default: true)
+    spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
       Should non-expanded empty xml element have space before closing tag.
       Example: <configuration /> or <configuration/>

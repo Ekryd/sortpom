@@ -27,7 +27,7 @@ public class XmlProcessorTestUtil {
     private boolean sortAlphabeticalOnly = false;
     private boolean keepBlankLines = false;
     private boolean indentBlankLines = false;
-    private String predefinedSortOrder = "default_0_4_0";
+    private String predefinedSortOrder = "recommended_2008_06";
     private boolean expandEmptyElements = true;
     private String lineSeparator = "\r\n";
 

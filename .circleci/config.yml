@@ -19,21 +19,13 @@ jobs:
     docker:
       - image: cimg/openjdk:8.0
     <<: *shared
-  jdk12:
-    docker:
-      - image: cimg/openjdk:12.0
-    <<: *shared
-  jdk13:
-    docker:
-      - image: cimg/openjdk:13.0
-    <<: *shared
-  jdk14:
-    docker:
-      - image: cimg/openjdk:14.0
-    <<: *shared
   jdk15:
     docker:
       - image: cimg/openjdk:15.0
+    <<: *shared
+  jdk16:
+    docker:
+      - image: cimg/openjdk:14.0
     <<: *shared
   jdk11:
     docker:
@@ -56,16 +48,10 @@ workflows:
   work:
     jobs:
       - jdk8
-      - jdk12:
-          requires:
-            - jdk8
-      - jdk13:
-          requires:
-            - jdk8
-      - jdk14:
-          requires:
-            - jdk8
       - jdk15:
+          requires:
+            - jdk8
+      - jdk16:
           requires:
             - jdk8
       - jdk11:
@@ -75,8 +61,6 @@ workflows:
                 - master
           requires:
             - jdk8
-            - jdk12
-            - jdk13
-            - jdk14
             - jdk15
+            - jdk16
         

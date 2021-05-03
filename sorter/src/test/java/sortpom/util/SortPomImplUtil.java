@@ -3,6 +3,7 @@ package sortpom.util;
 import sortpom.parameter.PluginParameters;
 
 import java.io.File;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
@@ -51,6 +52,10 @@ public class SortPomImplUtil {
         setup();
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performSortThatSorted();
+        List<String> infoLogger = testHandler.getInfoLogger();
+        assertThat(infoLogger.get(0), startsWith("[INFO] Sorting file "));
+        assertThat(infoLogger.get(1), startsWith("[INFO] Saved backup of "));
+        assertThat(infoLogger.get(infoLogger.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
     }
 
     public void testFilesWithTimestamp(final String inputResourceFileName, final String expectedResourceFileName)
@@ -91,9 +96,11 @@ public class SortPomImplUtil {
         testHandler = new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
         testHandler.performVerifyThatSorted();
         int index = assertStartOfMessages(warningMessage, outputToViolationFile);
-        assertThat(testHandler.getInfoLogger().get(index), startsWith("[INFO] The file "));
-        assertThat(testHandler.getInfoLogger().get(index++), endsWith(" is not sorted"));
-        assertThat(testHandler.getInfoLogger().get(index), startsWith("[INFO] Sorting file "));
+        List<String> infoLogger = testHandler.getInfoLogger();
+        assertThat(infoLogger.get(index), startsWith("[INFO] The file "));
+        assertThat(infoLogger.get(index++), endsWith(" is not sorted"));
+        assertThat(infoLogger.get(index), startsWith("[INFO] Sorting file "));
+        assertThat(infoLogger.get(infoLogger.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
     }
 
     public void testVerifyFail(String inputResourceFileName, Class<?> expectedExceptionClass, String warningMessage, boolean outputToViolationFile) {

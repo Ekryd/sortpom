@@ -240,6 +240,30 @@
           <artifactId>sonar-maven-plugin</artifactId>
           <version>3.9.0.2155</version>
         </plugin>
+        <plugin>
+          <groupId>org.pitest</groupId>
+          <artifactId>pitest-maven</artifactId>
+          <version>1.6.5</version>
+          <configuration>
+            <timestampedReports>false</timestampedReports>
+            <withHistory>true</withHistory>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.pitest</groupId>
+              <artifactId>pitest-junit5-plugin</artifactId>
+              <version>0.14</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>mutationCoverage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
 

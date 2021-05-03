@@ -17,7 +17,7 @@ public class ElementWrapperCreator {
     private boolean sortProperties;
     private boolean sortModules;
     private boolean sortExecutions;
-    
+
     private final ElementSortOrderMap elementNameSortOrderMap;
 
 
@@ -52,10 +52,10 @@ public class ElementWrapperCreator {
                 pluginSortedWrapper.setSortOrder(sortPlugins);
                 return pluginSortedWrapper;
             }
-            if(isModuleElement(element)) {
+            if (isModuleElement(element)) {
                 return new ModuleSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
             }
-            if(isExecutionElement(element)) {
+            if (isExecutionElement(element)) {
                 return new ExecutionSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
             }
             return new SortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
@@ -84,10 +84,8 @@ public class ElementWrapperCreator {
         if (sortPlugins.isNoSorting()) {
             return false;
         }
-        if (isElementName(element, "plugin")) {
-            return isElementParentName(element, "plugins") || isElementParentName(element, "reportPlugins");
-        }
-        return false;
+        return isElementName(element, "plugin") &&
+                (isElementParentName(element, "plugins") || isElementParentName(element, "reportPlugins"));
     }
 
     private boolean isModuleElement(final Element element) {

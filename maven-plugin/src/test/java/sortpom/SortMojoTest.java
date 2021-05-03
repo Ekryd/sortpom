@@ -1,6 +1,7 @@
 package sortpom;
 
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugin.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -13,11 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * @author bjorn
@@ -25,6 +22,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  */
 class SortMojoTest {
     private final SortPomImpl sortPom = mock(SortPomImpl.class);
+    private final Log log = mock(Log.class);
     private SortMojo sortMojo;
 
     @BeforeEach
@@ -69,9 +67,11 @@ class SortMojoTest {
     @Test
     void skipParameterShouldSkipExecution() throws Exception {
         new ReflectionHelper(sortMojo).setField("skip", true);
+        new ReflectionHelper(sortMojo).setField(log);
 
         sortMojo.execute();
 
+        verify(log).info("Skipping Sortpom");
         verifyNoMoreInteractions(sortPom);
     }
 }

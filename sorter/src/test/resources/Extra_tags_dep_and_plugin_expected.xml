@@ -32,6 +32,7 @@
           <groupId>org.sonatype.aether</groupId>
           <artifactId>aether</artifactId>
         </exclusion>
+        <that></that>
       </exclusions>
     </dependency>
     <dependency>
@@ -47,6 +48,7 @@
       <version>3.8.2</version>
       <scope>test</scope>
     </dependency>
+    <that></that>
   </dependencies>
   <build>
     <pluginManagement>
@@ -151,6 +153,7 @@
           </execution>
         </executions>
       </plugin>
+      <that></that>
     </plugins>
   </build>
   <reporting>

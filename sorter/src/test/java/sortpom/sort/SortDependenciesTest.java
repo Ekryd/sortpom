@@ -25,16 +25,18 @@ class SortDependenciesTest {
      * so that it will be sorted beside dependency and plugin tags. 
      * 
      * The extra tag does not play well with the pom xml validation.
+     * Also unknown tags should be placed last.
      */
     @Test
-    final void extraTagInDependenciesAndPluginShouldBeSortedFirst() throws Exception {
+    final void extraTagInDependenciesPluginAndExclusionsShouldBeSortedFirst() throws Exception {
         SortPomImplUtil.create()
                 .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
                 .sortDependencies("scope,groupId,artifactId")
                 .sortDependencyExclusions("groupId,artifactId")
                 .sortPlugins("groupId,artifactId")
                 .lineSeparator("\r\n")
-                .testFiles("/Extra_tags_dep_and_plugin.xml", "/Extra_tags_dep_and_plugin_expected.xml");
+                .testFiles("/Extra_tags_dep_and_plugin.xml", 
+                        "/Extra_tags_dep_and_plugin_expected.xml");
     }
 
     @Test
@@ -48,7 +50,7 @@ class SortDependenciesTest {
     }
 
     @Test
-    final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsTrueMessageShouldWork() {
         Executable testMethod = () ->
             SortPomImplUtil.create()
                 .customSortOrderFile("custom_1.xml")
@@ -63,7 +65,7 @@ class SortDependenciesTest {
     }
 
     @Test
-    final void deprecatedSortPluginsFalseMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsFalseMessageShouldWork() {
         Executable testMethod = () ->
         SortPomImplUtil.create()
                 .sortPlugins("false")
@@ -75,7 +77,7 @@ class SortDependenciesTest {
     }
 
     @Test
-    final void deprecatedSortDependenciesTrueMessageShouldWork() throws Exception {
+    final void deprecatedSortDependenciesTrueMessageShouldWork() {
         Executable testMethod = () ->
             SortPomImplUtil.create()
                 .sortDependencies("true")
@@ -88,7 +90,7 @@ class SortDependenciesTest {
     }
 
     @Test
-    final void deprecatedSortDependenciesFalseMessageShouldWork() throws Exception {
+    final void deprecatedSortDependenciesFalseMessageShouldWork() {
         Executable testMethod = () ->
         SortPomImplUtil.create()
                 .sortDependencies("false")

@@ -5,11 +5,12 @@
   <artifactId>sortpom</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <modules>
+    <unknown extra="newExtra"></unknown>
     <module>a</module>
     <module>b</module>
     <module>c</module>
     <module>d</module>
-    <unknown extra="newExtra"></unknown>
+    <another extra="newExtra"></another>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

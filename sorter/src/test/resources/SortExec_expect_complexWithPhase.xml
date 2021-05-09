@@ -2,45 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <build>
-    <plugins>
-      <plugin>
-        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
-        <artifactId>echo-maven-plugin</artifactId>
-        <version>1.2.0</version>
-        <configuration>
-          <message>Hi!</message>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>only goal, no</goals>
-          </execution>
-          <execution>
-            <goals>only goal, change</goals>
-          </execution>
-          <execution>
-            <id>c</id>
-            <goals>same id, no</goals>
-          </execution>
-          <execution>
-            <id>c</id>
-            <goals>same id, change</goals>
-          </execution>
-          <execution>
-            <goals>same phase, no</goals>
-            <phase>site</phase>
-          </execution>
-          <execution>
-            <goals>same phase, significant</goals>
-            <phase>site</phase>
-          </execution>
-          <execution>
-            <goals>same phase, change</goals>
-            <phase>site</phase>
-          </execution>
-          <dummyTag></dummyTag>
-        </executions>
-      </plugin>
-    </plugins>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -86,6 +47,46 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+        <artifactId>echo-maven-plugin</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <message>Hi!</message>
+        </configuration>
+        <executions>
+          <this></this>
+          <execution>
+            <goals>only goal, no</goals>
+          </execution>
+          <execution>
+            <goals>only goal, change</goals>
+          </execution>
+          <execution>
+            <id>c</id>
+            <goals>same id, no</goals>
+          </execution>
+          <execution>
+            <id>c</id>
+            <goals>same id, change</goals>
+          </execution>
+          <execution>
+            <goals>same phase, no</goals>
+            <phase>site</phase>
+          </execution>
+          <execution>
+            <goals>same phase, significant</goals>
+            <phase>site</phase>
+          </execution>
+          <execution>
+            <goals>same phase, change</goals>
+            <phase>site</phase>
+          </execution>
+          <that></that>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
   <profiles>
     <profile>

@@ -11,6 +11,7 @@
       <artifactId>jdom</artifactId>
       <version>1.1</version>
     </dependency>
+    <that/>
     <!-- Junit! -->
     <dependency>
       <groupId>junit</groupId>
@@ -25,6 +26,7 @@
       <version>2.2</version>
       <scope>test</scope>
       <exclusions>
+        <that/>
         <exclusion>
           <groupId>javax.activation</groupId>
           <artifactId>activation</artifactId>
@@ -65,9 +67,7 @@
           <downloadJavadocs>true</downloadJavadocs>
         </configuration>
       </plugin>
-    <this is="dummy">
-      <element></element>
-    </this>
+      <that/>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -88,6 +88,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <version>2.0.2</version>
       </plugin>
+    <this is="dummy">
+      <element></element>
+    </this>
       <!-- test3 -->
       <plugin>
         <groupId></groupId>

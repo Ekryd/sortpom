@@ -13,15 +13,16 @@
                     <message>Hi!</message>
                 </configuration>
                 <executions>
-                    <dummyTag></dummyTag>
                     <execution>
                         <phase>site</phase>
                         <goals>same phase, no</goals>
                     </execution>
+                    <that/>
                     <execution>
                         <phase>site</phase>
                         <goals>same phase, significant</goals>
                     </execution>
+                    <this></this>
                     <execution>
                         <phase>site</phase>
                         <goals>same phase, change</goals>

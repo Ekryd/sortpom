@@ -44,7 +44,7 @@ class FileUtilTest {
             String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
             assertThat(defaultSortOrderXml, containsString("Sverige"));
         } catch (UnknownHostException e) {
-            // This is ok, we were not online when the test was perfomed
+            // This is ok, we were not online when the test was performed
             // Which actually makes this test a bit pointless :-(
         }
     }

@@ -23,7 +23,8 @@ class SortModulesTest {
                 .sortModules()
                 .sortDependencies("groupId,artifactId")
                 .lineSeparator("\n")
-                .testFiles("/SortModules_input_extra_elements.xml", "/SortModules_expected_extra_elements.xml");
+                .testFiles("/SortModules_input_extra_elements.xml", 
+                        "/SortModules_expected_extra_elements.xml");
     }
     @Test
     final void sortingOfPomFileWithSubmodulesNotEnabled() throws Exception {

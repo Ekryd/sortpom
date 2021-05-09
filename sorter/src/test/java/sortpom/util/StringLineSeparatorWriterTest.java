@@ -18,17 +18,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class StringLineSeparatorWriterTest {
 
     private StringLineSeparatorWriter writer;
+    private StringWriter out;
 
     @BeforeEach
     void setUp() {
-        StringWriter out = new StringWriter();
+        out = new StringWriter();
         writer = new StringLineSeparatorWriter(out, "separator");
     }
 
     @Test
     void writeNewlineShouldBeConvertedToSeparator1() {
         writer.write("Hey\nYou!");
-        assertThat(writer.toString(), is("HeyseparatorYou!"));
+        writer.close();
+        assertThat(out.toString(), is("HeyseparatorYou!"));
     }
 
     @Test
@@ -37,7 +39,8 @@ class StringLineSeparatorWriterTest {
         writer.write('&');
         writer.write('\n');
         writer.write("Goodbye");
-        assertThat(writer.toString(), is("Hello&separatorGoodbye"));
+        writer.close();
+        assertThat(out.toString(), is("Hello&separatorGoodbye"));
     }
 
     @Test
@@ -49,7 +52,17 @@ class StringLineSeparatorWriterTest {
 
         writer.clearLineBuffer();
         writer.write("<moreXml>");
-        assertThat(writer.toString(), is("<xml>separator<moreXml>"));
+        writer.close();
+        assertThat(out.toString(), is("<xml>separator<moreXml>"));
+    }
+
+    @Test
+    void toStringShouldFlushBuffer() {
+        writer.write("Hello");
+        writer.write('&');
+        writer.write('\n');
+        writer.write("Goodbye");
+        assertThat(writer.toString(), is("Hello&separatorGoodbye"));
     }
 
     @Test

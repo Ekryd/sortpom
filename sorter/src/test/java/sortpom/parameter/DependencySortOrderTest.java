@@ -18,8 +18,15 @@ class DependencySortOrderTest {
     }
 
     @Test
+    void emptySortOrderShouldNotSort() {
+        assertThat(new DependencySortOrder(null).isNoSorting(), is(true));
+        assertThat(new DependencySortOrder("").isNoSorting(), is(true));
+    }
+
+    @Test
     void singleSortOrderShouldWork() {
         assertThat(new DependencySortOrder("Gurka").toString(), is("DependencySortOrder{childElementNames=[Gurka]}"));
+        assertThat(new DependencySortOrder("Gurka").isNoSorting(), is(false));
     }
 
     @Test

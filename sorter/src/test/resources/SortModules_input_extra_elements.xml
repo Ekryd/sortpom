@@ -8,9 +8,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <modules>
-    <unknown extra="newExtra"></unknown>
+    <another extra="newExtra"></another>
     <module>a</module>
     <module>b</module>
+    <unknown extra="newExtra"></unknown>
     <module>d</module>
     <module>c</module>
   </modules>

@@ -17,8 +17,8 @@
     <maven>2.0</maven>
   </prerequisites>
   <modules>
-    <module>module</module>
     <unknown/>
+    <module>module</module>
   </modules>
   <properties></properties>
   <dependencyManagement>
@@ -177,6 +177,7 @@
           </dependency>
         </dependencies>
         <executions>
+            <this/>
           <execution>
             <id>default</id>
             <goals>

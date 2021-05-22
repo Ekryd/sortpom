@@ -18,7 +18,7 @@ The ones that are implemented will take a little time, as this project is done d
 
 Some suggestions will be rejected. Common reasons for rejected issues:
   * The underlaying frameworks do not support the feature  (e.g. no line numbers for XML errors)
-  * The change is to big  (e.g. changing the underlaying frameworks 😋)
+  * The change is to big  (e.g. changing the underlying frameworks 😋)
   * The change is outside the scope of the plugin  (e.g. can be solved by another plugin)
   * The issuer does not reply to questions
 

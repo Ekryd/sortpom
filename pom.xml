@@ -236,11 +236,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.sonarsource.scanner.maven</groupId>
-          <artifactId>sonar-maven-plugin</artifactId>
-          <version>3.9.0.2155</version>
-        </plugin>
-        <plugin>
           <groupId>org.pitest</groupId>
           <artifactId>pitest-maven</artifactId>
           <version>1.6.6</version>
@@ -262,6 +257,11 @@
               <phase>package</phase>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.9.0.2155</version>
         </plugin>
       </plugins>
     </pluginManagement>

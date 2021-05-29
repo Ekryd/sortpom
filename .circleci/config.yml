@@ -25,7 +25,7 @@ jobs:
     <<: *shared
   jdk16:
     docker:
-      - image: cimg/openjdk:14.0
+      - image: cimg/openjdk:16.0
     <<: *shared
   jdk11:
     docker:

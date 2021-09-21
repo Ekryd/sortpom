@@ -84,13 +84,6 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.pitest</groupId>
-        <artifactId>pitest-maven</artifactId>
-        <configuration>
-          <excludedClasses>sortpom.HelpMojo</excludedClasses>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>

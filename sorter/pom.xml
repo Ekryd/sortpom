@@ -24,7 +24,10 @@
     <dependency>
       <groupId>org.jdom</groupId>
       <artifactId>jdom</artifactId>
-      <!-- No, this version will never be updated -->
+    </dependency>
+    <dependency>
+        <groupId>org.dom4j</groupId>
+        <artifactId>dom4j</artifactId>
     </dependency>
   </dependencies>
 

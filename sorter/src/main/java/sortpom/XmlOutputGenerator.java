@@ -1,5 +1,9 @@
 package sortpom;
 
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.Document;
@@ -13,6 +17,7 @@ import sortpom.util.WriterFactory;
 import sortpom.util.XmlWriter;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 
@@ -26,6 +31,7 @@ public class XmlOutputGenerator {
     private boolean indentBlankLines;
     private boolean indentSchemaLocation;
     private final WriterFactory writerFactory = new WriterFactory();
+    private String lineSeparator;
 
     /**
      * Setup default configuration
@@ -37,6 +43,7 @@ public class XmlOutputGenerator {
         this.expandEmptyElements = pluginParameters.expandEmptyElements;
         this.indentBlankLines = pluginParameters.indentBlankLines;
         this.indentSchemaLocation = pluginParameters.indentSchemaLocation;
+        lineSeparator = pluginParameters.lineSeparatorUtil.toString();
     }
 
     /**
@@ -45,15 +52,32 @@ public class XmlOutputGenerator {
      * @return the sorted xml
      */
     public String getSortedXml(Document newDocument) {
+        String xml;
         try (XmlWriter writer = writerFactory.getWriter()) {
 
             XMLOutputter xmlOutputter = new PatchedXMLOutputter(writer, indentBlankLines, indentSchemaLocation);
             xmlOutputter.setFormat(createPrettyFormat());
             xmlOutputter.output(newDocument, writer);
 
-            return writer.toString();
+            xml = writer.toString();
         } catch (IOException ioex) {
             throw new FailureException("Could not format pom files content", ioex);
+        }
+        try {
+            org.dom4j.Document document = DocumentHelper.parseText(xml);
+            StringWriter writer = new StringWriter();
+            OutputFormat outputFormat = new OutputFormat(indentCharacters);
+            outputFormat.setLineSeparator(lineSeparator);
+            outputFormat.setNewlines(true);
+            outputFormat.setExpandEmptyElements(expandEmptyElements);
+            outputFormat.setNewLineAfterDeclaration(false);
+            outputFormat.setEncoding(encoding);
+            XMLWriter xmlWriter = new XMLWriter(writer, outputFormat);
+            xmlWriter.write(document);
+            String newXml = writer.toString();
+            return newXml;
+        } catch (DocumentException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

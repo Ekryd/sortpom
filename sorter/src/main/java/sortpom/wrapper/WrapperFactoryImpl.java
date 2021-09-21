@@ -71,6 +71,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
             throws JDOMException, IOException {
         try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
             SAXBuilder parser = new SAXBuilder();
+            parser.setExpandEntities(false);
             return parser.build(reader);
         }
     }

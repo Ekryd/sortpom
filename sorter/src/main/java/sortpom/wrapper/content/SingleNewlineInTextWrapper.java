@@ -1,14 +1,14 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
-import org.jdom.Text;
+import org.dom4j.Node;
+import org.dom4j.Text;
 
 /**
  * A wrapper that contains a single newline, that will be thrown away.
  *
  * @author Bjorn
  */
-public final class SingleNewlineInTextWrapper implements Wrapper<Content> {
+public final class SingleNewlineInTextWrapper implements Wrapper<Node> {
     public static final SingleNewlineInTextWrapper INSTANCE = new SingleNewlineInTextWrapper();
 
     /** Instantiates a new wrapper, whose content will be thrown away. */
@@ -21,7 +21,7 @@ public final class SingleNewlineInTextWrapper implements Wrapper<Content> {
     }
 
     @Override
-    public boolean isBefore(final Wrapper<? extends Content> wrapper) {
+    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
         throw new UnsupportedOperationException();
     }
 

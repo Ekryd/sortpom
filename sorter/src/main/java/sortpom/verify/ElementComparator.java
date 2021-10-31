@@ -1,6 +1,6 @@
 package sortpom.verify;
 
-import org.jdom.Element;
+import org.dom4j.Element;
 import sortpom.util.XmlOrderedResult;
 
 import java.util.List;
@@ -25,8 +25,7 @@ public class ElementComparator {
         if (isEqualsIgnoringWhitespace()) {
             return XmlOrderedResult.textContentDiffers(originalElement.getName(), originalElement.getText(), newElement.getText());
         }
-        //noinspection unchecked
-        return isChildrenOrdered(originalElement.getName(), originalElement.getChildren(), newElement.getChildren());
+        return isChildrenOrdered(originalElement.getName(), originalElement.elements(), newElement.elements());
     }
 
     private boolean isEqualsIgnoringWhitespace() {

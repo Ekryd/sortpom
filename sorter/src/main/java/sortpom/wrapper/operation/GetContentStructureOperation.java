@@ -1,7 +1,7 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import sortpom.wrapper.content.Wrapper;
 
 /**
@@ -25,9 +25,9 @@ class GetContentStructureOperation implements HierarchyWrapperOperation {
 
     /** Add all 'other content' to the parent xml element */
     @Override
-    public void processOtherContent(Wrapper<Content> content) {
+    public void processOtherContent(Wrapper<Node> content) {
         if (parentElement != null) {
-            parentElement.addContent(content.getContent());
+            parentElement.add(content.getContent());
         }
     }
 
@@ -37,7 +37,7 @@ class GetContentStructureOperation implements HierarchyWrapperOperation {
         activeElement = element.getContent();
 
         if (parentElement != null) {
-            parentElement.addContent(activeElement);
+            parentElement.add(activeElement);
         }
     }
 

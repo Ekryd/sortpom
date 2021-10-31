@@ -1,7 +1,9 @@
 package sortpom;
 
-import org.jdom.Document;
-import org.jdom.Element;
+import org.dom4j.Document;
+import org.dom4j.Element;
+import org.dom4j.tree.BaseElement;
+import org.dom4j.tree.DefaultDocument;
 
 import java.io.File;
 
@@ -13,16 +15,16 @@ import java.io.File;
  */
 class ViolationXmlProcessor {
     Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
-        Element violationElement = new Element("violation");
+        Element violationElement = new BaseElement("violation");
         violationElement.setText(violationMessage);
 
-        Element fileElement = new Element("file");
-        fileElement.addContent(violationElement);
-        fileElement.setAttribute("filename", pomFileLocation.getAbsolutePath());
+        BaseElement fileElement = new BaseElement("file");
+        fileElement.add(violationElement);
+        fileElement.addAttribute("filename", pomFileLocation.getAbsolutePath());
 
-        Element rootElement = new Element("sortpom");
-        rootElement.addContent(fileElement);
+        Element rootElement = new BaseElement("sortpom");
+        rootElement.add(fileElement);
 
-        return new Document(rootElement);
+        return new DefaultDocument(rootElement);
     }
 }

@@ -1,15 +1,14 @@
 package sortpom;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -32,18 +31,16 @@ public class XmlProcessor {
      * xml.
      *
      * @param originalXml the new original xml
-     * @throws org.jdom.JDOMException the jDOM exception
-     * @throws java.io.IOException    Signals that an I/O exception has occurred.
-     */
-    public void setOriginalXml(final InputStream originalXml) throws JDOMException, IOException {
-        SAXBuilder parser = new SAXBuilder();
-        originalDocument = parser.build(originalXml);
+    */
+    public void setOriginalXml(final InputStream originalXml) throws DocumentException {
+        SAXReader parser = new SAXReader();
+        originalDocument = parser.read(originalXml);
     }
 
     /** Creates a new dom document that contains the sorted xml. */
     public void sortXml() {
         newDocument = (Document) originalDocument.clone();
-        final Element rootElement = (Element) originalDocument.getRootElement().clone();
+        final Element rootElement = originalDocument.getRootElement().createCopy();
 
         HierarchyRootWrapper rootWrapper = factory.createFromRootElement(rootElement);
 

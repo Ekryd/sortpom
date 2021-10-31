@@ -1,9 +1,9 @@
 package sortpom.wrapper;
 
 import org.apache.commons.io.IOUtils;
-import org.jdom.Document;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
@@ -23,7 +23,7 @@ class ElementToStringTest {
         assertEquals(expected, getToStringOnRootElementWrapper());
     }
 
-    private String getToStringOnRootElementWrapper() throws IOException, JDOMException {
+    private String getToStringOnRootElementWrapper() throws IOException, DocumentException {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")
@@ -36,8 +36,8 @@ class ElementToStringTest {
         fileUtil.setup(pluginParameters);
 
         String xml = IOUtils.toString(new FileInputStream("src/test/resources/" + "Real1_input.xml"), StandardCharsets.UTF_8);
-        SAXBuilder parser = new SAXBuilder();
-        Document document = parser.build(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+        SAXReader parser = new SAXReader();
+        Document document = parser.read(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
 
         WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
         wrapperFactory.setup(pluginParameters);

@@ -1,6 +1,6 @@
 package sortpom.jdomcontent;
 
-import org.jdom.Comment;
+import org.dom4j.tree.DefaultComment;
 
 /**
  * The NewlineText is not really a special case of comment. Its just that comments
@@ -10,8 +10,12 @@ import org.jdom.Comment;
  * @author bjorn
  * @since 2012-05-17
  */
-public class NewlineText extends Comment {
+public class NewlineText extends DefaultComment {
     private static final long serialVersionUID = -7552189498553321263L;
+
+    public NewlineText() {
+        super("");
+    }
 
     /**
      * This returns a <code>String</code> representation of the

@@ -1,7 +1,7 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import sortpom.wrapper.content.Wrapper;
 
 import java.util.List;
@@ -40,7 +40,7 @@ class ToStringOperation implements HierarchyWrapperOperation {
 
     /** Add each 'other element' to string */
     @Override
-    public void processOtherContent(Wrapper<Content> content) {
+    public void processOtherContent(Wrapper<Node> content) {
         if (processFirstOtherContent) {
             builder.append(baseIndent).append("otherContentList=").append("\n");
             processFirstOtherContent = false;

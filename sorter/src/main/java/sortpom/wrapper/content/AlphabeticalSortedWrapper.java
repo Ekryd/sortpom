@@ -1,7 +1,7 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Element;
+import org.dom4j.Node;
 
 /**
  * En wrapper lets its element be sorted in alphabetical order
@@ -21,7 +21,7 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     }
 
     @Override
-    public boolean isBefore(final Wrapper<? extends Content> wrapper) {
+    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
         return wrapper instanceof AlphabeticalSortedWrapper
                 && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
     }
@@ -34,7 +34,7 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
     public String toString() {
         return "AlphabeticalSortedWrapper{" +
                 "element=" +
-                element +
+            (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", "")) +
                 '}';
     }
 }

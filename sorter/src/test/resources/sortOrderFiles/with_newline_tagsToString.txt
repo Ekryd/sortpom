@@ -1,51 +1,54 @@
 HierarchyWrapper{
-  elementContent=UnsortedWrapper{content=[Element: <project [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+  elementContent=UnsortedWrapper{content=[Attribute: name xsi:schemaLocation value "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"]]/>]}
   children=
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <modelVersion [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    otherContentList=
+    UnsortedWrapper{content=[Namespace: prefix  mapped to URI "http://maven.apache.org/POM/4.0.0"]}
+    UnsortedWrapper{content=[Namespace: prefix xsi mapped to URI "http://www.w3.org/2001/XMLSchema-instance"]}
+    elementContent=UnsortedWrapper{content=[Element: <modelVersion uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <newLine [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <newLine uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <groupId uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <artifactId uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <version uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <newLine [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <newLine uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <name [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <name uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <url [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <url uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     }
   HierarchyWrapper{
-    elementContent=UnsortedWrapper{content=[Element: <dependencies [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+    elementContent=UnsortedWrapper{content=[Element: <dependencies uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
     children=
     HierarchyWrapper{
-      elementContent=UnsortedWrapper{content=[Element: <dependency [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      elementContent=UnsortedWrapper{content=[Element: <dependency uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
       children=
       HierarchyWrapper{
-        elementContent=UnsortedWrapper{content=[Element: <groupId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+        elementContent=UnsortedWrapper{content=[Element: <groupId uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
         }
       HierarchyWrapper{
-        elementContent=UnsortedWrapper{content=[Element: <artifactId [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+        elementContent=UnsortedWrapper{content=[Element: <artifactId uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
         }
       HierarchyWrapper{
-        elementContent=UnsortedWrapper{content=[Element: <version [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+        elementContent=UnsortedWrapper{content=[Element: <version uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
         }
       HierarchyWrapper{
-        elementContent=UnsortedWrapper{content=[Element: <classifier [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+        elementContent=UnsortedWrapper{content=[Element: <classifier uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
         }
       }
     HierarchyWrapper{
-      elementContent=UnsortedWrapper{content=[Element: <newLine [Namespace: http://maven.apache.org/POM/4.0.0]/>]}
+      elementContent=UnsortedWrapper{content=[Element: <newLine uri: http://maven.apache.org/POM/4.0.0 attributes: []/>]}
       }
     }
   }

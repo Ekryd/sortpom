@@ -1,7 +1,7 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import sortpom.wrapper.content.Wrapper;
 
 /**
@@ -15,6 +15,6 @@ public interface WrapperFactory {
     HierarchyRootWrapper createFromRootElement(final Element rootElement);
 
     /** Creates wrapper around xml content. */
-    <T extends Content> Wrapper<T> create(final T content);
+    <T extends Node> Wrapper<T> create(final T content);
 
 }

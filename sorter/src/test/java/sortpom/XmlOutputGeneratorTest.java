@@ -26,8 +26,8 @@ class XmlOutputGeneratorTest {
     void simulateIOExceptionToTriggerExceptionMessage() {
 
         Document document = spy(createXmlFragment());
-        // Simulate an IOException (a check one, no less)
-        when(document.content()).thenAnswer(invocation -> {
+        // Simulate an IOException (a checked one, no less)
+        when(document.node(0)).thenAnswer(invocation -> {
             throw new IOException();
         });
 

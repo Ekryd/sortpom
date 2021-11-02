@@ -18,4 +18,8 @@ public class NewlineText extends AbstractText {
         return "[NewLine]";
     }
 
+    @Override
+    public String getText() {
+        return "";
+    }
 }

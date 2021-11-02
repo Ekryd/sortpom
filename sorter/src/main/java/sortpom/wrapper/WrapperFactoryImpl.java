@@ -3,7 +3,7 @@ package sortpom.wrapper;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import sortpom.exception.FailureException;
-import sortpom.jdomcontent.IgnoreSectionToken;
+import sortpom.content.IgnoreSectionToken;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;

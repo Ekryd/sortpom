@@ -9,6 +9,3 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    ignored_updates:
-      - match:
-          dependency_name: "org.jdom:jdom"

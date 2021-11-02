@@ -2,7 +2,7 @@ package sortpom.wrapper;
 
 import org.dom4j.Node;
 import org.dom4j.Text;
-import sortpom.jdomcontent.NewlineText;
+import sortpom.content.NewlineText;
 import sortpom.parameter.PluginParameters;
 import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;

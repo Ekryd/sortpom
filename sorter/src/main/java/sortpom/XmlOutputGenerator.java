@@ -6,7 +6,7 @@ import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultText;
 import org.dom4j.tree.NamespaceStack;
 import sortpom.exception.FailureException;
-import sortpom.jdomcontent.NewlineText;
+import sortpom.content.NewlineText;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.StringLineSeparatorWriter;
 

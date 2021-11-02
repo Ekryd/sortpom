@@ -1,4 +1,4 @@
-package sortpom.jdomcontent;
+package sortpom.content;
 
 import org.dom4j.Comment;
 import org.dom4j.Element;

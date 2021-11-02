@@ -72,7 +72,6 @@ public class WrapperFactoryImpl implements WrapperFactory {
     Document createDocumentFromDefaultSortOrderFile() throws IOException, DocumentException {
         try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
             SAXReader parser = new SAXReader();
-            //TODO: parser.setExpandEntities(false);
             return parser.read(reader);
         }
     }

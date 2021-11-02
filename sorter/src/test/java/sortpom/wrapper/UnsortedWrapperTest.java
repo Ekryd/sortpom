@@ -20,7 +20,7 @@ class UnsortedWrapperTest {
     void testIsBefore() {
 
         final Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null)
-                .isBefore(null);;
+                .isBefore(null);
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 

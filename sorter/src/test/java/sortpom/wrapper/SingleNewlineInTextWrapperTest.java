@@ -19,8 +19,7 @@ class SingleNewlineInTextWrapperTest {
 
     @Test
     void testGetContent() {
-
-        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.getContent();
+        final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::getContent;
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
@@ -29,7 +28,6 @@ class SingleNewlineInTextWrapperTest {
 
     @Test
     void testIsBefore() {
-
         final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
@@ -39,8 +37,7 @@ class SingleNewlineInTextWrapperTest {
 
     @Test
     void testIsContentElement() {
-
-        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isContentElement();
+        final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isContentElement;
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
@@ -49,8 +46,7 @@ class SingleNewlineInTextWrapperTest {
 
     @Test
     void testIsResortable() {
-
-        final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isSortable();
+        final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isSortable;
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 

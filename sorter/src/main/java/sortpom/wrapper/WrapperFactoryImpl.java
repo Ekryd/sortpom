@@ -3,6 +3,7 @@ package sortpom.wrapper;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import sortpom.exception.FailureException;
+import sortpom.jdomcontent.IgnoreSectionToken;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;
@@ -103,6 +104,9 @@ public class WrapperFactoryImpl implements WrapperFactory {
         }
         if (content instanceof Text) {
             return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
+        }
+        if (content instanceof ProcessingInstruction && "sortpom".equals(content.getName())) {
+            return (Wrapper<T>) new UnsortedWrapper<>(IgnoreSectionToken.from((ProcessingInstruction) content));
         }
         return new UnsortedWrapper<>(content);
     }

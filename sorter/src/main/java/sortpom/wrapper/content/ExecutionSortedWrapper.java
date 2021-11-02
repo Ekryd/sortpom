@@ -1,7 +1,7 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 
 import java.util.List;
 
@@ -28,8 +28,7 @@ public class ExecutionSortedWrapper extends SortedWrapper {
      */
     public ExecutionSortedWrapper(final Element element, final int sortOrder) {
         super(element, sortOrder);
-        @SuppressWarnings("unchecked")
-        List<Element> children = getContent().getChildren();
+        List<Element> children = getContent().elements();
 
         phase = children.stream()
                 .filter(e -> e.getName().equals("phase") && e.getText() != null)
@@ -46,7 +45,7 @@ public class ExecutionSortedWrapper extends SortedWrapper {
     }
 
     @Override
-    public boolean isBefore(final Wrapper<? extends Content> wrapper) {
+    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
         if (wrapper instanceof ExecutionSortedWrapper) {
             return isBeforeWrapper((ExecutionSortedWrapper) wrapper);
         }

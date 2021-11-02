@@ -1,6 +1,6 @@
 package sortpom.wrapper;
 
-import org.jdom.Element;
+import org.dom4j.Element;
 
 import java.util.HashMap;
 import java.util.Map;

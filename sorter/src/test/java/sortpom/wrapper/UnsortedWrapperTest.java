@@ -1,6 +1,6 @@
 package sortpom.wrapper;
 
-import org.jdom.Text;
+import org.dom4j.tree.DefaultText;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import sortpom.wrapper.content.UnsortedWrapper;
@@ -19,7 +19,7 @@ class UnsortedWrapperTest {
     @Test
     void testIsBefore() {
 
-        final Executable testMethod = () -> new UnsortedWrapper<Text>(null)
+        final Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null)
                 .isBefore(null);;
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);

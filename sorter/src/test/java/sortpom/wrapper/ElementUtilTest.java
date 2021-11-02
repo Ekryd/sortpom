@@ -1,6 +1,7 @@
 package sortpom.wrapper;
 
-import org.jdom.Element;
+import org.dom4j.Element;
+import org.dom4j.tree.BaseElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
@@ -21,9 +22,9 @@ class ElementUtilTest {
 
     @BeforeEach
     void setUp() {
-        parent = new Element("Parent");
-        child = new Element("Child");
-        parent.addContent(child);
+        parent = new BaseElement("Parent");
+        child = new BaseElement("Child");
+        parent.add(child);
     }
 
     @Test

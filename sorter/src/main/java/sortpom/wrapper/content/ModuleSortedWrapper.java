@@ -1,7 +1,7 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Element;
+import org.dom4j.Node;
 
 /**
  * A wrapper that contains a module element. The module is sorted alphabetically.
@@ -24,7 +24,7 @@ public class ModuleSortedWrapper extends SortedWrapper {
 
 
     @Override
-    public boolean isBefore(final Wrapper<? extends Content> wrapper) {
+    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
         if (wrapper instanceof ModuleSortedWrapper) {
             return isBeforeAlphabeticalTextSortedWrapper((ModuleSortedWrapper) wrapper);
         }
@@ -41,9 +41,9 @@ public class ModuleSortedWrapper extends SortedWrapper {
 
     @Override
     public String toString() {
+        Element element = getContent();
         return "ModuleSortedWrapper{content=" +
-                getContent() +
-                '}';
+            (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", "")) + '}';
     }
 
 }

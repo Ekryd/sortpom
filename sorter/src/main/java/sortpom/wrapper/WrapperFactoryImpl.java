@@ -1,8 +1,9 @@
 package sortpom.wrapper;
 
-import org.jdom.*;
-import org.jdom.input.SAXBuilder;
+import org.dom4j.*;
+import org.dom4j.io.SAXReader;
 import sortpom.exception.FailureException;
+import sortpom.jdomcontent.IgnoreSectionToken;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;
@@ -10,8 +11,9 @@ import sortpom.wrapper.content.Wrapper;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.List;
 
 /**
@@ -51,7 +53,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
         textWrapperCreator.setup(pluginParameters);
     }
 
-    /** @see WrapperFactory#createFromRootElement(org.jdom.Element) */
+    /** @see WrapperFactory#createFromRootElement(org.dom4j.Element) */
     public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
         initializeSortOrderMap();
         return new HierarchyRootWrapper(create(rootElement));
@@ -62,17 +64,16 @@ public class WrapperFactoryImpl implements WrapperFactory {
         try {
             Document document = createDocumentFromDefaultSortOrderFile();
             addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
-        } catch (IOException | JDOMException e) {
+        } catch (IOException | DocumentException e) {
             throw new FailureException(e.getMessage(), e);
         }
     }
 
-    Document createDocumentFromDefaultSortOrderFile()
-            throws JDOMException, IOException {
+    Document createDocumentFromDefaultSortOrderFile() throws IOException, DocumentException {
         try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
-            SAXBuilder parser = new SAXBuilder();
-            parser.setExpandEntities(false);
-            return parser.build(reader);
+            SAXReader parser = new SAXReader();
+            //TODO: parser.setExpandEntities(false);
+            return parser.read(reader);
         }
     }
 
@@ -82,7 +83,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
      */
     private void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
         elementSortOrderMap.addElement(element, baseSortOrder);
-        final List<Element> castToChildElementList = castToChildElementList(element);
+        final List<Element> castToChildElementList = element.elements();
         // Increments the sort order index for each element
         int sortOrder = baseSortOrder;
         for (Element child : castToChildElementList) {
@@ -91,10 +92,10 @@ public class WrapperFactoryImpl implements WrapperFactory {
         }
     }
 
-    /** @see WrapperFactory#create(org.jdom.Content) */
+    /** @see WrapperFactory#create(org.dom4j.Node) */
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Content> Wrapper<T> create(final T content) {
+    public <T extends Node> Wrapper<T> create(final T content) {
         if (content instanceof Element) {
             return (Wrapper<T>) elementWrapperCreator.createWrapper((Element) content);
         }
@@ -104,16 +105,9 @@ public class WrapperFactoryImpl implements WrapperFactory {
         if (content instanceof Text) {
             return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
         }
+        if (content instanceof ProcessingInstruction && "sortpom".equals(content.getName())) {
+            return (Wrapper<T>) new UnsortedWrapper<>(IgnoreSectionToken.from((ProcessingInstruction) content));
+        }
         return new UnsortedWrapper<>(content);
     }
-
-    /**
-     * Performs getChildren for an element and casts the result to ArrayList of
-     * Elements.
-     */
-    @SuppressWarnings("unchecked")
-    private List<Element> castToChildElementList(final Element element) {
-        return new ArrayList<>(element.getChildren());
-    }
-
 }

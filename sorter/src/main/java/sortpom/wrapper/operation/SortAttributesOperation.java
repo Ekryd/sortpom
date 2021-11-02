@@ -1,7 +1,7 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Attribute;
-import org.jdom.Element;
+import org.dom4j.Attribute;
+import org.dom4j.Element;
 import sortpom.wrapper.content.Wrapper;
 
 import java.util.ArrayList;
@@ -25,17 +25,11 @@ class SortAttributesOperation implements HierarchyWrapperOperation {
     }
 
     private List<Attribute> getSortedAttributes(Element element) {
-        final List<Attribute> attributes = getAttributeList(element);
+        final List<Attribute> attributes = new ArrayList<>(element.attributes());
 
         attributes.forEach(Attribute::detach);
 
         attributes.sort(ATTRIBUTE_COMPARATOR);
         return attributes;
     }
-
-    @SuppressWarnings("unchecked")
-    private List<Attribute> getAttributeList(final Element element) {
-        return new ArrayList<>(element.getAttributes());
-    }
-
 }

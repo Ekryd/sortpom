@@ -10,7 +10,6 @@ import sortpom.VerifyMojo;
 import sortpom.XmlOutputGenerator;
 import sortpom.parameter.VerifyFailType;
 import sortpom.util.FileUtil;
-import sortpom.util.WriterFactory;
 import sortpom.wrapper.ElementWrapperCreator;
 import sortpom.wrapper.TextWrapperCreator;
 import sortpom.wrapper.WrapperFactoryImpl;
@@ -32,7 +31,6 @@ class VerifyMojoParametersTest {
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
     private XmlOutputGenerator xmlOutputGenerator;
-    private WriterFactory writerFactory;
 
     @BeforeEach
     void setup() throws SecurityException, IllegalArgumentException {
@@ -50,7 +48,6 @@ class VerifyMojoParametersTest {
         WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
-        writerFactory = new ReflectionHelper(xmlOutputGenerator).getField(WriterFactory.class);
     }
 
     @Test
@@ -87,9 +84,9 @@ class VerifyMojoParametersTest {
     void lineSeparatorParameter() {
         testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        final Object lineSeparatorUtil = new ReflectionHelper(writerFactory).getField("lineSeparatorUtil");
+        final String lineSeparator = new ReflectionHelper(xmlOutputGenerator).getField("lineSeparator").toString();
 
-        assertThat("\r", lineSeparatorUtil.toString(), is(equalTo("\r")));
+        assertThat("\r", lineSeparator, is(equalTo("\r")));
     }
 
     @Test
@@ -106,7 +103,7 @@ class VerifyMojoParametersTest {
 
     @Test
     void spaceBeforeCloseEmptyElementParameter() {
-        testParameterMoveFromMojoToRestOfApplicationForBoolean("spaceBeforeCloseEmptyElement", writerFactory);
+        testParameterMoveFromMojoToRestOfApplicationForBoolean("spaceBeforeCloseEmptyElement", xmlOutputGenerator);
     }
 
     @Test

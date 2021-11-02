@@ -1,7 +1,7 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import sortpom.parameter.DependencySortOrder;
 
 import java.util.List;
@@ -24,14 +24,13 @@ public class DependencySortedWrapper extends SortedWrapper {
         super(element, sortOrder);
     }
 
-    @SuppressWarnings("unchecked")
     public void setSortOrder(DependencySortOrder childElementNames) {
-        List<Element> children = getContent().getChildren();
+        List<Element> children = getContent().elements();
         this.childElementSorter = new ChildElementSorter(childElementNames, children);
     }
 
     @Override
-    public boolean isBefore(final Wrapper<? extends Content> wrapper) {
+    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
         if (wrapper instanceof DependencySortedWrapper) {
             return isBeforeDependencySortedWrapper((DependencySortedWrapper) wrapper);
         }

@@ -1,7 +1,7 @@
 package sortpom;
 
-import org.jdom.Document;
-import org.jdom.JDOMException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
@@ -71,7 +71,7 @@ public class SortPomService {
 
         try (ByteArrayInputStream originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
             xmlProcessor.setOriginalXml(originalXmlInputStream);
-        } catch (JDOMException | IOException e) {
+        } catch (DocumentException | IOException e) {
             throw new FailureException("Could not sort " + pomFile.getAbsolutePath() + " content: " + xml, e);
         }
         xmlProcessor.sortXml();

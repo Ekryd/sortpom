@@ -1,7 +1,7 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 import sortpom.wrapper.content.Wrapper;
 
@@ -15,19 +15,19 @@ import java.util.List;
  */
 class HierarchyWrapper {
     private Wrapper<Element> elementContent;
-    private final List<Wrapper<Content>> otherContentList = new ArrayList<>();
+    private final List<Wrapper<Node>> otherContentList = new ArrayList<>();
     private final List<HierarchyWrapper> children = new ArrayList<>();
 
-    HierarchyWrapper(final Wrapper<? extends Content> wrapper) {
+    HierarchyWrapper(final Wrapper<? extends Node> wrapper) {
         addContent(wrapper);
     }
 
     @SuppressWarnings("unchecked")
-    private void addContent(final Wrapper<? extends Content> wrapper) {
+    private void addContent(final Wrapper<? extends Node> wrapper) {
         if (wrapper.isContentElement()) {
             elementContent = (Wrapper<Element>) wrapper;
         } else {
-            otherContentList.add((Wrapper<Content>) wrapper);
+            otherContentList.add((Wrapper<Node>) wrapper);
         }
 
     }
@@ -35,7 +35,7 @@ class HierarchyWrapper {
     /** Traverses the initial xml element wrapper and builds hierarchy */
     void createWrappedStructure(final WrapperFactory factory) {
         HierarchyWrapper currentWrapper = null;
-        for (Content child : castToContentList(elementContent)) {
+        for (Node child : elementContent.getContent().content()) {
             Wrapper<?> wrapper = factory.create(child);
             if (wrapper instanceof SingleNewlineInTextWrapper) {
                 continue;
@@ -51,11 +51,6 @@ class HierarchyWrapper {
                 currentWrapper = null;
             }
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private List<Content> castToContentList(final Wrapper<Element> elementContent) {
-        return new ArrayList<>(elementContent.getContent().getContent());
     }
 
     private boolean containsElement() {

@@ -264,7 +264,7 @@ public class SortPomImplUtil {
                 .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
                 .setSortOrder(customSortOrderFile, predefinedSortOrder)
                 .setVerifyFail(verifyFail, verifyFailOn)
-                .setTriggers(ignoreLineSeparators)
+                .setIgnoreLineSeparators(ignoreLineSeparators)
                 .build();
     }
 

@@ -26,7 +26,7 @@ public class SortMojo extends AbstractParentMojo {
                     .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
                     .setSortOrder(sortOrderFile, predefinedSortOrder)
                     .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
-                    .setTriggers(ignoreLineSeparators)
+                    .setIgnoreLineSeparators(ignoreLineSeparators)
                     .build();
 
             sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);

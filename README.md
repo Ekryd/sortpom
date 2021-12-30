@@ -33,6 +33,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2021-12-20: Released version 3.0.1. Fixed bug where ignoreLineSeparators was not respected during the 'verify' goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 
   * 2021-05-17: Received an Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2021-04-20: Released version 3.0.0. THIS IS A BREAKING CHANGE! The predefined sort order is now according to the recommended pom order (as decided in 2008). Blank lines in the POM are now kept by default. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93) [#105](/../../issues/105)
   * 2021-04-06: Released version 2.15.0 that adds support for sortDependencyExclusions to sort dependency exclusions by groupId and/or artifactId
@@ -44,7 +45,6 @@ Added
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
   * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks, Christoph for your pull request! [#68](/../../issues/68) [#69](/../../issues/69)
-  * 2015-11-21: Released version 2.5.0. The plugin now uses Java 8, as some dependant plugins demand Java 8. Users of previous versions of Java will have to use version 2.4.0.
   * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.
 

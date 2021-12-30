@@ -33,15 +33,16 @@
         <version>2.11.0</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.maven</groupId>
-        <artifactId>maven-plugin-api</artifactId>
-        <version>3.8.4</version>
-      </dependency>
-      <dependency>
         <groupId>org.jdom</groupId>
         <artifactId>jdom</artifactId>
         <!-- No, this version will never be updated -->
         <version>1.1.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>3.8.4</version>
+        <scope>provided</scope>
       </dependency>
 
       <dependency>
@@ -385,6 +386,14 @@
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
+        <dependencies>
+          <!-- TODO: Remove after OSSRH-66257, NEXUS-26993 are fixed, possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91 -->
+          <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.15</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>

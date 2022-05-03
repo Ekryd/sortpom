@@ -6,7 +6,7 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.ekryd.sortpom%3Asortpom-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.ekryd.sortpom%3Asortpom-parent)
 [![Licence](https://img.shields.io/github/license/Ekryd/sortpom?color=success)](https://github.com/Ekryd/sortpom/blob/master/LICENSE.md)
 
-
+ 
 Maven plugin that helps the user sort pom.xml by formatting the XML and organizing XML sections in a predefined order. 
 The main advantages to have standardized sorted poms are that they become more readable and that comparisons between different module poms becomes much easier.
 

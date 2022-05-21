@@ -4,6 +4,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
@@ -32,8 +33,9 @@ public class XmlProcessor {
      *
      * @param originalXml the new original xml
     */
-    public void setOriginalXml(final InputStream originalXml) throws DocumentException {
+    public void setOriginalXml(final InputStream originalXml) throws DocumentException, SAXException {
         SAXReader parser = new SAXReader();
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         originalDocument = parser.read(originalXml);
     }
 

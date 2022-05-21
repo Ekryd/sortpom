@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
@@ -16,12 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomSortOrderFileTest {
     @Test
-    void compareDefaultSortOrderFileToString() throws IOException, DocumentException {
+    void compareDefaultSortOrderFileToString() throws Exception {
         String expected = IOUtils.toString(new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt"), StandardCharsets.UTF_8);
         assertEquals(expected, getToStringOnCustomSortOrderFile());
     }
 
-    private String getToStringOnCustomSortOrderFile() throws IOException, DocumentException {
+    private String getToStringOnCustomSortOrderFile() throws IOException, DocumentException, SAXException {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")

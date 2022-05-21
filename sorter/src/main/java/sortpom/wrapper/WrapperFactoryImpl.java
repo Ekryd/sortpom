@@ -2,6 +2,7 @@ package sortpom.wrapper;
 
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 import sortpom.exception.FailureException;
 import sortpom.content.IgnoreSectionToken;
 import sortpom.parameter.PluginParameters;
@@ -64,14 +65,15 @@ public class WrapperFactoryImpl implements WrapperFactory {
         try {
             Document document = createDocumentFromDefaultSortOrderFile();
             addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
-        } catch (IOException | DocumentException e) {
+        } catch (IOException | DocumentException | SAXException e) {
             throw new FailureException(e.getMessage(), e);
         }
     }
 
-    Document createDocumentFromDefaultSortOrderFile() throws IOException, DocumentException {
+    Document createDocumentFromDefaultSortOrderFile() throws IOException, DocumentException, SAXException {
         try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
             SAXReader parser = new SAXReader();
+            parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             return parser.read(reader);
         }
     }

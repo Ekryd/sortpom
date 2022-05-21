@@ -162,8 +162,8 @@ public class PluginParameters {
             return this;
         }
 
-        /** Sets triggers to decide when the pom should be sorted **/
-        public Builder setTriggers(boolean ignoreLineSeparators) {
+        /** Sets if line separators should be considered when the pom should be sorted **/
+        public Builder setIgnoreLineSeparators(boolean ignoreLineSeparators) {
             this.ignoreLineSeparators = ignoreLineSeparators;
             return this;
         }

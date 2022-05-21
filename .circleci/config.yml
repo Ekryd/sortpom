@@ -15,11 +15,11 @@ shared: &shared
         key: sortpom-cache--{{ checksum "pom.xml" }}
       
 jobs:
-  jdk8:
-    docker:
-      - image: cimg/openjdk:8.0
-    <<: *shared
   jdk17:
+    docker:
+      - image: cimg/openjdk:17.0
+    <<: *shared
+  jdk18:
     docker:
       - image: cimg/openjdk:17.0
     <<: *shared
@@ -43,16 +43,16 @@ workflows:
   version: 2
   work:
     jobs:
-      - jdk8
-      - jdk17:
+      - jdk17
+      - jdk18:
           requires:
-            - jdk8
+            - jdk17
       - jdk11:
           filters:  # using regex filters requires the entire branch to match
             branches:              
               only:  # only branches matching the below regex filters will run
                 - master
           requires:
-            - jdk8
             - jdk17
+            - jdk18
         

@@ -18,7 +18,7 @@
   </modules>
 
   <properties>
-    <compileSource>1.8</compileSource>
+    <compileSource>11</compileSource>
     <junit.jupiter.version>5.8.2</junit.jupiter.version>
     <mockito.version>4.5.1</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

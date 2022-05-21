@@ -38,11 +38,11 @@ class FileUtilTest {
 
     @Test
     void defaultSortOrderFromUrlShouldWork() throws IOException {
-        FileUtil fileUtil = createFileUtil("https://en.wikipedia.org/wiki/Sweden");
+        FileUtil fileUtil = createFileUtil("https://www.internetsociety.org");
 
         try {
             String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
-            assertThat(defaultSortOrderXml, containsString("Sverige"));
+            assertThat(defaultSortOrderXml, containsString("Internet"));
         } catch (UnknownHostException e) {
             // This is ok, we were not online when the test was performed
             // Which actually makes this test a bit pointless :-(

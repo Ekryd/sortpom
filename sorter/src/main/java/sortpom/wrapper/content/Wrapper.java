@@ -1,6 +1,6 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Content;
+import org.dom4j.Node;
 
 /**
  * A wrapping of an xml fragment. The fragment might be an element or a comment etc.
@@ -8,7 +8,7 @@ import org.jdom.Content;
  * @param <T> *
  * @author Bjorn Ekryd
  */
-public interface Wrapper<T extends Content> {
+public interface Wrapper<T extends Node> {
 
     /**
      * Gets the wrapped content.
@@ -23,7 +23,7 @@ public interface Wrapper<T extends Content> {
      * @param wrapper the wrapper
      * @return true, if is before
      */
-    boolean isBefore(Wrapper<? extends Content> wrapper);
+    boolean isBefore(Wrapper<? extends Node> wrapper);
 
     /**
      * Checks if is content is of type Element. Default behaviour is that it contains an element.

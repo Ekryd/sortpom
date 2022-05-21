@@ -1,8 +1,8 @@
 package sortpom.util;
 
 import org.apache.commons.io.IOUtils;
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Element;
+import org.dom4j.Node;
 import refutils.ReflectionHelper;
 import sortpom.XmlOutputGenerator;
 import sortpom.XmlProcessor;
@@ -107,7 +107,7 @@ public class XmlProcessorTestUtil {
 
                 @SuppressWarnings("unchecked")
                 @Override
-                public <T extends Content> Wrapper<T> create(final T content) {
+                public <T extends Node> Wrapper<T> create(final T content) {
                     if (content instanceof Element) {
                         Element element = (Element) content;
                         return (Wrapper<T>) new AlphabeticalSortedWrapper(element);

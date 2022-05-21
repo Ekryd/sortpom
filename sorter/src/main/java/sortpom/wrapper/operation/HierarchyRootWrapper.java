@@ -1,6 +1,6 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Element;
+import org.dom4j.Element;
 import sortpom.wrapper.content.Wrapper;
 
 /**

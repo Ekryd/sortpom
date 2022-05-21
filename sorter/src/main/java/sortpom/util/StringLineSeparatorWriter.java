@@ -16,7 +16,7 @@ public class StringLineSeparatorWriter extends XmlWriter {
     private final StringBuilder lineBuffer = new StringBuilder();
     private final StringWriter out;
 
-    StringLineSeparatorWriter(StringWriter out, final String lineSeparator) {
+    public StringLineSeparatorWriter(StringWriter out, final String lineSeparator) {
         this.out = out;
         this.lineSeparator = lineSeparator;
     }
@@ -49,7 +49,7 @@ public class StringLineSeparatorWriter extends XmlWriter {
         }
     }
 
-    private void writeDelayedNewline() {
+    public void writeDelayedNewline() {
         if (wasNewLine) {
             writeLineSeparator();
             wasNewLine = false;

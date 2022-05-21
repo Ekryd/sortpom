@@ -1,6 +1,6 @@
 package sortpom.wrapper;
 
-import org.jdom.Element;
+import org.dom4j.Element;
 
 /**
  * Contains utility methods for Xml elements
@@ -18,12 +18,12 @@ final class ElementUtil {
         if (element == null) {
             return "";
         }
-        return getDeepName(element.getParentElement()) + '/' + element.getName();
+        return getDeepName(element.getParent()) + '/' + element.getName();
     }
 
     /** Returns true if an elements parents name is same as argument */
     static boolean isElementParentName(Element element, String name) {
-        Element parent = element.getParentElement();
+        Element parent = element.getParent();
         if (parent == null) {
             return false;
         }

@@ -1,6 +1,6 @@
 package sortpom.wrapper.content;
 
-import org.jdom.Element;
+import org.dom4j.Element;
 import sortpom.parameter.DependencySortOrder;
 
 import java.util.Collection;

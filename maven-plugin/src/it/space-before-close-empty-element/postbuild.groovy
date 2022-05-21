@@ -11,6 +11,6 @@ assert backup.exists()
 
 expectedText = expected.text.replaceAll('@pom.version@', projectversion)
 sortedText = sorted.text.replaceAll('\r','')
-assert sortedText.equals(expectedText)
+assert sortedText == expectedText
 
 return true

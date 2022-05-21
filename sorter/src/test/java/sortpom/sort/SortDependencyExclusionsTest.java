@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class SortDependencyExclusionsTest {
 
     @Test
-    final void deprecatedSortPluginsTrueMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsTrueMessageShouldWork() {
         Executable testMethod = () ->
             SortPomImplUtil.create()
                 .customSortOrderFile("custom_1.xml")
@@ -27,7 +27,7 @@ class SortDependencyExclusionsTest {
     }
 
     @Test
-    final void deprecatedSortPluginsFalseMessageShouldWork() throws Exception {
+    final void deprecatedSortPluginsFalseMessageShouldWork() {
         Executable testMethod = () ->
             SortPomImplUtil.create()
                 .customSortOrderFile("custom_1.xml")

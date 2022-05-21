@@ -1,6 +1,6 @@
 package sortpom.wrapper;
 
-import org.jdom.Text;
+import org.dom4j.tree.DefaultText;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
@@ -23,18 +23,18 @@ class TextWrapperCreatorTest {
 
     @Test
     void testIsEmptyLine() {
-        assertFalse(textWrapperCreator.isBlankLineOrLines(new Text("\n      sortpom\n  ")));
-        assertFalse(textWrapperCreator.isBlankLineOrLines(new Text("sortpom")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("\n  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \n  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \n\n  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("\n\n")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \r  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \r\r  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("\r\r")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \r\n  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("  \r\n\r\n  ")));
-        assertTrue(textWrapperCreator.isBlankLineOrLines(new Text("\r\n\r\n")));
-        assertFalse(textWrapperCreator.isBlankLineOrLines(new Text("  ")));
+        assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n      sortpom\n  ")));
+        assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("sortpom")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \n  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \n\n  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n\n")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\r  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\r\r")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\n  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\n\r\n  ")));
+        assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\r\n\r\n")));
+        assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("  ")));
     }
 }

@@ -11,7 +11,6 @@ import sortpom.XmlOutputGenerator;
 import sortpom.logger.SortPomLogger;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
 import sortpom.util.FileUtil;
-import sortpom.util.WriterFactory;
 import sortpom.wrapper.ElementWrapperCreator;
 import sortpom.wrapper.TextWrapperCreator;
 import sortpom.wrapper.WrapperFactoryImpl;
@@ -32,7 +31,6 @@ class SortMojoParametersTest {
     private ElementWrapperCreator elementWrapperCreator;
     private TextWrapperCreator textWrapperCreator;
     private XmlOutputGenerator xmlOutputGenerator;
-    private WriterFactory writerFactory;
     private XmlProcessingInstructionParser xmlProcessingInstructionParser;
 
     @BeforeEach
@@ -51,7 +49,6 @@ class SortMojoParametersTest {
         
         elementWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
         textWrapperCreator = new ReflectionHelper(wrapperFactoryImpl).getField(TextWrapperCreator.class);
-        writerFactory = new ReflectionHelper(xmlOutputGenerator).getField(WriterFactory.class);
     }
 
     @Test
@@ -83,10 +80,10 @@ class SortMojoParametersTest {
     void lineSeparatorParameter() {
         assertParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-        final Object lineSeparatorUtil = new ReflectionHelper(writerFactory)
-                .getField("lineSeparatorUtil");
+        final String lineSeparator = new ReflectionHelper(xmlOutputGenerator)
+                .getField("lineSeparator").toString();
 
-        assertThat(lineSeparatorUtil.toString(), is(equalTo("\r")));
+        assertThat(lineSeparator, is(equalTo("\r")));
     }
 
     @Test
@@ -106,7 +103,7 @@ class SortMojoParametersTest {
 
     @Test
     void spaceBeforeCloseEmptyElementParameter() {
-        assertParameterMoveFromMojoToRestOfApplicationForBoolean("spaceBeforeCloseEmptyElement", writerFactory);
+        assertParameterMoveFromMojoToRestOfApplicationForBoolean("spaceBeforeCloseEmptyElement", xmlOutputGenerator);
     }
 
     @Test

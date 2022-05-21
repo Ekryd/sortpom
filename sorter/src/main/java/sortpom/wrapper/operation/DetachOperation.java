@@ -1,8 +1,11 @@
 package sortpom.wrapper.operation;
 
-import org.jdom.Content;
-import org.jdom.Element;
+import org.dom4j.Node;
+import org.dom4j.Element;
 import sortpom.wrapper.content.Wrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Xml hierarchy operation that detaches a xml child from its parent. Used by
@@ -14,7 +17,7 @@ import sortpom.wrapper.content.Wrapper;
 class DetachOperation implements HierarchyWrapperOperation {
     /** Detach each 'other content' */
     @Override
-    public void processOtherContent(Wrapper<Content> contentWrapper) {
+    public void processOtherContent(Wrapper<Node> contentWrapper) {
         contentWrapper.getContent().detach();
     }
 
@@ -23,7 +26,8 @@ class DetachOperation implements HierarchyWrapperOperation {
     public void processElement(Wrapper<Element> elementWrapper) {
         Element content = elementWrapper.getContent();
         content.detach();
-        content.removeContent();
+        List<Node> contents = new ArrayList<>(content.content());
+        contents.forEach(content::remove);
     }
 
 }

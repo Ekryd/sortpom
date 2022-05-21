@@ -1,8 +1,8 @@
 package sortpom.wrapper;
 
 import org.apache.commons.io.IOUtils;
-import org.jdom.Document;
-import org.jdom.JDOMException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileUtil;
@@ -16,12 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CustomSortOrderFileTest {
     @Test
-    void compareDefaultSortOrderFileToString() throws IOException, JDOMException {
+    void compareDefaultSortOrderFileToString() throws IOException, DocumentException {
         String expected = IOUtils.toString(new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt"), StandardCharsets.UTF_8);
         assertEquals(expected, getToStringOnCustomSortOrderFile());
     }
 
-    private String getToStringOnCustomSortOrderFile() throws IOException, JDOMException {
+    private String getToStringOnCustomSortOrderFile() throws IOException, DocumentException {
         PluginParameters pluginParameters = PluginParameters.builder()
                 .setPomFile(null).setFileOutput(false, ".bak", null, false)
                 .setEncoding("UTF-8")

@@ -7,19 +7,19 @@ import org.dom4j.tree.AbstractText;
  * in XmlProcessor.PatchedXMLWriter
  */
 public class NewlineText extends AbstractText {
-    private static final long serialVersionUID = -7552189498553321263L;
+  private static final long serialVersionUID = -7552189498553321263L;
 
-    /**
-     * This returns a <code>String</code> representation of the
-     * <code>NewlineText</code>, suitable for debugging.
-     */
-    @Override
-    public String toString() {
-        return "[NewLine]";
-    }
+  /**
+   * This returns a <code>String</code> representation of the <code>NewlineText</code>, suitable for
+   * debugging.
+   */
+  @Override
+  public String toString() {
+    return "[NewLine]";
+  }
 
-    @Override
-    public String getText() {
-        return "";
-    }
+  @Override
+  public String getText() {
+    return "";
+  }
 }

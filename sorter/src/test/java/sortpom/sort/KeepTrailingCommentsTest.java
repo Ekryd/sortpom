@@ -4,12 +4,11 @@ import org.junit.jupiter.api.Test;
 import sortpom.util.SortPomImplUtil;
 
 class KeepTrailingCommentsTest {
-    @Test
-    final void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
-        SortPomImplUtil.create()
-                .sortDependencies("scope,groupId,artifactId")
-                .lineSeparator("\r\n")
-                .testFiles("/TrailingComment_input.xml", "/TrailingComment_expected.xml");
-    }
-
+  @Test
+  final void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
+    SortPomImplUtil.create()
+        .sortDependencies("scope,groupId,artifactId")
+        .lineSeparator("\r\n")
+        .testFiles("/TrailingComment_input.xml", "/TrailingComment_expected.xml");
+  }
 }

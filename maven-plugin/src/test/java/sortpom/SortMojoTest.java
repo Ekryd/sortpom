@@ -1,5 +1,11 @@
 package sortpom;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,68 +16,64 @@ import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
-
 /**
  * @author bjorn
  * @since 2012-08-23
  */
 class SortMojoTest {
-    private final SortPomImpl sortPom = mock(SortPomImpl.class);
-    private final Log log = mock(Log.class);
-    private SortMojo sortMojo;
+  private final SortPomImpl sortPom = mock(SortPomImpl.class);
+  private final Log log = mock(Log.class);
+  private SortMojo sortMojo;
 
-    @BeforeEach
-    void setup() {
-        sortMojo = new SortMojo();
-        ReflectionHelper mojoHelper = new ReflectionHelper(sortMojo);
-        mojoHelper.setField(sortPom);
-        mojoHelper.setField("lineSeparator", "\n");
-    }
+  @BeforeEach
+  void setup() {
+    sortMojo = new SortMojo();
+    ReflectionHelper mojoHelper = new ReflectionHelper(sortMojo);
+    mojoHelper.setField(sortPom);
+    mojoHelper.setField("lineSeparator", "\n");
+  }
 
-    @Test
-    void executeShouldStartMojo() throws Exception {
-        sortMojo.execute();
+  @Test
+  void executeShouldStartMojo() throws Exception {
+    sortMojo.execute();
 
-        verify(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
-        verify(sortPom).sortPom();
-        verifyNoMoreInteractions(sortPom);
-    }
+    verify(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
+    verify(sortPom).sortPom();
+    verifyNoMoreInteractions(sortPom);
+  }
 
-    @Test
-    void thrownExceptionShouldBeConvertedToMojoException() {
-        doThrow(new FailureException("Gurka")).when(sortPom).sortPom();
+  @Test
+  void thrownExceptionShouldBeConvertedToMojoException() {
+    doThrow(new FailureException("Gurka")).when(sortPom).sortPom();
 
-        final Executable testMethod = () -> sortMojo.execute();
+    final Executable testMethod = () -> sortMojo.execute();
 
-        final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
 
-        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
-    }
+    assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
+  }
 
-    @Test
-    void thrownExceptionShouldBeConvertedToMojoExceptionInSetup() {
-        doThrow(new FailureException("Gurka")).when(sortPom).setup(any(SortPomLogger.class), any(PluginParameters.class));
+  @Test
+  void thrownExceptionShouldBeConvertedToMojoExceptionInSetup() {
+    doThrow(new FailureException("Gurka"))
+        .when(sortPom)
+        .setup(any(SortPomLogger.class), any(PluginParameters.class));
 
-        final Executable testMethod = () -> sortMojo.setup();
+    final Executable testMethod = () -> sortMojo.setup();
 
-        final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
 
-        assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
-    }
+    assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
+  }
 
-    @Test
-    void skipParameterShouldSkipExecution() throws Exception {
-        new ReflectionHelper(sortMojo).setField("skip", true);
-        new ReflectionHelper(sortMojo).setField(log);
+  @Test
+  void skipParameterShouldSkipExecution() throws Exception {
+    new ReflectionHelper(sortMojo).setField("skip", true);
+    new ReflectionHelper(sortMojo).setField(log);
 
-        sortMojo.execute();
+    sortMojo.execute();
 
-        verify(log).info("Skipping Sortpom");
-        verifyNoMoreInteractions(sortPom);
-    }
+    verify(log).info("Skipping Sortpom");
+    verifyNoMoreInteractions(sortPom);
+  }
 }

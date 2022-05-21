@@ -1,11 +1,10 @@
 package sortpom;
 
+import java.io.File;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.dom4j.tree.DefaultDocument;
-
-import java.io.File;
 
 /**
  * Used to store an external violation file
@@ -14,17 +13,17 @@ import java.io.File;
  * @since 2017-03-24
  */
 class ViolationXmlProcessor {
-    Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
-        Element violationElement = new BaseElement("violation");
-        violationElement.setText(violationMessage);
+  Document createViolationXmlContent(File pomFileLocation, String violationMessage) {
+    Element violationElement = new BaseElement("violation");
+    violationElement.setText(violationMessage);
 
-        BaseElement fileElement = new BaseElement("file");
-        fileElement.add(violationElement);
-        fileElement.addAttribute("filename", pomFileLocation.getAbsolutePath());
+    BaseElement fileElement = new BaseElement("file");
+    fileElement.add(violationElement);
+    fileElement.addAttribute("filename", pomFileLocation.getAbsolutePath());
 
-        Element rootElement = new BaseElement("sortpom");
-        rootElement.add(fileElement);
+    Element rootElement = new BaseElement("sortpom");
+    rootElement.add(fileElement);
 
-        return new DefaultDocument(rootElement);
-    }
+    return new DefaultDocument(rootElement);
+  }
 }

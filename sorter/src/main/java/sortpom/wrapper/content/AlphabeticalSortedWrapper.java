@@ -9,32 +9,32 @@ import org.dom4j.Node;
  * @author Bjorn
  */
 public class AlphabeticalSortedWrapper implements Wrapper<Element> {
-    private final Element element;
+  private final Element element;
 
-    public AlphabeticalSortedWrapper(final Element element) {
-        this.element = element;
-    }
+  public AlphabeticalSortedWrapper(final Element element) {
+    this.element = element;
+  }
 
-    @Override
-    public Element getContent() {
-        return element;
-    }
+  @Override
+  public Element getContent() {
+    return element;
+  }
 
-    @Override
-    public boolean isBefore(final Wrapper<? extends Node> wrapper) {
-        return wrapper instanceof AlphabeticalSortedWrapper
-                && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
-    }
+  @Override
+  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+    return wrapper instanceof AlphabeticalSortedWrapper
+        && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
+  }
 
-    private boolean isBeforeAlphabeticalSortedWrapper(AlphabeticalSortedWrapper wrapper) {
-        return wrapper.getContent().getName().compareTo(getContent().getName()) > 0;
-    }
+  private boolean isBeforeAlphabeticalSortedWrapper(AlphabeticalSortedWrapper wrapper) {
+    return wrapper.getContent().getName().compareTo(getContent().getName()) > 0;
+  }
 
-    @Override
-    public String toString() {
-        return "AlphabeticalSortedWrapper{" +
-                "element=" +
-            (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", "")) +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "AlphabeticalSortedWrapper{"
+        + "element="
+        + (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", ""))
+        + '}';
+  }
 }

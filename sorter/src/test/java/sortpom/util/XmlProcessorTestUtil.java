@@ -1,5 +1,10 @@
 package sortpom.util;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -14,167 +19,163 @@ import sortpom.wrapper.content.Wrapper;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-/**
- * Test utility
- */
+/** Test utility */
 public class XmlProcessorTestUtil {
-    private boolean sortAlphabeticalOnly = false;
-    private boolean keepBlankLines = false;
-    private boolean indentBlankLines = false;
-    private String predefinedSortOrder = "recommended_2008_06";
-    private boolean expandEmptyElements = true;
-    private String lineSeparator = "\r\n";
+  private boolean sortAlphabeticalOnly = false;
+  private boolean keepBlankLines = false;
+  private boolean indentBlankLines = false;
+  private String predefinedSortOrder = "recommended_2008_06";
+  private boolean expandEmptyElements = true;
+  private String lineSeparator = "\r\n";
 
-    private XmlProcessor xmlProcessor;
-    private XmlOutputGenerator xmlOutputGenerator;
-    private boolean spaceBeforeCloseEmptyElement = true;
-    private boolean sortModules = false;
-    private String sortDependencies;
-    private String sortPlugins;
-    private boolean sortProperties = false;
+  private XmlProcessor xmlProcessor;
+  private XmlOutputGenerator xmlOutputGenerator;
+  private boolean spaceBeforeCloseEmptyElement = true;
+  private boolean sortModules = false;
+  private String sortDependencies;
+  private String sortPlugins;
+  private boolean sortProperties = false;
 
+  public static XmlProcessorTestUtil create() {
+    return new XmlProcessorTestUtil();
+  }
 
-    public static XmlProcessorTestUtil create() {
-        return new XmlProcessorTestUtil();
+  private XmlProcessorTestUtil() {}
+
+  public void testInputAndExpected(final String inputFileName, final String expectedFileName)
+      throws Exception {
+    String actual = sortXmlAndReturnResult(inputFileName);
+
+    final String expected =
+        IOUtils.toString(new FileInputStream(expectedFileName), StandardCharsets.UTF_8);
+
+    assertEquals(expected, actual);
+  }
+
+  public String sortXmlAndReturnResult(String inputFileName) throws Exception {
+    setup(inputFileName);
+    xmlProcessor.sortXml();
+    return xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
+  }
+
+  public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {
+    setup(inputFileName);
+    xmlProcessor.sortXml();
+    assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
+  }
+
+  public void testVerifyXmlIsNotOrdered(final String inputFileName, String infoMessage)
+      throws Exception {
+    setup(inputFileName);
+    xmlProcessor.sortXml();
+    XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
+    assertFalse(xmlOrdered.isOrdered());
+    assertEquals(infoMessage, xmlOrdered.getErrorMessage());
+  }
+
+  private void setup(String inputFileName) throws Exception {
+    PluginParameters pluginParameters =
+        PluginParameters.builder()
+            .setPomFile(null)
+            .setFileOutput(false, ".bak", null, false)
+            .setEncoding("UTF-8")
+            .setFormatting(
+                lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
+            .setIndent(2, indentBlankLines, false)
+            .setSortOrder(predefinedSortOrder + ".xml", null)
+            .setSortEntities(sortDependencies, "", sortPlugins, sortProperties, sortModules, false)
+            .build();
+    final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
+
+    final FileUtil fileUtil = new FileUtil();
+    fileUtil.setup(pluginParameters);
+
+    WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
+
+    xmlProcessor = new XmlProcessor(wrapperFactory);
+
+    xmlOutputGenerator = new XmlOutputGenerator();
+    xmlOutputGenerator.setup(pluginParameters);
+
+    if (sortAlphabeticalOnly) {
+      wrapperFactory =
+          new WrapperFactory() {
+
+            @Override
+            public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
+              return new HierarchyRootWrapper(new AlphabeticalSortedWrapper(rootElement));
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public <T extends Node> Wrapper<T> create(final T content) {
+              if (content instanceof Element) {
+                Element element = (Element) content;
+                return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
+              }
+              return new UnsortedWrapper<>(content);
+            }
+          };
+    } else {
+      new ReflectionHelper(wrapperFactory).setField(fileUtil);
     }
+    new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
+    xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+  }
 
-    private XmlProcessorTestUtil() {
-    }
+  public XmlProcessorTestUtil sortAlphabeticalOnly() {
+    sortAlphabeticalOnly = true;
+    return this;
+  }
 
-    public void testInputAndExpected(final String inputFileName, final String expectedFileName) throws Exception {
-        String actual = sortXmlAndReturnResult(inputFileName);
+  public XmlProcessorTestUtil keepBlankLines() {
+    keepBlankLines = true;
+    return this;
+  }
 
-        final String expected = IOUtils.toString(new FileInputStream(expectedFileName), StandardCharsets.UTF_8);
+  public XmlProcessorTestUtil lineSeparator(String lineSeparator) {
+    this.lineSeparator = lineSeparator;
+    return this;
+  }
 
-        assertEquals(expected, actual);
-    }
+  public XmlProcessorTestUtil indentBlankLines() {
+    indentBlankLines = true;
+    return this;
+  }
 
-    public String sortXmlAndReturnResult(String inputFileName) throws Exception {
-        setup(inputFileName);
-        xmlProcessor.sortXml();
-        return xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
-    }
+  public XmlProcessorTestUtil predefinedSortOrder(String predefinedSortOrder) {
+    this.predefinedSortOrder = predefinedSortOrder;
+    return this;
+  }
 
-    public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {
-        setup(inputFileName);
-        xmlProcessor.sortXml();
-        assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
-    }
+  public XmlProcessorTestUtil sortModules() {
+    this.sortModules = true;
+    return this;
+  }
 
-    public void testVerifyXmlIsNotOrdered(final String inputFileName, String infoMessage) throws Exception {
-        setup(inputFileName);
-        xmlProcessor.sortXml();
-        XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
-        assertFalse(xmlOrdered.isOrdered());
-        assertEquals(infoMessage, xmlOrdered.getErrorMessage());
-    }
+  public XmlProcessorTestUtil sortDependencies(String sortDependencies) {
+    this.sortDependencies = sortDependencies;
+    return this;
+  }
 
-    private void setup(String inputFileName) throws Exception {
-        PluginParameters pluginParameters = PluginParameters.builder()
-                .setPomFile(null)
-                .setFileOutput(false, ".bak", null, false)
-                .setEncoding("UTF-8")
-                .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
-                .setIndent(2, indentBlankLines, false)
-                .setSortOrder(predefinedSortOrder + ".xml", null)
-                .setSortEntities(sortDependencies, "", sortPlugins, sortProperties, sortModules, false).build();
-        final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
+  public XmlProcessorTestUtil sortPlugins(String sortPlugins) {
+    this.sortPlugins = sortPlugins;
+    return this;
+  }
 
-        final FileUtil fileUtil = new FileUtil();
-        fileUtil.setup(pluginParameters);
+  public XmlProcessorTestUtil noSpaceBeforeCloseEmptyElement() {
+    this.spaceBeforeCloseEmptyElement = false;
+    return this;
+  }
 
-        WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
-        ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
+  public XmlProcessorTestUtil sortProperties() {
+    this.sortProperties = true;
+    return this;
+  }
 
-        xmlProcessor = new XmlProcessor(wrapperFactory);
-
-        xmlOutputGenerator = new XmlOutputGenerator();
-        xmlOutputGenerator.setup(pluginParameters);
-
-        if (sortAlphabeticalOnly) {
-            wrapperFactory = new WrapperFactory() {
-
-                @Override
-                public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
-                    return new HierarchyRootWrapper(new AlphabeticalSortedWrapper(rootElement));
-                }
-
-                @SuppressWarnings("unchecked")
-                @Override
-                public <T extends Node> Wrapper<T> create(final T content) {
-                    if (content instanceof Element) {
-                        Element element = (Element) content;
-                        return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
-                    }
-                    return new UnsortedWrapper<>(content);
-                }
-
-            };
-        } else {
-            new ReflectionHelper(wrapperFactory).setField(fileUtil);
-        }
-        new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
-        xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
-    }
-
-    public XmlProcessorTestUtil sortAlphabeticalOnly() {
-        sortAlphabeticalOnly = true;
-        return this;
-    }
-
-    public XmlProcessorTestUtil keepBlankLines() {
-        keepBlankLines = true;
-        return this;
-    }
-
-    public XmlProcessorTestUtil lineSeparator(String lineSeparator) {
-        this.lineSeparator = lineSeparator;
-        return this;
-    }
-
-    public XmlProcessorTestUtil indentBlankLines() {
-        indentBlankLines = true;
-        return this;
-    }
-
-    public XmlProcessorTestUtil predefinedSortOrder(String predefinedSortOrder) {
-        this.predefinedSortOrder = predefinedSortOrder;
-        return this;
-    }
-
-    public XmlProcessorTestUtil sortModules() {
-        this.sortModules = true;
-        return this;
-    }
-
-    public XmlProcessorTestUtil sortDependencies(String sortDependencies) {
-        this.sortDependencies = sortDependencies;
-        return this;
-    }
-
-    public XmlProcessorTestUtil sortPlugins(String sortPlugins) {
-        this.sortPlugins = sortPlugins;
-        return this;
-    }
-
-    public XmlProcessorTestUtil noSpaceBeforeCloseEmptyElement() {
-        this.spaceBeforeCloseEmptyElement = false;
-        return this;
-    }
-
-    public XmlProcessorTestUtil sortProperties() {
-        this.sortProperties = true;
-        return this;
-    }
-
-    public XmlProcessorTestUtil expandEmptyElements(boolean expand) {
-        this.expandEmptyElements = expand;
-        return this;
-    }
+  public XmlProcessorTestUtil expandEmptyElements(boolean expand) {
+    this.expandEmptyElements = expand;
+    return this;
+  }
 }

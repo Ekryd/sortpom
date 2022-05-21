@@ -1,14 +1,14 @@
 package sortpom.wrapper;
 
-import org.dom4j.tree.DefaultText;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import sortpom.wrapper.content.UnsortedWrapper;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.dom4j.tree.DefaultText;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import sortpom.wrapper.content.UnsortedWrapper;
 
 /**
  * @author bjorn
@@ -16,15 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class UnsortedWrapperTest {
 
-    @Test
-    void testIsBefore() {
+  @Test
+  void testIsBefore() {
 
-        final Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null)
-                .isBefore(null);
+    final Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null).isBefore(null);
 
-        final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
+    final UnsupportedOperationException thrown =
+        assertThrows(UnsupportedOperationException.class, testMethod);
 
-        assertThat(thrown.getMessage(), is(equalTo("Cannot be sorted")));
-    }
-
+    assertThat(thrown.getMessage(), is(equalTo("Cannot be sorted")));
+  }
 }

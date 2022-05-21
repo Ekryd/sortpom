@@ -16,25 +16,37 @@ import sortpom.parameter.PluginParameters;
 @SuppressWarnings({"UnusedDeclaration"})
 public class SortMojo extends AbstractParentMojo {
 
-    public void setup() throws MojoFailureException {
-        new ExceptionConverter(() -> {
-            PluginParameters pluginParameters = PluginParameters.builder()
-                    .setPomFile(pomFile)
-                    .setFileOutput(createBackupFile, backupFileExtension, null, keepTimestamp)
-                    .setEncoding(encoding)
-                    .setFormatting(lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
-                    .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
-                    .setSortOrder(sortOrderFile, predefinedSortOrder)
-                    .setSortEntities(sortDependencies, sortDependencyExclusions, sortPlugins, sortProperties, sortModules, sortExecutions)
-                    .setIgnoreLineSeparators(ignoreLineSeparators)
-                    .build();
+  public void setup() throws MojoFailureException {
+    new ExceptionConverter(
+            () -> {
+              PluginParameters pluginParameters =
+                  PluginParameters.builder()
+                      .setPomFile(pomFile)
+                      .setFileOutput(createBackupFile, backupFileExtension, null, keepTimestamp)
+                      .setEncoding(encoding)
+                      .setFormatting(
+                          lineSeparator,
+                          expandEmptyElements,
+                          spaceBeforeCloseEmptyElement,
+                          keepBlankLines)
+                      .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
+                      .setSortOrder(sortOrderFile, predefinedSortOrder)
+                      .setSortEntities(
+                          sortDependencies,
+                          sortDependencyExclusions,
+                          sortPlugins,
+                          sortProperties,
+                          sortModules,
+                          sortExecutions)
+                      .setIgnoreLineSeparators(ignoreLineSeparators)
+                      .build();
 
-            sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
-        }).executeAndConvertException();
-    }
+              sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
+            })
+        .executeAndConvertException();
+  }
 
-    protected void sortPom() throws MojoFailureException {
-        new ExceptionConverter(sortPomImpl::sortPom).executeAndConvertException();
-    }
-
+  protected void sortPom() throws MojoFailureException {
+    new ExceptionConverter(sortPomImpl::sortPom).executeAndConvertException();
+  }
 }

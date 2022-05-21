@@ -13,29 +13,29 @@ import sortpom.wrapper.content.Wrapper;
  * @since 2012-05-19
  */
 public class TextWrapperCreator {
-    private boolean keepBlankLines;
+  private boolean keepBlankLines;
 
-    public void setup(PluginParameters pluginParameters) {
-        keepBlankLines = pluginParameters.keepBlankLines;
-    }
+  public void setup(PluginParameters pluginParameters) {
+    keepBlankLines = pluginParameters.keepBlankLines;
+  }
 
-    Wrapper<Node> createWrapper(Text text) {
-        if (isSingleNewLine(text)) {
-            return SingleNewlineInTextWrapper.INSTANCE;
-        } else if (isBlankLineOrLines(text)) {
-            return new UnsortedWrapper<>(new NewlineText());
-        }
-        return new UnsortedWrapper<>(text);
+  Wrapper<Node> createWrapper(Text text) {
+    if (isSingleNewLine(text)) {
+      return SingleNewlineInTextWrapper.INSTANCE;
+    } else if (isBlankLineOrLines(text)) {
+      return new UnsortedWrapper<>(new NewlineText());
     }
+    return new UnsortedWrapper<>(text);
+  }
 
-    private boolean isSingleNewLine(Text content) {
-        return content.getText().matches("[\\t ]*[\\r]?[\\n]?[\\t ]*");
-    }
+  private boolean isSingleNewLine(Text content) {
+    return content.getText().matches("[\\t ]*[\\r]?[\\n]?[\\t ]*");
+  }
 
-    boolean isBlankLineOrLines(Text content) {
-        if (!keepBlankLines) {
-            return false;
-        }
-        return content.getText().matches("^\\s*?([\\r\\n])\\s*$");
+  boolean isBlankLineOrLines(Text content) {
+    if (!keepBlankLines) {
+      return false;
     }
+    return content.getText().matches("^\\s*?([\\r\\n])\\s*$");
+  }
 }

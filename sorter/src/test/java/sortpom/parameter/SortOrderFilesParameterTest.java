@@ -1,12 +1,5 @@
 package sortpom.parameter;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-import sortpom.exception.FailureException;
-import sortpom.util.SortPomImplUtil;
-
-import java.lang.reflect.InvocationTargetException;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.core.Is.is;
@@ -14,61 +7,80 @@ import static org.hamcrest.core.Is.isA;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.lang.reflect.InvocationTargetException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
+import sortpom.exception.FailureException;
+import sortpom.util.SortPomImplUtil;
+
 class SortOrderFilesParameterTest {
 
-    @Test
-    final void incorrectCustomSortOrderShouldThrowException() {
+  @Test
+  final void incorrectCustomSortOrderShouldThrowException() {
 
-        final Executable testMethod = () -> SortPomImplUtil.create()
+    final Executable testMethod =
+        () ->
+            SortPomImplUtil.create()
                 .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
 
-        final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    final FailureException thrown = assertThrows(FailureException.class, testMethod);
 
-        assertThat(thrown.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
-    }
+    assertThat(thrown.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
+  }
 
-    @Test
-    final void incorrectPredefinedSortOrderShouldThrowException() {
+  @Test
+  final void incorrectPredefinedSortOrderShouldThrowException() {
 
-        final Executable testMethod = () -> SortPomImplUtil.create()
+    final Executable testMethod =
+        () ->
+            SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
-                .testFiles("/full_unsorted_input.xml",
-                        "/sortOrderFiles/sorted_default_0_4_0.xml");
+                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_0_4_0.xml");
 
-        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, testMethod);
+    final IllegalArgumentException thrown =
+        assertThrows(IllegalArgumentException.class, testMethod);
 
-        assertThat(thrown.getMessage(), is(equalTo("Cannot find abbie_normal_brain.xml among the predefined plugin resources")));
-    }
+    assertThat(
+        thrown.getMessage(),
+        is(equalTo("Cannot find abbie_normal_brain.xml among the predefined plugin resources")));
+  }
 
-    @Test
-    final void incorrectCustomSortOrderShouldThrowException2() {
+  @Test
+  final void incorrectCustomSortOrderShouldThrowException2() {
 
-        final Executable testMethod = () -> SortPomImplUtil.create()
+    final Executable testMethod =
+        () ->
+            SortPomImplUtil.create()
                 .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
 
-        final InvocationTargetException thrown = assertThrows(InvocationTargetException.class, testMethod);
+    final InvocationTargetException thrown =
+        assertThrows(InvocationTargetException.class, testMethod);
 
-        Throwable cause = thrown.getTargetException();
-        assertThat(cause, isA(FailureException.class));
-        assertThat(cause.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
-    }
+    Throwable cause = thrown.getTargetException();
+    assertThat(cause, isA(FailureException.class));
+    assertThat(cause.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
+  }
 
-    @Test
-    final void incorrectPredefinedSortOrderShouldThrowException2() {
+  @Test
+  final void incorrectPredefinedSortOrderShouldThrowException2() {
 
-        final Executable testMethod = () -> SortPomImplUtil.create()
+    final Executable testMethod =
+        () ->
+            SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
 
-        final InvocationTargetException thrown = assertThrows(InvocationTargetException.class, testMethod);
+    final InvocationTargetException thrown =
+        assertThrows(InvocationTargetException.class, testMethod);
 
-        Throwable cause = thrown.getTargetException();
-        assertThat(cause, isA(IllegalArgumentException.class));
-        assertThat(cause.getMessage(), is(equalTo("Cannot find abbie_normal_brain.xml among the predefined plugin resources")));
-    }
-
+    Throwable cause = thrown.getTargetException();
+    assertThat(cause, isA(IllegalArgumentException.class));
+    assertThat(
+        cause.getMessage(),
+        is(equalTo("Cannot find abbie_normal_brain.xml among the predefined plugin resources")));
+  }
 }

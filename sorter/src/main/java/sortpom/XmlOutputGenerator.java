@@ -1,12 +1,18 @@
 package sortpom;
 
-import org.dom4j.*;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentType;
+import org.dom4j.Element;
+import org.dom4j.Namespace;
+import org.dom4j.Node;
+import org.dom4j.ProcessingInstruction;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultText;
 import org.dom4j.tree.NamespaceStack;
-import sortpom.exception.FailureException;
 import sortpom.content.NewlineText;
+import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.StringLineSeparatorWriter;
 
@@ -148,7 +154,7 @@ public class XmlOutputGenerator {
                 if (isElementSpacePreserved(node.getParent())) {
                     super.writeNodeText(node);
                 } else {
-                    // Otherwise trim the text content
+                    // Otherwise, trim the text content
                     String text = node.getText();
                     super.write(new DefaultText(text == null ? null : text.trim()));
                 }
@@ -182,13 +188,7 @@ public class XmlOutputGenerator {
                         parentNamespaceStack.push(prefix, uri);
                         writeNamespace(prefix, uri);
                     }
-                } else if (attName.equals("xmlns")) {
-                    if (parentNamespaceStack.getDefaultNamespace() == null) {
-                        String uri = attribute.getValue();
-                        parentNamespaceStack.push(null, uri);
-                        writeNamespace(null, uri);
-                    }
-                } else {
+                } else if (!attName.equals("xmlns")) {
                     writeAttribute(attribute);
                 }
             }

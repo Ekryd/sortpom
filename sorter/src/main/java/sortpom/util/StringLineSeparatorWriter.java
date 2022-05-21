@@ -79,10 +79,10 @@ public class StringLineSeparatorWriter extends XmlWriter {
     }
 
     /**
-     * This method will not perform anything. Flushing is only done when toString method is called
+     * Nope, no manual flushing
      */
     @Override
     public void flush() {
-        // Nope, no manual flushing
+        throw new UnsupportedOperationException();
     }
 }

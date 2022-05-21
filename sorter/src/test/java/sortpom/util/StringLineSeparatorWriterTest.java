@@ -67,7 +67,6 @@ class StringLineSeparatorWriterTest {
 
     @Test
     void testWriteDeprecated1() {
-
         final Executable testMethod = () -> writer.write(new char[0]);
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
@@ -77,7 +76,6 @@ class StringLineSeparatorWriterTest {
 
     @Test
     void testWriteDeprecated2() {
-
         final Executable testMethod = () -> writer.write("", 0, 0);
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
@@ -87,7 +85,6 @@ class StringLineSeparatorWriterTest {
 
     @Test
     void testWriteDeprecated3() {
-
         final Executable testMethod = () -> writer.write(new char[0], 0, 0);
 
         final UnsupportedOperationException thrown = assertThrows(UnsupportedOperationException.class, testMethod);
@@ -95,4 +92,8 @@ class StringLineSeparatorWriterTest {
         assertThat(thrown.getMessage(), is(nullValue()));
     }
 
+    @Test
+    void flushShouldNotBeSupported() {
+        assertThrows(UnsupportedOperationException.class, writer::flush);
+    }
 }

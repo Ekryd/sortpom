@@ -1,4 +1,4 @@
-package sortpom;
+package sortpom.output;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -6,7 +6,6 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
-import org.dom4j.DocumentType;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
 import org.dom4j.Node;
@@ -74,7 +73,7 @@ public class XmlOutputGenerator {
     return outputFormat;
   }
 
-  private static class PatchedXMLWriter extends XMLWriter {
+  static class PatchedXMLWriter extends XMLWriter {
 
     private final OutputFormat format;
     private final boolean indentBlankLines;
@@ -102,7 +101,8 @@ public class XmlOutputGenerator {
         field.setAccessible(true);
         return (NamespaceStack) field.get(this);
       } catch (NoSuchFieldException | IllegalAccessException e) {
-        throw new FailureException("Cannot access internal namespace stack in XMLWriter", e);
+        throw new FailureException(
+            "Internal error: Cannot access internal namespace stack in XMLWriter", e);
       }
     }
 
@@ -133,16 +133,6 @@ public class XmlOutputGenerator {
       writer.write("?>");
 
       lastOutputNodeType = Node.PROCESSING_INSTRUCTION_NODE;
-    }
-
-    @Override
-    protected void writeDocType(DocumentType docType) throws IOException {
-      // Place the doc type on own line (instead of same line as previous element)
-      if (docType != null) {
-        writePrintln();
-        indent();
-        docType.write(writer);
-      }
     }
 
     @Override

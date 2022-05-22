@@ -6,6 +6,7 @@ import org.dom4j.DocumentException;
 import org.xml.sax.SAXException;
 import sortpom.exception.FailureException;
 import sortpom.logger.SortPomLogger;
+import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
 import sortpom.util.FileUtil;

@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import sortpom.XmlOutputGenerator;
 import sortpom.exception.FailureException;
+import sortpom.output.XmlOutputGenerator;
 import sortpom.util.FileUtil;
 import sortpom.util.SortPomImplUtil;
 

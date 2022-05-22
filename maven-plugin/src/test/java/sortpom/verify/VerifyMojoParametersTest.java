@@ -13,7 +13,7 @@ import refutils.ReflectionHelper;
 import sortpom.SortPomImpl;
 import sortpom.SortPomService;
 import sortpom.VerifyMojo;
-import sortpom.XmlOutputGenerator;
+import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.VerifyFailType;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.ElementWrapperCreator;

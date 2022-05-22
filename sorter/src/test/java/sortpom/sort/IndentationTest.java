@@ -7,7 +7,7 @@ import org.dom4j.Document;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import sortpom.XmlOutputGenerator;
+import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.SortPomImplUtil;
 

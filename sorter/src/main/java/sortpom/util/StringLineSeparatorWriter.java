@@ -1,6 +1,7 @@
 package sortpom.util;
 
 import java.io.StringWriter;
+import java.io.Writer;
 
 /**
  * Makes sure that all line endings are written in the same way. Keeps a buffer which is flushed
@@ -8,7 +9,7 @@ import java.io.StringWriter;
  *
  * @author Bjorn
  */
-public class StringLineSeparatorWriter extends XmlWriter {
+public class StringLineSeparatorWriter extends Writer {
   private static final char NEWLINE = '\n';
   private final String lineSeparator;
   private boolean wasNewLine = false;
@@ -31,6 +32,11 @@ public class StringLineSeparatorWriter extends XmlWriter {
   @Override
   public void write(int c) {
     writeOneCharacter((char) c);
+  }
+
+  @Override
+  public void write(char[] cb, int off, int len) {
+    throw new UnsupportedOperationException();
   }
 
   @Override

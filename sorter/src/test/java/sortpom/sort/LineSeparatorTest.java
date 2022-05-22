@@ -5,7 +5,7 @@ import static sortpom.sort.XmlFragment.createXmlFragment;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import sortpom.XmlOutputGenerator;
+import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 
 class LineSeparatorTest {

@@ -10,16 +10,7 @@ shared: &shared
         keys:
           - sortpom-cache-{{ checksum "pom.xml" }}
           - sortpom-cache- # fallback in case previous cache key is not found
-    - run: |
-        mvn \
-        -Dtest=$(for file in $(circleci tests glob "src/test/**/**.java" \
-        | circleci tests split --split-by=timings); \
-        do basename $file \
-        | sed -e "s/.java/,/"; \
-        done | tr -d '\r\n') \
-        -Dmaven.javadoc.skip=true -e -B -V verify
-    - store_test_results: # We use this timing data to optimize the future runs
-        path: target/surefire-reports
+    - run: mvn clean verify -Dmaven.javadoc.skip=true -B -V
     - save_cache:
         paths:
           - ~/.m2
@@ -27,12 +18,10 @@ shared: &shared
 
 jobs:
   jdk17:
-    parallelism: 10
     docker:
       - image: cimg/openjdk:17.0
     <<: *shared
   jdk18:
-    parallelism: 10
     docker:
       - image: cimg/openjdk:18.0
     <<: *shared

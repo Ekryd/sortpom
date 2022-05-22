@@ -11,7 +11,7 @@ shared: &shared
           - sortpom-cache-{{ checksum "pom.xml" }}
           - sortpom-cache- # fallback in case previous cache key is not found
     - run: |
-        ./mvnw \
+        mvn \
         -Dtest=$(for file in $(circleci tests glob "src/test/**/**.java" \
         | circleci tests split --split-by=timings); \
         do basename $file \

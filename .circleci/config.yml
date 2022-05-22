@@ -64,5 +64,4 @@ workflows:
                 - master
           requires:
             - jdk17
-            - jdk18
         

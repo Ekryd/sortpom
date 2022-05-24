@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    base-parent 
+    Copyright 
+    All rights reserved. 
+    Contributors:
+        Björn
+-->
+<?processing start?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <artifactId>sortpom</artifactId>
   <!-- The Basics
 		This is a multiline komment-->
   <groupId>sortpom</groupId>
 </project>
+<!-- End comment -->
+<?processing end?>

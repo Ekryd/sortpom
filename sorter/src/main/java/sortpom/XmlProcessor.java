@@ -50,7 +50,23 @@ public class XmlProcessor {
     rootWrapper.sortStructureElements();
     rootWrapper.connectXmlStructure();
 
-    newDocument.setRootElement(rootWrapper.getElementContent().getContent());
+    replaceRootElementInNewDocument(rootWrapper.getElementContent().getContent());
+  }
+
+  /** Setting root element directly on the document will clear other content */
+  private void replaceRootElementInNewDocument(Element newElement) {
+    var rootElement = newDocument.getRootElement();
+    var content = newDocument.content();
+
+    newDocument.clearContent();
+
+    for (var node : content) {
+      if (node == rootElement) {
+        newDocument.add(newElement);
+      } else {
+        newDocument.add(node);
+      }
+    }
   }
 
   public Document getNewDocument() {

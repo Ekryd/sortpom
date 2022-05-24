@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <groupId>sortpom</groupId>
+  <artifactId>sortpom</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+        <artifactId>echo-maven-plugin</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <message>junit.jupiter.execution.parallel.enabled=false
+junit.jupiter.execution.parallel.mode.default=concurrent
+junit.jupiter.execution.parallel.mode.classes.default=concurrent
+junit.jupiter.execution.parallel.config.strategy=dynamic
+junit.jupiter.execution.parallel.config.dynamic.factor=1</message>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

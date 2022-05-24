@@ -29,7 +29,7 @@ public class TextWrapperCreator {
   }
 
   private boolean isSingleNewLine(Text content) {
-    return content.getText().matches("[\\t ]*[\\r]?[\\n]?[\\t ]*");
+    return content.getText().matches("[\\t ]*\\r?\\n?[\\t ]*");
   }
 
   boolean isBlankLineOrLines(Text content) {

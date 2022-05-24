@@ -27,12 +27,11 @@ class LineSeparatorTest {
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + lineSeparator + "<Gurka />" + lineSeparator,
         actual);
   }
-  
+
   @Test
   void linesInContentShouldBePreserved() throws Exception {
     SortPomImplUtil.create()
         .lineSeparator("\r\n")
         .testFiles("/MultilineContent_input.xml", "/MultilineContent_expected.xml");
   }
-
 }

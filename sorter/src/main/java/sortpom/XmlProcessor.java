@@ -34,6 +34,7 @@ public class XmlProcessor {
   public void setOriginalXml(final InputStream originalXml) throws DocumentException, SAXException {
     SAXReader parser = new SAXReader();
     parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    parser.setMergeAdjacentText(true);
     originalDocument = parser.read(originalXml);
   }
 

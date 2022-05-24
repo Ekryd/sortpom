@@ -6,7 +6,7 @@
   <!-- Basics -->
   <groupId>com.github.ekryd.sortpom</groupId>
   <artifactId>sortpom-parent</artifactId>
-  <version>3.1.2-SNAPSHOT</version>
+  <version>3.1.2</version>
   <packaging>pom</packaging>
   <name>SortPom</name>
   <description>A Maven plugin that sorts the pom.xml file.</description>
@@ -431,7 +431,7 @@
     <connection>scm:git:https://github.com/Ekryd/sortpom.git</connection>
     <developerConnection>scm:git:https://github.com/Ekryd/sortpom.git</developerConnection>
     <url>https://github.com/Ekryd/sortpom</url>
-    <tag>HEAD</tag>
+    <tag>sortpom-parent-3.1.2</tag>
   </scm>
   <issueManagement>
     <system>GitHub</system>

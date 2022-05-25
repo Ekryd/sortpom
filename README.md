@@ -33,20 +33,16 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2022-05-24: Released version 3.1.2. Fixed two bugs: Whitespace removed from multiple lines of text within XML tags [#206](/../../issues/206); Comments in the root of the xml document was removed during sorting [#205](/../../issues/205)
   * 2022-05-22: Released version 3.1.0. Dropped support for Java 8. Updated underlying xml framework due to vulnerabilities. Updated other libraries and plugins. 
   * 2021-12-20: Released version 3.0.1. Fixed bug where ignoreLineSeparators was not respected during the 'verify' goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 
   * 2021-05-17: Received an Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2021-04-20: Released version 3.0.0. THIS IS A BREAKING CHANGE! The predefined sort order is now according to the recommended pom order (as decided in 2008). Blank lines in the POM are now kept by default. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93) [#105](/../../issues/105)
   * 2021-04-06: Released version 2.15.0 that adds support for sortDependencyExclusions to sort dependency exclusions by groupId and/or artifactId
-  * 2021-03-30: Released version 2.14.1 that fixes sorting of dependencies and plugins if artifactId or groupId contains a line break [#99](/../../issues/99)
-  * 2021-03-18: Released version 2.14.0 that adds support for indentSchemaLocation to break apart the long project declaration line at the top of the pom [#85](/../../issues/85)
-  * 2021-01-16: Released version 2.13.1 that adds support for sortExecutions (to sort executions) and verifyFailOn (to have the option of a strict verify goal) [#81](/../../issues/81) [#82](/../../issues/82)
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
   * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
-  * 2020-02-03: Released version 2.11.0 that adds support to retain the file creation time of a sorted pom file. Thanks, Christoph for your pull request! [#68](/../../issues/68) [#69](/../../issues/69)
-  * 2015-04-06: Released version 2.4.0 with new github location and updated libraries.
   * 2015-03-31: Moved the SortPom plugin to GitHub.
 
 ## Versions ##

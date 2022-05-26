@@ -2,6 +2,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <groupId>sortpom</groupId>
   <artifactId>sortpom</artifactId>
+  <properties>
+    <argLine>
+      --XX:Something
+      <!-- disabling -->
+      -XX:TieredStopAtLevel=1
+      <!-- memory usage. -->
+      -Xmx512m
+      <!-- file encoding. -->
+      -Dfile.encoding=${project.build.sourceEncoding}
+    </argLine>
+    <argLine2>
+      <!-- disabling -->
+      -XX:TieredStopAtLevel=1
+      <!-- memory usage. -->
+      -Xmx512m
+      <!-- file encoding. -->
+    </argLine2>
+    <argLine3>
+      <tag></tag>
+      text
+      <tag></tag>
+    </argLine3>
+    <argLine4>
+      text
+      <tag></tag>
+      text
+    </argLine4>
+    <argLine5>
+      text
+      <tag></tag>
+    </argLine5>
+    <argLine6>
+      <tag></tag>
+      text
+    </argLine6>
+  </properties>
   <build>
     <plugins>
       <plugin>

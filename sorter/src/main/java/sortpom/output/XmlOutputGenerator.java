@@ -1,5 +1,7 @@
 package sortpom.output;
 
+import static java.util.Optional.ofNullable;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -113,12 +115,8 @@ public class XmlOutputGenerator {
           // add an extra place before closing tag
           writer.write(' ');
         }
-        writer.write("/>");
-      } else {
-        writer.write("></");
-        writer.write(qualifiedName);
-        writer.write(">");
       }
+      super.writeEmptyElementClose(qualifiedName);
     }
 
     @Override
@@ -149,10 +147,22 @@ public class XmlOutputGenerator {
         if (isElementSpacePreserved(node.getParent())) {
           super.writeNodeText(node);
         } else {
-          // Otherwise, trim the text content
-          String text = node.getText();
-          super.write(new DefaultText(text == null ? null : text.trim()));
+          writeTrimmedText(node);
         }
+      }
+    }
+
+    private void writeTrimmedText(Node node) throws IOException {
+      var text = ofNullable(node.getText()).map(String::trim).filter(s -> !s.isEmpty());
+
+      if (text.isPresent()) {
+        // Test if this text node has siblings in the parent node
+        if (node.getParent().content().size() > 1) {
+          writePrintln();
+          indent();
+        }
+
+        super.write(new DefaultText(text.orElseThrow()));
       }
     }
 

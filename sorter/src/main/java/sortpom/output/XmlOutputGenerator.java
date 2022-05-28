@@ -110,11 +110,9 @@ public class XmlOutputGenerator {
 
     @Override
     protected void writeEmptyElementClose(String qualifiedName) throws IOException {
-      if (!format.isExpandEmptyElements()) {
-        if (spaceBeforeCloseEmptyElement) {
-          // add an extra place before closing tag
-          writer.write(' ');
-        }
+      if (!format.isExpandEmptyElements() && spaceBeforeCloseEmptyElement) {
+        // add an extra place before closing tag
+        writer.write(' ');
       }
       super.writeEmptyElementClose(qualifiedName);
     }

@@ -54,6 +54,7 @@ public class VerifyMojo extends AbstractParentMojo {
                       .setSortEntities(
                           sortDependencies,
                           sortDependencyExclusions,
+                          sortDependencyManagement,
                           sortPlugins,
                           sortProperties,
                           sortModules,

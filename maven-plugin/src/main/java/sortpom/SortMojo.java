@@ -34,6 +34,7 @@ public class SortMojo extends AbstractParentMojo {
                       .setSortEntities(
                           sortDependencies,
                           sortDependencyExclusions,
+                          sortDependencyManagement,
                           sortPlugins,
                           sortProperties,
                           sortModules,

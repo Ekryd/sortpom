@@ -13,6 +13,7 @@ import sortpom.wrapper.content.*;
 public class ElementWrapperCreator {
   private DependencySortOrder sortDependencies;
   private DependencySortOrder sortDependencyExclusions;
+  private DependencySortOrder sortDependencyManagement;
   private DependencySortOrder sortPlugins;
   private boolean sortProperties;
   private boolean sortModules;
@@ -27,6 +28,7 @@ public class ElementWrapperCreator {
   public void setup(PluginParameters pluginParameters) {
     this.sortDependencies = pluginParameters.sortDependencies;
     this.sortDependencyExclusions = pluginParameters.sortDependencyExclusions;
+    this.sortDependencyManagement = pluginParameters.sortDependencyManagement;
     this.sortPlugins = pluginParameters.sortPlugins;
     this.sortProperties = pluginParameters.sortProperties;
     this.sortModules = pluginParameters.sortModules;
@@ -39,7 +41,11 @@ public class ElementWrapperCreator {
       if (isDependencyElement(element)) {
         DependencySortedWrapper dependencySortedWrapper =
             new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-        dependencySortedWrapper.setSortOrder(sortDependencies);
+        if (!sortDependencyManagement.isNoSorting() && isDependencyElementInManagement(element)) {
+          dependencySortedWrapper.setSortOrder(sortDependencyManagement);
+        } else {
+          dependencySortedWrapper.setSortOrder(sortDependencies);
+        }
         return dependencySortedWrapper;
       }
       if (isExclusionElement(element)) {
@@ -68,8 +74,12 @@ public class ElementWrapperCreator {
     return new UnsortedWrapper<>(element);
   }
 
+  private boolean isDependencyElementInManagement(final Element element) {
+    return isElementParentName(element.getParent(), "dependencyManagement");
+  }
+
   private boolean isDependencyElement(final Element element) {
-    if (sortDependencies.isNoSorting()) {
+    if (sortDependencies.isNoSorting() && sortDependencyManagement.isNoSorting()) {
       return false;
     }
     return isElementName(element, "dependency") && isElementParentName(element, "dependencies");

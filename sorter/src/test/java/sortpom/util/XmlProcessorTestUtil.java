@@ -33,6 +33,7 @@ public class XmlProcessorTestUtil {
   private boolean spaceBeforeCloseEmptyElement = true;
   private boolean sortModules = false;
   private String sortDependencies;
+  private String sortDependencyManagement;
   private String sortPlugins;
   private boolean sortProperties = false;
 
@@ -83,7 +84,14 @@ public class XmlProcessorTestUtil {
                 lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
             .setIndent(2, indentBlankLines, false)
             .setSortOrder(predefinedSortOrder + ".xml", null)
-            .setSortEntities(sortDependencies, "", sortPlugins, sortProperties, sortModules, false)
+            .setSortEntities(
+                sortDependencies,
+                "",
+                sortDependencyManagement,
+                sortPlugins,
+                sortProperties,
+                sortModules,
+                false)
             .build();
     final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
 
@@ -156,6 +164,11 @@ public class XmlProcessorTestUtil {
 
   public XmlProcessorTestUtil sortDependencies(String sortDependencies) {
     this.sortDependencies = sortDependencies;
+    return this;
+  }
+
+  public XmlProcessorTestUtil sortDependencyManagement(String sortDependencyManagement) {
+    this.sortDependencyManagement = sortDependencyManagement;
     return this;
   }
 

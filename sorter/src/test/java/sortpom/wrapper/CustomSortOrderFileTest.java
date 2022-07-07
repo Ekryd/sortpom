@@ -37,6 +37,7 @@ class CustomSortOrderFileTest {
             .setSortEntities(
                 "scope,groupId,artifactId",
                 "groupId,artifactId",
+                "scope,groupId,artifactId",
                 "groupId,artifactId",
                 true,
                 true,

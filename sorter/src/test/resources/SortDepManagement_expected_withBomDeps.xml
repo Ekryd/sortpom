@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-bom</artifactId>
+        <version>7.4.1</version>
+        <type>pom</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>a.org.springframework</groupId>
+        <artifactId>a.spring-framework-bom</artifactId>
+        <version>4.3.8.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <artifactId>b</artifactId>
+      <scope>import</scope>
+    </dependency>
+    <dependency>
+      <artifactId>c</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <artifactId>a</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

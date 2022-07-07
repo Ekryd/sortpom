@@ -137,6 +137,16 @@ class SortMojoParametersTest {
   }
 
   @Test
+  void parameterSortDependencyManagementShouldEndUpInElementWrapperCreator() {
+    assertParameterMoveFromMojoToRestOfApplication("sortDependencyManagement", "scope,groupId");
+
+    Object sortDependencies =
+        new ReflectionHelper(elementWrapperCreator).getField("sortDependencyManagement");
+    assertThat(
+        sortDependencies.toString(), is("DependencySortOrder{childElementNames=[scope, groupId]}"));
+  }
+
+  @Test
   void parameterSortDependencyExclusionsShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencyExclusions", "groupId,scope");
 

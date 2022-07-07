@@ -7,6 +7,7 @@ import static org.mockito.Mockito.mock;
 
 import java.io.File;
 import org.apache.maven.plugin.MojoFailureException;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import refutils.ReflectionHelper;
@@ -53,7 +54,7 @@ class VerifyMojoParametersTest {
 
   @Test
   void pomFileParameter() {
-    testParameterMoveFromMojoToRestOfApplication("pomFile", pomFile, sortPomImpl, fileUtil);
+    assertParameterMoveFromMojoToRestOfApplication("pomFile", pomFile, sortPomImpl, fileUtil);
   }
 
   @Test
@@ -68,25 +69,25 @@ class VerifyMojoParametersTest {
 
   @Test
   void backupFileExtensionParameter() {
-    testParameterMoveFromMojoToRestOfApplication(
+    assertParameterMoveFromMojoToRestOfApplication(
         "backupFileExtension", ".gurka", sortPomService, fileUtil);
   }
 
   @Test
   void violationFilenameParameterShouldBeFound() {
-    testParameterMoveFromMojoToRestOfApplication(
+    assertParameterMoveFromMojoToRestOfApplication(
         "violationFilename", "violets.are", sortPomService, fileUtil);
   }
 
   @Test
   void encodingParameter() {
-    testParameterMoveFromMojoToRestOfApplication(
+    assertParameterMoveFromMojoToRestOfApplication(
         "encoding", "GURKA-2000", fileUtil, sortPomService, xmlOutputGenerator);
   }
 
   @Test
   void lineSeparatorParameter() {
-    testParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
+    assertParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
     final String lineSeparator =
         new ReflectionHelper(xmlOutputGenerator).getField("lineSeparator").toString();
@@ -96,7 +97,7 @@ class VerifyMojoParametersTest {
 
   @Test
   void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() {
-    testParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
+    assertParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
     assertThat(
         new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters"),
@@ -117,12 +118,12 @@ class VerifyMojoParametersTest {
 
   @Test
   void predefinedSortOrderParameter() {
-    testParameterMoveFromMojoToRestOfApplication("predefinedSortOrder", "tomatoSort", fileUtil);
+    assertParameterMoveFromMojoToRestOfApplication("predefinedSortOrder", "tomatoSort", fileUtil);
   }
 
   @Test
   void parameterSortOrderFileShouldEndUpInFileUtil() {
-    testParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
+    assertParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
     Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
     assertThat(actual, is(equalTo("sortOrderFile.gurka")));
@@ -130,7 +131,7 @@ class VerifyMojoParametersTest {
 
   @Test
   void parameterSortDependenciesShouldEndUpInElementWrapperCreator() {
-    testParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
+    assertParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
 
     Object sortDependencies =
         new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
@@ -139,8 +140,19 @@ class VerifyMojoParametersTest {
   }
 
   @Test
+  void parameterSortDependencyManagementShouldEndUpInElementWrapperCreator() {
+    assertParameterMoveFromMojoToRestOfApplication("sortDependencyManagement", "scope,groupId");
+
+    Object sortDependencies =
+        new ReflectionHelper(elementWrapperCreator).getField("sortDependencyManagement");
+    assertThat(
+        sortDependencies.toString(),
+        CoreMatchers.is("DependencySortOrder{childElementNames=[scope, groupId]}"));
+  }
+
+  @Test
   void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() {
-    testParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
+    assertParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
     Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
     assertThat(sortPlugins.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
@@ -179,14 +191,14 @@ class VerifyMojoParametersTest {
 
   @Test
   void parameterVerifyFailShouldEndUpInXmlProcessor() {
-    testParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
+    assertParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
 
     final Object verifyFailType = new ReflectionHelper(sortPomImpl).getField("verifyFailType");
 
     assertThat(verifyFailType, is(equalTo(VerifyFailType.STOP)));
   }
 
-  private void testParameterMoveFromMojoToRestOfApplication(
+  private void assertParameterMoveFromMojoToRestOfApplication(
       String parameterName, Object parameterValue, Object... whereParameterCanBeFound) {
     new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 

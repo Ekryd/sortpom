@@ -5,6 +5,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.ekryd.sortpom%3Asortpom-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.ekryd.sortpom%3Asortpom-parent)
 [![Licence](https://img.shields.io/github/license/Ekryd/sortpom?color=success)](https://github.com/Ekryd/sortpom/blob/master/LICENSE.md)
+[![Known Vulnerabilities](https://snyk.io/test/github/Ekryd/sortpom/badge.svg)](https://snyk.io/test/github/Ekryd/sortpom)
 
 Maven plugin that helps the user sort pom.xml by formatting the XML and organizing XML sections in a predefined order. 
 The main advantages to have standardized sorted poms are that they become more readable and that comparisons between different module poms becomes much easier.
@@ -33,6 +34,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2022-05-29: Released version 3.1.3. Fix formatting if text and other content is placed together in a xml tag [#210](/../../issues/210)
   * 2022-05-24: Released version 3.1.2. Fixed two bugs: Whitespace removed from multiple lines of text within XML tags [#206](/../../issues/206); Comments in the root of the xml document was removed during sorting [#205](/../../issues/205)
   * 2022-05-22: Released version 3.1.0. Dropped support for Java 8. Updated underlying xml framework due to vulnerabilities. Updated other libraries and plugins. 
   * 2021-12-20: Released version 3.0.1. Fixed bug where ignoreLineSeparators was not respected during the 'verify' goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 

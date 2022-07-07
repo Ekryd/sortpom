@@ -81,8 +81,8 @@ abstract class AbstractParentMojo extends AbstractMojo {
 
   /**
    * Comma-separated ordered list how dependencies should be sorted. Example:
-   * scope,groupId,artifactId. If scope is specified in the list then the scope ranking is COMPILE,
-   * PROVIDED, SYSTEM, RUNTIME, IMPORT and TEST. The list can be separated by ",;:"
+   * scope,groupId,artifactId. If scope is specified in the list then the scope ranking is IMPORT,
+   * COMPILE, PROVIDED, SYSTEM, RUNTIME and TEST. The list can be separated by ",;:"
    */
   @Parameter(property = "sort.sortDependencies")
   String sortDependencies;

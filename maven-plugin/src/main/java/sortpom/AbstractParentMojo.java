@@ -99,7 +99,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
    * Example: scope,groupId,artifactId. If scope is specified in the list then the scope ranking is
    * IMPORT, COMPILE, PROVIDED, SYSTEM, RUNTIME and TEST. The list can be separated by ",;:". It
    * would take precedence if present and would fall back to {@link #sortDependencies} if not
-   * present.
+   * present. The value NONE can be used to avoid sorting dependency management at all.
    */
   @Parameter(property = "sort.sortDependencyManagement")
   String sortDependencyManagement;

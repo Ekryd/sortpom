@@ -3,7 +3,7 @@ package sortpom.sort;
 import org.junit.jupiter.api.*;
 import sortpom.util.*;
 
-public class SortDependencyManagementTests {
+class SortDependencyManagementTests {
 
   @Test
   final void scopeInSortDependencyManagementShouldSortByScope() throws Exception {
@@ -49,5 +49,16 @@ public class SortDependencyManagementTests {
         .testFiles(
             "/SortDepManagement_input_withBomDeps.xml",
             "/SortDepManagement_expected_withBomDeps.xml");
+  }
+
+  @Test
+  final void onlySortDependencyManagementShouldNotAffectNormalDependencies() throws Exception {
+    SortPomImplUtil.create()
+        .customSortOrderFile("custom_1.xml")
+        .sortDependencyManagement("scope")
+        .lineSeparator("\n")
+        .testFiles(
+            "/SortDepManagement_input_withBomDeps.xml",
+            "/SortDepManagement_expected_onlySortDepMan.xml");
   }
 }

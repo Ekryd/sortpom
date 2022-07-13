@@ -17,6 +17,7 @@ public class SortPomImplUtil {
   private String customSortOrderFile;
   private String sortDependencies = "";
   private String sortDependencyExclusions = "";
+  private String sortDependencyManagement = "";
   private String sortPlugins = "";
   private boolean sortProperties = false;
   private boolean sortModules = false;
@@ -183,6 +184,11 @@ public class SortPomImplUtil {
     return this;
   }
 
+  public SortPomImplUtil sortDependencyManagement(String sortOrder) {
+    sortDependencyManagement = sortOrder;
+    return this;
+  }
+
   public SortPomImplUtil sortPlugins(String sortOrder) {
     sortPlugins = sortOrder;
     return this;
@@ -278,6 +284,7 @@ public class SortPomImplUtil {
         .setSortEntities(
             sortDependencies,
             sortDependencyExclusions,
+            sortDependencyManagement,
             sortPlugins,
             sortProperties,
             sortModules,

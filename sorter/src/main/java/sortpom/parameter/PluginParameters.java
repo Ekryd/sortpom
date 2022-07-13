@@ -17,6 +17,7 @@ public class PluginParameters {
   public final String customSortOrderFile;
   public final DependencySortOrder sortDependencies;
   public final DependencySortOrder sortDependencyExclusions;
+  public final DependencySortOrder sortDependencyManagement;
   public final DependencySortOrder sortPlugins;
   public final boolean sortProperties;
   public final boolean sortModules;
@@ -46,6 +47,7 @@ public class PluginParameters {
       String customSortOrderFile,
       DependencySortOrder sortDependencies,
       DependencySortOrder sortDependencyExclusions,
+      DependencySortOrder sortDependencyManagement,
       DependencySortOrder sortPlugins,
       boolean sortProperties,
       boolean sortModules,
@@ -67,6 +69,7 @@ public class PluginParameters {
     this.customSortOrderFile = customSortOrderFile;
     this.sortDependencies = sortDependencies;
     this.sortDependencyExclusions = sortDependencyExclusions;
+    this.sortDependencyManagement = sortDependencyManagement;
     this.sortPlugins = sortPlugins;
     this.sortProperties = sortProperties;
     this.sortModules = sortModules;
@@ -102,6 +105,7 @@ public class PluginParameters {
     private String customSortOrderFile;
     private DependencySortOrder sortDependencies;
     private DependencySortOrder sortDependencyExclusions;
+    private DependencySortOrder sortDependencyManagement;
     private DependencySortOrder sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
@@ -173,12 +177,14 @@ public class PluginParameters {
     public Builder setSortEntities(
         final String sortDependencies,
         final String sortDependencyExclusions,
+        final String sortDependencyManagement,
         final String sortPlugins,
         final boolean sortProperties,
         final boolean sortModules,
         boolean sortExecutions) {
       this.sortDependencies = new DependencySortOrder(sortDependencies);
       this.sortDependencyExclusions = new DependencySortOrder(sortDependencyExclusions);
+      this.sortDependencyManagement = new DependencySortOrder(sortDependencyManagement);
       this.sortPlugins = new DependencySortOrder(sortPlugins);
       this.sortProperties = sortProperties;
       this.sortModules = sortModules;
@@ -218,6 +224,7 @@ public class PluginParameters {
           customSortOrderFile,
           sortDependencies,
           sortDependencyExclusions,
+          sortDependencyManagement,
           sortPlugins,
           sortProperties,
           sortModules,

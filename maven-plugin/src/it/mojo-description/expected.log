@@ -116,6 +116,16 @@ sortpom:sort
       Comma-separated ordered list how exclusions, for dependencies, should be
       sorted. Example: groupId,artifactId The list can be separated by ',;:'
 
+    sortDependencyManagement
+      User property: sort.sortDependencyManagement
+      Comma-separated ordered list how dependencies in dependency management
+      should be sorted. Example: scope,groupId,artifactId. If scope is
+      specified in the list then the scope ranking is IMPORT, COMPILE,
+      PROVIDED, SYSTEM, RUNTIME and TEST. The list can be separated by ',;:'.
+      It would take precedence if present and would fall back to
+      sortDependencies if not present. The value NONE can be used to avoid
+      sorting dependency management at all.
+
     sortExecutions (Default: false)
       User property: sort.sortExecutions
       Should the Maven pom execution sections be sorted by phase and then
@@ -227,6 +237,16 @@ sortpom:verify
       User property: sort.sortDependencyExclusions
       Comma-separated ordered list how exclusions, for dependencies, should be
       sorted. Example: groupId,artifactId The list can be separated by ',;:'
+
+    sortDependencyManagement
+      User property: sort.sortDependencyManagement
+      Comma-separated ordered list how dependencies in dependency management
+      should be sorted. Example: scope,groupId,artifactId. If scope is
+      specified in the list then the scope ranking is IMPORT, COMPILE,
+      PROVIDED, SYSTEM, RUNTIME and TEST. The list can be separated by ',;:'.
+      It would take precedence if present and would fall back to
+      sortDependencies if not present. The value NONE can be used to avoid
+      sorting dependency management at all.
 
     sortExecutions (Default: false)
       User property: sort.sortExecutions

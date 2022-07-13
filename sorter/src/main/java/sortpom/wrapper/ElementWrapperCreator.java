@@ -41,7 +41,7 @@ public class ElementWrapperCreator {
       if (isDependencyElement(element)) {
         DependencySortedWrapper dependencySortedWrapper =
             new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-        if (!sortDependencyManagement.isNoSorting() && isDependencyElementInManagement(element)) {
+        if (isDependencyElementInManagement(element) && !sortDependencyManagement.isNoSorting()) {
           dependencySortedWrapper.setSortOrder(sortDependencyManagement);
         } else {
           dependencySortedWrapper.setSortOrder(sortDependencies);

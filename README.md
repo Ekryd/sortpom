@@ -34,7 +34,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
-  * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [ssquan](https://github.com/ssquan) for the PR!
+  * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!
   * 2022-05-29: Released version 3.1.3. Fix formatting if text and other content is placed together in a xml tag [#209](/../../issues/209)
   * 2022-05-24: Released version 3.1.2. Fixed two bugs: Whitespace removed from multiple lines of text within XML tags [#206](/../../issues/206); Comments in the root of the xml document was removed during sorting [#205](/../../issues/205)
   * 2022-05-22: Released version 3.1.0. Dropped support for Java 8. Updated underlying xml framework due to vulnerabilities. Updated other libraries and plugins. 

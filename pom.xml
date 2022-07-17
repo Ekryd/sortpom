@@ -407,7 +407,7 @@
   <licenses>
     <license>
       <name>New BSD License</name>
-      <url>http://en.wikipedia.org/wiki/BSD_licenses</url>
+      <url>https://en.wikipedia.org/wiki/BSD_licenses</url>
       <distribution>repo</distribution>
       <comments>Whatever</comments>
     </license>
@@ -418,7 +418,7 @@
       <id>bjorn.ekryd</id>
       <name>Björn Ekryd</name>
       <email>bjorn.ekryd(at)gmail(dot)com</email>
-      <url>http://www.linkedin.com/in/bjornekryd</url>
+      <url>https://www.linkedin.com/in/bjornekryd/</url>
       <roles>
         <role>Architect</role>
         <role>Developer</role>

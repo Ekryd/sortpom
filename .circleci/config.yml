@@ -48,6 +48,9 @@ workflows:
   work:
     jobs:
       - jdk17
+      - jdk18:
+          requires:
+            - jdk17
       - jdk11:
           filters: # using regex filters requires the entire branch to match
             branches:
@@ -55,4 +58,5 @@ workflows:
                 - master
           requires:
             - jdk17
+            - jdk18
         

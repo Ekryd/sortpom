@@ -6,7 +6,6 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -19,8 +18,8 @@ class ElementToStringTest {
   @Test
   void testToString() throws Exception {
     String expected =
-        IOUtils.toString(
-            new FileInputStream("src/test/resources/Real1_expected_toString.txt"),
+        new String(
+            new FileInputStream("src/test/resources/Real1_expected_toString.txt").readAllBytes(),
             StandardCharsets.UTF_8);
     assertEquals(expected, getToStringOnRootElementWrapper());
   }
@@ -48,8 +47,9 @@ class ElementToStringTest {
     fileUtil.setup(pluginParameters);
 
     String xml =
-        IOUtils.toString(
-            new FileInputStream("src/test/resources/" + "Real1_input.xml"), StandardCharsets.UTF_8);
+        new String(
+            new FileInputStream("src/test/resources/" + "Real1_input.xml").readAllBytes(),
+            StandardCharsets.UTF_8);
     SAXReader parser = new SAXReader();
     Document document = parser.read(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
 

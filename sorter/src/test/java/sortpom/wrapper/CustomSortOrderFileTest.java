@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
@@ -18,8 +17,9 @@ class CustomSortOrderFileTest {
   @Test
   void compareDefaultSortOrderFileToString() throws Exception {
     String expected =
-        IOUtils.toString(
-            new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt"),
+        new String(
+            new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt")
+                .readAllBytes(),
             StandardCharsets.UTF_8);
     assertEquals(expected, getToStringOnCustomSortOrderFile());
   }

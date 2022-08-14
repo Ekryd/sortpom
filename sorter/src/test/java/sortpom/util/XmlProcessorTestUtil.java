@@ -1,11 +1,12 @@
 package sortpom.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
-import org.apache.commons.io.IOUtils;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import refutils.ReflectionHelper;
@@ -48,7 +49,7 @@ public class XmlProcessorTestUtil {
     String actual = sortXmlAndReturnResult(inputFileName);
 
     final String expected =
-        IOUtils.toString(new FileInputStream(expectedFileName), StandardCharsets.UTF_8);
+        new String(new FileInputStream(expectedFileName).readAllBytes(), StandardCharsets.UTF_8);
 
     assertEquals(expected, actual);
   }
@@ -93,7 +94,8 @@ public class XmlProcessorTestUtil {
                 sortModules,
                 false)
             .build();
-    final String xml = IOUtils.toString(new FileInputStream(inputFileName), StandardCharsets.UTF_8);
+    final String xml =
+        new String(new FileInputStream(inputFileName).readAllBytes(), StandardCharsets.UTF_8);
 
     final FileUtil fileUtil = new FileUtil();
     fileUtil.setup(pluginParameters);

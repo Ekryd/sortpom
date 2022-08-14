@@ -1,12 +1,16 @@
 package sortpom.util;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.nio.file.Files;
 import java.util.Optional;
-import org.apache.commons.io.IOUtils;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
 
@@ -77,7 +81,8 @@ public class FileUtil {
   public String getPomFileContent() {
     String content;
     try (InputStream inputStream = new FileInputStream(pomFile)) {
-      content = IOUtils.toString(inputStream, encoding);
+      var charset = Charset.forName(encoding);
+      content = new String(inputStream.readAllBytes(), charset);
     } catch (UnsupportedCharsetException ex) {
       throw new FailureException("Could not handle encoding: " + encoding, ex);
     } catch (IOException ex) {
@@ -156,7 +161,7 @@ public class FileUtil {
         };
 
     try (InputStream inputStream = createStreamFunc.get()) {
-      return IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+      return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     }
   }
 

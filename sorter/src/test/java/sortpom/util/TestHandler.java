@@ -3,7 +3,9 @@ package sortpom.util;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.Closeable;
 import java.io.File;
@@ -14,7 +16,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import sortpom.SortPomImpl;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
@@ -69,19 +70,22 @@ class TestHandler {
       assertTrue(backupFile.exists());
 
       backupFileInputStream = new FileInputStream(backupFile);
-      String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
+      String actualBackup =
+          new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
 
       originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-      String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
+      String expectedBackup =
+          new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedBackup, actualBackup);
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
+      String actualSorted =
+          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
       String expectedSorted =
-          IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
+          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -100,20 +104,23 @@ class TestHandler {
         assertTrue(backupFile.exists());
 
         backupFileInputStream = new FileInputStream(backupFile);
-        String actualBackup = IOUtils.toString(backupFileInputStream, pluginParameters.encoding);
+        String actualBackup =
+            new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
 
         originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-        String expectedBackup = IOUtils.toString(originalPomInputStream, pluginParameters.encoding);
+        String expectedBackup =
+            new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
         assertEquals(expectedBackup, actualBackup);
       }
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
+      String actualSorted =
+          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
       String expectedSorted =
-          IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
+          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -131,12 +138,13 @@ class TestHandler {
       assertFalse(backupFile.exists(), "No sort expected, backup file exists");
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
+      String actualSorted =
+          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
       String expectedSorted =
-          IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
+          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -172,12 +180,13 @@ class TestHandler {
       assertFalse(backupFile.exists());
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted = IOUtils.toString(actualSortedPomInputStream, pluginParameters.encoding);
+      String actualSorted =
+          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
       String expectedSorted =
-          IOUtils.toString(expectedSortedPomInputStream, pluginParameters.encoding);
+          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();

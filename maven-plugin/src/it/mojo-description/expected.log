@@ -8,9 +8,7 @@ Goal Prefix: sortpom
 This plugin has 3 goals:
 
 sortpom:help
-  Description: Display help information on sortpom-maven-plugin.
-    Call mvn sortpom:help -Ddetail=true -Dgoal=<goal-name> to display parameter
-    details.
+  Description: Unknown
   Implementation: sortpom.HelpMojo
   Language: java
 
@@ -55,8 +53,8 @@ sortpom:sort
 
     expandEmptyElements (Default: true)
       User property: sort.expandEmptyElements
-      Should empty xml elements be expanded or not. Example:
-      <configuration></configuration> or <configuration/>
+      Should an empty xml element be expanded with start and end tag, or be
+      written as an empty-element tag.
 
     ignoreLineSeparators (Default: true)
       User property: sort.ignoreLineSeparators
@@ -151,8 +149,8 @@ sortpom:sort
 
     spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
-      Should non-expanded empty xml element have space before closing tag.
-      Example: <configuration /> or <configuration/>
+      Should a non-expanded empty-element tag have a space before the closing
+      slash.
 
 sortpom:verify
   Description: Verifies that the pom.xml is sorted. If the verification fails
@@ -177,8 +175,8 @@ sortpom:verify
 
     expandEmptyElements (Default: true)
       User property: sort.expandEmptyElements
-      Should empty xml elements be expanded or not. Example:
-      <configuration></configuration> or <configuration/>
+      Should an empty xml element be expanded with start and end tag, or be
+      written as an empty-element tag.
 
     ignoreLineSeparators (Default: true)
       User property: sort.ignoreLineSeparators
@@ -273,8 +271,8 @@ sortpom:verify
 
     spaceBeforeCloseEmptyElement (Default: false)
       User property: sort.spaceBeforeCloseEmptyElement
-      Should non-expanded empty xml element have space before closing tag.
-      Example: <configuration /> or <configuration/>
+      Should a non-expanded empty-element tag have a space before the closing
+      slash.
 
     verifyFail (Default: sort)
       User property: sort.verifyFail

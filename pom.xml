@@ -317,6 +317,9 @@
             <goals>
               <goal>helpmojo</goal>
             </goals>
+            <configuration>
+              <helpPackageName>sortpom</helpPackageName>
+            </configuration>
           </execution>
         </executions>
       </plugin>

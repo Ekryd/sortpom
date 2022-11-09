@@ -29,16 +29,13 @@ abstract class AbstractParentMojo extends AbstractMojo {
   String lineSeparator;
 
   /**
-   * Should empty xml elements be expanded or not. Example:
-   * &lt;configuration&gt;&lt;/configuration&gt; or &lt;configuration/&gt;
+   * Should an empty xml element be expanded with start and end tag, or be written as an
+   * empty-element tag.
    */
   @Parameter(property = "sort.expandEmptyElements", defaultValue = "true")
   boolean expandEmptyElements;
 
-  /**
-   * Should non-expanded empty xml element have space before closing tag. Example: &lt;configuration
-   * /&gt; or &lt;configuration/&gt;
-   */
+  /** Should a non-expanded empty-element tag have a space before the closing slash. */
   @Parameter(property = "sort.spaceBeforeCloseEmptyElement", defaultValue = "false")
   boolean spaceBeforeCloseEmptyElement;
 

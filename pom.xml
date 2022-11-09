@@ -200,7 +200,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-plugin-plugin</artifactId>
-          <version>3.6.4</version>
+          <version>3.7.0</version>
         </plugin>
         <plugin>
           <!-- Define versions for standard plugins -->
@@ -317,6 +317,9 @@
             <goals>
               <goal>helpmojo</goal>
             </goals>
+            <configuration>
+              <helpPackageName>sortpom</helpPackageName>
+            </configuration>
           </execution>
         </executions>
       </plugin>

@@ -20,7 +20,7 @@
   <properties>
     <compileSource>11</compileSource>
     <junit.jupiter.version>5.9.1</junit.jupiter.version>
-    <mockito.version>4.8.1</mockito.version>
+    <mockito.version>4.9.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.3</slf4j.version>
   </properties>

@@ -22,7 +22,7 @@
     <junit.jupiter.version>5.9.1</junit.jupiter.version>
     <mockito.version>4.9.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <slf4j.version>2.0.4</slf4j.version>
+    <slf4j.version>2.0.5</slf4j.version>
   </properties>
 
   <dependencyManagement>
@@ -161,7 +161,7 @@
           <!-- References plugin (not directly used) -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.4.0</version>
         </plugin>
         <plugin>
           <!-- Define versions for standard plugins -->

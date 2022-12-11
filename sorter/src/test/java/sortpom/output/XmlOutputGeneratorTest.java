@@ -144,7 +144,7 @@ class XmlOutputGeneratorTest {
           }
         };
 
-    Class<?> clazz = classloader.loadClass("sortpom.output.XmlOutputGenerator$PatchedXMLWriter");
+    Class<?> clazz = classloader.loadClass("sortpom.output.PatchedXMLWriter");
     Constructor<?> constructor = clazz.getConstructors()[0];
     constructor.setAccessible(true);
 

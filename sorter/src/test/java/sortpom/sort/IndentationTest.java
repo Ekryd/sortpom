@@ -70,7 +70,11 @@ class IndentationTest {
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + lineSeparator
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"" 
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + lineSeparator
             + indentChars
             + indentChars
@@ -103,7 +107,11 @@ class IndentationTest {
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + lineSeparator
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"" 
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + lineSeparator
             + indentChars
             + indentChars

@@ -17,9 +17,7 @@ import org.dom4j.tree.NamespaceStack;
 import sortpom.content.NewlineText;
 import sortpom.exception.FailureException;
 
-/**
- * Extending the XMLWriter with custom functionality
- */
+/** Overriding XMLWriter to be able to handle SortPom formatting options */
 class PatchedXMLWriter extends XMLWriter {
 
   private final OutputFormat format;
@@ -53,6 +51,7 @@ class PatchedXMLWriter extends XMLWriter {
     }
   }
 
+  /** Handle spaceBeforeCloseEmptyElement option */
   @Override
   protected void writeEmptyElementClose(String qualifiedName) throws IOException {
     if (!format.isExpandEmptyElements() && spaceBeforeCloseEmptyElement) {
@@ -62,6 +61,7 @@ class PatchedXMLWriter extends XMLWriter {
     super.writeEmptyElementClose(qualifiedName);
   }
 
+  /** Fixing a bug with processing instructions */
   @Override
   protected void writeProcessingInstruction(ProcessingInstruction pi) throws IOException {
     // Place the processing instruction on own line (instead of same line as previous element)
@@ -76,6 +76,7 @@ class PatchedXMLWriter extends XMLWriter {
     lastOutputNodeType = Node.PROCESSING_INSTRUCTION_NODE;
   }
 
+  /** Handle Custom NewLineTest node and potential indent of empty line */
   @Override
   protected void writeNodeText(Node node) throws IOException {
     if (node instanceof NewlineText) {
@@ -109,6 +110,10 @@ class PatchedXMLWriter extends XMLWriter {
     }
   }
 
+  /**
+   * Support for indentSchemaLocation, where the original method really should call the
+   * writeAttribute method
+   */
   @Override
   protected void writeAttributes(Element element) throws IOException {
     for (int i = 0, size = element.attributeCount(); i < size; i++) {
@@ -141,6 +146,7 @@ class PatchedXMLWriter extends XMLWriter {
     }
   }
 
+  /** Handle indentSchemaLocation option */
   @Override
   protected void writeAttribute(Attribute attribute) throws IOException {
     String qualifiedName = attribute.getQualifiedName();

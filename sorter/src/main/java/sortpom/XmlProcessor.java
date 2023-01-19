@@ -17,6 +17,9 @@ import sortpom.wrapper.operation.WrapperFactory;
  * @author Bjorn Ekryd
  */
 public class XmlProcessor {
+  // https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html
+  public static final String DISALLOW_DOCTYPE_DECL =
+      "http://apache.org/xml/features/disallow-doctype-decl";
   private final WrapperFactory factory;
 
   private Document originalDocument;
@@ -33,7 +36,7 @@ public class XmlProcessor {
    */
   public void setOriginalXml(final InputStream originalXml) throws DocumentException, SAXException {
     SAXReader parser = new SAXReader();
-    parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+    parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
     parser.setMergeAdjacentText(true);
     originalDocument = parser.read(originalXml);
   }

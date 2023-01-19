@@ -1,5 +1,7 @@
 package sortpom.wrapper;
 
+import static sortpom.XmlProcessor.DISALLOW_DOCTYPE_DECL;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -76,7 +78,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
       throws IOException, DocumentException, SAXException {
     try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
       SAXReader parser = new SAXReader();
-      parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
       return parser.read(reader);
     }
   }

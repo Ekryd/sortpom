@@ -1,11 +1,13 @@
 package sortpom.sort;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
 class SortOrderFilesTest {
@@ -59,8 +61,7 @@ class SortOrderFilesTest {
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml");
 
-    final IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, testMethod);
+    var thrown = assertThrows(IllegalArgumentException.class, testMethod);
 
     assertThat(
         thrown.getMessage(), is("Cannot find null.xml among the predefined plugin resources"));
@@ -75,8 +76,7 @@ class SortOrderFilesTest {
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml");
 
-    final IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, testMethod);
+    var thrown = assertThrows(IllegalArgumentException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -88,5 +88,18 @@ class SortOrderFilesTest {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");
+  }
+
+  @Test
+  void evilDocTypeShouldNotHarmPlugin() {
+    var thrown =
+        assertThrows(
+            FailureException.class,
+            () ->
+                SortPomImplUtil.create()
+                    .lineSeparator("\n")
+                    .testNoSorting("/Xml_attack_input2.xml"));
+
+    assertThat(thrown.getCause().getMessage(), containsString("DOCTYPE is disallowed"));
   }
 }

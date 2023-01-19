@@ -62,5 +62,4 @@ public class XmlOutputGenerator {
     outputFormat.setEncoding(encoding);
     return outputFormat;
   }
-
 }

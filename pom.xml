@@ -460,6 +460,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.4.1</version>
             <configuration>
+              <doclint>all,-missing</doclint>
               <minmemory>128m</minmemory>
               <maxmemory>512</maxmemory>
               <breakiterator>true</breakiterator>
@@ -469,7 +470,7 @@
               <linksource>true</linksource>
               <links>
                 <!-- JSE -->
-                <link>http://docs.oracle.com/javase/8/docs/api/</link>
+                <link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
               </links>
             </configuration>
             <executions>

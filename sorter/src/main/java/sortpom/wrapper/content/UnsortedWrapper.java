@@ -3,12 +3,7 @@ package sortpom.wrapper.content;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
-/**
- * A wrapper that lets is element be unsorted
- *
- * @param <T>
- * @author Bjorn
- */
+/** A wrapper that lets is element be unsorted */
 public class UnsortedWrapper<T extends Node> implements Wrapper<T> {
 
   /** The wrapped dom content. */

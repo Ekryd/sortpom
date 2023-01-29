@@ -36,19 +36,19 @@ public class ElementWrapperCreator {
   }
 
   Wrapper<Element> createWrapper(Element element) {
-    boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
+    var sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
     if (sortedBySortOrderFile) {
       if (isDependencyElement(element)) {
         return createdDependencySortedWrapper(element);
       }
       if (isExclusionElement(element)) {
-        ExclusionSortedWrapper exclusionSortedWrapper =
+        var exclusionSortedWrapper =
             new ExclusionSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         exclusionSortedWrapper.setSortOrder(sortDependencyExclusions);
         return exclusionSortedWrapper;
       }
       if (isPluginElement(element)) {
-        PluginSortedWrapper pluginSortedWrapper =
+        var pluginSortedWrapper =
             new PluginSortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
         pluginSortedWrapper.setSortOrder(sortPlugins);
         return pluginSortedWrapper;
@@ -69,7 +69,7 @@ public class ElementWrapperCreator {
 
   /** Create separate wrapper for dependency and dependency mgmt. Dependency setting is fallback */
   private DependencySortedWrapper createdDependencySortedWrapper(Element element) {
-    DependencySortedWrapper dependencySortedWrapper =
+    var dependencySortedWrapper =
         new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
     if (isDependencyElementInManagement(element) && !sortDependencyManagement.isNoSorting()) {
       dependencySortedWrapper.setSortOrder(sortDependencyManagement);
@@ -124,8 +124,8 @@ public class ElementWrapperCreator {
     if (!sortProperties) {
       return false;
     }
-    String deepName = getDeepName(element);
-    boolean inTheRightPlace =
+    var deepName = getDeepName(element);
+    var inTheRightPlace =
         deepName.startsWith("/project/properties/")
             || deepName.startsWith("/project/profiles/profile/properties/");
     return inTheRightPlace && isElementParentName(element, "properties");

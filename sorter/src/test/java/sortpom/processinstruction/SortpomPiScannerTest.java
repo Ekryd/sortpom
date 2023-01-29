@@ -29,9 +29,9 @@ class SortpomPiScannerTest {
 
   @Test
   void scanNoInstructionsShouldWork() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
             + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
             + "  <groupId>sortpom</groupId>\n"
@@ -53,9 +53,9 @@ class SortpomPiScannerTest {
 
   @Test
   void correctIgnoreShouldNotReportError() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
             + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
             + "  <groupId>sortpom</groupId>\n"
@@ -93,9 +93,9 @@ class SortpomPiScannerTest {
   @MethodSource("illegalProcessingInstructions")
   void illegalProcessingInstructionsShouldReportError(
       String xmlProcessingInstruction, String expectedErrorMsg) {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
             + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
             + "  <groupId>sortpom</groupId>\n"
@@ -120,9 +120,9 @@ class SortpomPiScannerTest {
 
   @Test
   void multipleErrorsShouldBeReportedInLogger() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
+            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
             + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
             + "  <groupId>sortpom</groupId>\n"

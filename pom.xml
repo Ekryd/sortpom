@@ -126,7 +126,6 @@
             <encoding>${project.build.sourceEncoding}</encoding>
             <sortProperties>true</sortProperties>
             <sortDependencies>scope,groupId,artifactId</sortDependencies>
-            <indentSchemaLocation>true</indentSchemaLocation>
           </configuration>
         </plugin>
         <plugin>

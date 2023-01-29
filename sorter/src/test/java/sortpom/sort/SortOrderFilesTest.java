@@ -6,7 +6,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
@@ -54,14 +53,14 @@ class SortOrderFilesTest {
 
   @Test
   final void nullPredefinedSortOrderShouldReportError() {
-    Executable testMethod =
-        () ->
-            SortPomImplUtil.create()
-                .predefinedSortOrder(null)
-                .lineSeparator("\n")
-                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml");
+    var sortPomImplUtil = SortPomImplUtil.create().predefinedSortOrder(null).lineSeparator("\n");
 
-    var thrown = assertThrows(IllegalArgumentException.class, testMethod);
+    var thrown =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                sortPomImplUtil.testFiles(
+                    "/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml"));
 
     assertThat(
         thrown.getMessage(), is("Cannot find null.xml among the predefined plugin resources"));
@@ -69,14 +68,15 @@ class SortOrderFilesTest {
 
   @Test
   final void illegalPredefinedSortOrderShouldReportError() {
-    Executable testMethod =
-        () ->
-            SortPomImplUtil.create()
-                .predefinedSortOrder("special.xml")
-                .lineSeparator("\n")
-                .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml");
+    var sortPomImplUtil =
+        SortPomImplUtil.create().predefinedSortOrder("special.xml").lineSeparator("\n");
 
-    var thrown = assertThrows(IllegalArgumentException.class, testMethod);
+    var thrown =
+        assertThrows(
+            IllegalArgumentException.class,
+            () ->
+                sortPomImplUtil.testFiles(
+                    "/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml"));
 
     assertThat(
         thrown.getMessage(),
@@ -92,13 +92,10 @@ class SortOrderFilesTest {
 
   @Test
   void evilDocTypeShouldNotHarmPlugin() {
+    var sortPomImplUtil = SortPomImplUtil.create().lineSeparator("\n");
     var thrown =
         assertThrows(
-            FailureException.class,
-            () ->
-                SortPomImplUtil.create()
-                    .lineSeparator("\n")
-                    .testNoSorting("/Xml_attack_input2.xml"));
+            FailureException.class, () -> sortPomImplUtil.testNoSorting("/Xml_attack_input2.xml"));
 
     assertThat(thrown.getCause().getMessage(), containsString("DOCTYPE is disallowed"));
   }

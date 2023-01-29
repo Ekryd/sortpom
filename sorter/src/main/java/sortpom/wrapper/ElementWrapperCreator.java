@@ -39,14 +39,7 @@ public class ElementWrapperCreator {
     boolean sortedBySortOrderFile = elementNameSortOrderMap.containsElement(element);
     if (sortedBySortOrderFile) {
       if (isDependencyElement(element)) {
-        DependencySortedWrapper dependencySortedWrapper =
-            new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
-        if (isDependencyElementInManagement(element) && !sortDependencyManagement.isNoSorting()) {
-          dependencySortedWrapper.setSortOrder(sortDependencyManagement);
-        } else {
-          dependencySortedWrapper.setSortOrder(sortDependencies);
-        }
-        return dependencySortedWrapper;
+        return createdDependencySortedWrapper(element);
       }
       if (isExclusionElement(element)) {
         ExclusionSortedWrapper exclusionSortedWrapper =
@@ -72,6 +65,18 @@ public class ElementWrapperCreator {
       return new AlphabeticalSortedWrapper(element);
     }
     return new UnsortedWrapper<>(element);
+  }
+
+  /** Create separate wrapper for dependency and dependency mgmt. Dependency setting is fallback */
+  private DependencySortedWrapper createdDependencySortedWrapper(Element element) {
+    DependencySortedWrapper dependencySortedWrapper =
+        new DependencySortedWrapper(element, elementNameSortOrderMap.getSortOrder(element));
+    if (isDependencyElementInManagement(element) && !sortDependencyManagement.isNoSorting()) {
+      dependencySortedWrapper.setSortOrder(sortDependencyManagement);
+    } else {
+      dependencySortedWrapper.setSortOrder(sortDependencies);
+    }
+    return dependencySortedWrapper;
   }
 
   private boolean isDependencyElementInManagement(final Element element) {

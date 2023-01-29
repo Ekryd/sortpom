@@ -25,6 +25,10 @@ jobs:
     docker:
       - image: cimg/openjdk:18.0
     <<: *shared
+  jdk19:
+    docker:
+      - image: cimg/openjdk:19.0
+    <<: *shared
   jdk11:
     docker:
       - image: cimg/openjdk:11.0
@@ -51,6 +55,9 @@ workflows:
       - jdk18:
           requires:
             - jdk17
+      - jdk19:
+          requires:
+            - jdk17
       - jdk11:
           filters: # using regex filters requires the entire branch to match
             branches:
@@ -59,4 +66,5 @@ workflows:
           requires:
             - jdk17
             - jdk18
+            - jdk19
         

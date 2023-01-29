@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -20,7 +20,7 @@
   <properties>
     <compileSource>11</compileSource>
     <junit.jupiter.version>5.9.2</junit.jupiter.version>
-    <mockito.version>5.0.0</mockito.version>
+    <mockito.version>5.1.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.6</slf4j.version>
   </properties>
@@ -30,7 +30,7 @@
       <dependency>
         <groupId>org.dom4j</groupId>
         <artifactId>dom4j</artifactId>
-        <version>2.1.3</version>
+        <version>2.1.4</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>
@@ -114,12 +114,12 @@
         <plugin>
           <groupId>com.github.ekryd.echo-maven-plugin</groupId>
           <artifactId>echo-maven-plugin</artifactId>
-          <version>1.3.2</version>
+          <version>2.0.1</version>
         </plugin>
         <plugin>
           <groupId>com.github.ekryd.sortpom</groupId>
           <artifactId>sortpom-maven-plugin</artifactId>
-          <version>3.1.2</version>
+          <version>3.2.0</version>
           <configuration>
             <createBackupFile>false</createBackupFile>
             <predefinedSortOrder>custom_1</predefinedSortOrder>

@@ -15,7 +15,6 @@
       <dependency>
         <groupId>com.github.ekryd.sortpom</groupId>
         <artifactId>sortpom-sorter</artifactId>
-        <version>2.5.0</version>
       </dependency>
       <dependency>
         <groupId>org.apache.maven</groupId>

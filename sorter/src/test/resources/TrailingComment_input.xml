@@ -9,8 +9,7 @@
         <?sortpom ignore?>
       <!-- \$1 $1 $1 \n  -->
         <?sortpom resume?>
-    <version>1.0</version>
-  <packaging>jar</packaging>
+    <packaging>jar</packaging>
   <name>SortPom Sorter</name>
   <description>The sorting functionality</description>
 

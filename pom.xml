@@ -159,7 +159,7 @@
           <!-- References plugin (not directly used) -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>3.5.0</version>
+          <version>3.6.0</version>
         </plugin>
         <plugin>
           <!-- Define versions for standard plugins -->

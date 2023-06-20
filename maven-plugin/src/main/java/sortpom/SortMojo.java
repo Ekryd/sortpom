@@ -42,7 +42,7 @@ public class SortMojo extends AbstractParentMojo {
                       .setIgnoreLineSeparators(ignoreLineSeparators)
                       .build();
 
-              sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
+              sortPomImpl.setup(new MavenLogger(getLog(), quiet), pluginParameters);
             })
         .executeAndConvertException();
   }

@@ -131,6 +131,10 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
   boolean keepTimestamp;
 
+  /** Set this to 'true' to disable plugin info output */
+  @Parameter(property = "sort.quiet", defaultValue = "false")
+  boolean quiet;
+
   final SortPomImpl sortPomImpl = new SortPomImpl();
 
   /**
@@ -143,7 +147,9 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Override
   public void execute() throws MojoFailureException {
     if (skip) {
-      getLog().info("Skipping Sortpom");
+      if (!quiet) {
+        getLog().info("Skipping Sortpom");
+      }
     } else {
       setup();
       sortPom();

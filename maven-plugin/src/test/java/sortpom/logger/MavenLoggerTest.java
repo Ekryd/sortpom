@@ -18,7 +18,7 @@ class MavenLoggerTest {
 
   @BeforeEach
   void setUp() {
-    mavenLogger = new MavenLogger(logMock);
+    mavenLogger = new MavenLogger(logMock, false);
   }
 
   @Test

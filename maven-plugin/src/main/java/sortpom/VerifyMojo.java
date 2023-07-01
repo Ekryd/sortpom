@@ -63,7 +63,7 @@ public class VerifyMojo extends AbstractParentMojo {
                       .setVerifyFail(verifyFail, verifyFailOn)
                       .build();
 
-              sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
+              sortPomImpl.setup(new MavenLogger(getLog(), quiet), pluginParameters);
             })
         .executeAndConvertException();
   }

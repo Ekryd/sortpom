@@ -22,7 +22,9 @@ public class MavenLogger implements SortPomLogger {
 
   @Override
   public void info(String content) {
-    if (!quiet) {
+    if (quiet) {
+      pluginLogger.debug(content);
+    } else {
       pluginLogger.info(content);
     }
   }

@@ -5,7 +5,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import sortpom.exception.ExceptionConverter;
-import sortpom.logger.MavenLogger;
+import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
 /**
@@ -35,7 +35,7 @@ public class VerifyMojo extends AbstractParentMojo {
   @Parameter(property = "sort.violationFilename")
   private String violationFilename;
 
-  public void setup() throws MojoFailureException {
+  public void setup(SortPomLogger mavenLogger) throws MojoFailureException {
     new ExceptionConverter(
             () -> {
               PluginParameters pluginParameters =
@@ -63,7 +63,7 @@ public class VerifyMojo extends AbstractParentMojo {
                       .setVerifyFail(verifyFail, verifyFailOn)
                       .build();
 
-              sortPomImpl.setup(new MavenLogger(getLog(), quiet), pluginParameters);
+              sortPomImpl.setup(mavenLogger, pluginParameters);
             })
         .executeAndConvertException();
   }

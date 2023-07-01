@@ -4,11 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import refutils.ReflectionHelper;
 import sortpom.exception.FailureException;
+import sortpom.logger.MavenLogger;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
@@ -63,7 +60,7 @@ class VerifyMojoTest {
         .when(sortPom)
         .setup(any(SortPomLogger.class), any(PluginParameters.class));
 
-    final Executable testMethod = () -> verifyMojo.setup();
+    final Executable testMethod = () -> verifyMojo.setup(new MavenLogger(null, false));
 
     final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
 

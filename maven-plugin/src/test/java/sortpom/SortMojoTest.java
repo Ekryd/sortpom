@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import refutils.ReflectionHelper;
 import sortpom.exception.FailureException;
+import sortpom.logger.MavenLogger;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
@@ -59,7 +60,7 @@ class SortMojoTest {
         .when(sortPom)
         .setup(any(SortPomLogger.class), any(PluginParameters.class));
 
-    final Executable testMethod = () -> sortMojo.setup();
+    final Executable testMethod = () -> sortMojo.setup(new MavenLogger(null, false));
 
     final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
 

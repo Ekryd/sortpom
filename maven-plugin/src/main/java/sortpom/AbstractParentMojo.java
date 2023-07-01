@@ -1,9 +1,12 @@
 package sortpom;
 
-import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
+import sortpom.logger.MavenLogger;
+import sortpom.logger.SortPomLogger;
+
+import java.io.File;
 
 /** Common parent for both SortMojo and VerifyMojo */
 abstract class AbstractParentMojo extends AbstractMojo {
@@ -133,7 +136,7 @@ abstract class AbstractParentMojo extends AbstractMojo {
 
   /** Set this to 'true' to disable plugin info output */
   @Parameter(property = "sort.quiet", defaultValue = "false")
-  boolean quiet;
+  private boolean quiet;
 
   final SortPomImpl sortPomImpl = new SortPomImpl();
 
@@ -146,17 +149,16 @@ abstract class AbstractParentMojo extends AbstractMojo {
    */
   @Override
   public void execute() throws MojoFailureException {
+    var mavenLogger = new MavenLogger(getLog(), quiet);
     if (skip) {
-      if (!quiet) {
-        getLog().info("Skipping Sortpom");
-      }
+      mavenLogger.info("Skipping Sortpom");
     } else {
-      setup();
+      setup(mavenLogger);
       sortPom();
     }
   }
 
   protected abstract void sortPom() throws MojoFailureException;
 
-  protected abstract void setup() throws MojoFailureException;
+  protected abstract void setup(SortPomLogger mavenLogger) throws MojoFailureException;
 }

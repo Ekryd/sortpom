@@ -1,12 +1,11 @@
 package sortpom;
 
+import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
 import sortpom.logger.MavenLogger;
 import sortpom.logger.SortPomLogger;
-
-import java.io.File;
 
 /** Common parent for both SortMojo and VerifyMojo */
 abstract class AbstractParentMojo extends AbstractMojo {
@@ -126,13 +125,13 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Parameter(property = "sort.sortExecutions", defaultValue = "false")
   boolean sortExecutions;
 
-  /** Set this to 'true' to bypass sortpom plugin */
-  @Parameter(property = "sort.skip", defaultValue = "false")
-  private boolean skip;
-
   /** Whether to keep the file timestamps of old POM file when creating new POM file. */
   @Parameter(property = "sort.keepTimestamp", defaultValue = "false")
   boolean keepTimestamp;
+
+  /** Set this to 'true' to bypass sortpom plugin */
+  @Parameter(property = "sort.skip", defaultValue = "false")
+  private boolean skip;
 
   /** Set this to 'true' to disable plugin info output */
   @Parameter(property = "sort.quiet", defaultValue = "false")

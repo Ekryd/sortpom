@@ -19,7 +19,6 @@
   <properties>
     <compileSource>11</compileSource>
     <junit.jupiter.version>5.10.0</junit.jupiter.version>
-    <mockito.version>5.2.0</mockito.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.7</slf4j.version>
   </properties>
@@ -82,13 +81,7 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-inline</artifactId>
-      <version>${mockito.version}</version>
+      <version>5.4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -118,7 +111,7 @@
         <plugin>
           <groupId>com.github.ekryd.sortpom</groupId>
           <artifactId>sortpom-maven-plugin</artifactId>
-          <version>3.2.0</version>
+          <version>3.2.1</version>
           <configuration>
             <createBackupFile>false</createBackupFile>
             <predefinedSortOrder>custom_1</predefinedSortOrder>

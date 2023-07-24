@@ -8,9 +8,11 @@ import org.apache.maven.plugin.logging.Log;
  */
 public class MavenLogger implements SortPomLogger {
   private final Log pluginLogger;
+  private final boolean quiet;
 
-  public MavenLogger(Log pluginLogger) {
+  public MavenLogger(Log pluginLogger, boolean quiet) {
     this.pluginLogger = pluginLogger;
+    this.quiet = quiet;
   }
 
   @Override
@@ -20,7 +22,11 @@ public class MavenLogger implements SortPomLogger {
 
   @Override
   public void info(String content) {
-    pluginLogger.info(content);
+    if (quiet) {
+      pluginLogger.debug(content);
+    } else {
+      pluginLogger.info(content);
+    }
   }
 
   @Override

@@ -4,7 +4,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import sortpom.exception.ExceptionConverter;
-import sortpom.logger.MavenLogger;
+import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
 
 /**
@@ -16,7 +16,7 @@ import sortpom.parameter.PluginParameters;
 @SuppressWarnings({"UnusedDeclaration"})
 public class SortMojo extends AbstractParentMojo {
 
-  public void setup() throws MojoFailureException {
+  public void setup(SortPomLogger mavenLogger) throws MojoFailureException {
     new ExceptionConverter(
             () -> {
               PluginParameters pluginParameters =
@@ -42,7 +42,7 @@ public class SortMojo extends AbstractParentMojo {
                       .setIgnoreLineSeparators(ignoreLineSeparators)
                       .build();
 
-              sortPomImpl.setup(new MavenLogger(getLog()), pluginParameters);
+              sortPomImpl.setup(mavenLogger, pluginParameters);
             })
         .executeAndConvertException();
   }

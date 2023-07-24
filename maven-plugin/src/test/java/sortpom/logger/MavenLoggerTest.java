@@ -18,7 +18,7 @@ class MavenLoggerTest {
 
   @BeforeEach
   void setUp() {
-    mavenLogger = new MavenLogger(logMock);
+    mavenLogger = new MavenLogger(logMock, false);
   }
 
   @Test
@@ -38,10 +38,28 @@ class MavenLoggerTest {
   }
 
   @Test
-  void errorShouldOutputErrorLevel() {
-    mavenLogger.error("Gurka");
+  void quietLoggingShouldOutputInfoOnDebugLevel() {
+    var quietMavenLogger = new MavenLogger(logMock, true);
+    quietMavenLogger.info("Gurka");
 
-    verify(logMock).error("Gurka");
+    verify(logMock).debug("Gurka");
+    verifyNoMoreInteractions(logMock);
+  }
+
+  @Test
+  void quietLoggingShouldStillOutputErrorLevel() {
+    var quietMavenLogger = new MavenLogger(logMock, true);
+    quietMavenLogger.error("Error!");
+
+    verify(logMock).error("Error!");
+    verifyNoMoreInteractions(logMock);
+  }
+
+  @Test
+  void errorShouldOutputErrorLevel() {
+    mavenLogger.error("Error!");
+
+    verify(logMock).error("Error!");
     verifyNoMoreInteractions(logMock);
   }
 }

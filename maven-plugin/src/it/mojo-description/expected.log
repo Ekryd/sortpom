@@ -98,6 +98,10 @@ sortpom:sort
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
 
+    quiet (Default: false)
+      User property: sort.quiet
+      Set this to 'true' to disable plugin info output
+
     skip (Default: false)
       User property: sort.skip
       Set this to 'true' to bypass sortpom plugin
@@ -219,6 +223,10 @@ sortpom:verify
     predefinedSortOrder (Default: recommended_2008_06)
       User property: sort.predefinedSortOrder
       Choose between a number of predefined sort order files.
+
+    quiet (Default: false)
+      User property: sort.quiet
+      Set this to 'true' to disable plugin info output
 
     skip (Default: false)
       User property: sort.skip

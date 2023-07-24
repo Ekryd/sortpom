@@ -12,6 +12,7 @@ import refutils.ReflectionHelper;
 import sortpom.SortMojo;
 import sortpom.SortPomImpl;
 import sortpom.SortPomService;
+import sortpom.logger.MavenLogger;
 import sortpom.logger.SortPomLogger;
 import sortpom.output.XmlOutputGenerator;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
@@ -201,11 +202,10 @@ class SortMojoParametersTest {
 
   @Test
   void xmlProcessingInstructionParserShouldGetLogger() throws MojoFailureException {
-    sortMojo.setup();
+    MavenLogger expectedLogger = new MavenLogger(null, false);
+    sortMojo.setup(expectedLogger);
     SortPomLogger logger =
         new ReflectionHelper(xmlProcessingInstructionParser).getField(SortPomLogger.class);
-    SortPomLogger expectedLogger =
-        new ReflectionHelper(sortPomService).getField(SortPomLogger.class);
     assertThat(logger, not(nullValue()));
     assertThat(logger, sameInstance(expectedLogger));
   }
@@ -215,7 +215,7 @@ class SortMojoParametersTest {
     new ReflectionHelper(sortMojo).setField(parameterName, parameterValue);
 
     try {
-      sortMojo.setup();
+      sortMojo.setup(null);
     } catch (MojoFailureException e) {
       throw new RuntimeException(e);
     }
@@ -233,7 +233,7 @@ class SortMojoParametersTest {
     new ReflectionHelper(sortMojo).setField(parameterName, true);
 
     try {
-      sortMojo.setup();
+      sortMojo.setup(null);
     } catch (MojoFailureException e) {
       throw new RuntimeException(e);
     }

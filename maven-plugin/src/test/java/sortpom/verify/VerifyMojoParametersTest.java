@@ -203,7 +203,7 @@ class VerifyMojoParametersTest {
     new ReflectionHelper(verifyMojo).setField(parameterName, parameterValue);
 
     try {
-      verifyMojo.setup();
+      verifyMojo.setup(null);
     } catch (MojoFailureException e) {
       throw new RuntimeException(e);
     }
@@ -221,7 +221,7 @@ class VerifyMojoParametersTest {
     new ReflectionHelper(verifyMojo).setField(parameterName, true);
 
     try {
-      verifyMojo.setup();
+      verifyMojo.setup(null);
     } catch (MojoFailureException e) {
       throw new RuntimeException(e);
     }

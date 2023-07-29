@@ -34,6 +34,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!
   * 2023-01-29: Released version 3.2.1. Dependency updates. No new functionality
   * 2022-07-23: Received an Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!
@@ -44,8 +45,6 @@ Added
   * 2021-04-20: Released version 3.0.0. **THIS IS A BREAKING CHANGE!** The predefined sort order is now according to the recommended pom order (as decided in 2008). Blank lines in the POM are now kept by default. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93) [#105](/../../issues/105)
   * 2021-04-06: Released version 2.15.0 that adds support for sortDependencyExclusions to sort dependency exclusions by groupId and/or artifactId
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
-  * 2020-07-02: Released version 2.12.0 that adds support to remove the space before self-closing xml tags. [#75](/../../issues/75)
-  * 2020-02-29: John Patrick converted all JUnit tests to version 5. Thank you! [#72](/../../issues/72) [#73](/../../issues/73)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
   * 2015-03-31: Moved the SortPom plugin to GitHub.
 

@@ -16,7 +16,7 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>RELEASE</version>
+        <version>LATEST</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

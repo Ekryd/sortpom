@@ -34,9 +34,9 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2022-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!
   * 2023-01-29: Released version 3.2.1. Dependency updates. No new functionality
-  * 2022-07-23: Received an Open Source Licence for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!
   * 2022-05-29: Released version 3.1.3. Fix formatting if text and other content is placed together in a xml tag [#209](/../../issues/209)
   * 2022-05-24: Released version 3.1.2. Fixed two bugs: Whitespace removed from multiple lines of text within XML tags [#206](/../../issues/206); Comments in the root of the xml document was removed during sorting [#205](/../../issues/205)

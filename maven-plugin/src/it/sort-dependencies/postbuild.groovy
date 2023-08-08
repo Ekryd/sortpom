@@ -1,6 +1,6 @@
 log = new File(basedir, 'build.log')
 sorted = new File(basedir, 'pom.xml')
-expected = new File(basedir, 'expected_pom.xml')
+expected = new File(basedir, 'expected/pom.xml')
 backup = new File(basedir, 'pom.xml.bak')
 
 assert log.exists()

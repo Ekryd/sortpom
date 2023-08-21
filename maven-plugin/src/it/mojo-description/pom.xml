@@ -22,6 +22,7 @@
           <artifactId>sortpom-maven-plugin</artifactId>
           <version>@pom.version@</version>
           <detail>true</detail>
+          <output>description.txt</output>
         </configuration>
       </plugin>
     </plugins>

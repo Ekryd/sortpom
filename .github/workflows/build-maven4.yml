@@ -1,0 +1,20 @@
+name: Build plugin under Maven 4.0.0-alpha-4
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Build Maven 4.0.0-alpha-4
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: zulu
+      - name: Load Maven 4.0.0-alpha-4
+        run: mvn -B -V org.apache.maven.plugins:maven-wrapper-plugin:3.2.0:wrapper -Dmaven=4.0.0-alpha-4 --no-transfer-progress
+      - name: Build Setup
+        run: ./mvnw -B -V clean verify -Dlicense.skip=true -Dmaven.min-version=4.0.0-alpha-4 --no-transfer-progress

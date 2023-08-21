@@ -298,7 +298,3 @@ sortpom:verify
       Saves the verification failure to an external xml file, recommended
       filename is 'target/sortpom_reports/violation.xml'.
 
-
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------

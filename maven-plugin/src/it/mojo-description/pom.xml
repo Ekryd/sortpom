@@ -20,8 +20,9 @@
         <configuration>
           <groupId>com.github.ekryd.sortpom</groupId>
           <artifactId>sortpom-maven-plugin</artifactId>
-          <version>@pom.version@</version>
+          <version>3.3.1-SNAPSHOT</version>
           <detail>true</detail>
+          <output>description.txt</output>
         </configuration>
       </plugin>
     </plugins>

@@ -4,7 +4,6 @@
     "config:base"
   ],
   "packageRules": [{
-      "packagePatterns": [ "maven" ],
       "matchUpdateTypes": [ "patch", "minor" ],
       "automerge": true
   }]

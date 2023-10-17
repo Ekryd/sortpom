@@ -19,19 +19,19 @@ shared: &shared
 jobs:
   jdk17:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: cimg/openjdk:21.0
     <<: *shared
   jdk19:
     docker:
-      - image: cimg/openjdk:19.0
+      - image: cimg/openjdk:21.0
     <<: *shared
   jdk20:
     docker:
-      - image: cimg/openjdk:20.0
+      - image: cimg/openjdk:21.0
     <<: *shared
   jdk11:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/openjdk:21.0
     steps:
       - checkout
       - restore_cache:

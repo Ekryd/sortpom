@@ -64,7 +64,7 @@ workflows:
               only: # only branches matching the below regex filters will run
                 - master
           requires:
-            - jdk19
+            - jdk17
             - jdk20
             - jdk21
 

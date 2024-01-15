@@ -21,20 +21,41 @@ The SortPom Plugin has two goals.
 
 ## Usage ##
 
-The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be [configured](https://github.com/Ekryd/sortpom/wiki/Parameters) to sort by different standards or by a custom format. A backup file will be created, by default, so that you can check how the pom-file has changed.
+The Sortpom plugin will reorder the pom elements and format the xml structure in the pom-file. The plugin can be [configured](https://github.com/Ekryd/sortpom/wiki/Parameters) to sort by different standards or by a custom format. A backup file will be created by default, so that you can check how the pom-file has changed.
 
-Sortpom works best if it is run every time during Maven compilation. [Configure](https://github.com/Ekryd/sortpom/wiki/Parameters) it once and then forget about it. If you want to perform a simple test what the plugin does then open a command prompt in your project home and enter
-```
-mvn com.github.ekryd.sortpom:sortpom-maven-plugin:sort -Dsort.keepBlankLines -Dsort.predefinedSortOrder=custom_1
+Sortpom works best if it is run every time during Maven compilation. [Configure](https://github.com/Ekryd/sortpom/wiki/Parameters) it once and then forget about it. Replace the plugin version with the latest one:
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>com.github.ekryd.sortpom</groupId>
+      <artifactId>sortpom-maven-plugin</artifactId>
+      <version>3.3.0</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>sort</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    ...
+  </plugins>
+</build>
 ```
 
-An example of how the plugin can be configured to run every time you build your project see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
+If you just want to perform a simple test what the plugin does then open a command prompt in your project home and enter
+```
+mvn com.github.ekryd.sortpom:sortpom-maven-plugin:3.3.0:sort -Dsort.predefinedSortOrder=custom_1
+```
+
+Detailed example of how the plugin can be configured to run every time you build your project; see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page
 
 The plugin will not change how your Maven project is compiled  ([Exception](https://github.com/Ekryd/sortpom/wiki/Parameters-that-can-affect-your-build))
 
 ## News ##
 Added 
-  * 2022-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
+  * 2023-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!
   * 2023-01-29: Released version 3.2.1. Dependency updates. No new functionality
   * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!

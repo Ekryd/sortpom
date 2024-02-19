@@ -59,12 +59,12 @@ class VerifyMojoParametersTest {
 
   @Test
   void createBackupFileParameter() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomService);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("createBackupFile", sortPomService);
   }
 
   @Test
   void keepTimestampParameter() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("keepTimestamp", fileUtil);
   }
 
   @Test
@@ -106,13 +106,13 @@ class VerifyMojoParametersTest {
 
   @Test
   void expandEmptyElementsParameter() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean(
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
         "expandEmptyElements", xmlOutputGenerator);
   }
 
   @Test
   void spaceBeforeCloseEmptyElementParameter() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean(
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
         "spaceBeforeCloseEmptyElement", xmlOutputGenerator);
   }
 
@@ -160,32 +160,40 @@ class VerifyMojoParametersTest {
 
   @Test
   void parameterSortModulesShouldEndUpInWrapperFactoryImpl() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("sortModules", elementWrapperCreator);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("sortModules", elementWrapperCreator);
   }
 
   @Test
   void parameterSortExecutionsShouldEndUpInWrapperFactoryImpl() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("sortExecutions", elementWrapperCreator);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
+        "sortExecutions", elementWrapperCreator);
   }
 
   @Test
   void parameterSortPropertiesShouldEndUpInWrapperFactoryImpl() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("sortProperties", elementWrapperCreator);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
+        "sortProperties", elementWrapperCreator);
   }
 
   @Test
-  void parameterKeepBlankLineShouldEndUpInXmlProcessor() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", textWrapperCreator);
+  void parameterKeepBlankLineShouldEndUpInTextWrapperCreator() {
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", textWrapperCreator);
+  }
+
+  @Test
+  void parameterEndWithNewlineShouldEndUpInXmlProcessor() {
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("endWithNewline", xmlOutputGenerator);
   }
 
   @Test
   void parameterIndentBlankLineShouldEndUpInXmlProcessor() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean("indentBlankLines", xmlOutputGenerator);
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
+        "indentBlankLines", xmlOutputGenerator);
   }
 
   @Test
   void parameterIndentSchemaLocationShouldEndUpInXmlProcessor() {
-    testParameterMoveFromMojoToRestOfApplicationForBoolean(
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
         "indentSchemaLocation", xmlOutputGenerator);
   }
 
@@ -216,7 +224,7 @@ class VerifyMojoParametersTest {
     }
   }
 
-  private void testParameterMoveFromMojoToRestOfApplicationForBoolean(
+  private void assertParameterMoveFromMojoToRestOfApplicationForBoolean(
       String parameterName, Object... whereParameterCanBeFound) {
     new ReflectionHelper(verifyMojo).setField(parameterName, true);
 

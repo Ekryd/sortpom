@@ -16,7 +16,6 @@ class KeepBlankLinesTest {
   final void emptyLinesInXmlShouldNotAffectVerify2() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
-        .keepBlankLines()
         .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
   }
 
@@ -24,7 +23,6 @@ class KeepBlankLinesTest {
   final void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
-        .keepBlankLines()
         .indentBlankLines()
         .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
   }
@@ -57,14 +55,12 @@ class KeepBlankLinesTest {
   final void simpleLineBreaksShouldNotAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
-        .keepBlankLines()
         .testVerifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
   }
 
   @Test
   final void unsortedXmlShouldAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
-        .keepBlankLines()
         .testVerifyXmlIsNotOrdered(
             "src/test/resources/LineBreak_input.xml",
             "The xml element <modelVersion> should be placed before <artifactId>");

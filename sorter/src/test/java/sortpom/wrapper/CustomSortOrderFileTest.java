@@ -14,14 +14,14 @@ import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 
 class CustomSortOrderFileTest {
+
   @Test
   void compareDefaultSortOrderFileToString() throws Exception {
-    String expected =
-        new String(
-            new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt")
-                .readAllBytes(),
-            StandardCharsets.UTF_8);
-    assertEquals(expected, getToStringOnCustomSortOrderFile());
+    try (var fileInputStream =
+        new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt")) {
+      String expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+      assertEquals(expected, getToStringOnCustomSortOrderFile());
+    }
   }
 
   private String getToStringOnCustomSortOrderFile()
@@ -31,7 +31,7 @@ class CustomSortOrderFileTest {
             .setPomFile(null)
             .setFileOutput(false, ".bak", null, false)
             .setEncoding("UTF-8")
-            .setFormatting("\r\n", true, true, true)
+            .setFormatting("\r\n", true, true, true, true)
             .setIndent(2, false, false)
             .setSortOrder("src/test/resources/sortOrderFiles/with_newline_tags.xml", null)
             .setSortEntities(

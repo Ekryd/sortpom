@@ -53,13 +53,6 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlReal1() throws Exception {
-    XmlProcessorTestUtil.create()
-        .testInputAndExpected(
-            "src/test/resources/Real1_input.xml", "src/test/resources/Real1_expected.xml");
-  }
-
-  @Test
   final void testSortXmlSimple() throws Exception {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(

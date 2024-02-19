@@ -32,7 +32,7 @@ class ExpandEmptyElementTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting("\n", expandEmptyElements, spaceBeforeCloseEmptyElement, false)
+            .setFormatting("\n", expandEmptyElements, spaceBeforeCloseEmptyElement, false, true)
             .setIndent(2, false, false)
             .build());
 

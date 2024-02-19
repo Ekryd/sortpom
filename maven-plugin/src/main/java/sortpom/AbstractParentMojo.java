@@ -48,6 +48,10 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Parameter(property = "sort.keepBlankLines", defaultValue = "true")
   boolean keepBlankLines;
 
+  /** Whether to ensure that sorted pom ends with a newline. */
+  @Parameter(property = "sort.endWithNewline", defaultValue = "true")
+  boolean endWithNewline;
+
   /**
    * Number of space characters to use as indentation. A value of -1 indicates that tab character
    * should be used instead.

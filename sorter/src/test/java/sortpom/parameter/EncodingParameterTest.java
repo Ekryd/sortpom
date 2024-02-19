@@ -37,7 +37,7 @@ class EncodingParameterTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("gurka-2000")
-            .setFormatting("\n", true, true, false)
+            .setFormatting("\n", true, true, false, true)
             .setIndent(2, false, false)
             .build());
 

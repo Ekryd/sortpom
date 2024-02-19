@@ -29,7 +29,7 @@ class ElementUtilTest {
 
   @Test
   void testConstructor() {
-    ElementUtil elementUtil = ReflectionHelper.instantiatePrivateConstructor(ElementUtil.class);
+    var elementUtil = ReflectionHelper.instantiatePrivateConstructor(ElementUtil.class);
     assertThat(elementUtil, not(nullValue()));
   }
 

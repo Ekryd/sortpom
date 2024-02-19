@@ -17,12 +17,12 @@ class HierarchyWrapper {
   private final List<Wrapper<Node>> otherContentList = new ArrayList<>();
   private final List<HierarchyWrapper> children = new ArrayList<>();
 
-  HierarchyWrapper(final Wrapper<? extends Node> wrapper) {
+  HierarchyWrapper(Wrapper<? extends Node> wrapper) {
     addContent(wrapper);
   }
 
   @SuppressWarnings("unchecked")
-  private void addContent(final Wrapper<? extends Node> wrapper) {
+  private void addContent(Wrapper<? extends Node> wrapper) {
     if (wrapper.isContentElement()) {
       elementContent = (Wrapper<Element>) wrapper;
     } else {
@@ -31,9 +31,9 @@ class HierarchyWrapper {
   }
 
   /** Traverses the initial xml element wrapper and builds hierarchy */
-  void createWrappedStructure(final WrapperFactory factory) {
+  void createWrappedStructure(WrapperFactory factory) {
     HierarchyWrapper currentWrapper = null;
-    for (Node child : elementContent.getContent().content()) {
+    for (var child : elementContent.getContent().content()) {
       Wrapper<?> wrapper = factory.create(child);
       if (wrapper instanceof SingleNewlineInTextWrapper) {
         continue;
@@ -77,9 +77,9 @@ class HierarchyWrapper {
     operation.manipulateChildElements(children);
 
     // Hook to modify the operation before traversing sub levels
-    HierarchyWrapperOperation subOperation = operation.createSubOperation();
+    var subOperation = operation.createSubOperation();
 
-    for (HierarchyWrapper child : children) {
+    for (var child : children) {
       child.processOperation(subOperation);
     }
 
@@ -90,7 +90,7 @@ class HierarchyWrapper {
   /** Returns the whole xml structure as a readable string */
   @Override
   public String toString() {
-    ToStringOperation operation = new ToStringOperation();
+    var operation = new ToStringOperation();
     processOperation(operation);
     return operation.toString();
   }

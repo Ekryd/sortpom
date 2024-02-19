@@ -17,18 +17,18 @@ class MultiThreadTest {
   private final AtomicInteger counter = new AtomicInteger(1);
 
   @Test
-  final void multipleSortingsShouldNotInterfereWithEachOther()
+  void multipleSortingsShouldNotInterfereWithEachOther()
       throws InterruptedException, ExecutionException {
     ExecutorService executorService = new ScheduledThreadPoolExecutor(10);
-    for (int a = 0; a < 10; a++) {
+    for (var a = 0; a < 10; a++) {
       testOneConcurrentLoop(executorService);
     }
   }
 
-  private void testOneConcurrentLoop(final ExecutorService executorService)
+  private void testOneConcurrentLoop(ExecutorService executorService)
       throws InterruptedException, ExecutionException {
-    List<Callable<Boolean>> testThreads = getTestThreads();
-    List<Future<Boolean>> futures = executorService.invokeAll(testThreads);
+    var testThreads = getTestThreads();
+    var futures = executorService.invokeAll(testThreads);
     assertAllThreadsReturnedTrue(futures);
   }
 
@@ -55,9 +55,9 @@ class MultiThreadTest {
     return list;
   }
 
-  private void assertAllThreadsReturnedTrue(final List<Future<Boolean>> futures)
+  private void assertAllThreadsReturnedTrue(List<Future<Boolean>> futures)
       throws InterruptedException, ExecutionException {
-    for (Future<Boolean> future : futures) {
+    for (var future : futures) {
       assertEquals(true, future.get());
     }
   }
@@ -92,6 +92,7 @@ class MultiThreadTest {
                 inputResourceFileName,
                 "The xml element <modelVersion> should be placed before <parent>");
       } catch (Exception e) {
+        //noinspection CallToPrintStackTrace
         e.printStackTrace();
         return false;
       }

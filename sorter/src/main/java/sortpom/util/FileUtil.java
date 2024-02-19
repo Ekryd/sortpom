@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
@@ -103,7 +102,7 @@ public class FileUtil {
   }
 
   public void saveViolationFile(String violationXml) {
-    File violationFile = new File(violationFilename);
+    var violationFile = new File(violationFilename);
     saveFile(
         violationFile,
         violationXml,
@@ -150,7 +149,7 @@ public class FileUtil {
     CheckedSupplier<InputStream, IOException> createStreamFunc =
         () -> {
           if (customSortOrderFile != null) {
-            UrlWrapper urlWrapper = new UrlWrapper(customSortOrderFile);
+            var urlWrapper = new UrlWrapper(customSortOrderFile);
             if (urlWrapper.isUrl()) {
               return urlWrapper.openStream();
             } else {
@@ -160,7 +159,7 @@ public class FileUtil {
           return getPredefinedSortOrder(predefinedSortOrder);
         };
 
-    try (InputStream inputStream = createStreamFunc.get()) {
+    try (var inputStream = createStreamFunc.get()) {
       return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
     }
   }
@@ -177,7 +176,7 @@ public class FileUtil {
     } catch (FileNotFoundException ex) {
       // try classpath
       try {
-        URL resource = this.getClass().getClassLoader().getResource(customSortOrderFile);
+        var resource = this.getClass().getClassLoader().getResource(customSortOrderFile);
         if (resource == null) {
           throw new IOException("Cannot find resource");
         }
@@ -193,12 +192,12 @@ public class FileUtil {
   }
 
   private InputStream getPredefinedSortOrder(String predefinedSortOrder) throws IOException {
-    Optional<URL> resourceOptional =
+    var resourceOptional =
         Optional.of(getClass())
             .map(Class::getClassLoader)
             .map(classLoader -> classLoader.getResource(predefinedSortOrder + XML_FILE_EXTENSION));
 
-    URL resource =
+    var resource =
         resourceOptional.orElseThrow(
             () ->
                 new IllegalArgumentException(

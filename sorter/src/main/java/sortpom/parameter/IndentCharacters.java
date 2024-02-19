@@ -32,7 +32,7 @@ class IndentCharacters {
       throw new FailureException(
           "nrOfIndentSpace cannot be below -1 or above 255, was: " + nrOfIndentSpace);
     }
-    char[] chars = new char[nrOfIndentSpace];
+    var chars = new char[nrOfIndentSpace];
     Arrays.fill(chars, ' ');
     return new String(chars);
   }

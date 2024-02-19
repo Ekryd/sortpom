@@ -29,7 +29,7 @@ class UrlWrapper {
   }
 
   public InputStream openStream() throws IOException {
-    URL url = new URL(spec);
+    var url = new URL(spec);
     return url.openStream();
   }
 }

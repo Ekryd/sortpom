@@ -26,7 +26,7 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void replaceNoSectionShouldReturnSameXml() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
@@ -42,7 +42,7 @@ class IgnoredSectionsStoreTest {
             + "  <reporting />\n"
             + "  <version>1.0.0-SNAPSHOT</version>\n"
             + "</project>";
-    String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
+    var replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
     assertThat(replaced, is(xml));
     assertThat(ignoredSections.size(), is(0));
@@ -50,8 +50,8 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void replaceOneSectionShouldCreateOneToken() {
-    String xml = "abc<?sortpom ignore?>def<?sortpom resume?>cba";
-    String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
+    var xml = "abc<?sortpom ignore?>def<?sortpom resume?>cba";
+    var replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
     assertThat(replaced, is("abc<?sortpom token='0'?>cba"));
     assertThat(ignoredSections.size(), is(1));
@@ -60,9 +60,9 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void replaceMultipleSectionShouldCreateManyTokens() {
-    String xml =
+    var xml =
         "abc<?sortpom ignore?>def1<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def2<?sortPom reSUME?>cba";
-    String replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
+    var replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
     assertThat(replaced, is("abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba"));
     assertThat(ignoredSections.size(), is(2));
@@ -72,7 +72,7 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void replaceMultipleLineXmlShouldCreateManyTokens() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "\n"
@@ -136,11 +136,11 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void revertTokensInOrderShouldWork() {
-    String xml = "abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba";
+    var xml = "abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba";
     ignoredSections.add("<?sortpom ignore?>def1<?sortpom resume?>");
     ignoredSections.add("<?SORTPOM Ignore?>def2<?sortPom reSUME?>");
 
-    String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
+    var replaced = ignoredSectionsStore.revertIgnoredSections(xml);
     assertThat(
         replaced,
         is(
@@ -149,11 +149,11 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void revertTokensInRearrangedOrderShouldPlaceTextInRightOrder() {
-    String xml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
+    var xml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
     ignoredSections.add("<?sortpom ignore?>def0<?sortpom resume?>");
     ignoredSections.add("<?SORTPOM Ignore?>def1<?sortPom reSUME?>");
 
-    String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
+    var replaced = ignoredSectionsStore.revertIgnoredSections(xml);
     assertThat(
         replaced,
         is(
@@ -162,7 +162,7 @@ class IgnoredSectionsStoreTest {
 
   @Test
   void revertTokensInMultipleLinesShouldPlaceTextInRightOrder() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "\n"
@@ -212,7 +212,7 @@ class IgnoredSectionsStoreTest {
             + "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n"
             + "        <?sortpom resume?>");
 
-    String replaced = ignoredSectionsStore.revertIgnoredSections(xml);
+    var replaced = ignoredSectionsStore.revertIgnoredSections(xml);
     assertThat(
         replaced,
         is(

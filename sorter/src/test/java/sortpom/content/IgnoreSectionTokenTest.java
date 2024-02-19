@@ -8,7 +8,7 @@ class IgnoreSectionTokenTest {
 
   @Test
   void appendTextShouldNotBeSupported() {
-    IgnoreSectionToken ignoreSectionToken = new IgnoreSectionToken(null, null, "value");
+    var ignoreSectionToken = new IgnoreSectionToken(null, null, "value");
     assertThrows(
         UnsupportedOperationException.class, () -> ignoreSectionToken.appendText("whatever"));
   }

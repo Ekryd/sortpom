@@ -17,7 +17,7 @@ class ViolationXmlProcessor {
     Element violationElement = new BaseElement("violation");
     violationElement.setText(violationMessage);
 
-    BaseElement fileElement = new BaseElement("file");
+    var fileElement = new BaseElement("file");
     fileElement.add(violationElement);
     fileElement.addAttribute("filename", pomFileLocation.getAbsolutePath());
 

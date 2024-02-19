@@ -38,11 +38,11 @@ public class ElementComparator {
 
   private XmlOrderedResult isChildrenOrdered(
       String name, List<Element> originalElementChildren, List<Element> newElementChildren) {
-    int size = Math.min(originalElementChildren.size(), newElementChildren.size());
-    for (int i = 0; i < size; i++) {
-      ElementComparator elementComparator =
+    var size = Math.min(originalElementChildren.size(), newElementChildren.size());
+    for (var i = 0; i < size; i++) {
+      var elementComparator =
           new ElementComparator(originalElementChildren.get(i), newElementChildren.get(i));
-      XmlOrderedResult elementOrdered = elementComparator.isElementOrdered();
+      var elementOrdered = elementComparator.isElementOrdered();
       if (!elementOrdered.isOrdered()) {
         return elementOrdered;
       }

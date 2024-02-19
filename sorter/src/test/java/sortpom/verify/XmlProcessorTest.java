@@ -6,20 +6,20 @@ import sortpom.util.XmlProcessorTestUtil;
 class XmlProcessorTest {
 
   @Test
-  final void testSortXmlAttributesShouldNotAffectVerify() throws Exception {
+  void testSortXmlAttributesShouldNotAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("src/test/resources/Attribute_expected.xml");
   }
 
   @Test
-  final void testSortXmlMultilineCommentShouldNotAffectVerify() throws Exception {
+  void testSortXmlMultilineCommentShouldNotAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .testVerifyXmlIsOrdered("src/test/resources/MultilineComment_expected.xml");
   }
 
   @Test
-  final void testSortXmlAttributesShouldAffectVerify() throws Exception {
+  void testSortXmlAttributesShouldAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .testVerifyXmlIsNotOrdered(
             "src/test/resources/Attribute_input.xml",
@@ -27,7 +27,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlMultilineCommentShouldAffectVerify() throws Exception {
+  void testSortXmlMultilineCommentShouldAffectVerify() throws Exception {
     XmlProcessorTestUtil.create()
         .testVerifyXmlIsNotOrdered(
             "src/test/resources/MultilineComment_input.xml",

@@ -7,7 +7,6 @@ import static org.mockito.Mockito.mockStatic;
 
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
-import org.mockito.MockedStatic;
 import refutils.ReflectionHelper;
 import sortpom.util.XmlOrderedResult;
 
@@ -19,7 +18,7 @@ class SortPomServiceTest {
   @Test
   void equalStringShouldBeSame() {
     setOriginalAndSortedXml("hello", "hello");
-    XmlOrderedResult result = service.isOriginalXmlStringSorted();
+    var result = service.isOriginalXmlStringSorted();
     assertThat(result.isOrdered(), is(true));
   }
 
@@ -28,7 +27,7 @@ class SortPomServiceTest {
     serviceHelper.setField("ignoreLineSeparators", false);
 
     setOriginalAndSortedXml("hello\nyou", "hello\nyou");
-    XmlOrderedResult result = service.isOriginalXmlStringSorted();
+    var result = service.isOriginalXmlStringSorted();
     assertThat(result.isOrdered(), is(true));
   }
 
@@ -37,7 +36,7 @@ class SortPomServiceTest {
     serviceHelper.setField("ignoreLineSeparators", false);
 
     setOriginalAndSortedXml("hello\nyou", "hello\r\nyou");
-    XmlOrderedResult originalXmlStringSorted = service.isOriginalXmlStringSorted();
+    var originalXmlStringSorted = service.isOriginalXmlStringSorted();
     assertThat(originalXmlStringSorted.isOrdered(), is(false));
     assertThat(
         originalXmlStringSorted.getErrorMessage(),
@@ -56,7 +55,7 @@ class SortPomServiceTest {
     serviceHelper.setField("ignoreLineSeparators", false);
 
     setOriginalAndSortedXml("hello", "hello\nyou");
-    XmlOrderedResult originalXmlStringSorted = service.isOriginalXmlStringSorted();
+    var originalXmlStringSorted = service.isOriginalXmlStringSorted();
     assertThat(originalXmlStringSorted.isOrdered(), is(false));
     assertThat(
         originalXmlStringSorted.getErrorMessage(),
@@ -75,7 +74,7 @@ class SortPomServiceTest {
     serviceHelper.setField("ignoreLineSeparators", false);
 
     setOriginalAndSortedXml("hello\nme", "hello\nyou");
-    XmlOrderedResult originalXmlStringSorted = service.isOriginalXmlStringSorted();
+    var originalXmlStringSorted = service.isOriginalXmlStringSorted();
     assertThat(originalXmlStringSorted.isOrdered(), is(false));
     assertThat(
         originalXmlStringSorted.getErrorMessage(),
@@ -87,7 +86,7 @@ class SortPomServiceTest {
     serviceHelper.setField("ignoreLineSeparators", false);
 
     setOriginalAndSortedXml("hello\nme", "hello\nyou");
-    try (MockedStatic<XmlOrderedResult> mock = mockStatic(XmlOrderedResult.class)) {
+    try (var mock = mockStatic(XmlOrderedResult.class)) {
       mock.when(() -> XmlOrderedResult.lineDiffers(2, "'you'"))
           .thenAnswer(
               invocationOnMock -> {

@@ -31,15 +31,15 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenOldBackupFileCannotBeDeletedAnExceptionShouldBeThrown() {
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
     doNotAccessRealBackupFile(fileUtil);
 
     // Set backup file to a directory (which raises DirectoryNotEmptyException)
     new ReflectionHelper(fileUtil).setField("backupFile", backupFileTemp.getParentFile());
 
-    final Executable testMethod = fileUtil::backupFile;
+    Executable testMethod = fileUtil::backupFile;
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -55,11 +55,11 @@ class FileUtilExceptionsTest {
   void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() {
     assertTrue(pomFileTemp.delete());
 
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
 
-    final Executable testMethod = fileUtil::backupFile;
+    Executable testMethod = fileUtil::backupFile;
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -75,12 +75,12 @@ class FileUtilExceptionsTest {
   void whenPomFileCannotBeReadAnExceptionShouldBeThrown() {
     assertTrue(pomFileTemp.delete());
 
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
     new ReflectionHelper(fileUtil).setField("pomFile", pomFileTemp);
 
-    final Executable testMethod = fileUtil::getPomFileContent;
+    Executable testMethod = fileUtil::getPomFileContent;
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -90,13 +90,13 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenPomFileHasWrongEncodingAnExceptionShouldBeThrown() {
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
 
     new ReflectionHelper(fileUtil).setField("encoding", "gurka-2000");
 
-    final Executable testMethod = fileUtil::getPomFileContent;
+    Executable testMethod = fileUtil::getPomFileContent;
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -108,11 +108,11 @@ class FileUtilExceptionsTest {
   void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() {
     assertTrue(pomFileTemp.setReadOnly());
 
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
 
-    final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
+    Executable testMethod = () -> fileUtil.savePomFile("Whatever");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -123,12 +123,12 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenPomFileTimestampCannotBeRetrievedAnExceptionShouldBeThrown() {
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
     new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-    final Executable testMethod = fileUtil::getPomFileContent;
+    Executable testMethod = fileUtil::getPomFileContent;
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -141,12 +141,12 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenPomFileTimestampCannotBeSetAnExceptionShouldBeThrown() {
-    FileUtil fileUtil = createFileUtil();
+    var fileUtil = createFileUtil();
     new ReflectionHelper(fileUtil).setField("keepTimestamp", true);
 
-    final Executable testMethod = () -> fileUtil.savePomFile("Whatever");
+    Executable testMethod = () -> fileUtil.savePomFile("Whatever");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -157,9 +157,9 @@ class FileUtilExceptionsTest {
   }
 
   private FileUtil createFileUtil() {
-    FileUtil originalFileUtil = new FileUtil();
+    var originalFileUtil = new FileUtil();
 
-    ReflectionHelper helper = new ReflectionHelper(originalFileUtil);
+    var helper = new ReflectionHelper(originalFileUtil);
     helper.setField("pomFile", pomFileTemp);
     helper.setField("newName", "backupFileName");
     helper.setField("backupFileExtension", ".bak");

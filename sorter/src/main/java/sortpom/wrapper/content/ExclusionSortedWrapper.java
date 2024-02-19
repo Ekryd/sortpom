@@ -1,6 +1,5 @@
 package sortpom.wrapper.content;
 
-import java.util.List;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import sortpom.parameter.DependencySortOrder;
@@ -20,24 +19,24 @@ public class ExclusionSortedWrapper extends SortedWrapper {
    * @param element the element
    * @param sortOrder the sort order
    */
-  public ExclusionSortedWrapper(final Element element, final int sortOrder) {
+  public ExclusionSortedWrapper(Element element, int sortOrder) {
     super(element, sortOrder);
   }
 
   public void setSortOrder(DependencySortOrder childElementNames) {
-    List<Element> children = getContent().elements();
+    var children = getContent().elements();
     this.childElementSorter = new ChildElementSorter(childElementNames, children);
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     if (wrapper instanceof ExclusionSortedWrapper) {
       return isBeforeExclusionSortedWrapper((ExclusionSortedWrapper) wrapper);
     }
     return super.isBefore(wrapper);
   }
 
-  private boolean isBeforeExclusionSortedWrapper(final ExclusionSortedWrapper wrapper) {
+  private boolean isBeforeExclusionSortedWrapper(ExclusionSortedWrapper wrapper) {
     // SortOrder will always be same for both ExclusionSortedWrapper because there is only one tag
     // under exclusions
     // that is named exclusion, see sortpom.wrapper.ElementWrapperCreator.isExclusionElement.

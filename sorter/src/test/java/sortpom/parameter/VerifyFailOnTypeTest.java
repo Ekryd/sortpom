@@ -17,16 +17,14 @@ import sortpom.exception.FailureException;
 class VerifyFailOnTypeTest {
   @Test
   void xmlElementsIgnoreCaseValueIsOk() {
-    PluginParameters pluginParameters =
-        PluginParameters.builder().setVerifyFail("STOP", "XMLElements").build();
+    var pluginParameters = PluginParameters.builder().setVerifyFail("STOP", "XMLElements").build();
 
     assertEquals(VerifyFailOnType.XMLELEMENTS, pluginParameters.verifyFailOn);
   }
 
   @Test
   void strictIgnoreCaseValueIsOk() {
-    PluginParameters pluginParameters =
-        PluginParameters.builder().setVerifyFail("STOP", "stRIct").build();
+    var pluginParameters = PluginParameters.builder().setVerifyFail("STOP", "stRIct").build();
 
     assertEquals(VerifyFailOnType.STRICT, pluginParameters.verifyFailOn);
   }
@@ -35,11 +33,9 @@ class VerifyFailOnTypeTest {
   @NullAndEmptySource
   @ValueSource(strings = "gurka")
   void verifyFailFaultyValues(String value) {
+    Executable testMethod = () -> PluginParameters.builder().setVerifyFail("STOP", value).build();
 
-    final Executable testMethod =
-        () -> PluginParameters.builder().setVerifyFail("STOP", value).build();
-
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),

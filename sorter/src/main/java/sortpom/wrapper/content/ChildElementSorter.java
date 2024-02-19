@@ -1,6 +1,5 @@
 package sortpom.wrapper.content;
 
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,7 @@ public class ChildElementSorter {
       new LinkedHashMap<>();
 
   public ChildElementSorter(DependencySortOrder dependencySortOrder, List<Element> children) {
-    Collection<String> childElementNames = dependencySortOrder.getChildElementNames();
+    var childElementNames = dependencySortOrder.getChildElementNames();
 
     childElementNames.forEach(
         name -> childElementTextMappedBySortedNames.put(name.toUpperCase(), ""));
@@ -88,8 +87,8 @@ public class ChildElementSorter {
       if (scope == null || scope.isEmpty()) {
         return COMPILE;
       }
-      Scope[] values = Scope.values();
-      for (Scope value : values) {
+      var values = Scope.values();
+      for (var value : values) {
         if (scope.equalsIgnoreCase(value.name())) {
           return value;
         }

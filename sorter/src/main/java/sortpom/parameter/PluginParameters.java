@@ -123,7 +123,7 @@ public class PluginParameters {
     private Builder() {}
 
     /** Sets pomFile location */
-    public Builder setPomFile(final File pomFile) {
+    public Builder setPomFile(File pomFile) {
       this.pomFile = pomFile;
       return this;
     }
@@ -142,7 +142,7 @@ public class PluginParameters {
     }
 
     /** Sets which encoding should be used throughout the plugin */
-    public Builder setEncoding(final String encoding) {
+    public Builder setEncoding(String encoding) {
       this.encoding = encoding;
       return this;
     }

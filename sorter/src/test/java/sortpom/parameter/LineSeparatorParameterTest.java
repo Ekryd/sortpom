@@ -18,15 +18,14 @@ class LineSeparatorParameterTest {
 
   @Test
   void lineSeparatorWithSomethingElseShouldThrowException() {
-
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             PluginParameters.builder()
                 .setEncoding("UTF-8")
                 .setFormatting("***", false, true, false, true)
                 .setIndent(2, false, false);
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -71,11 +70,10 @@ class LineSeparatorParameterTest {
   @ParameterizedTest
   @MethodSource("provideSeparators")
   void testFailedInput(String lineSeparator, String expectedChars) {
-
-    final Executable testMethod =
+    Executable testMethod =
         () -> PluginParameters.builder().setFormatting(lineSeparator, true, true, true, true);
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),

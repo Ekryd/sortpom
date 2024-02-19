@@ -6,7 +6,7 @@ import sortpom.util.SortPomImplUtil;
 class ReportPluginsTest {
 
   @Test
-  final void sortReportPluginsByArtifactIdWithCustomSortOrderFileShouldWork() throws Exception {
+  void sortReportPluginsByArtifactIdWithCustomSortOrderFileShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("sortOrderFiles/custom_report_plugins.xml")
         .lineSeparator("\r\n")
@@ -15,7 +15,7 @@ class ReportPluginsTest {
   }
 
   @Test
-  final void sortReportPluginsByGroupIdWithCustomSortOrderFileShouldWork() throws Exception {
+  void sortReportPluginsByGroupIdWithCustomSortOrderFileShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("sortOrderFiles/custom_report_plugins.xml")
         .lineSeparator("\r\n")

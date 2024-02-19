@@ -11,14 +11,14 @@ import sortpom.util.SortPomImplUtil;
 class VerifyOrderTest {
 
   @Test
-  final void sortedButUnformattedSortOrderShouldPass() throws Exception {
+  void sortedButUnformattedSortOrderShouldPass() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("recommended_2008_06")
         .testVerifyXmlIsOrdered("/Real2_input.xml");
   }
 
   @Test
-  final void wrongSortedShouldNotPass() throws Exception {
+  void wrongSortedShouldNotPass() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("custom_1")
         .testVerifyXmlIsNotOrdered(
@@ -27,7 +27,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  final void wrongSortedWithStrictVerifyShouldNotPass() throws Exception {
+  void wrongSortedWithStrictVerifyShouldNotPass() throws Exception {
     SortPomImplUtil.create()
         .verifyFailOn("strict")
         .predefinedSortOrder("custom_1")

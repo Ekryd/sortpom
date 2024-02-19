@@ -10,7 +10,6 @@ import static org.mockito.Mockito.when;
 import static sortpom.sort.XmlFragment.createXmlFragment;
 
 import java.io.IOException;
-import org.dom4j.Document;
 import org.dom4j.tree.DefaultAttribute;
 import org.dom4j.tree.DefaultElement;
 import org.dom4j.tree.DefaultNamespace;
@@ -27,7 +26,7 @@ class XmlOutputGeneratorTest {
 
   @Test
   void simulateIOExceptionToTriggerExceptionMessage() {
-    Document document = spy(createXmlFragment());
+    var document = spy(createXmlFragment());
     // Simulate an IOException (a checked one, no less)
     when(document.node(0))
         .thenAnswer(
@@ -35,13 +34,13 @@ class XmlOutputGeneratorTest {
               throw new IOException();
             });
 
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
-    final Executable testMethod = () -> xmlOutputGenerator.getSortedXml(document);
+    Executable testMethod = () -> xmlOutputGenerator.getSortedXml(document);
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         "Unexpected message",
@@ -51,22 +50,22 @@ class XmlOutputGeneratorTest {
 
   @Test
   void definedParentNamespaceShouldBeReused() {
-    Document document = createXmlFragment();
-    String namespaceUri = "this is a uri";
+    var document = createXmlFragment();
+    var namespaceUri = "this is a uri";
     document
         .getRootElement()
         .setAttributes(singletonList(new DefaultAttribute("xmlns:namespace", namespaceUri)));
 
-    DefaultElement child = new DefaultElement("child");
+    var child = new DefaultElement("child");
     child.add(
         new DefaultAttribute("attr1", "value", new DefaultNamespace("namespace", namespaceUri)));
     document.getRootElement().add(child);
 
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
-    String sortedXml = xmlOutputGenerator.getSortedXml(document);
+    var sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(
         sortedXml,
         is(
@@ -77,21 +76,21 @@ class XmlOutputGeneratorTest {
 
   @Test
   void redefinedParentNamespaceShouldBeWrittenAgain() {
-    Document document = createXmlFragment();
+    var document = createXmlFragment();
     document
         .getRootElement()
         .setAttributes(singletonList(new DefaultAttribute("xmlns:namespace", "this is a uri")));
 
-    DefaultElement child = new DefaultElement("child");
+    var child = new DefaultElement("child");
     child.add(
         new DefaultAttribute("attr1", "value", new DefaultNamespace("namespace", "another uri")));
     document.getRootElement().add(child);
 
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
-    String sortedXml = xmlOutputGenerator.getSortedXml(document);
+    var sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(
         sortedXml,
         is(
@@ -102,14 +101,14 @@ class XmlOutputGeneratorTest {
 
   @Test
   void attributeCalledXmlnsShouldNotBePrinted() {
-    Document document = createXmlFragment();
+    var document = createXmlFragment();
     document.getRootElement().setAttributes(singletonList(new DefaultAttribute("xmlns", "value")));
 
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
-    String sortedXml = xmlOutputGenerator.getSortedXml(document);
+    var sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(
         sortedXml, is(equalTo("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka></Gurka>\n")));
   }

@@ -24,7 +24,7 @@ interface Phase {
         return 1;
       }
     }
-    StandardPhase so1 = (StandardPhase) o1;
+    var so1 = (StandardPhase) o1;
     if (o2 instanceof NonStandardPhase) {
       return -1;
     }
@@ -32,7 +32,7 @@ interface Phase {
   }
 
   static Phase getPhase(String name) {
-    Optional<Phase> phase = StandardPhase.getPhase(name);
+    var phase = StandardPhase.getPhase(name);
     return phase.orElse(new NonStandardPhase(name));
   }
 

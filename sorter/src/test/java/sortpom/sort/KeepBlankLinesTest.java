@@ -9,7 +9,7 @@ import sortpom.util.XmlProcessorTestUtil;
 
 class KeepBlankLinesTest {
   @Test
-  final void emptyRowsInSimplePomShouldBePreserved() throws Exception {
+  void emptyRowsInSimplePomShouldBePreserved() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -17,7 +17,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void emptyRowsInLargePomShouldBePreserved1() throws Exception {
+  void emptyRowsInLargePomShouldBePreserved1() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -26,7 +26,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void emptyRowsInLargePomShouldBePreservedAndIndented1() throws Exception {
+  void emptyRowsInLargePomShouldBePreservedAndIndented1() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBlankLines()
@@ -36,14 +36,14 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void emptyRowsInLargePomShouldBePreserved2() throws Exception {
+  void emptyRowsInLargePomShouldBePreserved2() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines.xml");
   }
 
   @Test
-  final void emptyRowsInLargePomShouldBePreservedAndIndented2() throws Exception {
+  void emptyRowsInLargePomShouldBePreservedAndIndented2() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBLankLines()
@@ -51,15 +51,15 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void simpleLineBreaksShouldNotBePreserved() throws Exception {
+  void simpleLineBreaksShouldNotBePreserved() throws Exception {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/LineBreak_input.xml", "src/test/resources/Character_expected.xml");
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeNewlines() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeNewlines() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\n")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
@@ -71,8 +71,8 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeCarriageReturnNewlines() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeCarriageReturnNewlines() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r\n")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
@@ -84,8 +84,8 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeCarriageReturn() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeCarriageReturn() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_N_input.xml");
@@ -97,8 +97,8 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeNewlines2() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeNewlines2() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\n")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
@@ -110,8 +110,8 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeCarriageReturnNewlines2() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeCarriageReturnNewlines2() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r\n")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
@@ -123,8 +123,8 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void allLineBreaksInXmlShouldBeCarriageReturn2() throws Exception {
-    String actual =
+  void allLineBreaksInXmlShouldBeCarriageReturn2() throws Exception {
+    var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r")
             .sortXmlAndReturnResult("src/test/resources/LineBreak_RN_input.xml");
@@ -136,7 +136,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void artifactIdsWithLineBreaksShouldBeTrimmedBeforeSorting() throws Exception {
+  void artifactIdsWithLineBreaksShouldBeTrimmedBeforeSorting() throws Exception {
     XmlProcessorTestUtil.create()
         .lineSeparator("\n")
         .expandEmptyElements(false)
@@ -151,7 +151,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  final void emptyRowsInLargePomShouldNotBePreserved() throws Exception {
+  void emptyRowsInLargePomShouldNotBePreserved() throws Exception {
     XmlProcessorTestUtil.create()
         .keepBlankLinesFalse()
         .testInputAndExpected(

@@ -31,9 +31,8 @@ class FileAttributeUtil {
    * @throws IOException If any I/O error occurs
    */
   public void setTimestamps(File file, long millis) throws IOException {
-    BasicFileAttributeView attributes =
-        Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class);
-    FileTime time = FileTime.fromMillis(millis);
+    var attributes = Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class);
+    var time = FileTime.fromMillis(millis);
     attributes.setTimes(time, time, time);
   }
 }

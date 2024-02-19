@@ -19,16 +19,16 @@ class ExceptionConverterTest {
 
   @Test
   void noExceptionShouldRunJustFine() throws MojoFailureException {
-    ExceptionConverter exceptionConverter = new ExceptionConverter(() -> {});
+    var exceptionConverter = new ExceptionConverter(() -> {});
     exceptionConverter.executeAndConvertException();
     assertThat(exceptionConverter, is(notNullValue()));
   }
 
   @Test
   void failureExceptionShouldThrowMojoFailureException() {
-    FailureException failureException = new FailureException("Gurka");
+    var failureException = new FailureException("Gurka");
 
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             new ExceptionConverter(
                     () -> {
@@ -36,17 +36,17 @@ class ExceptionConverterTest {
                     })
                 .executeAndConvertException();
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
   }
 
   @Test
   void failureExceptionShouldKeepCause() {
-    IllegalArgumentException cause = new IllegalArgumentException("not valid");
-    FailureException failureException = new FailureException("Gurka", cause);
+    var cause = new IllegalArgumentException("not valid");
+    var failureException = new FailureException("Gurka", cause);
 
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             new ExceptionConverter(
                     () -> {
@@ -54,7 +54,7 @@ class ExceptionConverterTest {
                     })
                 .executeAndConvertException();
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertAll(
         () -> assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka"))),

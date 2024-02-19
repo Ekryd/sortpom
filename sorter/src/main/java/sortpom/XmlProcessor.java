@@ -8,7 +8,6 @@ import org.dom4j.io.SAXReader;
 import org.xml.sax.SAXException;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
-import sortpom.wrapper.operation.HierarchyRootWrapper;
 import sortpom.wrapper.operation.WrapperFactory;
 
 /**
@@ -34,8 +33,8 @@ public class XmlProcessor {
    *
    * @param originalXml the new original xml
    */
-  public void setOriginalXml(final InputStream originalXml) throws DocumentException, SAXException {
-    SAXReader parser = new SAXReader();
+  public void setOriginalXml(InputStream originalXml) throws DocumentException, SAXException {
+    var parser = new SAXReader();
     parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
     parser.setMergeAdjacentText(true);
     originalDocument = parser.read(originalXml);
@@ -44,9 +43,9 @@ public class XmlProcessor {
   /** Creates a new dom document that contains the sorted xml. */
   public void sortXml() {
     newDocument = (Document) originalDocument.clone();
-    final Element rootElement = originalDocument.getRootElement().createCopy();
+    var rootElement = originalDocument.getRootElement().createCopy();
 
-    HierarchyRootWrapper rootWrapper = factory.createFromRootElement(rootElement);
+    var rootWrapper = factory.createFromRootElement(rootElement);
 
     rootWrapper.createWrappedStructure(factory);
     rootWrapper.detachStructure();
@@ -78,7 +77,7 @@ public class XmlProcessor {
   }
 
   public XmlOrderedResult isXmlOrdered() {
-    ElementComparator elementComparator =
+    var elementComparator =
         new ElementComparator(originalDocument.getRootElement(), newDocument.getRootElement());
     return elementComparator.isElementOrdered();
   }

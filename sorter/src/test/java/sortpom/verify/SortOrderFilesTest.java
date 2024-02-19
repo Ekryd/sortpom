@@ -11,7 +11,7 @@ import sortpom.util.SortPomImplUtil;
 
 class SortOrderFilesTest {
   @Test
-  final void sortedCustomSortOrderShouldNotTriggerVerify() throws Exception {
+  void sortedCustomSortOrderShouldNotTriggerVerify() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -19,7 +19,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void unsortedCustomSortOrderShouldTriggerVerify() throws Exception {
+  void unsortedCustomSortOrderShouldTriggerVerify() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -29,7 +29,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .lineSeparator("\n")
@@ -37,7 +37,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("custom_1")
         .lineSeparator("\n")
@@ -45,7 +45,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("recommended_2008_06")
         .lineSeparator("\n")
@@ -53,7 +53,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_1_0_0")
         .lineSeparator("\n")
@@ -61,7 +61,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  final void illegalPredefinedSortOrderShouldReportError() {
+  void illegalPredefinedSortOrderShouldReportError() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
@@ -69,8 +69,7 @@ class SortOrderFilesTest {
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
 
-    final InvocationTargetException thrown =
-        assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(InvocationTargetException.class, testMethod);
 
     assertThat(
         thrown.getCause().getMessage(),

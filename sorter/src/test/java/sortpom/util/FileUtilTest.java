@@ -18,9 +18,9 @@ import sortpom.parameter.PluginParameters;
 class FileUtilTest {
   @Test
   void defaultSortOrderFromFileShouldWork() throws Exception {
-    FileUtil fileUtil = createFileUtil("Attribute_expected.xml");
+    var fileUtil = createFileUtil("Attribute_expected.xml");
 
-    String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
+    var defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
     assertThat(
         defaultSortOrderXml,
         startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<projec"));
@@ -28,9 +28,9 @@ class FileUtilTest {
 
   @Test
   void defaultSortOrderFromNonExistingShouldThrowException() {
-    FileUtil fileUtil = createFileUtil("zzz_Attribute_expected.xml");
+    var fileUtil = createFileUtil("zzz_Attribute_expected.xml");
 
-    final IOException thrown = assertThrows(IOException.class, fileUtil::getDefaultSortOrderXml);
+    var thrown = assertThrows(IOException.class, fileUtil::getDefaultSortOrderXml);
 
     assertThat(thrown.getMessage(), startsWith("Could not find"));
     assertThat(thrown.getMessage(), endsWith("or zzz_Attribute_expected.xml in classpath"));
@@ -38,10 +38,10 @@ class FileUtilTest {
 
   @Test
   void defaultSortOrderFromUrlShouldWork() throws IOException {
-    FileUtil fileUtil = createFileUtil("https://google.com");
+    var fileUtil = createFileUtil("https://google.com");
 
     try {
-      String defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
+      var defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
       assertThat(defaultSortOrderXml, containsString("google"));
     } catch (UnknownHostException e) {
       // This is ok, we were not online when the test was performed
@@ -51,18 +51,16 @@ class FileUtilTest {
 
   @Test
   void defaultSortOrderFromNonExistingHostShouldThrowException() {
-    FileUtil fileUtil =
-        createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
+    var fileUtil = createFileUtil("http://jgerwzuujy.fjrmzaxklj.zfgmqavbhp/licenses/BSD-3-Clause");
 
-    final UnknownHostException thrown =
-        assertThrows(UnknownHostException.class, fileUtil::getDefaultSortOrderXml);
+    var thrown = assertThrows(UnknownHostException.class, fileUtil::getDefaultSortOrderXml);
 
     assertThat(thrown.getMessage(), is("jgerwzuujy.fjrmzaxklj.zfgmqavbhp"));
   }
 
   @Test
   void defaultSortOrderFromNonExistingPageShouldThrowException() throws IOException {
-    FileUtil fileUtil = createFileUtil("https://github.com/Ekryd/sortpom/where_are_the_donations");
+    var fileUtil = createFileUtil("https://github.com/Ekryd/sortpom/where_are_the_donations");
 
     try {
       fileUtil.getDefaultSortOrderXml();
@@ -75,8 +73,8 @@ class FileUtilTest {
   }
 
   private FileUtil createFileUtil(String customSortOrderFile) {
-    FileUtil fileUtil = new FileUtil();
-    PluginParameters pluginParameters =
+    var fileUtil = new FileUtil();
+    var pluginParameters =
         PluginParameters.builder()
             .setSortOrder(customSortOrderFile, null)
             .setEncoding("UTF-8")

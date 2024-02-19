@@ -30,7 +30,7 @@ class XmlProcessingInstructionParserTest {
 
   @Test
   void multipleErrorsShouldBeReportedInLogger() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
@@ -53,9 +53,9 @@ class XmlProcessingInstructionParserTest {
             + "  <version>1.0.0-SNAPSHOT</version>\n"
             + "</project>";
 
-    final Executable testMethod = () -> parser.scanForIgnoredSections(xml);
+    Executable testMethod = () -> parser.scanForIgnoredSections(xml);
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -79,10 +79,10 @@ class XmlProcessingInstructionParserTest {
 
   @Test
   void replaceMultipleSectionShouldCreateManyTokens() {
-    String xml =
+    var xml =
         "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
     parser.scanForIgnoredSections(xml);
-    String replaced = parser.replaceIgnoredSections();
+    var replaced = parser.replaceIgnoredSections();
 
     assertThat(replaced, is("abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba"));
     assertThat(parser.existsIgnoredSections(), is(true));
@@ -91,14 +91,14 @@ class XmlProcessingInstructionParserTest {
 
   @Test
   void revertSectionsInRearrangedOrderShouldPlaceTextInRightOrder() {
-    String xml =
+    var xml =
         "abc<?sortpom ignore?>def0<?sortpom resume?>cbaabc<?SORTPOM Ignore?>def1<?sortPom reSUME?>cba";
     parser.scanForIgnoredSections(xml);
-    String replaced = parser.replaceIgnoredSections();
+    var replaced = parser.replaceIgnoredSections();
     assertThat(replaced, is("abc<?sortpom token='0'?>cbaabc<?sortpom token='1'?>cba"));
 
-    String sortedXml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
-    String outputXml = parser.revertIgnoredSections(sortedXml);
+    var sortedXml = "abc<?sortpom token='1'?>cbaabc<?sortpom token='0'?>cba";
+    var outputXml = parser.revertIgnoredSections(sortedXml);
 
     assertThat(
         outputXml,
@@ -109,7 +109,7 @@ class XmlProcessingInstructionParserTest {
 
   @Test
   void noInstructionsShouldWork() {
-    String xml =
+    var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
             + "  <artifactId>sortpom</artifactId>\n"
@@ -129,8 +129,8 @@ class XmlProcessingInstructionParserTest {
 
     assertThat(parser.existsIgnoredSections(), is(false));
 
-    String replaced = parser.replaceIgnoredSections();
-    String outputXml = parser.revertIgnoredSections(xml);
+    var replaced = parser.replaceIgnoredSections();
+    var outputXml = parser.revertIgnoredSections(xml);
 
     assertThat(replaced, is(xml));
     assertThat(outputXml, is(xml));

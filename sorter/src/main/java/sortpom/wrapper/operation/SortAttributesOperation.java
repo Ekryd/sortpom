@@ -21,12 +21,12 @@ class SortAttributesOperation implements HierarchyWrapperOperation {
   /** Sort attributes of each element */
   @Override
   public void processElement(Wrapper<Element> elementWrapper) {
-    Element element = elementWrapper.getContent();
+    var element = elementWrapper.getContent();
     element.setAttributes(getSortedAttributes(element));
   }
 
   private List<Attribute> getSortedAttributes(Element element) {
-    final List<Attribute> attributes = new ArrayList<>(element.attributes());
+    var attributes = new ArrayList<>(element.attributes());
 
     attributes.forEach(Attribute::detach);
 

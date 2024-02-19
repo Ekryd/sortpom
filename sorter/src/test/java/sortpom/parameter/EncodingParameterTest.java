@@ -19,21 +19,20 @@ class EncodingParameterTest {
 
   @Test
   void illegalEncodingWhenGettingPomFileShouldNotWork() {
-
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .encoding("gurka-2000")
                 .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(equalTo("Could not handle encoding: gurka-2000")));
   }
 
   @Test
   void illegalEncodingWhenGeneratingPomFileShouldWork() {
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("gurka-2000")
@@ -41,28 +40,28 @@ class EncodingParameterTest {
             .setIndent(2, false, false)
             .build());
 
-    String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
+    var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
     assertThat(actual, is("<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n"));
   }
 
   @Test
   void illegalEncodingWhenSavingPomFileShouldNotWork() throws IOException {
-    File pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
+    var pomFileTemp = File.createTempFile("pom", ".xml", new File("target"));
     pomFileTemp.deleteOnExit();
 
-    FileUtil fileUtil = new FileUtil();
-    PluginParameters.Builder builder = PluginParameters.builder();
+    var fileUtil = new FileUtil();
+    var builder = PluginParameters.builder();
 
     builder.setPomFile(pomFileTemp);
     builder.setEncoding("gurka-2000");
     fileUtil.setup(builder.build());
 
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             fileUtil.savePomFile(
                 "<?xml version=\"1.0\" encoding=\"gurka-2000\"?>\n<Gurka></Gurka>\n");
 
-    final RuntimeException thrown = assertThrows(RuntimeException.class, testMethod);
+    var thrown = assertThrows(RuntimeException.class, testMethod);
 
     assertThat(thrown.getCause().getClass().getName(), is("java.io.UnsupportedEncodingException"));
     assertThat(thrown.getCause().getMessage(), is("gurka-2000"));

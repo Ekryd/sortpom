@@ -17,13 +17,13 @@ public class ModuleSortedWrapper extends SortedWrapper {
    * @param element the element
    * @param sortOrder the sort order
    */
-  public ModuleSortedWrapper(final Element element, final int sortOrder) {
+  public ModuleSortedWrapper(Element element, int sortOrder) {
     super(element, sortOrder);
     text = element.getTextTrim();
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     if (wrapper instanceof ModuleSortedWrapper) {
       return isBeforeAlphabeticalTextSortedWrapper((ModuleSortedWrapper) wrapper);
     }
@@ -41,7 +41,7 @@ public class ModuleSortedWrapper extends SortedWrapper {
 
   @Override
   public String toString() {
-    Element element = getContent();
+    var element = getContent();
     return "ModuleSortedWrapper{content="
         + (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", ""))
         + '}';

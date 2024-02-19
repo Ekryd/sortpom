@@ -25,7 +25,7 @@ class PhaseTest {
     Collections.shuffle(list);
     list.sort(Phase::compareTo);
     assertThat(arr.length, is(8));
-    int i = 0;
+    var i = 0;
     assertThat(arr[i++].getText(), is("test"));
     assertThat(arr[i++].getText(), is("site"));
     assertThat(arr[i++].getText(), is(""));
@@ -38,8 +38,8 @@ class PhaseTest {
 
   @Test
   void toStringForPhase() {
-    Phase test = Phase.getPhase("teST");
-    Phase clea = Phase.getPhase("clea");
+    var test = Phase.getPhase("teST");
+    var clea = Phase.getPhase("clea");
     assertThat(test.toString(), is("TEST"));
     assertThat(clea.toString(), is("NonStandardPhase{text='clea'}"));
   }

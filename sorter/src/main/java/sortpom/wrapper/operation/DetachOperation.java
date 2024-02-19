@@ -23,7 +23,7 @@ class DetachOperation implements HierarchyWrapperOperation {
   /** Detach each xml element */
   @Override
   public void processElement(Wrapper<Element> elementWrapper) {
-    Element content = elementWrapper.getContent();
+    var content = elementWrapper.getContent();
     content.detach();
     List<Node> contents = new ArrayList<>(content.content());
     contents.forEach(content::remove);

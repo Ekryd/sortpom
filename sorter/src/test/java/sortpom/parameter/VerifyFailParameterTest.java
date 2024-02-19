@@ -17,24 +17,21 @@ class VerifyFailParameterTest {
 
   @Test
   void stopIgnoreCaseValueIsOk() {
-    PluginParameters pluginParameters =
-        PluginParameters.builder().setVerifyFail("sToP", "strict").build();
+    var pluginParameters = PluginParameters.builder().setVerifyFail("sToP", "strict").build();
 
     assertEquals(VerifyFailType.STOP, pluginParameters.verifyFailType);
   }
 
   @Test
   void warnIgnoreCaseValueIsOk() {
-    PluginParameters pluginParameters =
-        PluginParameters.builder().setVerifyFail("wArN", "strict").build();
+    var pluginParameters = PluginParameters.builder().setVerifyFail("wArN", "strict").build();
 
     assertEquals(VerifyFailType.WARN, pluginParameters.verifyFailType);
   }
 
   @Test
   void sortIgnoreCaseValueIsOk() {
-    PluginParameters pluginParameters =
-        PluginParameters.builder().setVerifyFail("sOrT", "strict").build();
+    var pluginParameters = PluginParameters.builder().setVerifyFail("sOrT", "strict").build();
 
     assertEquals(VerifyFailType.SORT, pluginParameters.verifyFailType);
   }
@@ -43,11 +40,9 @@ class VerifyFailParameterTest {
   @NullAndEmptySource
   @ValueSource(strings = "gurka")
   void verifyFailFaultyValues(String value) {
+    Executable testMethod = () -> PluginParameters.builder().setVerifyFail(value, "strict").build();
 
-    final Executable testMethod =
-        () -> PluginParameters.builder().setVerifyFail(value, "strict").build();
-
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),

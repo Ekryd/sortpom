@@ -7,15 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
 import sortpom.SortPomImpl;
 import sortpom.logger.SortPomLogger;
 import sortpom.parameter.PluginParameters;
@@ -34,11 +32,8 @@ class TestHandler {
   private final File testpom;
   private final PluginParameters pluginParameters;
 
-  private FileInputStream backupFileInputStream = null;
-  private FileInputStream originalPomInputStream = null;
-  private FileInputStream actualSortedPomInputStream = null;
-  private FileInputStream expectedSortedPomInputStream = null;
   private final File backupFile;
+  private final String encoding;
 
   TestHandler(String inputResourceFileName, PluginParameters pluginParameters) {
     this(inputResourceFileName, null, pluginParameters);
@@ -48,9 +43,10 @@ class TestHandler {
       String inputResourceFileName,
       String expectedResourceFileName,
       PluginParameters pluginParameters) {
-    this.inputResourceFileName = inputResourceFileName;
-    this.expectedResourceFileName = expectedResourceFileName;
+    this.inputResourceFileName = "src/test/resources/" + inputResourceFileName;
+    this.expectedResourceFileName = "src/test/resources/" + expectedResourceFileName;
     this.pluginParameters = pluginParameters;
+    this.encoding = pluginParameters.encoding;
     this.testpom = pluginParameters.pomFile;
     backupFile = new File(testpom.getAbsolutePath() + pluginParameters.backupFileExtension);
   }
@@ -60,32 +56,26 @@ class TestHandler {
   }
 
   void performSortThatSorted() throws Exception {
-    try {
-      removeOldTemporaryFiles();
+    removeOldTemporaryFiles();
 
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      performSorting();
+    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    performSorting();
 
-      assertTrue(testpom.exists());
-      assertTrue(backupFile.exists());
+    assertTrue(testpom.exists());
+    assertTrue(backupFile.exists());
 
-      backupFileInputStream = new FileInputStream(backupFile);
-      String actualBackup =
-          new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
+    try (var backupFileInputStream = new FileInputStream(backupFile);
+        var originalPomInputStream = new FileInputStream(inputResourceFileName);
+        var actualSortedPomInputStream = new FileInputStream(testpom);
+        var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
+      var actualBackup = new String(backupFileInputStream.readAllBytes(), encoding);
+      var expectedBackup = new String(originalPomInputStream.readAllBytes(), encoding);
 
-      originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-      String expectedBackup =
-          new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedBackup, actualBackup);
 
-      actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
-          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
+      var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
+      var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      expectedSortedPomInputStream =
-          new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
-          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -93,34 +83,29 @@ class TestHandler {
   }
 
   void performVerifyThatSorted() throws Exception {
-    try {
-      removeOldTemporaryFiles();
+    removeOldTemporaryFiles();
 
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      performVerifyWithSort();
+    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    performVerifyWithSort();
 
-      assertTrue(testpom.exists());
-      if (pluginParameters.createBackupFile) {
-        assertTrue(backupFile.exists());
+    assertTrue(testpom.exists());
 
-        backupFileInputStream = new FileInputStream(backupFile);
-        String actualBackup =
-            new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
+    if (pluginParameters.createBackupFile) {
+      assertTrue(backupFile.exists());
+      try (var backupFileInputStream = new FileInputStream(backupFile);
+          var originalPomInputStream = new FileInputStream(inputResourceFileName)) {
+        var actualBackup = new String(backupFileInputStream.readAllBytes(), encoding);
+        var expectedBackup = new String(originalPomInputStream.readAllBytes(), encoding);
 
-        originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-        String expectedBackup =
-            new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
         assertEquals(expectedBackup, actualBackup);
       }
+    }
 
-      actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
-          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
+    try (var actualSortedPomInputStream = new FileInputStream(testpom);
+        var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
+      var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
+      var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      expectedSortedPomInputStream =
-          new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
-          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -128,23 +113,19 @@ class TestHandler {
   }
 
   void performSortThatDidNotSort() throws Exception {
-    try {
-      removeOldTemporaryFiles();
+    removeOldTemporaryFiles();
 
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      performSorting();
+    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    performSorting();
 
-      assertTrue(testpom.exists());
-      assertFalse(backupFile.exists(), "No sort expected, backup file exists");
+    assertTrue(testpom.exists());
+    assertFalse(backupFile.exists(), "No sort expected, backup file exists");
 
-      actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
-          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
+    try (var actualSortedPomInputStream = new FileInputStream(testpom);
+        var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
+      var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
+      var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      expectedSortedPomInputStream =
-          new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
-          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -159,8 +140,8 @@ class TestHandler {
   XmlOrderedResult performVerify() throws Exception {
     try {
       removeOldTemporaryFiles();
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      XmlOrderedResult verifyOk = isVerifyOk();
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+      var verifyOk = isVerifyOk();
 
       assertTrue(testpom.exists());
       return verifyOk;
@@ -170,23 +151,19 @@ class TestHandler {
   }
 
   void performVerifyThatDidNotSort() throws Exception {
-    try {
-      removeOldTemporaryFiles();
+    removeOldTemporaryFiles();
 
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      performVerifyWithSort();
+    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    performVerifyWithSort();
 
-      assertTrue(testpom.exists());
-      assertFalse(backupFile.exists());
+    assertTrue(testpom.exists());
+    assertFalse(backupFile.exists());
 
-      actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
-          new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
+    try (var actualSortedPomInputStream = new FileInputStream(testpom);
+        var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
+      var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
+      var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      expectedSortedPomInputStream =
-          new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
-          new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
       cleanupAfterTest();
@@ -197,8 +174,8 @@ class TestHandler {
     try {
       removeOldTemporaryFiles();
 
-      FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      long pomTimestamp = testpom.lastModified();
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+      var pomTimestamp = testpom.lastModified();
       performSorting();
 
       if (pluginParameters.keepTimestamp) {
@@ -214,7 +191,7 @@ class TestHandler {
   }
 
   private void performVerifyWithSort() {
-    SortPomImpl sortPomImpl = new SortPomImpl();
+    var sortPomImpl = new SortPomImpl();
     sortPomImpl.setup(createDummyLog(), pluginParameters);
 
     sortPomImpl.verifyPom();
@@ -224,7 +201,7 @@ class TestHandler {
       throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     sortPomImpl.setup(createDummyLog(), pluginParameters);
 
-    Method getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
+    var getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
     getVerificationResult.setAccessible(true);
 
     return (XmlOrderedResult) getVerificationResult.invoke(sortPomImpl);
@@ -237,25 +214,11 @@ class TestHandler {
   }
 
   private void cleanupAfterTest() {
-    closeQuietly(backupFileInputStream);
-    closeQuietly(originalPomInputStream);
-    closeQuietly(actualSortedPomInputStream);
-    closeQuietly(expectedSortedPomInputStream);
     if (testpom.exists()) {
       assertTrue(testpom.delete());
     }
     if (backupFile.exists()) {
       assertTrue(backupFile.delete());
-    }
-  }
-
-  private void closeQuietly(Closeable stream) {
-    if (stream != null) {
-      try {
-        stream.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
     }
   }
 

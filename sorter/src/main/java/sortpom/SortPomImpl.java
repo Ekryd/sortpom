@@ -78,7 +78,7 @@ public class SortPomImpl {
 
   /** Verify that the pom-file is sorted regardless of formatting */
   public void verifyPom() {
-    XmlOrderedResult xmlOrderedResult = getVerificationResult();
+    var xmlOrderedResult = getVerificationResult();
     performVerfificationResult(xmlOrderedResult);
   }
 

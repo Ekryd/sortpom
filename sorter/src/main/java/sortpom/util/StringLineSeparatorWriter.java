@@ -16,15 +16,15 @@ public class StringLineSeparatorWriter extends Writer {
   private final StringBuilder lineBuffer = new StringBuilder();
   private final StringWriter out;
 
-  public StringLineSeparatorWriter(StringWriter out, final String lineSeparator) {
+  public StringLineSeparatorWriter(StringWriter out, String lineSeparator) {
     this.out = out;
     this.lineSeparator = lineSeparator;
   }
 
   @Override
   public void write(String str) {
-    char[] chars = str.toCharArray();
-    for (char ch : chars) {
+    var chars = str.toCharArray();
+    for (var ch : chars) {
       writeOneCharacter(ch);
     }
   }

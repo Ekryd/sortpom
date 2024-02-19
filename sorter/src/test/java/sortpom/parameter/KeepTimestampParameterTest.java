@@ -6,7 +6,7 @@ import sortpom.util.SortPomImplUtil;
 class KeepTimestampParameterTest {
 
   @Test
-  final void whenKeepTimestampNotSetTimestampsShouldDiffer() throws Exception {
+  void whenKeepTimestampNotSetTimestampsShouldDiffer() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -16,7 +16,7 @@ class KeepTimestampParameterTest {
   }
 
   @Test
-  final void whenKeepTimestampIsSetTimestampsShouldRemain() throws Exception {
+  void whenKeepTimestampIsSetTimestampsShouldRemain() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")

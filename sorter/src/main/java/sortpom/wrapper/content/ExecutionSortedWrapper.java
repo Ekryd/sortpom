@@ -2,7 +2,6 @@ package sortpom.wrapper.content;
 
 import static sortpom.wrapper.content.Phase.compareTo;
 
-import java.util.List;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
@@ -22,9 +21,9 @@ public class ExecutionSortedWrapper extends SortedWrapper {
    * @param element the element
    * @param sortOrder the sort order
    */
-  public ExecutionSortedWrapper(final Element element, final int sortOrder) {
+  public ExecutionSortedWrapper(Element element, int sortOrder) {
     super(element, sortOrder);
-    List<Element> children = getContent().elements();
+    var children = getContent().elements();
 
     phase =
         children.stream()
@@ -42,15 +41,15 @@ public class ExecutionSortedWrapper extends SortedWrapper {
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     if (wrapper instanceof ExecutionSortedWrapper) {
       return isBeforeWrapper((ExecutionSortedWrapper) wrapper);
     }
     return super.isBefore(wrapper);
   }
 
-  private boolean isBeforeWrapper(final ExecutionSortedWrapper wrapper) {
-    int compare = compareTo(phase, wrapper.phase);
+  private boolean isBeforeWrapper(ExecutionSortedWrapper wrapper) {
+    var compare = compareTo(phase, wrapper.phase);
     if (compare != 0) {
       return compare < 0;
     }

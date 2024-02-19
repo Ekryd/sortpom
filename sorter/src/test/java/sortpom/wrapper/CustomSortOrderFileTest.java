@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -19,14 +18,14 @@ class CustomSortOrderFileTest {
   void compareDefaultSortOrderFileToString() throws Exception {
     try (var fileInputStream =
         new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt")) {
-      String expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+      var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
       assertEquals(expected, getToStringOnCustomSortOrderFile());
     }
   }
 
   private String getToStringOnCustomSortOrderFile()
       throws IOException, DocumentException, SAXException {
-    PluginParameters pluginParameters =
+    var pluginParameters =
         PluginParameters.builder()
             .setPomFile(null)
             .setFileOutput(false, ".bak", null, false)
@@ -44,17 +43,16 @@ class CustomSortOrderFileTest {
                 true)
             .build();
 
-    FileUtil fileUtil = new FileUtil();
+    var fileUtil = new FileUtil();
     fileUtil.setup(pluginParameters);
 
-    WrapperFactoryImpl wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    var wrapperFactory = new WrapperFactoryImpl(fileUtil);
 
-    Document documentFromDefaultSortOrderFile =
-        wrapperFactory.createDocumentFromDefaultSortOrderFile();
+    var documentFromDefaultSortOrderFile = wrapperFactory.createDocumentFromDefaultSortOrderFile();
     new HierarchyRootWrapper(
         wrapperFactory.create(documentFromDefaultSortOrderFile.getRootElement()));
 
-    HierarchyRootWrapper rootWrapper =
+    var rootWrapper =
         new HierarchyRootWrapper(
             wrapperFactory.create(documentFromDefaultSortOrderFile.getRootElement()));
     rootWrapper.createWrappedStructure(wrapperFactory);

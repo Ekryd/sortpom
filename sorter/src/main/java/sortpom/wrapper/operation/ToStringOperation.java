@@ -32,7 +32,7 @@ class ToStringOperation implements HierarchyWrapperOperation {
   /** Add text before each element */
   @Override
   public void startOfProcess() {
-    String previousBaseIndent = baseIndent.substring(INDENT_LENGTH);
+    var previousBaseIndent = baseIndent.substring(INDENT_LENGTH);
     builder.append(previousBaseIndent).append("HierarchyWrapper{\n");
     processFirstOtherContent = true;
   }

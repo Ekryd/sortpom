@@ -12,7 +12,7 @@ import sortpom.util.SortPomImplUtil;
 class SortDependenciesTest {
 
   @Test
-  final void scopeInSortDependenciesShouldSortByScope() throws Exception {
+  void scopeInSortDependenciesShouldSortByScope() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencies("scope,GROUPID,artifactId")
@@ -28,7 +28,7 @@ class SortDependenciesTest {
    * placed last.
    */
   @Test
-  final void extraTagInDependenciesPluginAndExclusionsShouldBeSortedFirst() throws Exception {
+  void extraTagInDependenciesPluginAndExclusionsShouldBeSortedFirst() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
         .sortDependencies("scope,groupId,artifactId")
@@ -39,7 +39,7 @@ class SortDependenciesTest {
   }
 
   @Test
-  final void defaultGroupIdForPluginsShouldWork() throws Exception {
+  void defaultGroupIdForPluginsShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortPlugins("groupId,artifactId")
@@ -49,7 +49,7 @@ class SortDependenciesTest {
   }
 
   @Test
-  final void deprecatedSortPluginsTrueMessageShouldWork() {
+  void deprecatedSortPluginsTrueMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
@@ -59,7 +59,7 @@ class SortDependenciesTest {
                 .nrOfIndentSpace(4)
                 .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -68,14 +68,14 @@ class SortDependenciesTest {
   }
 
   @Test
-  final void deprecatedSortPluginsFalseMessageShouldWork() {
+  void deprecatedSortPluginsFalseMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .sortPlugins("false")
                 .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -84,7 +84,7 @@ class SortDependenciesTest {
   }
 
   @Test
-  final void deprecatedSortDependenciesTrueMessageShouldWork() {
+  void deprecatedSortDependenciesTrueMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
@@ -92,7 +92,7 @@ class SortDependenciesTest {
                 .sortPlugins("true")
                 .testFiles("/Simple_input.xml", "/Simple_expected_sortDep.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -101,14 +101,14 @@ class SortDependenciesTest {
   }
 
   @Test
-  final void deprecatedSortDependenciesFalseMessageShouldWork() {
+  void deprecatedSortDependenciesFalseMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .sortDependencies("false")
                 .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),

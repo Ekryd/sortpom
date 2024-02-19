@@ -65,8 +65,7 @@ class StringLineSeparatorWriterTest {
 
   @Test
   void testWriteDeprecated3() {
-
-    final UnsupportedOperationException thrown =
+    var thrown =
         assertThrows(UnsupportedOperationException.class, () -> writer.write(new char[0], 0, 0));
 
     assertThat(thrown.getMessage(), is(nullValue()));

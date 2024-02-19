@@ -38,7 +38,7 @@ public class VerifyMojo extends AbstractParentMojo {
   public void setup(SortPomLogger mavenLogger) throws MojoFailureException {
     new ExceptionConverter(
             () -> {
-              PluginParameters pluginParameters =
+              var pluginParameters =
                   PluginParameters.builder()
                       .setPomFile(pomFile)
                       .setFileOutput(

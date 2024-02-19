@@ -1,7 +1,10 @@
 package sortpom;
 
-import java.io.*;
-import org.dom4j.Document;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import org.dom4j.DocumentException;
 import org.xml.sax.SAXException;
 import sortpom.exception.FailureException;
@@ -64,10 +67,9 @@ public class SortPomService {
   void sortOriginalXml() {
     originalXml = fileUtil.getPomFileContent();
     xmlProcessingInstructionParser.scanForIgnoredSections(originalXml);
-    String xml = xmlProcessingInstructionParser.replaceIgnoredSections();
+    var xml = xmlProcessingInstructionParser.replaceIgnoredSections();
 
-    try (ByteArrayInputStream originalXmlInputStream =
-        new ByteArrayInputStream(xml.getBytes(encoding))) {
+    try (var originalXmlInputStream = new ByteArrayInputStream(xml.getBytes(encoding))) {
       xmlProcessor.setOriginalXml(originalXmlInputStream);
     } catch (DocumentException | IOException | SAXException e) {
       throw new FailureException(
@@ -92,7 +94,7 @@ public class SortPomService {
     if (!createBackupFile) {
       return;
     }
-    if (backupFileExtension.trim().length() == 0) {
+    if (backupFileExtension.trim().isEmpty()) {
       throw new FailureException("Could not create backup file, extension name was empty");
     }
     fileUtil.backupFile();
@@ -107,11 +109,11 @@ public class SortPomService {
   }
 
   XmlOrderedResult isOriginalXmlStringSorted() {
-    try (BufferedReader originalXmlReader = new BufferedReader(new StringReader(originalXml));
-        BufferedReader sortedXmlReader = new BufferedReader(new StringReader(sortedXml))) {
-      String originalXmlLine = originalXmlReader.readLine();
-      String sortedXmlLine = sortedXmlReader.readLine();
-      int line = 1;
+    try (var originalXmlReader = new BufferedReader(new StringReader(originalXml));
+        var sortedXmlReader = new BufferedReader(new StringReader(sortedXml))) {
+      var originalXmlLine = originalXmlReader.readLine();
+      var sortedXmlLine = sortedXmlReader.readLine();
+      var line = 1;
 
       while (originalXmlLine != null && sortedXmlLine != null) {
         if (!originalXmlLine.equals(sortedXmlLine)) {
@@ -141,11 +143,11 @@ public class SortPomService {
   void saveViolationFile(XmlOrderedResult xmlOrderedResult) {
     if (violationFilename != null) {
       log.info("Saving violation report to " + new File(violationFilename).getAbsolutePath());
-      ViolationXmlProcessor violationXmlProcessor = new ViolationXmlProcessor();
-      Document document =
+      var violationXmlProcessor = new ViolationXmlProcessor();
+      var document =
           violationXmlProcessor.createViolationXmlContent(
               pomFile, xmlOrderedResult.getErrorMessage());
-      String violationXmlString = xmlOutputGenerator.getSortedXml(document);
+      var violationXmlString = xmlOutputGenerator.getSortedXml(document);
       fileUtil.saveViolationFile(violationXmlString);
     }
   }

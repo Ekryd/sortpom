@@ -3,10 +3,12 @@ package sortpom.util;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.util.List;
 import sortpom.parameter.PluginParameters;
 
 /** Test utility to enter sort parameters */
@@ -46,28 +48,28 @@ public class SortPomImplUtil {
     return new SortPomImplUtil();
   }
 
-  public void testFiles(final String inputResourceFileName, final String expectedResourceFileName)
+  public void testFiles(String inputResourceFileName, String expectedResourceFileName)
       throws Exception {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
     testHandler.performSortThatSorted();
-    List<String> infoLogger = testHandler.getInfoLogger();
+    var infoLogger = testHandler.getInfoLogger();
     assertThat(infoLogger.get(0), startsWith("[INFO] Sorting file "));
     assertThat(infoLogger.get(1), startsWith("[INFO] Saved backup of "));
     assertThat(
         infoLogger.get(infoLogger.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
   }
 
-  public void testFilesWithTimestamp(
-      final String inputResourceFileName, final String expectedResourceFileName) throws Exception {
+  public void testFilesWithTimestamp(String inputResourceFileName, String expectedResourceFileName)
+      throws Exception {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
     testHandler.performSortThatTestsTimestamps();
   }
 
-  public void testNoSorting(final String inputResourceFileName) throws Exception {
+  public void testNoSorting(String inputResourceFileName) throws Exception {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
@@ -75,25 +77,25 @@ public class SortPomImplUtil {
     assertEquals("[INFO] Pom file is already sorted, exiting", testHandler.getInfoLogger().get(1));
   }
 
-  public void testVerifyXmlIsOrdered(final String inputResourceFileName) throws Exception {
+  public void testVerifyXmlIsOrdered(String inputResourceFileName) throws Exception {
     setup();
     testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
-    XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
+    var xmlOrderedResult = testHandler.performVerify();
     assertTrue(xmlOrderedResult.isOrdered(), "Expected that xml is ordered, ");
   }
 
-  public void testVerifyXmlIsNotOrdered(
-      final String inputResourceFileName, CharSequence warningMessage) throws Exception {
+  public void testVerifyXmlIsNotOrdered(String inputResourceFileName, CharSequence warningMessage)
+      throws Exception {
     setup();
     testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
-    XmlOrderedResult xmlOrderedResult = testHandler.performVerify();
+    var xmlOrderedResult = testHandler.performVerify();
     assertFalse(xmlOrderedResult.isOrdered(), "Expected that xml is not ordered, ");
     assertEquals(warningMessage, xmlOrderedResult.getErrorMessage());
   }
 
   public void testVerifySort(
-      final String inputResourceFileName,
-      final String expectedResourceFileName,
+      String inputResourceFileName,
+      String expectedResourceFileName,
       String warningMessage,
       boolean outputToViolationFile)
       throws Exception {
@@ -101,8 +103,8 @@ public class SortPomImplUtil {
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
     testHandler.performVerifyThatSorted();
-    int index = assertStartOfMessages(warningMessage, outputToViolationFile);
-    List<String> infoLogger = testHandler.getInfoLogger();
+    var index = assertStartOfMessages(warningMessage, outputToViolationFile);
+    var infoLogger = testHandler.getInfoLogger();
     assertThat(infoLogger.get(index), startsWith("[INFO] The file "));
     assertThat(infoLogger.get(index++), endsWith(" is not sorted"));
     assertThat(infoLogger.get(index), startsWith("[INFO] Sorting file "));
@@ -122,7 +124,7 @@ public class SortPomImplUtil {
       fail();
     } catch (Exception e) {
       assertEquals(expectedExceptionClass, e.getClass());
-      int index = assertStartOfMessages(warningMessage, outputToViolationFile);
+      var index = assertStartOfMessages(warningMessage, outputToViolationFile);
       assertThat(testHandler.getInfoLogger().get(index), startsWith("[ERROR] The file "));
       assertThat(testHandler.getInfoLogger().get(index), endsWith(" is not sorted"));
     }
@@ -136,13 +138,13 @@ public class SortPomImplUtil {
         new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
     testHandler.performVerifyThatDidNotSort();
 
-    int index = assertStartOfMessages(warningMessage, outputToViolationFile);
+    var index = assertStartOfMessages(warningMessage, outputToViolationFile);
     assertThat(testHandler.getInfoLogger().get(index), startsWith("[WARNING] The file "));
     assertThat(testHandler.getInfoLogger().get(index), endsWith(" is not sorted"));
   }
 
   private int assertStartOfMessages(String warningMessage, boolean outputToViolationFile) {
-    int index = 0;
+    var index = 0;
     assertThat(testHandler.getInfoLogger().get(index++), startsWith("[INFO] Verifying file "));
     assertEquals(warningMessage, testHandler.getInfoLogger().get(index++));
 

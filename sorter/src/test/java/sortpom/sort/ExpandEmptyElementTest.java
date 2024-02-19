@@ -28,7 +28,7 @@ class ExpandEmptyElementTest {
   @MethodSource("testValues")
   void expandEmptyElementsAndKeepSpaceShouldAffectOutputXml(
       boolean expandEmptyElements, boolean spaceBeforeCloseEmptyElement, String expectedValue) {
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
@@ -36,7 +36,7 @@ class ExpandEmptyElementTest {
             .setIndent(2, false, false)
             .build());
 
-    String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
+    var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
     assertEquals(expectedValue, actual);
   }
 }

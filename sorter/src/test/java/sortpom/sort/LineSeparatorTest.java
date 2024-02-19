@@ -14,7 +14,7 @@ class LineSeparatorTest {
   @ParameterizedTest
   @ValueSource(strings = {"\n", "\r", "\r\n"})
   void formattingXmlWithLineEndingsShouldResultInOneLineBreakAtEnd(String lineSeparator) {
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
+    var xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
@@ -22,7 +22,7 @@ class LineSeparatorTest {
             .setIndent(2, false, false)
             .build());
 
-    String actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
+    var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + lineSeparator + "<Gurka />" + lineSeparator,
         actual);

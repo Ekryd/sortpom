@@ -13,9 +13,8 @@ import sortpom.util.SortPomImplUtil;
 class BackupFileExtensionParameterTest {
 
   @Test
-  final void emptyBackupFileExtensionShouldNotWork() {
-
-    final Executable testMethod =
+  void emptyBackupFileExtensionShouldNotWork() {
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .backupFileExtension("")
@@ -23,7 +22,7 @@ class BackupFileExtensionParameterTest {
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(), is(equalTo("Could not create backup file, extension name was empty")));

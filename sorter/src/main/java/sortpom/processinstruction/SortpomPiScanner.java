@@ -2,7 +2,6 @@ package sortpom.processinstruction;
 
 import static sortpom.processinstruction.InstructionType.*;
 
-import java.util.regex.Matcher;
 import sortpom.logger.SortPomLogger;
 
 /**
@@ -23,7 +22,7 @@ class SortpomPiScanner {
 
   /** Scan and verifies the pom file for processing instructions */
   public void scan(String originalXml) {
-    Matcher matcher = INSTRUCTION_PATTERN.matcher(originalXml);
+    var matcher = INSTRUCTION_PATTERN.matcher(originalXml);
     while (matcher.find()) {
       scanOneInstruction(matcher.group(1));
       containsIgnoredSections = true;

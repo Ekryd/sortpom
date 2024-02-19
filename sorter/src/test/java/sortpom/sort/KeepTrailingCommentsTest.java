@@ -5,7 +5,7 @@ import sortpom.util.SortPomImplUtil;
 
 class KeepTrailingCommentsTest {
   @Test
-  final void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
+  void commentsInIgnoreSectionShouldNotBeFormatted() throws Exception {
     SortPomImplUtil.create()
         .sortDependencies("scope,groupId,artifactId")
         .lineSeparator("\r\n")

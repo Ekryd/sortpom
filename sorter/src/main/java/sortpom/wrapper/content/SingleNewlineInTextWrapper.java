@@ -17,7 +17,7 @@ public enum SingleNewlineInTextWrapper implements Wrapper<Node> {
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     throw new UnsupportedOperationException();
   }
 

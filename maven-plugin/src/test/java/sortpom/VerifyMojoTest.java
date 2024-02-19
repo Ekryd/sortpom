@@ -27,7 +27,7 @@ class VerifyMojoTest {
   @BeforeEach
   void setup() {
     verifyMojo = new VerifyMojo();
-    ReflectionHelper mojoHelper = new ReflectionHelper(verifyMojo);
+    var mojoHelper = new ReflectionHelper(verifyMojo);
     mojoHelper.setField(sortPom);
     mojoHelper.setField("lineSeparator", "\n");
     mojoHelper.setField("verifyFail", "SORT");
@@ -47,9 +47,9 @@ class VerifyMojoTest {
   void thrownExceptionShouldBeConvertedToMojoExceptionInExecute() {
     doThrow(new FailureException("Gurka")).when(sortPom).verifyPom();
 
-    final Executable testMethod = () -> verifyMojo.execute();
+    Executable testMethod = () -> verifyMojo.execute();
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
   }
@@ -60,9 +60,9 @@ class VerifyMojoTest {
         .when(sortPom)
         .setup(any(SortPomLogger.class), any(PluginParameters.class));
 
-    final Executable testMethod = () -> verifyMojo.setup(new MavenLogger(null, false));
+    Executable testMethod = () -> verifyMojo.setup(new MavenLogger(null, false));
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
   }

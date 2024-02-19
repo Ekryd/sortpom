@@ -20,40 +20,36 @@ class SingleNewlineInTextWrapperTest {
 
   @Test
   void testGetContent() {
-    final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::getContent;
+    Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::getContent;
 
-    final UnsupportedOperationException thrown =
-        assertThrows(UnsupportedOperationException.class, testMethod);
+    var thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(nullValue()));
   }
 
   @Test
   void testIsBefore() {
-    final Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
+    Executable testMethod = () -> SingleNewlineInTextWrapper.INSTANCE.isBefore(null);
 
-    final UnsupportedOperationException thrown =
-        assertThrows(UnsupportedOperationException.class, testMethod);
+    var thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(nullValue()));
   }
 
   @Test
   void testIsContentElement() {
-    final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isContentElement;
+    Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isContentElement;
 
-    final UnsupportedOperationException thrown =
-        assertThrows(UnsupportedOperationException.class, testMethod);
+    var thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(nullValue()));
   }
 
   @Test
   void testIsResortable() {
-    final Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isSortable;
+    Executable testMethod = SingleNewlineInTextWrapper.INSTANCE::isSortable;
 
-    final UnsupportedOperationException thrown =
-        assertThrows(UnsupportedOperationException.class, testMethod);
+    var thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(nullValue()));
   }

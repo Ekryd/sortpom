@@ -18,11 +18,9 @@ class UnsortedWrapperTest {
 
   @Test
   void testIsBefore() {
+    Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null).isBefore(null);
 
-    final Executable testMethod = () -> new UnsortedWrapper<DefaultText>(null).isBefore(null);
-
-    final UnsupportedOperationException thrown =
-        assertThrows(UnsupportedOperationException.class, testMethod);
+    var thrown = assertThrows(UnsupportedOperationException.class, testMethod);
 
     assertThat(thrown.getMessage(), is(equalTo("Cannot be sorted")));
   }

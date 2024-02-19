@@ -6,7 +6,7 @@ import sortpom.util.XmlProcessorTestUtil;
 class XmlProcessorTest {
 
   @Test
-  final void testSortXmlAttributes() throws Exception {
+  void testSortXmlAttributes() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -14,14 +14,14 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlCharacter() throws Exception {
+  void testSortXmlCharacter() throws Exception {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/Character_input.xml", "src/test/resources/Character_expected.xml");
   }
 
   @Test
-  final void testSortXmlComplex() throws Exception {
+  void testSortXmlComplex() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -29,7 +29,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlFullFromAlphabeticalOrder() throws Exception {
+  void testSortXmlFullFromAlphabeticalOrder() throws Exception {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -37,7 +37,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlFullToAlphabetical() throws Exception {
+  void testSortXmlFullToAlphabetical() throws Exception {
     XmlProcessorTestUtil.create()
         .sortAlphabeticalOnly()
         .testInputAndExpected(
@@ -45,7 +45,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlMultilineComment() throws Exception {
+  void testSortXmlMultilineComment() throws Exception {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/MultilineComment_input.xml",
@@ -53,7 +53,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  final void testSortXmlSimple() throws Exception {
+  void testSortXmlSimple() throws Exception {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/Simple_input.xml", "src/test/resources/Simple_expected.xml");

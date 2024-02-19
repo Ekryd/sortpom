@@ -11,7 +11,7 @@ import org.dom4j.Node;
 public class AlphabeticalSortedWrapper implements Wrapper<Element> {
   private final Element element;
 
-  public AlphabeticalSortedWrapper(final Element element) {
+  public AlphabeticalSortedWrapper(Element element) {
     this.element = element;
   }
 
@@ -21,7 +21,7 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     return wrapper instanceof AlphabeticalSortedWrapper
         && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
   }

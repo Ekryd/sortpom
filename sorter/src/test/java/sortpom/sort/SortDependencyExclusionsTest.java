@@ -12,7 +12,7 @@ import sortpom.util.SortPomImplUtil;
 class SortDependencyExclusionsTest {
 
   @Test
-  final void deprecatedSortPluginsTrueMessageShouldWork() {
+  void deprecatedSortPluginsTrueMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
@@ -22,7 +22,7 @@ class SortDependencyExclusionsTest {
                 .nrOfIndentSpace(4)
                 .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -31,7 +31,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  final void deprecatedSortPluginsFalseMessageShouldWork() {
+  void deprecatedSortPluginsFalseMessageShouldWork() {
     Executable testMethod =
         () ->
             SortPomImplUtil.create()
@@ -41,7 +41,7 @@ class SortDependencyExclusionsTest {
                 .nrOfIndentSpace(4)
                 .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -50,7 +50,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  final void sortGroupIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdForExclusionsShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId")
@@ -60,7 +60,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  final void sortArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortArtifactIdForExclusionsShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("artifactId")
@@ -70,7 +70,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  final void sortGroupIdAndArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdAndArtifactIdForExclusionsShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId,artifactId")

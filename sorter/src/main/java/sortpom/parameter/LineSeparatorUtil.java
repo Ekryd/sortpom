@@ -17,7 +17,7 @@ public class LineSeparatorUtil {
    *
    * @param lineSeparatorString The line separator characters
    */
-  LineSeparatorUtil(final String lineSeparatorString) {
+  LineSeparatorUtil(String lineSeparatorString) {
     string = lineSeparatorString.replace("\\r", "\r").replace("\\n", "\n");
     if (isIllegalString()) {
       throw new FailureException(

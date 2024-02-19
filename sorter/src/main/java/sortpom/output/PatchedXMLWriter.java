@@ -72,7 +72,7 @@ class PatchedXMLWriter extends XMLWriter {
     }
 
     for (int i = 0, size = doc.nodeCount(); i < size; i++) {
-      Node node = doc.node(i);
+      var node = doc.node(i);
       writeNode(node);
     }
 
@@ -118,7 +118,7 @@ class PatchedXMLWriter extends XMLWriter {
   /** Handle indentSchemaLocation option */
   @Override
   protected void writeAttribute(Attribute attribute) throws IOException {
-    String qualifiedName = attribute.getQualifiedName();
+    var qualifiedName = attribute.getQualifiedName();
     if (indentSchemaLocation && "xsi:schemaLocation".equals(qualifiedName)) {
       writePrintln();
       writeString(format.getIndent());
@@ -128,7 +128,7 @@ class PatchedXMLWriter extends XMLWriter {
     writer.write(qualifiedName);
     writer.write("=");
 
-    char quote = format.getAttributeQuoteCharacter();
+    var quote = format.getAttributeQuoteCharacter();
     writer.write(quote);
 
     writeEscapeAttributeEntities(attribute.getValue());

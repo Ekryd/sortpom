@@ -5,7 +5,7 @@ import sortpom.util.SortPomImplUtil;
 
 class SortModulesTest {
   @Test
-  final void sortingOfPomFileWithSubmodulesShouldWork() throws Exception {
+  void sortingOfPomFileWithSubmodulesShouldWork() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")
@@ -16,7 +16,7 @@ class SortModulesTest {
   }
 
   @Test
-  final void sortingOfPomFileWithSubmodulesAndExtraElementsShouldWork() throws Exception {
+  void sortingOfPomFileWithSubmodulesAndExtraElementsShouldWork() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
         .sortProperties()
@@ -29,7 +29,7 @@ class SortModulesTest {
   }
 
   @Test
-  final void sortingOfPomFileWithSubmodulesNotEnabled() throws Exception {
+  void sortingOfPomFileWithSubmodulesNotEnabled() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")

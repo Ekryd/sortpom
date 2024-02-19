@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
@@ -70,21 +69,21 @@ class TestHandler {
       assertTrue(backupFile.exists());
 
       backupFileInputStream = new FileInputStream(backupFile);
-      String actualBackup =
+      var actualBackup =
           new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
 
       originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-      String expectedBackup =
+      var expectedBackup =
           new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedBackup, actualBackup);
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
+      var actualSorted =
           new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
+      var expectedSorted =
           new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
@@ -104,22 +103,22 @@ class TestHandler {
         assertTrue(backupFile.exists());
 
         backupFileInputStream = new FileInputStream(backupFile);
-        String actualBackup =
+        var actualBackup =
             new String(backupFileInputStream.readAllBytes(), pluginParameters.encoding);
 
         originalPomInputStream = new FileInputStream("src/test/resources/" + inputResourceFileName);
-        String expectedBackup =
+        var expectedBackup =
             new String(originalPomInputStream.readAllBytes(), pluginParameters.encoding);
         assertEquals(expectedBackup, actualBackup);
       }
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
+      var actualSorted =
           new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
+      var expectedSorted =
           new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
@@ -138,12 +137,12 @@ class TestHandler {
       assertFalse(backupFile.exists(), "No sort expected, backup file exists");
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
+      var actualSorted =
           new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
+      var expectedSorted =
           new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
@@ -160,7 +159,7 @@ class TestHandler {
     try {
       removeOldTemporaryFiles();
       FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      XmlOrderedResult verifyOk = isVerifyOk();
+      var verifyOk = isVerifyOk();
 
       assertTrue(testpom.exists());
       return verifyOk;
@@ -180,12 +179,12 @@ class TestHandler {
       assertFalse(backupFile.exists());
 
       actualSortedPomInputStream = new FileInputStream(testpom);
-      String actualSorted =
+      var actualSorted =
           new String(actualSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
 
       expectedSortedPomInputStream =
           new FileInputStream("src/test/resources/" + expectedResourceFileName);
-      String expectedSorted =
+      var expectedSorted =
           new String(expectedSortedPomInputStream.readAllBytes(), pluginParameters.encoding);
       assertEquals(expectedSorted, actualSorted);
     } finally {
@@ -198,7 +197,7 @@ class TestHandler {
       removeOldTemporaryFiles();
 
       FileUtils.copyFile(new File("src/test/resources/" + inputResourceFileName), testpom);
-      long pomTimestamp = testpom.lastModified();
+      var pomTimestamp = testpom.lastModified();
       performSorting();
 
       if (pluginParameters.keepTimestamp) {
@@ -214,7 +213,7 @@ class TestHandler {
   }
 
   private void performVerifyWithSort() {
-    SortPomImpl sortPomImpl = new SortPomImpl();
+    var sortPomImpl = new SortPomImpl();
     sortPomImpl.setup(createDummyLog(), pluginParameters);
 
     sortPomImpl.verifyPom();
@@ -224,7 +223,7 @@ class TestHandler {
       throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     sortPomImpl.setup(createDummyLog(), pluginParameters);
 
-    Method getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
+    var getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
     getVerificationResult.setAccessible(true);
 
     return (XmlOrderedResult) getVerificationResult.invoke(sortPomImpl);
@@ -254,6 +253,7 @@ class TestHandler {
       try {
         stream.close();
       } catch (IOException e) {
+        //noinspection CallToPrintStackTrace
         e.printStackTrace();
       }
     }

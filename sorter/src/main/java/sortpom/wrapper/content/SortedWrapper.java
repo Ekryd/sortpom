@@ -16,7 +16,7 @@ public class SortedWrapper implements Wrapper<Element> {
    * @param element The wrapped element
    * @param sortOrder The sort order, lower value is placed higher up
    */
-  public SortedWrapper(final Element element, final int sortOrder) {
+  public SortedWrapper(Element element, int sortOrder) {
     this.element = element;
     this.sortOrder = sortOrder;
   }
@@ -27,7 +27,7 @@ public class SortedWrapper implements Wrapper<Element> {
   }
 
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     return !(wrapper instanceof SortedWrapper) || isBeforeSortedWrapper((SortedWrapper) wrapper);
   }
 

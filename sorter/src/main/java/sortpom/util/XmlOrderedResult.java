@@ -7,7 +7,7 @@ package sortpom.util;
  * @author bjorn
  * @since 2012-08-11
  */
-public final class XmlOrderedResult {
+public class XmlOrderedResult {
   private final boolean ordered;
   private final String errorMessage;
 

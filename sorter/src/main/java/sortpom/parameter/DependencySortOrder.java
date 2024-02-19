@@ -39,7 +39,7 @@ public class DependencySortOrder {
   }
 
   private String[] parseChildElementNameList() {
-    String list = childElementNameList.replaceAll("\\s", "");
+    var list = childElementNameList.replaceAll("\\s", "");
     if (list.isEmpty()) {
       return new String[0];
     }

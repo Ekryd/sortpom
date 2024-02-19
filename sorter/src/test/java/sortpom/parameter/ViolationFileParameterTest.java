@@ -28,8 +28,8 @@ class ViolationFileParameterTest {
   }
 
   @Test
-  final void violationFileCanBeOverwritten() throws Exception {
-    File tempFile = File.createTempFile("violation", ".xml", new File("target"));
+  void violationFileCanBeOverwritten() throws Exception {
+    var tempFile = File.createTempFile("violation", ".xml", new File("target"));
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .violationFile(tempFile.getAbsolutePath())
@@ -41,11 +41,11 @@ class ViolationFileParameterTest {
   }
 
   @Test
-  final void readOnlyViolationFileShouldReportError() throws Exception {
-    File tempFile = File.createTempFile("violation", ".xml", new File("target"));
+  void readOnlyViolationFileShouldReportError() throws Exception {
+    var tempFile = File.createTempFile("violation", ".xml", new File("target"));
     assertTrue(tempFile.setReadOnly());
 
-    final Executable testMethod =
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .violationFile(tempFile.getAbsolutePath())
@@ -55,7 +55,7 @@ class ViolationFileParameterTest {
                     "[INFO] The xml element <modelVersion> should be placed before <parent>",
                     true);
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -63,7 +63,7 @@ class ViolationFileParameterTest {
   }
 
   @Test
-  final void violationFileShouldBeCreatedOnVerificationStop() {
+  void violationFileShouldBeCreatedOnVerificationStop() {
     SortPomImplUtil.create()
         .verifyFail("Stop")
         .violationFile(FILENAME_WITHOUT_DIRECTORIES)
@@ -72,12 +72,12 @@ class ViolationFileParameterTest {
             FailureException.class,
             "[ERROR] The xml element <modelVersion> should be placed before <parent>",
             true);
-    File file = new File(FILENAME_WITHOUT_DIRECTORIES);
+    var file = new File(FILENAME_WITHOUT_DIRECTORIES);
     assertThat(file.exists(), is(true));
   }
 
   @Test
-  final void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() throws Exception {
+  void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() throws Exception {
     SortPomImplUtil.create()
         .verifyFail("Warn")
         .violationFile(FILENAME_WITH_DIRECTORIES)
@@ -85,12 +85,12 @@ class ViolationFileParameterTest {
             "/full_unsorted_input.xml",
             "[WARNING] The xml element <modelVersion> should be placed before <parent>",
             true);
-    File file = new File(FILENAME_WITH_DIRECTORIES);
+    var file = new File(FILENAME_WITH_DIRECTORIES);
     assertThat(file.exists(), is(true));
   }
 
   @Test
-  final void violationFileContentShouldBeEncodedOnVerificationSort() throws Exception {
+  void violationFileContentShouldBeEncodedOnVerificationSort() throws Exception {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .verifyFail("Sort")
@@ -100,7 +100,7 @@ class ViolationFileParameterTest {
             "/full_expected.xml",
             "[INFO] The xml element <modelVersion> should be placed before <parent>",
             true);
-    String xml =
+    var xml =
         FileUtils.readFileToString(new File(FILENAME_WITH_DIRECTORIES), Charset.defaultCharset());
     assertThat(
         xml,

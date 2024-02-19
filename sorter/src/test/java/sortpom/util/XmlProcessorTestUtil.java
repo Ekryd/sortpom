@@ -44,12 +44,11 @@ public class XmlProcessorTestUtil {
 
   private XmlProcessorTestUtil() {}
 
-  public void testInputAndExpected(final String inputFileName, final String expectedFileName)
-      throws Exception {
-    String actual = sortXmlAndReturnResult(inputFileName);
+  public void testInputAndExpected(String inputFileName, String expectedFileName) throws Exception {
+    var actual = sortXmlAndReturnResult(inputFileName);
 
     try (var fileInputStream = new FileInputStream(expectedFileName)) {
-      final String expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+      var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
 
       assertEquals(expected, actual);
     }
@@ -61,23 +60,22 @@ public class XmlProcessorTestUtil {
     return xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
   }
 
-  public void testVerifyXmlIsOrdered(final String inputFileName) throws Exception {
+  public void testVerifyXmlIsOrdered(String inputFileName) throws Exception {
     setup(inputFileName);
     xmlProcessor.sortXml();
     assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
   }
 
-  public void testVerifyXmlIsNotOrdered(final String inputFileName, String infoMessage)
-      throws Exception {
+  public void testVerifyXmlIsNotOrdered(String inputFileName, String infoMessage) throws Exception {
     setup(inputFileName);
     xmlProcessor.sortXml();
-    XmlOrderedResult xmlOrdered = xmlProcessor.isXmlOrdered();
+    var xmlOrdered = xmlProcessor.isXmlOrdered();
     assertFalse(xmlOrdered.isOrdered());
     assertEquals(infoMessage, xmlOrdered.getErrorMessage());
   }
 
   private void setup(String inputFileName) throws Exception {
-    PluginParameters pluginParameters =
+    var pluginParameters =
         PluginParameters.builder()
             .setPomFile(null)
             .setFileOutput(false, ".bak", null, false)
@@ -99,7 +97,7 @@ public class XmlProcessorTestUtil {
       xml = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
     }
 
-    final FileUtil fileUtil = new FileUtil();
+    var fileUtil = new FileUtil();
     fileUtil.setup(pluginParameters);
 
     WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
@@ -115,15 +113,15 @@ public class XmlProcessorTestUtil {
           new WrapperFactory() {
 
             @Override
-            public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
+            public HierarchyRootWrapper createFromRootElement(Element rootElement) {
               return new HierarchyRootWrapper(new AlphabeticalSortedWrapper(rootElement));
             }
 
             @SuppressWarnings("unchecked")
             @Override
-            public <T extends Node> Wrapper<T> create(final T content) {
+            public <T extends Node> Wrapper<T> create(T content) {
               if (content instanceof Element) {
-                Element element = (Element) content;
+                var element = (Element) content;
                 return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
               }
               return new UnsortedWrapper<>(content);

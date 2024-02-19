@@ -6,7 +6,7 @@ import sortpom.util.SortPomImplUtil;
 class SortPropertiesTest {
 
   @Test
-  final void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
+  void namedParametersInSortFileShouldNotAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
         .lineSeparator("\n")
@@ -14,7 +14,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void sortPropertyParameterShouldNotAffectVerify() throws Exception {
+  void sortPropertyParameterShouldNotAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .lineSeparator("\n")
@@ -23,7 +23,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify()
+  void testBothNamedParametersInSortFileAndSortPropertyParameterTestNotAffectVerify()
       throws Exception {
     SortPomImplUtil.create()
         .lineSeparator("\n")
@@ -33,7 +33,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
+  void sortingOfFullPomFileShouldNotAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")
@@ -43,7 +43,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void namedParametersInSortFileShouldAffectVerify() throws Exception {
+  void namedParametersInSortFileShouldAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
         .lineSeparator("\n")
@@ -53,7 +53,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void sortPropertyParameterShouldAffectVerify() throws Exception {
+  void sortPropertyParameterShouldAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .lineSeparator("\n")
@@ -64,7 +64,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify()
+  void testBothNamedParametersInSortFileAndSortPropertyParameterTestAffectVerify()
       throws Exception {
     SortPomImplUtil.create()
         .lineSeparator("\n")
@@ -76,7 +76,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  final void sortingOfFullPomFileShouldAffectVerify() throws Exception {
+  void sortingOfFullPomFileShouldAffectVerify() throws Exception {
     SortPomImplUtil.create()
         .sortProperties()
         .predefinedSortOrder("default_0_4_0")

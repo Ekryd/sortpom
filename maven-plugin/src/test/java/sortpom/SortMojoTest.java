@@ -29,7 +29,7 @@ class SortMojoTest {
   @BeforeEach
   void setup() {
     sortMojo = new SortMojo();
-    ReflectionHelper mojoHelper = new ReflectionHelper(sortMojo);
+    var mojoHelper = new ReflectionHelper(sortMojo);
     mojoHelper.setField(sortPom);
     mojoHelper.setField("lineSeparator", "\n");
   }
@@ -47,9 +47,9 @@ class SortMojoTest {
   void thrownExceptionShouldBeConvertedToMojoException() {
     doThrow(new FailureException("Gurka")).when(sortPom).sortPom();
 
-    final Executable testMethod = () -> sortMojo.execute();
+    Executable testMethod = () -> sortMojo.execute();
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
   }
@@ -60,9 +60,9 @@ class SortMojoTest {
         .when(sortPom)
         .setup(any(SortPomLogger.class), any(PluginParameters.class));
 
-    final Executable testMethod = () -> sortMojo.setup(new MavenLogger(null, false));
+    Executable testMethod = () -> sortMojo.setup(new MavenLogger(null, false));
 
-    final MojoFailureException thrown = assertThrows(MojoFailureException.class, testMethod);
+    var thrown = assertThrows(MojoFailureException.class, testMethod);
 
     assertThat("Unexpected message", thrown.getMessage(), is(equalTo("Gurka")));
   }

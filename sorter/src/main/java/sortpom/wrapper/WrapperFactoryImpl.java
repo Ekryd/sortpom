@@ -5,8 +5,13 @@ import static sortpom.XmlProcessor.DISALLOW_DOCTYPE_DECL;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.util.List;
-import org.dom4j.*;
+import org.dom4j.Comment;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.Node;
+import org.dom4j.ProcessingInstruction;
+import org.dom4j.Text;
 import org.dom4j.io.SAXReader;
 import org.xml.sax.SAXException;
 import sortpom.content.IgnoreSectionToken;
@@ -46,7 +51,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
    *
    * @param fileUtil the file util
    */
-  public WrapperFactoryImpl(final FileUtil fileUtil) {
+  public WrapperFactoryImpl(FileUtil fileUtil) {
     this.fileUtil = fileUtil;
   }
 
@@ -59,7 +64,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
   /**
    * @see WrapperFactory#createFromRootElement(org.dom4j.Element)
    */
-  public HierarchyRootWrapper createFromRootElement(final Element rootElement) {
+  public HierarchyRootWrapper createFromRootElement(Element rootElement) {
     initializeSortOrderMap();
     return new HierarchyRootWrapper(create(rootElement));
   }
@@ -67,7 +72,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
   /** Creates sort order map from chosen sort order. */
   private void initializeSortOrderMap() {
     try {
-      Document document = createDocumentFromDefaultSortOrderFile();
+      var document = createDocumentFromDefaultSortOrderFile();
       addElementsToSortOrderMap(document.getRootElement(), SORT_ORDER_BASE);
     } catch (IOException | DocumentException | SAXException e) {
       throw new FailureException(e.getMessage(), e);
@@ -77,19 +82,19 @@ public class WrapperFactoryImpl implements WrapperFactory {
   Document createDocumentFromDefaultSortOrderFile()
       throws IOException, DocumentException, SAXException {
     try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
-      SAXReader parser = new SAXReader();
+      var parser = new SAXReader();
       parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
       return parser.read(reader);
     }
   }
 
   /** Processes the chosen sort order. Adds sort order element and sort index to a map. */
-  private void addElementsToSortOrderMap(final Element element, int baseSortOrder) {
+  private void addElementsToSortOrderMap(Element element, int baseSortOrder) {
     elementSortOrderMap.addElement(element, baseSortOrder);
-    final List<Element> castToChildElementList = element.elements();
+    var castToChildElementList = element.elements();
     // Increments the sort order index for each element
-    int sortOrder = baseSortOrder;
-    for (Element child : castToChildElementList) {
+    var sortOrder = baseSortOrder;
+    for (var child : castToChildElementList) {
       sortOrder += SORT_ORDER_INCREMENT;
       addElementsToSortOrderMap(child, sortOrder);
     }
@@ -100,7 +105,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
    */
   @SuppressWarnings("unchecked")
   @Override
-  public <T extends Node> Wrapper<T> create(final T content) {
+  public <T extends Node> Wrapper<T> create(T content) {
     if (content instanceof Element) {
       return (Wrapper<T>) elementWrapperCreator.createWrapper((Element) content);
     }

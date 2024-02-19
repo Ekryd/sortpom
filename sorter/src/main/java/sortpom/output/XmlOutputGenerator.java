@@ -39,8 +39,8 @@ public class XmlOutputGenerator {
    * @return the sorted xml
    */
   public String getSortedXml(Document newDocument) {
-    try (StringWriter out = new StringWriter();
-        StringLineSeparatorWriter writer = new StringLineSeparatorWriter(out, lineSeparator)) {
+    try (var out = new StringWriter();
+        var writer = new StringLineSeparatorWriter(out, lineSeparator)) {
       XMLWriter xmlWriter =
           new PatchedXMLWriter(
               writer,
@@ -58,7 +58,7 @@ public class XmlOutputGenerator {
   }
 
   private OutputFormat createPrettyFormat() {
-    OutputFormat outputFormat = new OutputFormat(indentCharacters);
+    var outputFormat = new OutputFormat(indentCharacters);
     outputFormat.setNewlines(true);
     outputFormat.setExpandEmptyElements(expandEmptyElements);
     outputFormat.setNewLineAfterDeclaration(false);

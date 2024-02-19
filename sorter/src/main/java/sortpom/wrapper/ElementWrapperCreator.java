@@ -79,25 +79,25 @@ public class ElementWrapperCreator {
     return dependencySortedWrapper;
   }
 
-  private boolean isDependencyElementInManagement(final Element element) {
+  private boolean isDependencyElementInManagement(Element element) {
     return isElementParentName(element.getParent(), "dependencyManagement");
   }
 
-  private boolean isDependencyElement(final Element element) {
+  private boolean isDependencyElement(Element element) {
     if (sortDependencies.isNoSorting() && sortDependencyManagement.isNoSorting()) {
       return false;
     }
     return isElementName(element, "dependency") && isElementParentName(element, "dependencies");
   }
 
-  private boolean isExclusionElement(final Element element) {
+  private boolean isExclusionElement(Element element) {
     if (sortDependencyExclusions.isNoSorting()) {
       return false;
     }
     return isElementName(element, "exclusion") && isElementParentName(element, "exclusions");
   }
 
-  private boolean isPluginElement(final Element element) {
+  private boolean isPluginElement(Element element) {
     if (sortPlugins.isNoSorting()) {
       return false;
     }
@@ -106,21 +106,21 @@ public class ElementWrapperCreator {
             || isElementParentName(element, "reportPlugins"));
   }
 
-  private boolean isModuleElement(final Element element) {
+  private boolean isModuleElement(Element element) {
     if (!sortModules) {
       return false;
     }
     return isElementName(element, "module") && isElementParentName(element, "modules");
   }
 
-  private boolean isExecutionElement(final Element element) {
+  private boolean isExecutionElement(Element element) {
     if (!sortExecutions) {
       return false;
     }
     return isElementName(element, "execution") && isElementParentName(element, "executions");
   }
 
-  private boolean isPropertyElement(final Element element) {
+  private boolean isPropertyElement(Element element) {
     if (!sortProperties) {
       return false;
     }

@@ -14,7 +14,7 @@ public class UnsortedWrapper<T extends Node> implements Wrapper<T> {
    *
    * @param content the content
    */
-  public UnsortedWrapper(final T content) {
+  public UnsortedWrapper(T content) {
     this.content = content;
   }
 
@@ -30,7 +30,7 @@ public class UnsortedWrapper<T extends Node> implements Wrapper<T> {
    * @see Wrapper#isBefore(Wrapper)
    */
   @Override
-  public boolean isBefore(final Wrapper<? extends Node> wrapper) {
+  public boolean isBefore(Wrapper<? extends Node> wrapper) {
     throw new UnsupportedOperationException("Cannot be sorted");
   }
 

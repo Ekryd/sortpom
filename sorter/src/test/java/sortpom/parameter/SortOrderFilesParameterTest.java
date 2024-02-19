@@ -16,31 +16,28 @@ import sortpom.util.SortPomImplUtil;
 class SortOrderFilesParameterTest {
 
   @Test
-  final void incorrectCustomSortOrderShouldThrowException() {
-
-    final Executable testMethod =
+  void incorrectCustomSortOrderShouldThrowException() {
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_differentOrder.xml");
 
-    final FailureException thrown = assertThrows(FailureException.class, testMethod);
+    var thrown = assertThrows(FailureException.class, testMethod);
 
     assertThat(thrown.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
   }
 
   @Test
-  final void incorrectPredefinedSortOrderShouldThrowException() {
-
-    final Executable testMethod =
+  void incorrectPredefinedSortOrderShouldThrowException() {
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
                 .testFiles("/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_0_4_0.xml");
 
-    final IllegalArgumentException thrown =
-        assertThrows(IllegalArgumentException.class, testMethod);
+    var thrown = assertThrows(IllegalArgumentException.class, testMethod);
 
     assertThat(
         thrown.getMessage(),
@@ -48,36 +45,32 @@ class SortOrderFilesParameterTest {
   }
 
   @Test
-  final void incorrectCustomSortOrderShouldThrowException2() {
-
-    final Executable testMethod =
+  void incorrectCustomSortOrderShouldThrowException2() {
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
 
-    final InvocationTargetException thrown =
-        assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(InvocationTargetException.class, testMethod);
 
-    Throwable cause = thrown.getTargetException();
+    var cause = thrown.getTargetException();
     assertThat(cause, isA(FailureException.class));
     assertThat(cause.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
   }
 
   @Test
-  final void incorrectPredefinedSortOrderShouldThrowException2() {
-
-    final Executable testMethod =
+  void incorrectPredefinedSortOrderShouldThrowException2() {
+    Executable testMethod =
         () ->
             SortPomImplUtil.create()
                 .predefinedSortOrder("abbie_normal_brain")
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
 
-    final InvocationTargetException thrown =
-        assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(InvocationTargetException.class, testMethod);
 
-    Throwable cause = thrown.getTargetException();
+    var cause = thrown.getTargetException();
     assertThat(cause, isA(IllegalArgumentException.class));
     assertThat(
         cause.getMessage(),

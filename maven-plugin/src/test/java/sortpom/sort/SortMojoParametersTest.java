@@ -41,10 +41,10 @@ class SortMojoParametersTest {
 
     sortPomImpl = new ReflectionHelper(sortMojo).getField(SortPomImpl.class);
     sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
-    ReflectionHelper sortPomServiceHelper = new ReflectionHelper(sortPomService);
+    var sortPomServiceHelper = new ReflectionHelper(sortPomService);
     fileUtil = sortPomServiceHelper.getField(FileUtil.class);
     xmlOutputGenerator = sortPomServiceHelper.getField(XmlOutputGenerator.class);
-    WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
+    var wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
     xmlProcessingInstructionParser =
         sortPomServiceHelper.getField(XmlProcessingInstructionParser.class);
 
@@ -85,7 +85,7 @@ class SortMojoParametersTest {
   void lineSeparatorParameter() {
     assertParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-    final String lineSeparator =
+    var lineSeparator =
         new ReflectionHelper(xmlOutputGenerator).getField("lineSeparator").toString();
 
     assertThat(lineSeparator, is(equalTo("\r")));
@@ -95,8 +95,7 @@ class SortMojoParametersTest {
   void parameterNrOfIndentSpaceShouldEndUpInXmlProcessor() {
     assertParameterMoveFromMojoToRestOfApplication("nrOfIndentSpace", 6);
 
-    final Object indentCharacters =
-        new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters");
+    var indentCharacters = new ReflectionHelper(xmlOutputGenerator).getField("indentCharacters");
 
     assertThat(indentCharacters, is(equalTo("      ")));
   }
@@ -122,7 +121,7 @@ class SortMojoParametersTest {
   void parameterSortOrderFileShouldEndUpInFileUtil() {
     assertParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
-    Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
+    var actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
 
     assertThat(actual, is(equalTo("sortOrderFile.gurka")));
   }
@@ -131,8 +130,7 @@ class SortMojoParametersTest {
   void parameterSortDependenciesShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
 
-    Object sortDependencies =
-        new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
+    var sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
     assertThat(
         sortDependencies.toString(), is("DependencySortOrder{childElementNames=[groupId, scope]}"));
   }
@@ -141,7 +139,7 @@ class SortMojoParametersTest {
   void parameterSortDependencyManagementShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencyManagement", "scope,groupId");
 
-    Object sortDependencies =
+    var sortDependencies =
         new ReflectionHelper(elementWrapperCreator).getField("sortDependencyManagement");
     assertThat(
         sortDependencies.toString(), is("DependencySortOrder{childElementNames=[scope, groupId]}"));
@@ -151,7 +149,7 @@ class SortMojoParametersTest {
   void parameterSortDependencyExclusionsShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencyExclusions", "groupId,scope");
 
-    Object sortDependencyExclusions =
+    var sortDependencyExclusions =
         new ReflectionHelper(elementWrapperCreator).getField("sortDependencyExclusions");
     assertThat(
         sortDependencyExclusions.toString(),
@@ -162,7 +160,7 @@ class SortMojoParametersTest {
   void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() {
     assertParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
-    Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
+    var sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
     assertThat(sortPlugins.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
   }
 
@@ -207,10 +205,9 @@ class SortMojoParametersTest {
 
   @Test
   void xmlProcessingInstructionParserShouldGetLogger() throws MojoFailureException {
-    MavenLogger expectedLogger = new MavenLogger(null, false);
+    var expectedLogger = new MavenLogger(null, false);
     sortMojo.setup(expectedLogger);
-    SortPomLogger logger =
-        new ReflectionHelper(xmlProcessingInstructionParser).getField(SortPomLogger.class);
+    var logger = new ReflectionHelper(xmlProcessingInstructionParser).getField(SortPomLogger.class);
     assertThat(logger, not(nullValue()));
     assertThat(logger, sameInstance(expectedLogger));
   }
@@ -225,9 +222,8 @@ class SortMojoParametersTest {
       throw new RuntimeException(e);
     }
 
-    for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
-      Object actual =
-          new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
+    for (var someInstanceThatContainParameter : whereParameterCanBeFound) {
+      var actual = new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
       assertThat(actual, is(equalTo(parameterValue)));
     }
@@ -243,8 +239,8 @@ class SortMojoParametersTest {
       throw new RuntimeException(e);
     }
 
-    for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
-      boolean actual =
+    for (var someInstanceThatContainParameter : whereParameterCanBeFound) {
+      var actual =
           (boolean) new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
       assertThat(actual, is(equalTo(true)));

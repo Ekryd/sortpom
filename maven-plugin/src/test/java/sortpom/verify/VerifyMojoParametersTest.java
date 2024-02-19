@@ -42,10 +42,10 @@ class VerifyMojoParametersTest {
 
     sortPomImpl = new ReflectionHelper(verifyMojo).getField(SortPomImpl.class);
     sortPomService = new ReflectionHelper(sortPomImpl).getField(SortPomService.class);
-    ReflectionHelper sortPomServiceHelper = new ReflectionHelper(sortPomService);
+    var sortPomServiceHelper = new ReflectionHelper(sortPomService);
     fileUtil = sortPomServiceHelper.getField(FileUtil.class);
     xmlOutputGenerator = sortPomServiceHelper.getField(XmlOutputGenerator.class);
-    WrapperFactoryImpl wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
+    var wrapperFactoryImpl = sortPomServiceHelper.getField(WrapperFactoryImpl.class);
     elementWrapperCreator =
         new ReflectionHelper(wrapperFactoryImpl).getField(ElementWrapperCreator.class);
     textWrapperCreator =
@@ -89,7 +89,7 @@ class VerifyMojoParametersTest {
   void lineSeparatorParameter() {
     assertParameterMoveFromMojoToRestOfApplication("lineSeparator", "\r");
 
-    final String lineSeparator =
+    var lineSeparator =
         new ReflectionHelper(xmlOutputGenerator).getField("lineSeparator").toString();
 
     assertThat("\r", lineSeparator, is(equalTo("\r")));
@@ -125,7 +125,7 @@ class VerifyMojoParametersTest {
   void parameterSortOrderFileShouldEndUpInFileUtil() {
     assertParameterMoveFromMojoToRestOfApplication("sortOrderFile", "sortOrderFile.gurka");
 
-    Object actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
+    var actual = new ReflectionHelper(fileUtil).getField("customSortOrderFile");
     assertThat(actual, is(equalTo("sortOrderFile.gurka")));
   }
 
@@ -133,8 +133,7 @@ class VerifyMojoParametersTest {
   void parameterSortDependenciesShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencies", "groupId,scope");
 
-    Object sortDependencies =
-        new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
+    var sortDependencies = new ReflectionHelper(elementWrapperCreator).getField("sortDependencies");
     assertThat(
         sortDependencies.toString(), is("DependencySortOrder{childElementNames=[groupId, scope]}"));
   }
@@ -143,7 +142,7 @@ class VerifyMojoParametersTest {
   void parameterSortDependencyManagementShouldEndUpInElementWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplication("sortDependencyManagement", "scope,groupId");
 
-    Object sortDependencies =
+    var sortDependencies =
         new ReflectionHelper(elementWrapperCreator).getField("sortDependencyManagement");
     assertThat(
         sortDependencies.toString(),
@@ -154,7 +153,7 @@ class VerifyMojoParametersTest {
   void parameterSortPluginsShouldEndUpInWrapperFactoryImpl() {
     assertParameterMoveFromMojoToRestOfApplication("sortPlugins", "alfa,beta");
 
-    Object sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
+    var sortPlugins = new ReflectionHelper(elementWrapperCreator).getField("sortPlugins");
     assertThat(sortPlugins.toString(), is("DependencySortOrder{childElementNames=[alfa, beta]}"));
   }
 
@@ -201,7 +200,7 @@ class VerifyMojoParametersTest {
   void parameterVerifyFailShouldEndUpInXmlProcessor() {
     assertParameterMoveFromMojoToRestOfApplication("verifyFail", "STOP");
 
-    final Object verifyFailType = new ReflectionHelper(sortPomImpl).getField("verifyFailType");
+    var verifyFailType = new ReflectionHelper(sortPomImpl).getField("verifyFailType");
 
     assertThat(verifyFailType, is(equalTo(VerifyFailType.STOP)));
   }
@@ -216,9 +215,8 @@ class VerifyMojoParametersTest {
       throw new RuntimeException(e);
     }
 
-    for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
-      Object actual =
-          new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
+    for (var someInstanceThatContainParameter : whereParameterCanBeFound) {
+      var actual = new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
       assertThat(actual, is(equalTo(parameterValue)));
     }
@@ -234,8 +232,8 @@ class VerifyMojoParametersTest {
       throw new RuntimeException(e);
     }
 
-    for (Object someInstanceThatContainParameter : whereParameterCanBeFound) {
-      boolean actual =
+    for (var someInstanceThatContainParameter : whereParameterCanBeFound) {
+      var actual =
           (boolean) new ReflectionHelper(someInstanceThatContainParameter).getField(parameterName);
 
       assertThat(actual, is(equalTo(true)));

@@ -3,7 +3,6 @@ package sortpom.sort;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sortpom.sort.XmlFragment.createXmlProjectFragment;
 
-import org.dom4j.Document;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -16,7 +15,7 @@ class IndentationTest {
   @ParameterizedTest()
   @ValueSource(ints = {0, 1, 4, -1})
   void differentIndentsShouldWork(int indent) throws Exception {
-    String expectedFile = "/SortModules_expectedIndent" + indent + ".xml";
+    var expectedFile = "/SortModules_expectedIndent" + indent + ".xml";
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")
@@ -29,8 +28,8 @@ class IndentationTest {
 
   @ParameterizedTest()
   @ValueSource(ints = {0, 1, 4, -1})
-  final void indentSchemaLocationShouldBeIndentTimesTwoPlusOne(int indent) throws Exception {
-    String expectedFile = "/SortModules_expectedSchemaIndent" + indent + ".xml";
+  void indentSchemaLocationShouldBeIndentTimesTwoPlusOne(int indent) throws Exception {
+    var expectedFile = "/SortModules_expectedSchemaIndent" + indent + ".xml";
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")
@@ -45,8 +44,8 @@ class IndentationTest {
   @ParameterizedTest
   @ValueSource(ints = {0, 1, 4, -1})
   void indentSchemaLocationShouldAddNewlineAndIndentation(int indent) {
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-    String lineSeparator = "\n";
+    var xmlOutputGenerator = new XmlOutputGenerator();
+    var lineSeparator = "\n";
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
@@ -54,8 +53,8 @@ class IndentationTest {
             .setIndent(indent, false, true)
             .build());
 
-    String actual = xmlOutputGenerator.getSortedXml(createXmlProjectFragment());
-    String indentChars = "";
+    var actual = xmlOutputGenerator.getSortedXml(createXmlProjectFragment());
+    var indentChars = "";
     switch (indent) {
       case 1:
         indentChars = " ";
@@ -86,8 +85,8 @@ class IndentationTest {
 
   @Test
   void otherAttributeShouldNotBeIndented() {
-    XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
-    String lineSeparator = "\n";
+    var xmlOutputGenerator = new XmlOutputGenerator();
+    var lineSeparator = "\n";
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
@@ -95,10 +94,10 @@ class IndentationTest {
             .setIndent(2, false, true)
             .build());
 
-    Document xmlProjectFragment = createXmlProjectFragment();
+    var xmlProjectFragment = createXmlProjectFragment();
     xmlProjectFragment.getRootElement().element("Gurka").addAttribute("key", "value");
-    String actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
-    String indentChars = "  ";
+    var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
+    var indentChars = "  ";
 
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

@@ -34,7 +34,7 @@ class FileAttributeUtilTest {
     assertThat(oldTimestamp, greaterThan(10000L));
 
     fileAttributeUtil.setTimestamps(tempFile, 10000L);
-    long timestamp = fileAttributeUtil.getLastModifiedTimestamp(tempFile);
+    var timestamp = fileAttributeUtil.getLastModifiedTimestamp(tempFile);
     assertThat(timestamp, is(10000L));
   }
 }

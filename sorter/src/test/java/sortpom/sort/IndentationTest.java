@@ -50,7 +50,7 @@ class IndentationTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting(lineSeparator, true, true, false)
+            .setFormatting(lineSeparator, true, true, false, true)
             .setIndent(indent, false, true)
             .build());
 
@@ -91,7 +91,7 @@ class IndentationTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting(lineSeparator, true, true, false)
+            .setFormatting(lineSeparator, true, true, false, true)
             .setIndent(2, false, true)
             .build());
 

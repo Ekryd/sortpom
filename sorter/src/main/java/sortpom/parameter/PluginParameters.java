@@ -23,6 +23,7 @@ public class PluginParameters {
   public final boolean sortModules;
   public final boolean sortExecutions;
   public final boolean keepBlankLines;
+  public final boolean endWithNewline;
   public final boolean indentBlankLines;
   public final boolean indentSchemaLocation;
   public final VerifyFailType verifyFailType;
@@ -40,6 +41,7 @@ public class PluginParameters {
       boolean expandEmptyElements,
       boolean spaceBeforeCloseEmptyElement,
       boolean keepBlankLines,
+      boolean endWithNewline,
       String indentCharacters,
       boolean indentBlankLines,
       boolean indentSchemaLocation,
@@ -75,6 +77,7 @@ public class PluginParameters {
     this.sortModules = sortModules;
     this.sortExecutions = sortExecutions;
     this.keepBlankLines = keepBlankLines;
+    this.endWithNewline = endWithNewline;
     this.indentBlankLines = indentBlankLines;
     this.indentSchemaLocation = indentSchemaLocation;
     this.verifyFailType = verifyFailType;
@@ -111,6 +114,7 @@ public class PluginParameters {
     private boolean sortModules;
     private boolean sortExecutions;
     private boolean keepBlankLines;
+    private boolean endWithNewline;
     private VerifyFailType verifyFailType;
     private VerifyFailOnType verifyFailOn;
     private boolean ignoreLineSeparators;
@@ -148,11 +152,13 @@ public class PluginParameters {
         final String lineSeparator,
         final boolean expandEmptyElements,
         final boolean spaceBeforeCloseEmptyElement,
-        final boolean keepBlankLines) {
+        final boolean keepBlankLines,
+        final boolean endWithNewline) {
       this.lineSeparatorUtil = new LineSeparatorUtil(lineSeparator);
       this.expandEmptyElements = expandEmptyElements;
       this.spaceBeforeCloseEmptyElement = spaceBeforeCloseEmptyElement;
       this.keepBlankLines = keepBlankLines;
+      this.endWithNewline = endWithNewline;
       return this;
     }
 
@@ -217,6 +223,7 @@ public class PluginParameters {
           expandEmptyElements,
           spaceBeforeCloseEmptyElement,
           keepBlankLines,
+          endWithNewline,
           indentCharacters,
           indentBlankLines,
           indentSchemaLocation,

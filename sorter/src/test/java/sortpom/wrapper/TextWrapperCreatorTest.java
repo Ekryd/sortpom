@@ -20,7 +20,7 @@ class TextWrapperCreatorTest {
     textWrapperCreator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting("\n", true, true, true)
+            .setFormatting("\n", true, true, true, true)
             .build());
   }
 

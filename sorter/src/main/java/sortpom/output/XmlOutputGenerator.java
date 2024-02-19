@@ -19,6 +19,7 @@ public class XmlOutputGenerator {
   private boolean indentSchemaLocation;
   private boolean spaceBeforeCloseEmptyElement;
   private String lineSeparator;
+  private boolean endWithNewline;
 
   /** Setup default configuration */
   public void setup(PluginParameters pluginParameters) {
@@ -28,7 +29,8 @@ public class XmlOutputGenerator {
     this.indentBlankLines = pluginParameters.indentBlankLines;
     this.indentSchemaLocation = pluginParameters.indentSchemaLocation;
     this.spaceBeforeCloseEmptyElement = pluginParameters.spaceBeforeCloseEmptyElement;
-    lineSeparator = pluginParameters.lineSeparatorUtil.toString();
+    this.lineSeparator = pluginParameters.lineSeparatorUtil.toString();
+    this.endWithNewline = pluginParameters.endWithNewline;
   }
 
   /**
@@ -45,7 +47,8 @@ public class XmlOutputGenerator {
               createPrettyFormat(),
               spaceBeforeCloseEmptyElement,
               indentBlankLines,
-              indentSchemaLocation);
+              indentSchemaLocation,
+              endWithNewline);
       xmlWriter.write(newDocument);
       writer.writeDelayedNewline();
       return writer.toString();

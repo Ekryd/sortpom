@@ -17,11 +17,11 @@ import sortpom.wrapper.operation.HierarchyRootWrapper;
 class ElementToStringTest {
   @Test
   void testToString() throws Exception {
-    String expected =
-        new String(
-            new FileInputStream("src/test/resources/Real1_expected_toString.txt").readAllBytes(),
-            StandardCharsets.UTF_8);
-    assertEquals(expected, getToStringOnRootElementWrapper());
+    try (var fileInputStream =
+        new FileInputStream("src/test/resources/Real1_expected_toString.txt")) {
+      String expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+      assertEquals(expected, getToStringOnRootElementWrapper());
+    }
   }
 
   private String getToStringOnRootElementWrapper() throws IOException, DocumentException {
@@ -30,7 +30,7 @@ class ElementToStringTest {
             .setPomFile(null)
             .setFileOutput(false, ".bak", null, false)
             .setEncoding("UTF-8")
-            .setFormatting("\r\n", true, true, true)
+            .setFormatting("\r\n", true, true, true, true)
             .setIndent(2, false, false)
             .setSortOrder("default_0_4_0.xml", null)
             .setSortEntities(
@@ -46,10 +46,10 @@ class ElementToStringTest {
     FileUtil fileUtil = new FileUtil();
     fileUtil.setup(pluginParameters);
 
-    String xml =
-        new String(
-            new FileInputStream("src/test/resources/" + "Real1_input.xml").readAllBytes(),
-            StandardCharsets.UTF_8);
+    String xml;
+    try (var fileInputStream = new FileInputStream("src/test/resources/" + "Real1_input.xml")) {
+      xml = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+    }
     SAXReader parser = new SAXReader();
     Document document = parser.read(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
 

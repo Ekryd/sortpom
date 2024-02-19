@@ -5,6 +5,7 @@ import static java.util.Optional.ofNullable;
 import java.io.IOException;
 import java.io.Writer;
 import org.dom4j.Attribute;
+import org.dom4j.Document;
 import org.dom4j.Node;
 import org.dom4j.ProcessingInstruction;
 import org.dom4j.io.OutputFormat;
@@ -19,18 +20,21 @@ class PatchedXMLWriter extends XMLWriter {
   private final boolean indentBlankLines;
   private final boolean indentSchemaLocation;
   private final boolean spaceBeforeCloseEmptyElement;
+  private final boolean endWithNewline;
 
   public PatchedXMLWriter(
       Writer writer,
       OutputFormat format,
       boolean spaceBeforeCloseEmptyElement,
       boolean indentBlankLines,
-      boolean indentSchemaLocation) {
+      boolean indentSchemaLocation,
+      boolean endWithNewline) {
     super(writer, format);
     this.format = format;
     this.indentBlankLines = indentBlankLines;
     this.indentSchemaLocation = indentSchemaLocation;
     this.spaceBeforeCloseEmptyElement = spaceBeforeCloseEmptyElement;
+    this.endWithNewline = endWithNewline;
   }
 
   /** Handle spaceBeforeCloseEmptyElement option */
@@ -56,6 +60,25 @@ class PatchedXMLWriter extends XMLWriter {
     writer.write("?>");
 
     lastOutputNodeType = Node.PROCESSING_INSTRUCTION_NODE;
+  }
+
+  @Override
+  public void write(Document doc) throws IOException {
+    writeDeclaration();
+
+    if (doc.getDocType() != null) {
+      indent();
+      writeDocType(doc.getDocType());
+    }
+
+    for (int i = 0, size = doc.nodeCount(); i < size; i++) {
+      Node node = doc.node(i);
+      writeNode(node);
+    }
+
+    if (endWithNewline) {
+      writePrintln();
+    }
   }
 
   /** Handle Custom NewLineTest node and potential indent of empty line */

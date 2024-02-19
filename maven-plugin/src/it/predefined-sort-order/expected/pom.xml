@@ -24,6 +24,7 @@
             <configuration>
               <predefinedSortOrder>default_1_0_0</predefinedSortOrder>
               <keepBlankLines>false</keepBlankLines>
+              <endWithNewline>false</endWithNewline>
               <spaceBeforeCloseEmptyElement>true</spaceBeforeCloseEmptyElement>
               <expandEmptyElements>false</expandEmptyElements>
             </configuration>

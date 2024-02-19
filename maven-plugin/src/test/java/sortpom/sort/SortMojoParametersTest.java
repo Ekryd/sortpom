@@ -184,8 +184,13 @@ class SortMojoParametersTest {
   }
 
   @Test
-  void parameterKeepBlankLineShouldEndUpInXmlProcessor() {
+  void parameterKeepBlankLineShouldEndUpInTextWrapperCreator() {
     assertParameterMoveFromMojoToRestOfApplicationForBoolean("keepBlankLines", textWrapperCreator);
+  }
+
+  @Test
+  void parameterEndWithNewlineShouldEndUpInXmlProcessor() {
+    assertParameterMoveFromMojoToRestOfApplicationForBoolean("endWithNewline", xmlOutputGenerator);
   }
 
   @Test

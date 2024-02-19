@@ -23,7 +23,8 @@ import sortpom.wrapper.operation.WrapperFactory;
 /** Test utility */
 public class XmlProcessorTestUtil {
   private boolean sortAlphabeticalOnly = false;
-  private boolean keepBlankLines = false;
+  private boolean keepBlankLines = true;
+  private boolean endWithNewline = true;
   private boolean indentBlankLines = false;
   private String predefinedSortOrder = "recommended_2008_06";
   private boolean expandEmptyElements = true;
@@ -34,7 +35,6 @@ public class XmlProcessorTestUtil {
   private boolean spaceBeforeCloseEmptyElement = true;
   private boolean sortModules = false;
   private String sortDependencies;
-  private String sortDependencyManagement;
   private String sortPlugins;
   private boolean sortProperties = false;
 
@@ -48,10 +48,11 @@ public class XmlProcessorTestUtil {
       throws Exception {
     String actual = sortXmlAndReturnResult(inputFileName);
 
-    final String expected =
-        new String(new FileInputStream(expectedFileName).readAllBytes(), StandardCharsets.UTF_8);
+    try (var fileInputStream = new FileInputStream(expectedFileName)) {
+      final String expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
 
-    assertEquals(expected, actual);
+      assertEquals(expected, actual);
+    }
   }
 
   public String sortXmlAndReturnResult(String inputFileName) throws Exception {
@@ -82,20 +83,21 @@ public class XmlProcessorTestUtil {
             .setFileOutput(false, ".bak", null, false)
             .setEncoding("UTF-8")
             .setFormatting(
-                lineSeparator, expandEmptyElements, spaceBeforeCloseEmptyElement, keepBlankLines)
+                lineSeparator,
+                expandEmptyElements,
+                spaceBeforeCloseEmptyElement,
+                keepBlankLines,
+                endWithNewline)
             .setIndent(2, indentBlankLines, false)
             .setSortOrder(predefinedSortOrder + ".xml", null)
             .setSortEntities(
-                sortDependencies,
-                "",
-                sortDependencyManagement,
-                sortPlugins,
-                sortProperties,
-                sortModules,
-                false)
+                sortDependencies, "", null, sortPlugins, sortProperties, sortModules, false)
             .build();
-    final String xml =
-        new String(new FileInputStream(inputFileName).readAllBytes(), StandardCharsets.UTF_8);
+
+    String xml;
+    try (var fileInputStream = new FileInputStream(inputFileName)) {
+      xml = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+    }
 
     final FileUtil fileUtil = new FileUtil();
     fileUtil.setup(pluginParameters);
@@ -139,8 +141,13 @@ public class XmlProcessorTestUtil {
     return this;
   }
 
-  public XmlProcessorTestUtil keepBlankLines() {
-    keepBlankLines = true;
+  public XmlProcessorTestUtil keepBlankLinesFalse() {
+    keepBlankLines = false;
+    return this;
+  }
+
+  public XmlProcessorTestUtil endWithNewlineFalse() {
+    endWithNewline = false;
     return this;
   }
 
@@ -166,11 +173,6 @@ public class XmlProcessorTestUtil {
 
   public XmlProcessorTestUtil sortDependencies(String sortDependencies) {
     this.sortDependencies = sortDependencies;
-    return this;
-  }
-
-  public XmlProcessorTestUtil sortDependencyManagement(String sortDependencyManagement) {
-    this.sortDependencyManagement = sortDependencyManagement;
     return this;
   }
 

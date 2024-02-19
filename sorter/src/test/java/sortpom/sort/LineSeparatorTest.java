@@ -18,7 +18,7 @@ class LineSeparatorTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting(lineSeparator, false, true, false)
+            .setFormatting(lineSeparator, false, true, false, true)
             .setIndent(2, false, false)
             .build());
 

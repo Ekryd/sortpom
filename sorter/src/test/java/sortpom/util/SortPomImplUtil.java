@@ -279,7 +279,7 @@ public class SortPomImplUtil {
         .setPomFile(testpom)
         .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
         .setEncoding(encoding)
-        .setFormatting(lineSeparator, true, false, keepBlankLines)
+        .setFormatting(lineSeparator, true, false, keepBlankLines, true)
         .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation)
         .setSortEntities(
             sortDependencies,

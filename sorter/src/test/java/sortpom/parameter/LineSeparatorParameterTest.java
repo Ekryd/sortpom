@@ -23,7 +23,7 @@ class LineSeparatorParameterTest {
         () ->
             PluginParameters.builder()
                 .setEncoding("UTF-8")
-                .setFormatting("***", false, true, false)
+                .setFormatting("***", false, true, false, true)
                 .setIndent(2, false, false);
 
     final FailureException thrown = assertThrows(FailureException.class, testMethod);
@@ -40,21 +40,21 @@ class LineSeparatorParameterTest {
     assertEquals(
         "\n",
         PluginParameters.builder()
-            .setFormatting("\n", true, true, true)
+            .setFormatting("\n", true, true, true, true)
             .build()
             .lineSeparatorUtil
             .toString());
     assertEquals(
         "\r",
         PluginParameters.builder()
-            .setFormatting("\r", true, true, true)
+            .setFormatting("\r", true, true, true, true)
             .build()
             .lineSeparatorUtil
             .toString());
     assertEquals(
         "\r\n",
         PluginParameters.builder()
-            .setFormatting("\r\n", true, true, true)
+            .setFormatting("\r\n", true, true, true, true)
             .build()
             .lineSeparatorUtil
             .toString());
@@ -73,7 +73,7 @@ class LineSeparatorParameterTest {
   void testFailedInput(String lineSeparator, String expectedChars) {
 
     final Executable testMethod =
-        () -> PluginParameters.builder().setFormatting(lineSeparator, true, true, true);
+        () -> PluginParameters.builder().setFormatting(lineSeparator, true, true, true, true);
 
     final FailureException thrown = assertThrows(FailureException.class, testMethod);
 

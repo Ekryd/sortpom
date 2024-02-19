@@ -37,7 +37,7 @@ class XmlOutputGeneratorTest {
 
     XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
-        PluginParameters.builder().setFormatting("\n", true, true, false).build());
+        PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
     final Executable testMethod = () -> xmlOutputGenerator.getSortedXml(document);
 
@@ -64,7 +64,7 @@ class XmlOutputGeneratorTest {
 
     XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
-        PluginParameters.builder().setFormatting("\n", true, true, false).build());
+        PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
     String sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(
@@ -89,7 +89,7 @@ class XmlOutputGeneratorTest {
 
     XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
-        PluginParameters.builder().setFormatting("\n", true, true, false).build());
+        PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
     String sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(
@@ -107,7 +107,7 @@ class XmlOutputGeneratorTest {
 
     XmlOutputGenerator xmlOutputGenerator = new XmlOutputGenerator();
     xmlOutputGenerator.setup(
-        PluginParameters.builder().setFormatting("\n", true, true, false).build());
+        PluginParameters.builder().setFormatting("\n", true, true, false, true).build());
 
     String sortedXml = xmlOutputGenerator.getSortedXml(document);
     assertThat(

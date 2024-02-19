@@ -52,6 +52,10 @@ sortpom:sort
       User property: sort.encoding
       Encoding for the files.
 
+    endWithNewline (Default: true)
+      User property: sort.endWithNewline
+      Whether to ensure that sorted pom ends with a newline.
+
     expandEmptyElements (Default: true)
       User property: sort.expandEmptyElements
       Should an empty xml element be expanded with start and end tag, or be
@@ -177,6 +181,10 @@ sortpom:verify
     encoding (Default: UTF-8)
       User property: sort.encoding
       Encoding for the files.
+
+    endWithNewline (Default: true)
+      User property: sort.endWithNewline
+      Whether to ensure that sorted pom ends with a newline.
 
     expandEmptyElements (Default: true)
       User property: sort.expandEmptyElements

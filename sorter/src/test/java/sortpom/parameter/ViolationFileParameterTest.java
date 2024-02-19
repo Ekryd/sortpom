@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import org.apache.commons.io.FileUtils;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -100,8 +101,7 @@ class ViolationFileParameterTest {
             "/full_expected.xml",
             "[INFO] The xml element <modelVersion> should be placed before <parent>",
             true);
-    var xml =
-        FileUtils.readFileToString(new File(FILENAME_WITH_DIRECTORIES), Charset.defaultCharset());
+    var xml = Files.readString(Paths.get(FILENAME_WITH_DIRECTORIES), Charset.defaultCharset());
     assertThat(
         xml,
         containsString(

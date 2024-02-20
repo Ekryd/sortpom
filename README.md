@@ -30,7 +30,7 @@ Sortpom works best if it is run every time during Maven compilation. [Configure]
     <plugin>
       <groupId>com.github.ekryd.sortpom</groupId>
       <artifactId>sortpom-maven-plugin</artifactId>
-      <version>3.3.0</version>
+      <version>3.4.0</version>
       <executions>
         <execution>
           <goals>
@@ -55,6 +55,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2024-02-20: Released version 3.4.0. Added parameter for omitting newline at end of file [#399](/../../issues/399).
   * 2023-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!
   * 2023-01-29: Released version 3.2.1. Dependency updates. No new functionality
@@ -64,7 +65,6 @@ Added
   * 2022-05-22: Released version 3.1.0. **THIS IS A BREAKING CHANGE!** Dropped support for Java 8. Updated underlying xml framework due to vulnerabilities. Updated other libraries and plugins. 
   * 2021-12-20: Released version 3.0.1. Fixed bug where ignoreLineSeparators was not respected during the 'verify' goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 
   * 2021-04-20: Released version 3.0.0. **THIS IS A BREAKING CHANGE!** The predefined sort order is now according to the recommended pom order (as decided in 2008). Blank lines in the POM are now kept by default. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93) [#105](/../../issues/105)
-  * 2021-04-06: Released version 2.15.0 that adds support for sortDependencyExclusions to sort dependency exclusions by groupId and/or artifactId
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!
   * 2015-03-31: Moved the SortPom plugin to GitHub.

@@ -12,7 +12,7 @@ import sortpom.util.SortPomImplUtil;
 class SortDependenciesTest {
 
   @Test
-  void scopeInSortDependenciesShouldSortByScope() throws Exception {
+  void scopeInSortDependenciesShouldSortByScope() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencies("scope,GROUPID,artifactId")
@@ -24,11 +24,11 @@ class SortDependenciesTest {
    * This is an odd test since we add an EXTRA tag in the SORT ORDER FILE (under plugins and
    * dependencies) so that it will be sorted beside dependency and plugin tags.
    *
-   * <p>The extra tag does not play well with the pom xml validation. Also unknown tags should be
+   * <p>The extra tag does not play well with the pom xml validation. Also, unknown tags should be
    * placed last.
    */
   @Test
-  void extraTagInDependenciesPluginAndExclusionsShouldBeSortedFirst() throws Exception {
+  void extraTagInDependenciesPluginAndExclusionsShouldBeSortedFirst() {
     SortPomImplUtil.create()
         .customSortOrderFile("sortOrderFiles/extra_dummy_tags.xml")
         .sortDependencies("scope,groupId,artifactId")
@@ -39,7 +39,7 @@ class SortDependenciesTest {
   }
 
   @Test
-  void defaultGroupIdForPluginsShouldWork() throws Exception {
+  void defaultGroupIdForPluginsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortPlugins("groupId,artifactId")

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0</modelVersion>
+  <artifactId>preserve</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>plugin</artifactId>
+        <configuration>
+          <classesFromAutomaticJaxrsApplication>true</classesFromAutomaticJaxrsApplication>
+          <newline xml:space="preserve">
+    </newline>
+          <outputFile>${generated-ts-client-file}</outputFile>
+          <message date="now" lang="se" xml:space="preserve">
+  THIS
+       IS A
+            MESSAGE!
+  </message>
+          <mapEnum>asEnum</mapEnum>
+          <indentString xml:space="preserve">  </indentString>
+          <noFileComment>true</noFileComment>
+          <double xml:space="preserve">
+
+          </double>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

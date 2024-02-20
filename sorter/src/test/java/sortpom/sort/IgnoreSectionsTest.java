@@ -5,7 +5,7 @@ import sortpom.util.SortPomImplUtil;
 
 class IgnoreSectionsTest {
   @Test
-  void forceDependencyToTopTrickShouldWork() throws Exception {
+  void forceDependencyToTopTrickShouldWork() {
     SortPomImplUtil.create()
         .sortDependencies("scope,groupId,artifactId")
         .lineSeparator("\n")

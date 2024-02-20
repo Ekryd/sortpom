@@ -50,7 +50,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  void sortGroupIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId")
@@ -60,7 +60,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  void sortArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortArtifactIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("artifactId")
@@ -70,7 +70,7 @@ class SortDependencyExclusionsTest {
   }
 
   @Test
-  void sortGroupIdAndArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdAndArtifactIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId,artifactId")

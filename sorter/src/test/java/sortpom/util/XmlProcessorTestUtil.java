@@ -6,9 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.xml.sax.SAXException;
 import refutils.ReflectionHelper;
 import sortpom.XmlProcessor;
 import sortpom.output.XmlOutputGenerator;
@@ -44,29 +47,30 @@ public class XmlProcessorTestUtil {
 
   private XmlProcessorTestUtil() {}
 
-  public void testInputAndExpected(String inputFileName, String expectedFileName) throws Exception {
-    var actual = sortXmlAndReturnResult(inputFileName);
-
+  public void testInputAndExpected(String inputFileName, String expectedFileName) {
     try (var fileInputStream = new FileInputStream(expectedFileName)) {
+      var actual = sortXmlAndReturnResult(inputFileName);
       var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
 
       assertEquals(expected, actual);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
 
-  public String sortXmlAndReturnResult(String inputFileName) throws Exception {
+  public String sortXmlAndReturnResult(String inputFileName) {
     setup(inputFileName);
     xmlProcessor.sortXml();
     return xmlOutputGenerator.getSortedXml(xmlProcessor.getNewDocument());
   }
 
-  public void testVerifyXmlIsOrdered(String inputFileName) throws Exception {
+  public void testVerifyXmlIsOrdered(String inputFileName) {
     setup(inputFileName);
     xmlProcessor.sortXml();
     assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
   }
 
-  public void testVerifyXmlIsNotOrdered(String inputFileName, String infoMessage) throws Exception {
+  public void testVerifyXmlIsNotOrdered(String inputFileName, String infoMessage) {
     setup(inputFileName);
     xmlProcessor.sortXml();
     var xmlOrdered = xmlProcessor.isXmlOrdered();
@@ -74,7 +78,7 @@ public class XmlProcessorTestUtil {
     assertEquals(infoMessage, xmlOrdered.getErrorMessage());
   }
 
-  private void setup(String inputFileName) throws Exception {
+  private void setup(String inputFileName) {
     var pluginParameters =
         PluginParameters.builder()
             .setPomFile(null)
@@ -95,6 +99,8 @@ public class XmlProcessorTestUtil {
     String xml;
     try (var fileInputStream = new FileInputStream(inputFileName)) {
       xml = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
 
     var fileUtil = new FileUtil();
@@ -131,7 +137,11 @@ public class XmlProcessorTestUtil {
       new ReflectionHelper(wrapperFactory).setField(fileUtil);
     }
     new ReflectionHelper(xmlProcessor).setField(wrapperFactory);
-    xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+    try {
+      xmlProcessor.setOriginalXml(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
+    } catch (DocumentException | SAXException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public XmlProcessorTestUtil sortAlphabeticalOnly() {

@@ -12,7 +12,7 @@ import sortpom.util.SortPomImplUtil;
 class SortOrderFilesTest {
 
   @Test
-  void correctCustomSortOrderShouldSortThePm() throws Exception {
+  void correctCustomSortOrderShouldSortThePm() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -20,7 +20,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default040ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .lineSeparator("\n")
@@ -28,7 +28,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void custom1ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("custom_1")
         .lineSeparator("\n")
@@ -36,7 +36,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void recommended2008_06ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("recommended_2008_06")
         .lineSeparator("\n")
@@ -44,7 +44,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default100ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_1_0_0")
         .lineSeparator("\n")
@@ -73,7 +73,7 @@ class SortOrderFilesTest {
 
     var thrown =
         assertThrows(
-            IllegalArgumentException.class,
+            RuntimeException.class,
             () ->
                 sortPomImplUtil.testFiles(
                     "/full_unsorted_input.xml", "/sortOrderFiles/sorted_default_1_0_0.xml"));
@@ -84,7 +84,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void xmlDeviationsShouldNotHarmPlugin() throws Exception {
+  void xmlDeviationsShouldNotHarmPlugin() {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .testFiles("/Xml_deviations_input.xml", "/Xml_deviations_output.xml");

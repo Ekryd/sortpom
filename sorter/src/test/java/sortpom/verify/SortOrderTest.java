@@ -6,50 +6,50 @@ import sortpom.util.SortPomImplUtil;
 class SortOrderTest {
 
   @Test
-  void testSortDifferentClassPathShouldNotAffectVerify() throws Exception {
+  void testSortDifferentClassPathShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .testVerifyXmlIsOrdered("/full_differentorder_expected.xml");
   }
 
   @Test
-  void testSortXmlCharacterShouldNotAffectVerify() throws Exception {
+  void testSortXmlCharacterShouldNotAffectVerify() {
     SortPomImplUtil.create().testVerifyXmlIsOrdered("/Character_expected.xml");
   }
 
   @Test
-  void testSortXmlComplexShouldNotAffectVerify() throws Exception {
+  void testSortXmlComplexShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("/Complex_expected.xml");
   }
 
   @Test
-  void testSortXmlFullFromAlphabeticalOrderShouldNotAffectVerify() throws Exception {
+  void testSortXmlFullFromAlphabeticalOrderShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("/full_expected.xml");
   }
 
   @Test
-  void testSortXmlReal1ShouldNotAffectVerify() throws Exception {
+  void testSortXmlReal1ShouldNotAffectVerify() {
     SortPomImplUtil.create().testVerifyXmlIsOrdered("/Real1_expected.xml");
   }
 
   @Test
-  void testSortXmlSimpleShouldNotAffectVerify() throws Exception {
+  void testSortXmlSimpleShouldNotAffectVerify() {
     SortPomImplUtil.create().testVerifyXmlIsOrdered("/Simple_expected.xml");
   }
 
   @Test
-  void testSortWithIndentShouldNotAffectVerify() throws Exception {
+  void testSortWithIndentShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .nrOfIndentSpace(42)
         .testVerifyXmlIsOrdered("/Simple_expected_indent.xml");
   }
 
   @Test
-  void testSortWithDependencySortSimpleShouldNotAffectVerify() throws Exception {
+  void testSortWithDependencySortSimpleShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .sortPlugins("groupId,artifactId")
@@ -57,7 +57,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortWithDependencySortFullShouldNotAffectVerify() throws Exception {
+  void testSortWithDependencySortFullShouldNotAffectVerify() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .sortPlugins("groupId,artifactId")
@@ -65,7 +65,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortDifferentClassPathShouldAffectVerify() throws Exception {
+  void testSortDifferentClassPathShouldAffectVerify() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .testVerifyXmlIsNotOrdered(
@@ -74,7 +74,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortXmlCharacterShouldAffectVerify() throws Exception {
+  void testSortXmlCharacterShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/Character_input.xml",
@@ -82,7 +82,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortXmlComplexShouldAffectVerify() throws Exception {
+  void testSortXmlComplexShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/Complex_input.xml",
@@ -90,7 +90,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortXmlFullFromAlphabeticalOrderShouldAffectVerify() throws Exception {
+  void testSortXmlFullFromAlphabeticalOrderShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/full_alfa_input.xml",
@@ -98,7 +98,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortXmlFullShouldAffectVerify() throws Exception {
+  void testSortXmlFullShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/full_unsorted_input.xml",
@@ -106,14 +106,14 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortXmlReal1ShouldAffectVerify() throws Exception {
+  void testSortXmlReal1ShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/Real1_input.xml", "The xml element <version> should be placed before <name>");
   }
 
   @Test
-  void testSortXmlSimpleShouldAffectVerify() throws Exception {
+  void testSortXmlSimpleShouldAffectVerify() {
     SortPomImplUtil.create()
         .testVerifyXmlIsNotOrdered(
             "/Simple_input.xml",
@@ -121,7 +121,7 @@ class SortOrderTest {
   }
 
   @Test
-  void sortedDependenciesWithDifferentChildrenShouldAffectVerify() throws Exception {
+  void sortedDependenciesWithDifferentChildrenShouldAffectVerify() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .testVerifyXmlIsNotOrdered(
@@ -130,7 +130,7 @@ class SortOrderTest {
   }
 
   @Test
-  void sortedDependenciesWithDifferentNamesShouldAffectVerify() throws Exception {
+  void sortedDependenciesWithDifferentNamesShouldAffectVerify() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .testVerifyXmlIsNotOrdered(
@@ -139,7 +139,7 @@ class SortOrderTest {
   }
 
   @Test
-  void sortedDependenciesWithSameNameShouldAffectVerify() throws Exception {
+  void sortedDependenciesWithSameNameShouldAffectVerify() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .testVerifyXmlIsNotOrdered(
@@ -148,7 +148,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortWithDependencySortFullShouldAffectVerify() throws Exception {
+  void testSortWithDependencySortFullShouldAffectVerify() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .sortDependencies("groupId,artifactId")

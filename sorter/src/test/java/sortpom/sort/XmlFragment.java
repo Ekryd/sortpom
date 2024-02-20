@@ -19,7 +19,7 @@ public class XmlFragment {
     rootElement.setNamespace(Namespace.get("http://maven.apache.org/POM/4.0.0"));
     rootElement.addAttribute(
         new QName("schemaLocation", xsi),
-        "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd");
+        "http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd");
     rootElement.add(xsi);
     rootElement.add(new BaseElement("Gurka"));
 

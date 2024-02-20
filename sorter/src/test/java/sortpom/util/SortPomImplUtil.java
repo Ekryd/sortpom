@@ -48,8 +48,7 @@ public class SortPomImplUtil {
     return new SortPomImplUtil();
   }
 
-  public void testFiles(String inputResourceFileName, String expectedResourceFileName)
-      throws Exception {
+  public void testFiles(String inputResourceFileName, String expectedResourceFileName) {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
@@ -61,15 +60,15 @@ public class SortPomImplUtil {
         infoLogger.get(infoLogger.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
   }
 
-  public void testFilesWithTimestamp(String inputResourceFileName, String expectedResourceFileName)
-      throws Exception {
+  public void testFilesWithTimestamp(
+      String inputResourceFileName, String expectedResourceFileName) {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
     testHandler.performSortThatTestsTimestamps();
   }
 
-  public void testNoSorting(String inputResourceFileName) throws Exception {
+  public void testNoSorting(String inputResourceFileName) {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());
@@ -77,15 +76,14 @@ public class SortPomImplUtil {
     assertEquals("[INFO] Pom file is already sorted, exiting", testHandler.getInfoLogger().get(1));
   }
 
-  public void testVerifyXmlIsOrdered(String inputResourceFileName) throws Exception {
+  public void testVerifyXmlIsOrdered(String inputResourceFileName) {
     setup();
     testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
     var xmlOrderedResult = testHandler.performVerify();
     assertTrue(xmlOrderedResult.isOrdered(), "Expected that xml is ordered, ");
   }
 
-  public void testVerifyXmlIsNotOrdered(String inputResourceFileName, CharSequence warningMessage)
-      throws Exception {
+  public void testVerifyXmlIsNotOrdered(String inputResourceFileName, CharSequence warningMessage) {
     setup();
     testHandler = new TestHandler(inputResourceFileName, getPluginParameters());
     var xmlOrderedResult = testHandler.performVerify();
@@ -97,8 +95,7 @@ public class SortPomImplUtil {
       String inputResourceFileName,
       String expectedResourceFileName,
       String warningMessage,
-      boolean outputToViolationFile)
-      throws Exception {
+      boolean outputToViolationFile) {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
@@ -131,8 +128,7 @@ public class SortPomImplUtil {
   }
 
   public void testVerifyWarn(
-      String inputResourceFileName, String warningMessage, boolean outputToViolationFile)
-      throws Exception {
+      String inputResourceFileName, String warningMessage, boolean outputToViolationFile) {
     setup();
     testHandler =
         new TestHandler(inputResourceFileName, inputResourceFileName, getPluginParameters());

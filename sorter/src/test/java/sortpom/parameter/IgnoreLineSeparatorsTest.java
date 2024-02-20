@@ -6,7 +6,7 @@ import sortpom.util.SortPomImplUtil;
 class IgnoreLineSeparatorsTest {
 
   @Test
-  void ignoringLineSeparatorsShouldNotSort() throws Exception {
+  void ignoringLineSeparatorsShouldNotSort() {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .ignoreLineSeparators(true)
@@ -14,7 +14,7 @@ class IgnoreLineSeparatorsTest {
   }
 
   @Test
-  void doNotIgnoreLineSeparatorsShouldSort() throws Exception {
+  void doNotIgnoreLineSeparatorsShouldSort() {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .ignoreLineSeparators(false)

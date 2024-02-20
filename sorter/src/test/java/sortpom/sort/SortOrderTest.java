@@ -14,66 +14,66 @@ import sortpom.util.SortPomImplUtil;
 class SortOrderTest {
 
   @Test
-  void testSortDifferentClassPath() throws Exception {
+  void testSortDifferentClassPath() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
   }
 
   @Test
-  void testSortDifferentRelativePath() throws Exception {
+  void testSortDifferentRelativePath() {
     SortPomImplUtil.create()
         .customSortOrderFile("src/test/resources/difforder/differentOrder.xml")
         .testFiles("/full_unsorted_input.xml", "/full_differentorder_expected.xml");
   }
 
   @Test
-  void testSortXmlCharacter() throws Exception {
+  void testSortXmlCharacter() {
     SortPomImplUtil.create().testFiles("/Character_input.xml", "/Character_expected.xml");
   }
 
   @Test
-  void testSortXmlComplex() throws Exception {
+  void testSortXmlComplex() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testFiles("/Complex_input.xml", "/Complex_expected.xml");
   }
 
   @Test
-  void testSortXmlFullFromAlphabeticalOrder() throws Exception {
+  void testSortXmlFullFromAlphabeticalOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testFiles("/full_alfa_input.xml", "/full_expected.xml");
   }
 
   @Test
-  void testSortXmlFull() throws Exception {
+  void testSortXmlFull() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testFiles("/full_unsorted_input.xml", "/full_expected.xml");
   }
 
   @Test
-  void testSortXmlReal1() throws Exception {
+  void testSortXmlReal1() {
     SortPomImplUtil.create()
         .noKeepBlankLines()
         .testFiles("/Real1_input.xml", "/Real1_expected.xml");
   }
 
   @Test
-  void testSortXmlSimple() throws Exception {
+  void testSortXmlSimple() {
     SortPomImplUtil.create().testFiles("/Simple_input.xml", "/Simple_expected.xml");
   }
 
   @Test
-  void testSortWithIndent() throws Exception {
+  void testSortWithIndent() {
     SortPomImplUtil.create()
         .nrOfIndentSpace(4)
         .testFiles("/Simple_input.xml", "/Simple_expected_indent.xml");
   }
 
   @Test
-  void testSortWithDependencySortSimple() throws Exception {
+  void testSortWithDependencySortSimple() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .sortPlugins("groupId,artifactId")
@@ -81,7 +81,7 @@ class SortOrderTest {
   }
 
   @Test
-  void testSortWithDependencySortFull() throws Exception {
+  void testSortWithDependencySortFull() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .sortPlugins("groupId,artifactId")
@@ -89,7 +89,7 @@ class SortOrderTest {
   }
 
   @Test
-  void sortedFileShouldNotBeSorted() throws Exception {
+  void sortedFileShouldNotBeSorted() {
     SortPomImplUtil.create()
         .sortDependencies("groupId,artifactId")
         .sortPlugins("groupId,artifactId")

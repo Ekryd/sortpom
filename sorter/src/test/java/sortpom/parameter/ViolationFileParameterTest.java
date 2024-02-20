@@ -78,7 +78,7 @@ class ViolationFileParameterTest {
   }
 
   @Test
-  void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() throws Exception {
+  void violationFileWithParentDirectoryShouldBeCreatedOnVerificationWarn() {
     SortPomImplUtil.create()
         .verifyFail("Warn")
         .violationFile(FILENAME_WITH_DIRECTORIES)

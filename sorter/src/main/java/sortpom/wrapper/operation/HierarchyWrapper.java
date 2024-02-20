@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import sortpom.wrapper.content.SingleNewlineInTextWrapper;
+import sortpom.wrapper.content.ThrowAwayNewlineWrapper;
 import sortpom.wrapper.content.Wrapper;
 
 /**
@@ -35,7 +35,7 @@ class HierarchyWrapper {
     HierarchyWrapper currentWrapper = null;
     for (var child : elementContent.getContent().content()) {
       Wrapper<?> wrapper = factory.create(child);
-      if (wrapper instanceof SingleNewlineInTextWrapper) {
+      if (wrapper instanceof ThrowAwayNewlineWrapper) {
         continue;
       }
       if (currentWrapper == null) {

@@ -17,6 +17,7 @@
             MESSAGE!
   </message>
           <mapEnum>asEnum</mapEnum>
+          <noPreserve></noPreserve>
           <indentString xml:space="preserve">  </indentString>
           <noFileComment>true</noFileComment>
           <double xml:space="preserve">

@@ -1,13 +1,15 @@
 package sortpom.wrapper;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.dom4j.dom.DOMText;
 import org.dom4j.tree.DefaultText;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
+import sortpom.wrapper.content.ThrowAwayNewlineWrapper;
+import sortpom.wrapper.content.UnsortedWrapper;
 
 /**
  * @author bjorn
@@ -27,19 +29,34 @@ class TextWrapperCreatorTest {
 
   @Test
   void testIsEmptyLine() {
-    assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n      sortpom\n  ")));
-    assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("sortpom")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \n  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \n\n  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\n\n")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\r  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\r\r")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\n  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\n\r\n  ")));
-    assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\r\n\r\n")));
-    assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("  ")));
+    assertKeepNewline("\n      \n  ");
+    assertKeepNewline("  \n\n  ");
+    assertKeepNewline("\n\n");
+    assertKeepNewline("\n\n\n");
+    assertKeepNewline("\n\n\n\n\n\n\n");
+    assertKeepNewline("  \r\r  ");
+    assertKeepNewline("\r\r");
+    assertKeepNewline("  \r\n\r\n  ");
+    assertKeepNewline("\r\n\r\n");
+
+    assertNoSpecialNewline("");
+    assertNoSpecialNewline("\n  ");
+    assertNoSpecialNewline("  \n  ");
+    assertNoSpecialNewline("  \r  ");
+    assertNoSpecialNewline("  \r\n  ");
+    assertNoSpecialNewline("  ");
+  }
+
+  private void assertKeepNewline(String text) {
+    assertEquals(
+        UnsortedWrapper.KEEP_NEWLINE_INSTANCE,
+        textWrapperCreator.blankTextNode(new DefaultText(text)));
+  }
+
+  private void assertNoSpecialNewline(String text) {
+    assertEquals(
+        ThrowAwayNewlineWrapper.THROW_AWAY_NEWLINE_INSTANCE,
+        textWrapperCreator.blankTextNode(new DefaultText(text)));
   }
 
   @Test

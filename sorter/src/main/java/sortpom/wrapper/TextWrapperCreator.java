@@ -1,11 +1,13 @@
 package sortpom.wrapper;
 
+import static sortpom.wrapper.content.ThrowAwayNewlineWrapper.THROW_AWAY_NEWLINE_INSTANCE;
+import static sortpom.wrapper.content.UnsortedWrapper.*;
+
 import java.util.regex.Pattern;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.Text;
 import sortpom.parameter.PluginParameters;
-import sortpom.wrapper.content.SingleNewlineInTextWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
 
@@ -15,9 +17,7 @@ import sortpom.wrapper.content.Wrapper;
  */
 public class TextWrapperCreator {
 
-  public static final Pattern REGEX_ONE_NEWLINE =
-      Pattern.compile("^[\\t ]*(\\r|\\n|\\r\\n)[\\t ]*$");
-  public static final Pattern REGEX_ONE_OR_MORE_NEWLINE = Pattern.compile("^\\s*?([\\r\\n])\\s*$");
+  public static final Pattern REGEX_ONE_OR_MORE_NEWLINE = Pattern.compile("(\\r\\n|\\r|\\n)+?");
   private boolean keepBlankLines;
 
   public void setup(PluginParameters pluginParameters) {
@@ -25,15 +25,10 @@ public class TextWrapperCreator {
   }
 
   Wrapper<Node> createWrapper(Text text) {
-    if (isElementSpacePreserved(text.getParent())) {
+    if (!text.getText().isBlank() || isElementSpacePreserved(text.getParent())) {
       return new UnsortedWrapper<>(text);
     }
-    if (isSingleNewLine(text)) {
-      return SingleNewlineInTextWrapper.INSTANCE;
-    } else if (isBlankLineOrLines(text)) {
-      return UnsortedWrapper.NEWLINE_TEXT_WRAPPER_INSTANCE;
-    }
-    return new UnsortedWrapper<>(text);
+    return blankTextNode(text);
   }
 
   boolean isElementSpacePreserved(Element element) {
@@ -47,14 +42,17 @@ public class TextWrapperCreator {
         && "preserve".equals(attr.getText());
   }
 
-  private boolean isSingleNewLine(Text content) {
-    return REGEX_ONE_NEWLINE.matcher(content.getText()).matches();
-  }
-
-  boolean isBlankLineOrLines(Text content) {
+  Wrapper<Node> blankTextNode(Text text) {
     if (!keepBlankLines) {
-      return false;
+      return THROW_AWAY_NEWLINE_INSTANCE;
     }
-    return REGEX_ONE_OR_MORE_NEWLINE.matcher(content.getText()).matches();
+    var textContent = text.getText();
+    var newLineCount = REGEX_ONE_OR_MORE_NEWLINE.matcher(textContent).results().count();
+    if (newLineCount <= 1) {
+      // One newline is just the linebreak between two XML elements
+      return THROW_AWAY_NEWLINE_INSTANCE;
+    }
+    // Multiple linebreaks between XML elements indicate that a newline should be kept
+    return KEEP_NEWLINE_INSTANCE;
   }
 }

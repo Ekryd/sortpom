@@ -6,7 +6,7 @@ import sortpom.content.NewlineText;
 
 /** A wrapper that lets is element be unsorted */
 public class UnsortedWrapper<T extends Node> implements Wrapper<T> {
-  public static final UnsortedWrapper<Node> NEWLINE_TEXT_WRAPPER_INSTANCE =
+  public static final UnsortedWrapper<Node> KEEP_NEWLINE_INSTANCE =
       new UnsortedWrapper<>(new NewlineText());
 
   /** The wrapped dom content. */

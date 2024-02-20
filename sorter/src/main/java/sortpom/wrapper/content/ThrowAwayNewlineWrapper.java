@@ -8,8 +8,8 @@ import org.dom4j.Text;
  *
  * @author Bjorn
  */
-public enum SingleNewlineInTextWrapper implements Wrapper<Node> {
-  INSTANCE;
+public enum ThrowAwayNewlineWrapper implements Wrapper<Node> {
+  THROW_AWAY_NEWLINE_INSTANCE;
 
   @Override
   public Text getContent() {

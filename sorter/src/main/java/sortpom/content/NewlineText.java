@@ -7,10 +7,7 @@ import org.dom4j.tree.AbstractText;
  * in XmlProcessor.PatchedXMLWriter
  */
 public class NewlineText extends AbstractText {
-  public static final NewlineText INSTANCE = new NewlineText();
   private static final long serialVersionUID = -7552189498553321263L;
-
-  private NewlineText() {}
 
   /**
    * This returns a <code>String</code> representation of the <code>NewlineText</code>, suitable for

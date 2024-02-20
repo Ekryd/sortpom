@@ -3,6 +3,7 @@ package sortpom.wrapper;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.dom4j.dom.DOMText;
 import org.dom4j.tree.DefaultText;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,5 +40,11 @@ class TextWrapperCreatorTest {
     assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("  \r\n\r\n  ")));
     assertTrue(textWrapperCreator.isBlankLineOrLines(new DefaultText("\r\n\r\n")));
     assertFalse(textWrapperCreator.isBlankLineOrLines(new DefaultText("  ")));
+  }
+
+  @Test
+  void textNodeWithNullParentShouldNotCrash() {
+    var text = new DOMText("Hi!");
+    assertFalse(textWrapperCreator.isElementSpacePreserved(text.getParent()));
   }
 }

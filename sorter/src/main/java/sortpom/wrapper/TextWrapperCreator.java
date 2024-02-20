@@ -36,7 +36,7 @@ public class TextWrapperCreator {
     return new UnsortedWrapper<>(text);
   }
 
-  private boolean isElementSpacePreserved(Element element) {
+  boolean isElementSpacePreserved(Element element) {
     if (element == null) {
       return false;
     }

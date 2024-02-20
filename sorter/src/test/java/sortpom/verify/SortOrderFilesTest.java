@@ -4,14 +4,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import sortpom.util.SortPomImplUtil;
 
 class SortOrderFilesTest {
   @Test
-  void sortedCustomSortOrderShouldNotTriggerVerify() throws Exception {
+  void sortedCustomSortOrderShouldNotTriggerVerify() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -19,7 +18,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void unsortedCustomSortOrderShouldTriggerVerify() throws Exception {
+  void unsortedCustomSortOrderShouldTriggerVerify() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/differentOrder.xml")
         .lineSeparator("\n")
@@ -29,7 +28,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void default040ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default040ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .lineSeparator("\n")
@@ -37,7 +36,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void custom1ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void custom1ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("custom_1")
         .lineSeparator("\n")
@@ -45,7 +44,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void recommended2008_06ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void recommended2008_06ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("recommended_2008_06")
         .lineSeparator("\n")
@@ -53,7 +52,7 @@ class SortOrderFilesTest {
   }
 
   @Test
-  void default100ShouldWorkAsPredefinedSortOrder() throws Exception {
+  void default100ShouldWorkAsPredefinedSortOrder() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_1_0_0")
         .lineSeparator("\n")
@@ -69,15 +68,15 @@ class SortOrderFilesTest {
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_1_0_0.xml");
 
-    var thrown = assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(RuntimeException.class, testMethod).getCause().getCause();
 
     assertThat(
-        thrown.getCause().getMessage(),
+        thrown.getMessage(),
         is("Cannot find special.xml.xml among the predefined plugin resources"));
   }
 
   @Test
-  void xmlDeviationsShouldNotHarmPlugin() throws Exception {
+  void xmlDeviationsShouldNotHarmPlugin() {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .testVerifyXmlIsOrdered("/Xml_deviations_output.xml");

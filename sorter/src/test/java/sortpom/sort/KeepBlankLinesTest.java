@@ -9,7 +9,7 @@ import sortpom.util.XmlProcessorTestUtil;
 
 class KeepBlankLinesTest {
   @Test
-  void emptyRowsInSimplePomShouldBePreserved() throws Exception {
+  void emptyRowsInSimplePomShouldBePreserved() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -17,7 +17,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void emptyRowsInLargePomShouldBePreserved1() throws Exception {
+  void emptyRowsInLargePomShouldBePreserved1() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -26,7 +26,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void emptyRowsInLargePomShouldBePreservedAndIndented1() throws Exception {
+  void emptyRowsInLargePomShouldBePreservedAndIndented1() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBlankLines()
@@ -36,14 +36,14 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void emptyRowsInLargePomShouldBePreserved2() throws Exception {
+  void emptyRowsInLargePomShouldBePreserved2() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testFiles("/Real1_input.xml", "/Real1_expected_keepBlankLines.xml");
   }
 
   @Test
-  void emptyRowsInLargePomShouldBePreservedAndIndented2() throws Exception {
+  void emptyRowsInLargePomShouldBePreservedAndIndented2() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBLankLines()
@@ -51,14 +51,14 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void simpleLineBreaksShouldNotBePreserved() throws Exception {
+  void simpleLineBreaksShouldNotBePreserved() {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/LineBreak_input.xml", "src/test/resources/Character_expected.xml");
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeNewlines() throws Exception {
+  void allLineBreaksInXmlShouldBeNewlines() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\n")
@@ -71,7 +71,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeCarriageReturnNewlines() throws Exception {
+  void allLineBreaksInXmlShouldBeCarriageReturnNewlines() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r\n")
@@ -84,7 +84,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeCarriageReturn() throws Exception {
+  void allLineBreaksInXmlShouldBeCarriageReturn() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r")
@@ -97,7 +97,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeNewlines2() throws Exception {
+  void allLineBreaksInXmlShouldBeNewlines2() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\n")
@@ -110,7 +110,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeCarriageReturnNewlines2() throws Exception {
+  void allLineBreaksInXmlShouldBeCarriageReturnNewlines2() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r\n")
@@ -123,7 +123,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void allLineBreaksInXmlShouldBeCarriageReturn2() throws Exception {
+  void allLineBreaksInXmlShouldBeCarriageReturn2() {
     var actual =
         XmlProcessorTestUtil.create()
             .lineSeparator("\r")
@@ -136,7 +136,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void artifactIdsWithLineBreaksShouldBeTrimmedBeforeSorting() throws Exception {
+  void artifactIdsWithLineBreaksShouldBeTrimmedBeforeSorting() {
     XmlProcessorTestUtil.create()
         .lineSeparator("\n")
         .expandEmptyElements(false)
@@ -151,7 +151,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void emptyRowsInLargePomShouldNotBePreserved() throws Exception {
+  void emptyRowsInLargePomShouldNotBePreserved() {
     XmlProcessorTestUtil.create()
         .keepBlankLinesFalse()
         .testInputAndExpected(

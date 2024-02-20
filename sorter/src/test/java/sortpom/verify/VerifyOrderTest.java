@@ -11,14 +11,14 @@ import sortpom.util.SortPomImplUtil;
 class VerifyOrderTest {
 
   @Test
-  void sortedButUnformattedSortOrderShouldPass() throws Exception {
+  void sortedButUnFormattedSortOrderShouldPass() {
     SortPomImplUtil.create()
         .predefinedSortOrder("recommended_2008_06")
         .testVerifyXmlIsOrdered("/Real2_input.xml");
   }
 
   @Test
-  void wrongSortedShouldNotPass() throws Exception {
+  void wrongSortedShouldNotPass() {
     SortPomImplUtil.create()
         .predefinedSortOrder("custom_1")
         .testVerifyXmlIsNotOrdered(
@@ -27,7 +27,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  void wrongSortedWithStrictVerifyShouldNotPass() throws Exception {
+  void wrongSortedWithStrictVerifyShouldNotPass() {
     SortPomImplUtil.create()
         .verifyFailOn("strict")
         .predefinedSortOrder("custom_1")
@@ -37,7 +37,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  void unsortedDefaultVerifyShouldPerformSort() throws Exception {
+  void unsortedDefaultVerifyShouldPerformSort() {
     SortPomImplUtil.create()
         .noKeepBlankLines()
         .testVerifySort(
@@ -48,7 +48,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  void unsortedDefaultStrictVerifyShouldPerformSort() throws Exception {
+  void unsortedDefaultStrictVerifyShouldPerformSort() {
     SortPomImplUtil.create()
         .verifyFailOn("STRICT")
         .noKeepBlankLines()
@@ -61,7 +61,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  void unsortedSortVerifyShouldPerformSort() throws Exception {
+  void unsortedSortVerifyShouldPerformSort() {
     SortPomImplUtil.create()
         .noKeepBlankLines()
         .verifyFail("SORT")
@@ -84,7 +84,7 @@ class VerifyOrderTest {
   }
 
   @Test
-  void unsortedWarnVerifyShouldPerformSort() throws Exception {
+  void unsortedWarnVerifyShouldPerformSort() {
     SortPomImplUtil.create()
         .verifyFail("WARN")
         .testVerifyWarn(

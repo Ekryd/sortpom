@@ -6,7 +6,7 @@ import sortpom.util.*;
 class SortDepManagementExclusionsTest {
 
   @Test
-  void sortGroupIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId")
@@ -18,7 +18,7 @@ class SortDepManagementExclusionsTest {
   }
 
   @Test
-  void sortArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortArtifactIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("artifactId")
@@ -30,7 +30,7 @@ class SortDepManagementExclusionsTest {
   }
 
   @Test
-  void sortGroupIdAndArtifactIdForExclusionsShouldWork() throws Exception {
+  void sortGroupIdAndArtifactIdForExclusionsShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyExclusions("groupId,artifactId")

@@ -6,7 +6,7 @@ import sortpom.util.*;
 class SortDependencyManagementTests {
 
   @Test
-  void scopeInSortDependencyManagementShouldSortByScope() throws Exception {
+  void scopeInSortDependencyManagementShouldSortByScope() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyManagement("scope,GROUPID,artifactId")
@@ -17,7 +17,7 @@ class SortDependencyManagementTests {
   }
 
   @Test
-  void defaultDependencyManagementShouldWork() throws Exception {
+  void defaultDependencyManagementShouldWork() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencies("scope,GROUPID,artifactId")
@@ -28,7 +28,7 @@ class SortDependencyManagementTests {
   }
 
   @Test
-  void differentOrderBetweenDepAndDepManagement() throws Exception {
+  void differentOrderBetweenDepAndDepManagement() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencies("scope,GROUPID,artifactId")
@@ -40,7 +40,7 @@ class SortDependencyManagementTests {
   }
 
   @Test
-  void dependencyManagementShouldBeUnaffected() throws Exception {
+  void dependencyManagementShouldBeUnaffected() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencies("scope,GROUPID,artifactId")
@@ -52,7 +52,7 @@ class SortDependencyManagementTests {
   }
 
   @Test
-  void onlySortDependencyManagementShouldNotAffectNormalDependencies() throws Exception {
+  void onlySortDependencyManagementShouldNotAffectNormalDependencies() {
     SortPomImplUtil.create()
         .customSortOrderFile("custom_1.xml")
         .sortDependencyManagement("scope")

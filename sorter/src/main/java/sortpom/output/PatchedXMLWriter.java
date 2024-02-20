@@ -37,6 +37,25 @@ class PatchedXMLWriter extends XMLWriter {
     this.endWithNewline = endWithNewline;
   }
 
+  @Override
+  public void write(Document doc) throws IOException {
+    writeDeclaration();
+
+    if (doc.getDocType() != null) {
+      indent();
+      writeDocType(doc.getDocType());
+    }
+
+    for (int i = 0, size = doc.nodeCount(); i < size; i++) {
+      var node = doc.node(i);
+      writeNode(node);
+    }
+
+    if (endWithNewline) {
+      writePrintln();
+    }
+  }
+
   /** Handle spaceBeforeCloseEmptyElement option */
   @Override
   protected void writeEmptyElementClose(String qualifiedName) throws IOException {
@@ -60,25 +79,6 @@ class PatchedXMLWriter extends XMLWriter {
     writer.write("?>");
 
     lastOutputNodeType = Node.PROCESSING_INSTRUCTION_NODE;
-  }
-
-  @Override
-  public void write(Document doc) throws IOException {
-    writeDeclaration();
-
-    if (doc.getDocType() != null) {
-      indent();
-      writeDocType(doc.getDocType());
-    }
-
-    for (int i = 0, size = doc.nodeCount(); i < size; i++) {
-      var node = doc.node(i);
-      writeNode(node);
-    }
-
-    if (endWithNewline) {
-      writePrintln();
-    }
   }
 
   /** Handle Custom NewLineTest node and potential indent of empty line */

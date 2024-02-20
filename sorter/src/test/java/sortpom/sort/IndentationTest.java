@@ -14,7 +14,7 @@ class IndentationTest {
 
   @ParameterizedTest()
   @ValueSource(ints = {0, 1, 4, -1})
-  void differentIndentsShouldWork(int indent) throws Exception {
+  void differentIndentsShouldWork(int indent) {
     var expectedFile = "/SortModules_expectedIndent" + indent + ".xml";
     SortPomImplUtil.create()
         .sortProperties()
@@ -28,7 +28,7 @@ class IndentationTest {
 
   @ParameterizedTest()
   @ValueSource(ints = {0, 1, 4, -1})
-  void indentSchemaLocationShouldBeIndentTimesTwoPlusOne(int indent) throws Exception {
+  void indentSchemaLocationShouldBeIndentTimesTwoPlusOne(int indent) {
     var expectedFile = "/SortModules_expectedSchemaIndent" + indent + ".xml";
     SortPomImplUtil.create()
         .sortProperties()
@@ -73,7 +73,7 @@ class IndentationTest {
             + lineSeparator
             + indentChars
             + indentChars
-            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">"
+            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
             + lineSeparator
             + indentChars
             + "<Gurka xmlns=\"\"></Gurka>"
@@ -106,7 +106,7 @@ class IndentationTest {
             + lineSeparator
             + indentChars
             + indentChars
-            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">"
+            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
             + lineSeparator
             + indentChars
             + "<Gurka xmlns=\"\" key=\"value\"></Gurka>"

@@ -7,7 +7,6 @@ import static org.hamcrest.core.Is.isA;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import sortpom.exception.FailureException;
@@ -52,11 +51,10 @@ class SortOrderFilesParameterTest {
                 .customSortOrderFile("difforder/VERYdifferentOrder.xml")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_differentOrder.xml");
 
-    var thrown = assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(RuntimeException.class, testMethod).getCause().getCause();
 
-    var cause = thrown.getTargetException();
-    assertThat(cause, isA(FailureException.class));
-    assertThat(cause.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
+    assertThat(thrown, isA(FailureException.class));
+    assertThat(thrown.getMessage(), endsWith("VERYdifferentOrder.xml in classpath"));
   }
 
   @Test
@@ -68,12 +66,11 @@ class SortOrderFilesParameterTest {
                 .lineSeparator("\n")
                 .testVerifyXmlIsOrdered("/sortOrderFiles/sorted_default_0_4_0.xml");
 
-    var thrown = assertThrows(InvocationTargetException.class, testMethod);
+    var thrown = assertThrows(RuntimeException.class, testMethod).getCause().getCause();
 
-    var cause = thrown.getTargetException();
-    assertThat(cause, isA(IllegalArgumentException.class));
+    assertThat(thrown, isA(IllegalArgumentException.class));
     assertThat(
-        cause.getMessage(),
+        thrown.getMessage(),
         is(equalTo("Cannot find abbie_normal_brain.xml among the predefined plugin resources")));
   }
 }

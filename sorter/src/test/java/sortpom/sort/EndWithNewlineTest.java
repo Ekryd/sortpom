@@ -5,7 +5,7 @@ import sortpom.util.XmlProcessorTestUtil;
 
 class EndWithNewlineTest {
   @Test
-  void endWithNewlineFalseShouldNotOutputFinalNewline() throws Exception {
+  void endWithNewlineFalseShouldNotOutputFinalNewline() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .endWithNewlineFalse()

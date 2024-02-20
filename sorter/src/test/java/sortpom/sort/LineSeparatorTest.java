@@ -29,9 +29,16 @@ class LineSeparatorTest {
   }
 
   @Test
-  void linesInContentShouldBePreserved() throws Exception {
+  void linesInContentShouldBePreserved() {
     SortPomImplUtil.create()
         .lineSeparator("\r\n")
         .testFiles("/MultilineContent_input.xml", "/MultilineContent_expected.xml");
+  }
+
+  @Test
+  void spaceInPreservedXmlShouldNotBeTrimmed() {
+    SortPomImplUtil.create()
+        .lineSeparator("\r\n")
+        .testFiles("/PreserveContent_input.xml", "/PreserveContent_output.xml");
   }
 }

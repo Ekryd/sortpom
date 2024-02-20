@@ -6,7 +6,7 @@ import sortpom.util.XmlProcessorTestUtil;
 class XmlProcessorTest {
 
   @Test
-  void testSortXmlAttributes() throws Exception {
+  void testSortXmlAttributes() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -14,14 +14,14 @@ class XmlProcessorTest {
   }
 
   @Test
-  void testSortXmlCharacter() throws Exception {
+  void testSortXmlCharacter() {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/Character_input.xml", "src/test/resources/Character_expected.xml");
   }
 
   @Test
-  void testSortXmlComplex() throws Exception {
+  void testSortXmlComplex() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -29,7 +29,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  void testSortXmlFullFromAlphabeticalOrder() throws Exception {
+  void testSortXmlFullFromAlphabeticalOrder() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testInputAndExpected(
@@ -37,7 +37,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  void testSortXmlFullToAlphabetical() throws Exception {
+  void testSortXmlFullToAlphabetical() {
     XmlProcessorTestUtil.create()
         .sortAlphabeticalOnly()
         .testInputAndExpected(
@@ -45,7 +45,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  void testSortXmlMultilineComment() throws Exception {
+  void testSortXmlMultilineComment() {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/MultilineComment_input.xml",
@@ -53,7 +53,7 @@ class XmlProcessorTest {
   }
 
   @Test
-  void testSortXmlSimple() throws Exception {
+  void testSortXmlSimple() {
     XmlProcessorTestUtil.create()
         .testInputAndExpected(
             "src/test/resources/Simple_input.xml", "src/test/resources/Simple_expected.xml");

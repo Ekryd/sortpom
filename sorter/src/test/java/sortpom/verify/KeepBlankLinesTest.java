@@ -6,21 +6,21 @@ import sortpom.util.XmlProcessorTestUtil;
 
 class KeepBlankLinesTest {
   @Test
-  void emptyLinesInXmlShouldNotAffectVerify() throws Exception {
+  void emptyLinesInXmlShouldNotAffectVerify() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
   }
 
   @Test
-  void emptyLinesInXmlShouldNotAffectVerify2() throws Exception {
+  void emptyLinesInXmlShouldNotAffectVerify2() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("src/test/resources/EmptyRow_input2.xml");
   }
 
   @Test
-  void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify() throws Exception {
+  void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBlankLines()
@@ -28,14 +28,14 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void emptyLinesInXmlShouldNotAffectVerify3() throws Exception {
+  void emptyLinesInXmlShouldNotAffectVerify3() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("/EmptyRow_input2.xml");
   }
 
   @Test
-  void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() throws Exception {
+  void emptyLinesInXmlAndIndentParameterShouldNotAffectVerify2() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .indentBLankLines()
@@ -43,7 +43,7 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void unsortedXmlAndIndentParameterShouldAffectVerify() throws Exception {
+  void unsortedXmlAndIndentParameterShouldAffectVerify() {
     SortPomImplUtil.create()
         .indentBLankLines()
         .testVerifyXmlIsNotOrdered(
@@ -52,14 +52,14 @@ class KeepBlankLinesTest {
   }
 
   @Test
-  void simpleLineBreaksShouldNotAffectVerify() throws Exception {
+  void simpleLineBreaksShouldNotAffectVerify() {
     XmlProcessorTestUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .testVerifyXmlIsOrdered("src/test/resources/LineBreak_input2.xml");
   }
 
   @Test
-  void unsortedXmlShouldAffectVerify() throws Exception {
+  void unsortedXmlShouldAffectVerify() {
     XmlProcessorTestUtil.create()
         .testVerifyXmlIsNotOrdered(
             "src/test/resources/LineBreak_input.xml",

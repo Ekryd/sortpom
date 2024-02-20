@@ -68,7 +68,7 @@ class EncodingParameterTest {
   }
 
   @Test
-  void differentEncodingShouldWork1() throws Exception {
+  void differentEncodingShouldWork1() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .encoding("UTF-32BE")
@@ -76,7 +76,7 @@ class EncodingParameterTest {
   }
 
   @Test
-  void differentEncodingShouldWork2() throws Exception {
+  void differentEncodingShouldWork2() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .encoding("UTF-16")
@@ -84,7 +84,7 @@ class EncodingParameterTest {
   }
 
   @Test
-  void differentEncodingShouldWork3() throws Exception {
+  void differentEncodingShouldWork3() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .encoding("ISO-8859-1")

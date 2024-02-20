@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -55,10 +56,14 @@ class TestHandler {
     return infoLogger;
   }
 
-  void performSortThatSorted() throws Exception {
+  void performSortThatSorted() {
     removeOldTemporaryFiles();
 
-    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    try {
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     performSorting();
 
     assertTrue(testpom.exists());
@@ -77,15 +82,21 @@ class TestHandler {
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
       assertEquals(expectedSorted, actualSorted);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }
   }
 
-  void performVerifyThatSorted() throws Exception {
+  void performVerifyThatSorted() {
     removeOldTemporaryFiles();
 
-    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    try {
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     performVerifyWithSort();
 
     assertTrue(testpom.exists());
@@ -98,6 +109,8 @@ class TestHandler {
         var expectedBackup = new String(originalPomInputStream.readAllBytes(), encoding);
 
         assertEquals(expectedBackup, actualBackup);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
       }
     }
 
@@ -107,15 +120,21 @@ class TestHandler {
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
       assertEquals(expectedSorted, actualSorted);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }
   }
 
-  void performSortThatDidNotSort() throws Exception {
+  void performSortThatDidNotSort() {
     removeOldTemporaryFiles();
 
-    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    try {
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     performSorting();
 
     assertTrue(testpom.exists());
@@ -127,6 +146,8 @@ class TestHandler {
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
       assertEquals(expectedSorted, actualSorted);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }
@@ -137,7 +158,7 @@ class TestHandler {
     sortPomImpl.sortPom();
   }
 
-  XmlOrderedResult performVerify() throws Exception {
+  XmlOrderedResult performVerify() {
     try {
       removeOldTemporaryFiles();
       Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
@@ -145,15 +166,21 @@ class TestHandler {
 
       assertTrue(testpom.exists());
       return verifyOk;
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }
   }
 
-  void performVerifyThatDidNotSort() throws Exception {
+  void performVerifyThatDidNotSort() {
     removeOldTemporaryFiles();
 
-    Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    try {
+      Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     performVerifyWithSort();
 
     assertTrue(testpom.exists());
@@ -165,12 +192,14 @@ class TestHandler {
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
       assertEquals(expectedSorted, actualSorted);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }
   }
 
-  void performSortThatTestsTimestamps() throws Exception {
+  void performSortThatTestsTimestamps() {
     try {
       removeOldTemporaryFiles();
 
@@ -185,6 +214,8 @@ class TestHandler {
         assertThat(testpom.lastModified(), greaterThan(pomTimestamp));
         // Do not assert anything about the backup file, since that timestamp is OS dependent
       }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     } finally {
       cleanupAfterTest();
     }

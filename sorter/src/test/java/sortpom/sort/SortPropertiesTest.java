@@ -6,7 +6,7 @@ import sortpom.util.SortPomImplUtil;
 class SortPropertiesTest {
 
   @Test
-  void namedParametersInSortFileShouldSortThemFirst() throws Exception {
+  void namedParametersInSortFileShouldSortThemFirst() {
     SortPomImplUtil.create()
         .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
         .lineSeparator("\n")
@@ -14,7 +14,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  void sortPropertyParameterShouldSortAlphabetically() throws Exception {
+  void sortPropertyParameterShouldSortAlphabetically() {
     SortPomImplUtil.create()
         .sortProperties()
         .lineSeparator("\n")
@@ -23,7 +23,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  void testBothNamedParametersInSortFileAndSortPropertyParameterTest() throws Exception {
+  void testBothNamedParametersInSortFileAndSortPropertyParameterTest() {
     SortPomImplUtil.create()
         .lineSeparator("\n")
         .customSortOrderFile("difforder/sortedPropertiesOrder.xml")
@@ -32,7 +32,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  void sortingOfFullPomFileShouldWork() throws Exception {
+  void sortingOfFullPomFileShouldWork() {
     SortPomImplUtil.create()
         .sortProperties()
         .sortPlugins("groupId,artifactId")
@@ -42,7 +42,7 @@ class SortPropertiesTest {
   }
 
   @Test
-  void duplicatePropertiesShouldNotTriggerSorting() throws Exception {
+  void duplicatePropertiesShouldNotTriggerSorting() {
     SortPomImplUtil.create()
         .predefinedSortOrder("default_0_4_0")
         .sortProperties()

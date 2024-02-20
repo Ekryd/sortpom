@@ -12,7 +12,7 @@ class PatchedXMLWriterTest {
 
   /** Copied, with gratitude, from Dom4J */
   @Test
-  public void writeXmlWithDocType() throws Exception {
+  void writeXmlWithDocType() throws Exception {
     var xml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<!DOCTYPE xml [\n"

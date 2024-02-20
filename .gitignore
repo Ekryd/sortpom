@@ -10,3 +10,4 @@ idea-plugin/out
 /maven-plugin/src/it/*/interpolated-pom.xml.bak
 /maven-plugin/src/it/*/build.log
 .java-version
+.DS_Store

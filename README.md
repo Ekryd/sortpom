@@ -55,6 +55,7 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
+  * 2024-03-10: Released version 3.4.1. Solves a bug, where whitespace was removed even if xml:space="preserve" was used [#402](/../../issues/402).
   * 2024-02-20: Released version 3.4.0. Added parameter for omitting newline at end of file [#399](/../../issues/399).
   * 2023-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!

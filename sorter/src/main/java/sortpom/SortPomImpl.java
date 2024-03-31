@@ -31,33 +31,24 @@ public class SortPomImpl {
 
     sortPomService.setup(log, pluginParameters);
 
+    // Call to the extracted method to warn about deprecated arguments
     warnAboutDeprecatedArguments(pluginParameters);
   }
 
+  // Extracted method to warn about deprecated arguments
   private void warnAboutDeprecatedArguments(PluginParameters pluginParameters) {
-    if (pluginParameters.sortDependencies.isDeprecatedValueTrue()) {
-      throw new FailureException(
-          "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.");
+    warnAboutDeprecatedValue("sortDependencies", pluginParameters.sortDependencies.isDeprecatedValueTrue(), pluginParameters.sortDependencies.isDeprecatedValueFalse(), "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.", "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
+    warnAboutDeprecatedValue("sortDependencyExclusions", pluginParameters.sortDependencies.isDeprecatedValueTrue(), pluginParameters.sortDependencies.isDeprecatedValueFalse(), "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.", "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
+    warnAboutDeprecatedValue("sortPlugins", pluginParameters.sortDependencies.isDeprecatedValueTrue(), pluginParameters.sortDependencies.isDeprecatedValueFalse(), "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.", "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
+  }
+
+  // Extracted method to warn about deprecated values for individual parameters
+  private void warnAboutDeprecatedValue(String parameterName, boolean isTrueDeprecated, boolean isFalseDeprecated, String trueMessage, String falseMessage) {
+    if (isTrueDeprecated) {
+      throw new FailureException(trueMessage);
     }
-    if (pluginParameters.sortDependencies.isDeprecatedValueFalse()) {
-      throw new FailureException(
-          "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
-    }
-    if (pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue()) {
-      throw new FailureException(
-          "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.");
-    }
-    if (pluginParameters.sortDependencyExclusions.isDeprecatedValueFalse()) {
-      throw new FailureException(
-          "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
-    }
-    if (pluginParameters.sortPlugins.isDeprecatedValueTrue()) {
-      throw new FailureException(
-          "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.");
-    }
-    if (pluginParameters.sortPlugins.isDeprecatedValueFalse()) {
-      throw new FailureException(
-          "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
+    if (isFalseDeprecated) {
+      throw new FailureException(falseMessage);
     }
   }
 
@@ -120,7 +111,7 @@ public class SortPomImpl {
           sortPomService.saveViolationFile(xmlOrderedResult);
           log.error(String.format(TEXT_FILE_NOT_SORTED, pomFile.getAbsolutePath()));
           throw new FailureException(
-              String.format(TEXT_FILE_NOT_SORTED, pomFile.getAbsolutePath()));
+                  String.format(TEXT_FILE_NOT_SORTED, pomFile.getAbsolutePath()));
       }
     }
   }

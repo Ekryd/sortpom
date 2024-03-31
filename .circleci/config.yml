@@ -29,6 +29,10 @@ jobs:
     docker:
       - image: cimg/openjdk:21.0.2
     <<: *shared
+  jdk22:
+    docker:
+      - image: cimg/openjdk:22.0.0
+    <<: *shared
   jdk17:
     docker:
       - image: cimg/openjdk:17.0.10
@@ -55,6 +59,9 @@ workflows:
       - jdk20:
           requires:
             - jdk21
+      - jdk22:
+          requires:
+            - jdk21
       - jdk11:
           requires:
             - jdk21
@@ -67,4 +74,5 @@ workflows:
             - jdk11
             - jdk20
             - jdk21
+            - jdk22
 

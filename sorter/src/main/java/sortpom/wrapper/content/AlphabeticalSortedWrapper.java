@@ -32,9 +32,11 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
 
   @Override
   public String toString() {
-    return "AlphabeticalSortedWrapper{"
-        + "element="
-        + (element == null ? "null" : element.toString().replaceAll(".+@[^ ]+ ", ""))
-        + '}';
+    // Introduce explaining variable
+    String elementDescription = (element == null) ? "null" : element.toString().replaceAll(".+@[^ ]+ ", "");
+    return "AlphabeticalSortedWrapper{" +
+            "element=" +
+            elementDescription +
+            '}';
   }
 }

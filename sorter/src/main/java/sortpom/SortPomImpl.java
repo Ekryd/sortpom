@@ -70,7 +70,7 @@ public class SortPomImpl {
   /** Verify that the pom-file is sorted regardless of formatting */
   public void verifyPom() {
     var xmlOrderedResult = getVerificationResult();
-    performVerfificationResult(xmlOrderedResult);
+    performVerificationResult(xmlOrderedResult);
   }
 
   private XmlOrderedResult getVerificationResult() {
@@ -87,8 +87,8 @@ public class SortPomImpl {
     }
     return xmlOrderedResult;
   }
-
-  private void performVerfificationResult(XmlOrderedResult xmlOrderedResult) {
+  // Rename method/variable
+  private void performVerificationResult(XmlOrderedResult xmlOrderedResult) {
     if (!xmlOrderedResult.isOrdered()) {
       switch (verifyFailType) {
         case WARN:

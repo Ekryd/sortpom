@@ -12,7 +12,8 @@ import sortpom.wrapper.content.Wrapper;
 public interface WrapperFactory {
 
   /** Creates wrapper around a root element. */
-  HierarchyRootWrapper createFromRootElement(Element rootElement);
+  HierarchyRootWrapper createFromRootElement(
+          Element rootElement, HierarchyRootWrapperFactory hierarchyRootWrapperFactory);
 
   /** Creates wrapper around xml content. */
   <T extends Node> Wrapper<T> create(T content);

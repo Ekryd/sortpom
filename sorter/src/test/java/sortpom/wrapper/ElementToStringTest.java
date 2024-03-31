@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.FileSortUtil;
 import sortpom.util.FileUtil;
-
+import sortpom.wrapper.operation.HierarchyRootWrapperFactory;
 class ElementToStringTest {
   @Test
   void testToString() throws Exception {
@@ -56,7 +56,9 @@ class ElementToStringTest {
 
     var wrapperFactory = new WrapperFactoryImpl(fileUtil, sortUtil);
     wrapperFactory.setup(pluginParameters);
-    var rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
+    var rootWrapper =
+            wrapperFactory.createFromRootElement(
+                    document.getRootElement(), new HierarchyRootWrapperFactory());
     rootWrapper.createWrappedStructure(wrapperFactory);
 
     return rootWrapper.toString();

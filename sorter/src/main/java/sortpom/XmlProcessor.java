@@ -8,6 +8,7 @@ import org.dom4j.io.SAXReader;
 import org.xml.sax.SAXException;
 import sortpom.util.XmlOrderedResult;
 import sortpom.verify.ElementComparator;
+import sortpom.wrapper.operation.HierarchyRootWrapperFactory;
 import sortpom.wrapper.operation.WrapperFactory;
 
 /**
@@ -45,7 +46,7 @@ public class XmlProcessor {
     newDocument = (Document) originalDocument.clone();
     var rootElement = originalDocument.getRootElement().createCopy();
 
-    var rootWrapper = factory.createFromRootElement(rootElement);
+    var rootWrapper = factory.createFromRootElement(rootElement, new HierarchyRootWrapperFactory());
 
     rootWrapper.createWrappedStructure(factory);
     rootWrapper.detachStructure();

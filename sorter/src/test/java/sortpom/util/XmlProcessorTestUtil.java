@@ -21,6 +21,7 @@ import sortpom.wrapper.content.AlphabeticalSortedWrapper;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
+import sortpom.wrapper.operation.HierarchyRootWrapperFactory;
 import sortpom.wrapper.operation.WrapperFactory;
 
 /** Test utility */
@@ -80,21 +81,21 @@ public class XmlProcessorTestUtil {
 
   private void setup(String inputFileName) {
     var pluginParameters =
-        PluginParameters.builder()
-            .setPomFile(null)
-            .setFileOutput(false, ".bak", null, false)
-            .setEncoding("UTF-8")
-            .setFormatting(
-                lineSeparator,
-                expandEmptyElements,
-                spaceBeforeCloseEmptyElement,
-                keepBlankLines,
-                endWithNewline)
-            .setIndent(2, indentBlankLines, false)
-            .setSortOrder(predefinedSortOrder + ".xml", null)
-            .setSortEntities(
-                sortDependencies, "", null, sortPlugins, sortProperties, sortModules, false)
-            .build();
+            PluginParameters.builder()
+                    .setPomFile(null)
+                    .setFileOutput(false, ".bak", null, false)
+                    .setEncoding("UTF-8")
+                    .setFormatting(
+                            lineSeparator,
+                            expandEmptyElements,
+                            spaceBeforeCloseEmptyElement,
+                            keepBlankLines,
+                            endWithNewline)
+                    .setIndent(2, indentBlankLines, false)
+                    .setSortOrder(predefinedSortOrder + ".xml", null)
+                    .setSortEntities(
+                            sortDependencies, "", null, sortPlugins, sortProperties, sortModules, false)
+                    .build();
 
     String xml;
     try (var fileInputStream = new FileInputStream(inputFileName)) {
@@ -102,7 +103,6 @@ public class XmlProcessorTestUtil {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
     var fileUtil = new FileUtil();
     var sortUtil = new FileSortUtil();
     fileUtil.setup(pluginParameters);
@@ -118,23 +118,25 @@ public class XmlProcessorTestUtil {
 
     if (sortAlphabeticalOnly) {
       wrapperFactory =
-          new WrapperFactory() {
+              new WrapperFactory() {
 
-            @Override
-            public HierarchyRootWrapper createFromRootElement(Element rootElement) {
-              return new HierarchyRootWrapper(new AlphabeticalSortedWrapper(rootElement));
-            }
+                @Override
+                public HierarchyRootWrapper createFromRootElement(
+                        Element rootElement, HierarchyRootWrapperFactory hierarchyRootWrapperFactory) {
+                  return hierarchyRootWrapperFactory.createFromWrapper(
+                          new AlphabeticalSortedWrapper(rootElement));
+                }
 
-            @SuppressWarnings("unchecked")
-            @Override
-            public <T extends Node> Wrapper<T> create(T content) {
-              if (content instanceof Element) {
-                var element = (Element) content;
-                return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
-              }
-              return new UnsortedWrapper<>(content);
-            }
-          };
+                @SuppressWarnings("unchecked")
+                @Override
+                public <T extends Node> Wrapper<T> create(T content) {
+                  if (content instanceof Element) {
+                    var element = (Element) content;
+                    return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
+                  }
+                  return new UnsortedWrapper<>(content);
+                }
+              };
     } else {
       new ReflectionHelper(wrapperFactory).setField(fileUtil);
     }

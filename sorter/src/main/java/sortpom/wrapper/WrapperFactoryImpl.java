@@ -22,6 +22,7 @@ import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
+import sortpom.wrapper.operation.HierarchyRootWrapperFactory;
 import sortpom.wrapper.operation.WrapperFactory;
 
 /**
@@ -44,7 +45,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
   private final FileSortUtil sortUtil;
   private final ElementSortOrderMap elementSortOrderMap = new ElementSortOrderMap();
   private final ElementWrapperCreator elementWrapperCreator =
-      new ElementWrapperCreator(elementSortOrderMap);
+          new ElementWrapperCreator(elementSortOrderMap);
   private final TextWrapperCreator textWrapperCreator = new TextWrapperCreator();
 
   /**
@@ -53,8 +54,8 @@ public class WrapperFactoryImpl implements WrapperFactory {
    * @param fileUtil the file util
    */
   public WrapperFactoryImpl(FileUtil fileUtil, FileSortUtil sortUtil) {
-    this.sortUtil = sortUtil;
     this.fileUtil = fileUtil;
+    this.sortUtil = sortUtil;
   }
 
   /** Initializes the class with sortpom parameters. */
@@ -66,9 +67,10 @@ public class WrapperFactoryImpl implements WrapperFactory {
   /**
    * @see WrapperFactory#createFromRootElement(org.dom4j.Element)
    */
-  public HierarchyRootWrapper createFromRootElement(Element rootElement) {
+  public HierarchyRootWrapper createFromRootElement(
+          Element rootElement, HierarchyRootWrapperFactory hierarchyRootWrapperFactory) {
     initializeSortOrderMap();
-    return new HierarchyRootWrapper(create(rootElement));
+    return hierarchyRootWrapperFactory.createFromWrapper(create(rootElement));
   }
 
   /** Creates sort order map from chosen sort order. */
@@ -82,7 +84,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
   }
 
   Document createDocumentFromDefaultSortOrderFile()
-      throws IOException, DocumentException, SAXException {
+          throws IOException, DocumentException, SAXException {
     try (Reader reader = new StringReader(sortUtil.getDefaultSortOrderXml())) {
       var parser = new SAXReader();
       parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
@@ -119,7 +121,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
     }
     if (content instanceof ProcessingInstruction && "sortpom".equals(content.getName())) {
       return (Wrapper<T>)
-          new UnsortedWrapper<>(IgnoreSectionToken.from((ProcessingInstruction) content));
+              new UnsortedWrapper<>(IgnoreSectionToken.from((ProcessingInstruction) content));
     }
     return new UnsortedWrapper<>(content);
   }

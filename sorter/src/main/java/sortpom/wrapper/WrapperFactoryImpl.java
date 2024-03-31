@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 import sortpom.content.IgnoreSectionToken;
 import sortpom.exception.FailureException;
 import sortpom.parameter.PluginParameters;
+import sortpom.util.FileSortUtil;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.content.UnsortedWrapper;
 import sortpom.wrapper.content.Wrapper;
@@ -40,7 +41,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
   private static final int SORT_ORDER_BASE = 1000;
 
   private final FileUtil fileUtil;
-
+  private final FileSortUtil sortUtil;
   private final ElementSortOrderMap elementSortOrderMap = new ElementSortOrderMap();
   private final ElementWrapperCreator elementWrapperCreator =
       new ElementWrapperCreator(elementSortOrderMap);
@@ -51,7 +52,8 @@ public class WrapperFactoryImpl implements WrapperFactory {
    *
    * @param fileUtil the file util
    */
-  public WrapperFactoryImpl(FileUtil fileUtil) {
+  public WrapperFactoryImpl(FileUtil fileUtil, FileSortUtil sortUtil) {
+    this.sortUtil = sortUtil;
     this.fileUtil = fileUtil;
   }
 
@@ -81,7 +83,7 @@ public class WrapperFactoryImpl implements WrapperFactory {
 
   Document createDocumentFromDefaultSortOrderFile()
       throws IOException, DocumentException, SAXException {
-    try (Reader reader = new StringReader(fileUtil.getDefaultSortOrderXml())) {
+    try (Reader reader = new StringReader(sortUtil.getDefaultSortOrderXml())) {
       var parser = new SAXReader();
       parser.setFeature(DISALLOW_DOCTYPE_DECL, true);
       return parser.read(reader);

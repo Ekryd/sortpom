@@ -10,6 +10,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.junit.jupiter.api.Test;
 import sortpom.parameter.PluginParameters;
+import sortpom.util.FileSortUtil;
 import sortpom.util.FileUtil;
 
 class ElementToStringTest {
@@ -42,7 +43,9 @@ class ElementToStringTest {
             .build();
 
     var fileUtil = new FileUtil();
+    var sortUtil = new FileSortUtil();
     fileUtil.setup(pluginParameters);
+    sortUtil.setup(pluginParameters);
 
     String xml;
     try (var fileInputStream = new FileInputStream("src/test/resources/" + "Real1_input.xml")) {
@@ -51,7 +54,7 @@ class ElementToStringTest {
     var parser = new SAXReader();
     var document = parser.read(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)));
 
-    var wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    var wrapperFactory = new WrapperFactoryImpl(fileUtil, sortUtil);
     wrapperFactory.setup(pluginParameters);
     var rootWrapper = wrapperFactory.createFromRootElement(document.getRootElement());
     rootWrapper.createWrappedStructure(wrapperFactory);

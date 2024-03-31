@@ -12,6 +12,7 @@ import sortpom.logger.SortPomLogger;
 import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 import sortpom.processinstruction.XmlProcessingInstructionParser;
+import sortpom.util.FileSortUtil;
 import sortpom.util.FileUtil;
 import sortpom.util.XmlOrderedResult;
 import sortpom.wrapper.WrapperFactoryImpl;
@@ -23,6 +24,7 @@ import sortpom.wrapper.WrapperFactoryImpl;
  */
 public class SortPomService {
   private final FileUtil fileUtil;
+  private final FileSortUtil sortUtil;
   private final XmlProcessor xmlProcessor;
   private final WrapperFactoryImpl wrapperFactory;
   private final XmlProcessingInstructionParser xmlProcessingInstructionParser;
@@ -42,7 +44,8 @@ public class SortPomService {
   /** Instantiates a new sort pom mojo and initiates dependencies to other classes. */
   public SortPomService() {
     this.fileUtil = new FileUtil();
-    this.wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    this.sortUtil = new FileSortUtil();
+    this.wrapperFactory = new WrapperFactoryImpl(fileUtil, sortUtil);
     this.xmlProcessor = new XmlProcessor(wrapperFactory);
     this.xmlProcessingInstructionParser = new XmlProcessingInstructionParser();
     this.xmlOutputGenerator = new XmlOutputGenerator();
@@ -51,6 +54,7 @@ public class SortPomService {
   public void setup(SortPomLogger log, PluginParameters pluginParameters) {
     this.log = log;
     fileUtil.setup(pluginParameters);
+    sortUtil.setup(pluginParameters);
     wrapperFactory.setup(pluginParameters);
     xmlProcessingInstructionParser.setup(log);
     xmlOutputGenerator.setup(pluginParameters);

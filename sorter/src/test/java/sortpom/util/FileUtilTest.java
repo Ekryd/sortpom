@@ -72,14 +72,14 @@ class FileUtilTest {
     }
   }
 
-  private FileUtil createFileUtil(String customSortOrderFile) {
-    var fileUtil = new FileUtil();
+  private FileSortUtil createFileUtil(String customSortOrderFile) {
+    var sortUtil = new FileSortUtil();
     var pluginParameters =
         PluginParameters.builder()
             .setSortOrder(customSortOrderFile, null)
             .setEncoding("UTF-8")
             .build();
-    fileUtil.setup(pluginParameters);
-    return fileUtil;
+    sortUtil.setup(pluginParameters);
+    return sortUtil;
   }
 }

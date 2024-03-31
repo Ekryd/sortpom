@@ -104,9 +104,11 @@ public class XmlProcessorTestUtil {
     }
 
     var fileUtil = new FileUtil();
+    var sortUtil = new FileSortUtil();
     fileUtil.setup(pluginParameters);
+    sortUtil.setup(pluginParameters);
 
-    WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    WrapperFactory wrapperFactory = new WrapperFactoryImpl(fileUtil, sortUtil);
     ((WrapperFactoryImpl) wrapperFactory).setup(pluginParameters);
 
     xmlProcessor = new XmlProcessor(wrapperFactory);

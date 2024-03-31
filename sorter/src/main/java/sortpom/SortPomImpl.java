@@ -38,32 +38,32 @@ public class SortPomImpl {
   // Extracted method to warn about deprecated arguments
   private void warnAboutDeprecatedArguments(PluginParameters pluginParameters) {
     warnAboutDeprecatedValue(
-            "sortDependencies",
-            pluginParameters.sortDependencies.isDeprecatedValueTrue(),
-            pluginParameters.sortDependencies.isDeprecatedValueFalse(),
-            "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.",
-            "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
+        "sortDependencies",
+        pluginParameters.sortDependencies.isDeprecatedValueTrue(),
+        pluginParameters.sortDependencies.isDeprecatedValueFalse(),
+        "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.",
+        "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
     warnAboutDeprecatedValue(
-            "sortDependencyExclusions",
-            pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue(),
-            pluginParameters.sortDependencyExclusions.isDeprecatedValueFalse(),
-            "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.",
-            "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
+        "sortDependencyExclusions",
+        pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue(),
+        pluginParameters.sortDependencyExclusions.isDeprecatedValueFalse(),
+        "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.",
+        "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
     warnAboutDeprecatedValue(
-            "sortPlugins",
-            pluginParameters.sortPlugins.isDeprecatedValueTrue(),
-            pluginParameters.sortPlugins.isDeprecatedValueFalse(),
-            "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.",
-            "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
+        "sortPlugins",
+        pluginParameters.sortPlugins.isDeprecatedValueTrue(),
+        pluginParameters.sortPlugins.isDeprecatedValueFalse(),
+        "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.",
+        "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
   }
 
   // Extracted method to warn about deprecated values for individual parameters
   private void warnAboutDeprecatedValue(
-          String parameterName,
-          boolean isTrueDeprecated,
-          boolean isFalseDeprecated,
-          String trueMessage,
-          String falseMessage) {
+      String parameterName,
+      boolean isTrueDeprecated,
+      boolean isFalseDeprecated,
+      String trueMessage,
+      String falseMessage) {
     if (isTrueDeprecated) {
       throw new FailureException(trueMessage);
     }

@@ -9,6 +9,7 @@ import org.dom4j.DocumentException;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import sortpom.parameter.PluginParameters;
+import sortpom.util.FileSortUtil;
 import sortpom.util.FileUtil;
 import sortpom.wrapper.operation.HierarchyRootWrapper;
 
@@ -44,9 +45,11 @@ class CustomSortOrderFileTest {
             .build();
 
     var fileUtil = new FileUtil();
+    var sortUtil = new FileSortUtil();
+    sortUtil.setup(pluginParameters);
     fileUtil.setup(pluginParameters);
 
-    var wrapperFactory = new WrapperFactoryImpl(fileUtil);
+    var wrapperFactory = new WrapperFactoryImpl(fileUtil, sortUtil);
 
     var documentFromDefaultSortOrderFile = wrapperFactory.createDocumentFromDefaultSortOrderFile();
     new HierarchyRootWrapper(

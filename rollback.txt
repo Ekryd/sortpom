@@ -6,4 +6,4 @@ git push origin -f
 
 git tag
 git tag -d <tag>
-git push origin :refs/tags/<tag>
+git push origin :refs/tags/<tag>    

@@ -4,6 +4,16 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
+    <?m2e ignore?>
+    <?m2e execute onConfiguration?>
+    <?m2e execute onConfiguration,onIncremental?>
+    <?m2e execute onConfiguration?>
+    <?m2e execute onConfiguration?>
+    <?m2e ignore?>
+    <?m2e execute onConfiguration,onIncremental?>
+    <?m2e execute onConfiguration?>
+    <?m2e execute onConfiguration,onIncremental?>
+    <?m2e execute onConfiguration,onIncremental?>
     <groupId>com.github.ekryd.sortpom</groupId>
     <artifactId>sortpom-parent</artifactId>
     <version>3.4.2-SNAPSHOT</version>

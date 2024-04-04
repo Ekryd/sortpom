@@ -1,0 +1,19 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "git.allowForcePush": true,
+    "git.allowNoVerifyCommit": true,
+    "git.alwaysShowStagedChangesResourceGroup": true,
+    "git.autofetch": "all",
+    "git.branchRandomName.enable": true,
+    "git.closeDiffOnOperation": true,
+    "git.followTagsWhenSync": true,
+    "git.ignoreLegacyWarning": true,
+    "git.ignoreLimitWarning": true,
+    "git.ignoreMissingGitWarning": true,
+    "git.ignoreRebaseWarning": true,
+    "git.ignoreSubmodules": true,
+    "git.ignoreWindowsGit27Warning": true,
+    "git.inputValidation": "always",
+    "git.mergeEditor": true,
+    "git.rememberPostCommitCommand": true
+}

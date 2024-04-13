@@ -505,6 +505,17 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>windows</id>
+      <activation>
+        <os>
+          <family>Windows</family>
+        </os>
+      </activation>
+      <properties>
+        <surefire.useSystemClassLoader>false</surefire.useSystemClassLoader>
+      </properties>
+    </profile>
   </profiles>
 
 </project>

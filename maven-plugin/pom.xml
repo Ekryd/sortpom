@@ -35,6 +35,18 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerArgs>
+            <!-- Disables annotation processing since it is not needed for the plugin.
+             The 'maven-plugin-api' dependency contains a bunch of old annotation processors
+             that causes compiler warnings otherwise -->
+            <arg>-proc:none</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>com.github.ekryd.echo-maven-plugin</groupId>
         <artifactId>echo-maven-plugin</artifactId>
         <inherited>false</inherited>

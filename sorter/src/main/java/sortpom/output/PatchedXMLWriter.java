@@ -123,8 +123,9 @@ class PatchedXMLWriter extends XMLWriter {
       writePrintln();
       writeString(format.getIndent());
       writeString(format.getIndent());
+    } else {
+      writer.write(" ");
     }
-    writer.write(" ");
     writer.write(qualifiedName);
     writer.write("=");
 

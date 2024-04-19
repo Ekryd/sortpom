@@ -73,7 +73,7 @@ sortpom:sort
       User property: sort.indentSchemaLocation
       Should the schema location attribute of project (top level xml element)
       be placed on a new line. The attribute will be indented (2 *
-      nrOfIndentSpace + 1 space) characters.
+      nrOfIndentSpace) characters.
 
     keepBlankLines (Default: true)
       User property: sort.keepBlankLines
@@ -203,7 +203,7 @@ sortpom:verify
       User property: sort.indentSchemaLocation
       Should the schema location attribute of project (top level xml element)
       be placed on a new line. The attribute will be indented (2 *
-      nrOfIndentSpace + 1 space) characters.
+      nrOfIndentSpace) characters.
 
     keepBlankLines (Default: true)
       User property: sort.keepBlankLines

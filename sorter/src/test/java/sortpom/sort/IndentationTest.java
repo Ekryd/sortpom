@@ -73,7 +73,7 @@ class IndentationTest {
             + lineSeparator
             + indentChars
             + indentChars
-            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
             + lineSeparator
             + indentChars
             + "<Gurka xmlns=\"\"></Gurka>"
@@ -106,7 +106,7 @@ class IndentationTest {
             + lineSeparator
             + indentChars
             + indentChars
-            + " xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
             + lineSeparator
             + indentChars
             + "<Gurka xmlns=\"\" key=\"value\"></Gurka>"

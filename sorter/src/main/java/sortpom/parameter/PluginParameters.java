@@ -147,6 +147,25 @@ public class PluginParameters {
       return this;
     }
 
+    /**
+     * Sets formatting information that is used when the pom file is sorted
+     *
+     * @deprecated Use {@link #setFormatting(String, boolean, boolean, boolean, boolean)}
+     */
+    @Deprecated(forRemoval = true)
+    public Builder setFormatting(
+        final String lineSeparator,
+        final boolean expandEmptyElements,
+        final boolean spaceBeforeCloseEmptyElement,
+        final boolean keepBlankLines) {
+      return setFormatting(
+          lineSeparator,
+          expandEmptyElements,
+          spaceBeforeCloseEmptyElement,
+          keepBlankLines,
+          true);
+    }
+
     /** Sets formatting information that is used when the pom file is sorted */
     public Builder setFormatting(
         final String lineSeparator,

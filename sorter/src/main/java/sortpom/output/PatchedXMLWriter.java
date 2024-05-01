@@ -120,7 +120,9 @@ class PatchedXMLWriter extends XMLWriter {
   @Override
   protected void writeAttribute(Attribute attribute) throws IOException {
     var qualifiedName = attribute.getQualifiedName();
-    if (indentAttribute.indentSchemaLocation() && "xsi:schemaLocation".equals(qualifiedName)) {
+    if (indentAttribute == IndentAttribute.ALL
+        || (indentAttribute == IndentAttribute.SCHEMA_LOCATION
+            && "xsi:schemaLocation".equals(qualifiedName))) {
       writePrintln();
       writeString(format.getIndent());
       writeString(format.getIndent());
@@ -137,5 +139,27 @@ class PatchedXMLWriter extends XMLWriter {
 
     writer.write(quote);
     lastOutputNodeType = Node.ATTRIBUTE_NODE;
+  }
+
+  @Override
+  protected void writeNamespace(String prefix, String uri) throws IOException {
+    if (indentAttribute == IndentAttribute.ALL) {
+      writePrintln();
+      writeString(format.getIndent());
+      writeString(format.getIndent());
+    } else {
+      writer.write(" ");
+    }
+
+    if ((prefix != null) && (!prefix.isEmpty())) {
+      writer.write("xmlns:");
+      writer.write(prefix);
+      writer.write("=\"");
+    } else {
+      writer.write("xmlns=\"");
+    }
+
+    writer.write(uri);
+    writer.write("\"");
   }
 }

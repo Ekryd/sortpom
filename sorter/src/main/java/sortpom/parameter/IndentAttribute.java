@@ -21,8 +21,4 @@ public enum IndentAttribute {
         String.format(
             "verifyFail must be either SCHEMA_LOCATION or ALL. Was: %s", indentAttribute));
   }
-
-  public boolean indentSchemaLocation() {
-    return this != NONE;
-  }
 }

@@ -28,18 +28,8 @@ class IndentationAttributesTest {
             .build());
 
     var actual = xmlOutputGenerator.getSortedXml(createXmlProjectFragment());
-    var indentChars = "";
-    switch (indent) {
-      case 1:
-        indentChars = " ";
-        break;
-      case 4:
-        indentChars = "    ";
-        break;
-      case -1:
-        indentChars = "\t";
-        break;
-    }
+    var indentChars = getIndentChars(indent);
+
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + lineSeparator
@@ -57,21 +47,22 @@ class IndentationAttributesTest {
         actual);
   }
 
-  @Test
-  void otherAttributeShouldNotBeIndented() {
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 4, -1})
+  void indentSchemaLocationShouldNotIndentOtherAttributes(int indent) {
     var xmlOutputGenerator = new XmlOutputGenerator();
     var lineSeparator = "\n";
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
             .setFormatting(lineSeparator, true, true, false, true)
-            .setIndent(2, false, false, "schemaLocation")
+            .setIndent(indent, false, false, "schemaLocation")
             .build());
 
     var xmlProjectFragment = createXmlProjectFragment();
     xmlProjectFragment.getRootElement().element("Gurka").addAttribute("key", "value");
     var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
-    var indentChars = "  ";
+    var indentChars = getIndentChars(indent);
 
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -84,6 +75,56 @@ class IndentationAttributesTest {
             + lineSeparator
             + indentChars
             + "<Gurka xmlns=\"\" key=\"value\"></Gurka>"
+            + lineSeparator
+            + "</project>"
+            + lineSeparator,
+        actual);
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 4, -1})
+  void indentAllShouldIndentAllAttributes(int indent) {
+    var xmlOutputGenerator = new XmlOutputGenerator();
+    var lineSeparator = "\n";
+    xmlOutputGenerator.setup(
+        PluginParameters.builder()
+            .setEncoding("UTF-8")
+            .setFormatting(lineSeparator, true, true, false, true)
+            .setIndent(indent, false, false, "all")
+            .build());
+
+    var xmlProjectFragment = createXmlProjectFragment();
+    xmlProjectFragment.getRootElement().element("Gurka").addAttribute("key", "value");
+    var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
+    var indentChars = getIndentChars(indent);
+
+    assertEquals(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            + lineSeparator
+            + "<project"
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + "xmlns=\"http://maven.apache.org/POM/4.0.0\""
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+            + lineSeparator
+            + indentChars
+            + "<Gurka"
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + "xmlns=\"\""
+            + lineSeparator
+            + indentChars
+            + indentChars
+            + "key=\"value\"></Gurka>"
             + lineSeparator
             + "</project>"
             + lineSeparator,
@@ -112,5 +153,21 @@ class IndentationAttributesTest {
     assertThat(logs.get(1), startsWith("[INFO] Sorting file "));
     assertThat(logs.get(2), startsWith("[INFO] Saved backup of "));
     assertThat(logs.get(logs.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
+  }
+
+  private static String getIndentChars(int indent) {
+    var indentChars = "";
+    switch (indent) {
+      case 1:
+        indentChars = " ";
+        break;
+      case 4:
+        indentChars = "    ";
+        break;
+      case -1:
+        indentChars = "\t";
+        break;
+    }
+    return indentChars;
   }
 }

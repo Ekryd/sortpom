@@ -17,6 +17,7 @@ import sortpom.parameter.PluginParameters;
 public class SortMojo extends AbstractParentMojo {
 
   public void setup(SortPomLogger mavenLogger) throws MojoFailureException {
+    warnAboutDeprecatedArguments(mavenLogger, indentSchemaLocation);
     new ExceptionConverter(
             () -> {
               var pluginParameters =
@@ -30,7 +31,10 @@ public class SortMojo extends AbstractParentMojo {
                           spaceBeforeCloseEmptyElement,
                           keepBlankLines,
                           endWithNewline)
-                      .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
+                      .setIndent(
+                          nrOfIndentSpace,
+                          indentBlankLines,
+                          getProcessedIndentAttribute(indentAttribute, indentSchemaLocation))
                       .setSortOrder(sortOrderFile, predefinedSortOrder)
                       .setSortEntities(
                           sortDependencies,
@@ -50,5 +54,18 @@ public class SortMojo extends AbstractParentMojo {
 
   protected void sortPom() throws MojoFailureException {
     new ExceptionConverter(sortPomImpl::sortPom).executeAndConvertException();
+  }
+
+  static String getProcessedIndentAttribute(String indentAttribute, boolean indentSchemaLocation) {
+    return indentAttribute != null
+        ? indentAttribute
+        : (indentSchemaLocation ? "schemaLocation" : null);
+  }
+
+  static void warnAboutDeprecatedArguments(SortPomLogger log, boolean indentSchemaLocation) {
+    if (indentSchemaLocation) {
+      log.warn(
+          "[DEPRECATED] The parameter 'indentSchemaLocation' is no longer used. Please use <indentAttribute>schemaLocation</indentAttribute> instead. In the next major version, using 'indentSchemaLocation' will cause an error!");
+    }
   }
 }

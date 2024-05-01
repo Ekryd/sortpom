@@ -6,6 +6,7 @@ import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import sortpom.exception.FailureException;
+import sortpom.parameter.IndentAttribute;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.StringLineSeparatorWriter;
 
@@ -16,7 +17,7 @@ public class XmlOutputGenerator {
   private String indentCharacters;
   private boolean expandEmptyElements;
   private boolean indentBlankLines;
-  private boolean indentSchemaLocation;
+  private IndentAttribute indentAttribute;
   private boolean spaceBeforeCloseEmptyElement;
   private String lineSeparator;
   private boolean endWithNewline;
@@ -27,7 +28,7 @@ public class XmlOutputGenerator {
     this.encoding = pluginParameters.encoding;
     this.expandEmptyElements = pluginParameters.expandEmptyElements;
     this.indentBlankLines = pluginParameters.indentBlankLines;
-    this.indentSchemaLocation = pluginParameters.indentSchemaLocation;
+    this.indentAttribute = pluginParameters.indentAttribute;
     this.spaceBeforeCloseEmptyElement = pluginParameters.spaceBeforeCloseEmptyElement;
     this.lineSeparator = pluginParameters.lineSeparatorUtil.toString();
     this.endWithNewline = pluginParameters.endWithNewline;
@@ -47,7 +48,7 @@ public class XmlOutputGenerator {
               createPrettyFormat(),
               spaceBeforeCloseEmptyElement,
               indentBlankLines,
-              indentSchemaLocation,
+              indentAttribute,
               endWithNewline);
       xmlWriter.write(newDocument);
       writer.writeDelayedNewline();

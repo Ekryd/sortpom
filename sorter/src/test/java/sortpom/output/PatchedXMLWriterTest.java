@@ -32,7 +32,7 @@ class PatchedXMLWriterTest {
     reader.setIncludeInternalDTDDeclarations(true);
 
     var wr = new StringWriter();
-    var writer = new PatchedXMLWriter(wr, new OutputFormat(), false, false, false, false);
+    var writer = new PatchedXMLWriter(wr, new OutputFormat(), false, false, null, false);
     writer.write(reader.read(new StringReader(xml)));
 
     assertEquals(xml, wr.toString());

@@ -29,7 +29,7 @@ class ElementToStringTest {
             .setFileOutput(false, ".bak", null, false)
             .setEncoding("UTF-8")
             .setFormatting("\r\n", true, true, true, true)
-            .setIndent(2, false, false)
+            .setIndent(2, false, null)
             .setSortOrder("default_0_4_0.xml", null)
             .setSortEntities(
                 "scope,groupId,artifactId",

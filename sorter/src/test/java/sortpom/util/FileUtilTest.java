@@ -38,11 +38,11 @@ class FileUtilTest {
 
   @Test
   void defaultSortOrderFromUrlShouldWork() throws IOException {
-    var fileUtil = createFileUtil("https://google.com");
+    var fileUtil = createFileUtil("https://spaceweather.com/");
 
     try {
       var defaultSortOrderXml = fileUtil.getDefaultSortOrderXml();
-      assertThat(defaultSortOrderXml, containsString("google"));
+      assertThat(defaultSortOrderXml, containsString("spaceweather"));
     } catch (UnknownHostException e) {
       // This is ok, we were not online when the test was performed
       // Which actually makes this test a bit pointless :-(

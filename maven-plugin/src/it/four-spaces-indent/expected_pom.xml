@@ -32,7 +32,7 @@
                             <expandEmptyElements>false</expandEmptyElements>
                             <nrOfIndentSpace>4</nrOfIndentSpace>
                             <indentBlankLines/>
-                            <indentSchemaLocation>true</indentSchemaLocation>
+                            <indentAttribute>schemaLocation</indentAttribute>
                         </configuration>
                     </execution>
                 </executions>

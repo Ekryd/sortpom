@@ -90,7 +90,7 @@ public class XmlProcessorTestUtil {
                 spaceBeforeCloseEmptyElement,
                 keepBlankLines,
                 endWithNewline)
-            .setIndent(2, indentBlankLines, null)
+            .setIndent(2, indentBlankLines, false, null)
             .setSortOrder(predefinedSortOrder + ".xml", null)
             .setSortEntities(
                 sortDependencies, "", null, sortPlugins, sortProperties, sortModules, false)

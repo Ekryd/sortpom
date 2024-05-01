@@ -168,11 +168,17 @@ public class PluginParameters {
 
     /** Sets indent information that is used when the pom file is sorted */
     public Builder setIndent(
-        final int nrOfIndentSpace, final boolean indentBlankLines, boolean indentSchemaLocation, String indentAttribute) {
+        final int nrOfIndentSpace,
+        final boolean indentBlankLines,
+        boolean indentSchemaLocation,
+        String indentAttribute) {
       this.indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
       this.indentBlankLines = indentBlankLines;
       this.indentSchemaLocation = indentSchemaLocation;
-      this.indentAttribute = indentAttribute == null && indentSchemaLocation ? IndentAttribute.SCHEMA_LOCATION : IndentAttribute.fromString(indentAttribute);
+      this.indentAttribute =
+          indentAttribute == null && indentSchemaLocation
+              ? IndentAttribute.SCHEMA_LOCATION
+              : IndentAttribute.fromString(indentAttribute);
       return this;
     }
 

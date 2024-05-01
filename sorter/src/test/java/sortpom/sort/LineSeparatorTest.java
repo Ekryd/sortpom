@@ -19,7 +19,7 @@ class LineSeparatorTest {
         PluginParameters.builder()
             .setEncoding("UTF-8")
             .setFormatting(lineSeparator, false, true, false, true)
-            .setIndent(2, false, null)
+            .setIndent(2, false, false, null)
             .build());
 
     var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());

@@ -199,7 +199,7 @@ class VerifyMojoParametersTest {
     verifyMojo.setup(logger);
     verify(logger)
         .warn(
-            "[DEPRECATED] The parameter 'indentSchemaLocation' is no longer used. Please use <indentAttribute>schemaLocation</indentAttribute> instead. In the next major version, using 'indentSchemaLocation' will cause an error!");
+            "[DEPRECATED] The parameter 'indentSchemaLocation' is no longer supported. Please use <indentAttribute>schemaLocation</indentAttribute> instead. In the next major version, using 'indentSchemaLocation' will cause an error!");
   }
 
   @Test

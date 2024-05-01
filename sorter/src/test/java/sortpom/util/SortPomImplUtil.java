@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
+import java.util.List;
 import sortpom.parameter.PluginParameters;
 
 /** Test utility to enter sort parameters */
@@ -33,6 +34,7 @@ public class SortPomImplUtil {
   private boolean keepBlankLines = true;
   private boolean ignoreLineSeparators = true;
   private boolean indentBLankLines = false;
+  private boolean indentSchemaLocation = false;
   private String indentAttribute = null;
   private boolean keepTimestamp = false;
   private String verifyFail = "SORT";
@@ -42,9 +44,7 @@ public class SortPomImplUtil {
   private String violationFile;
   private boolean createBackupFile = true;
 
-  private SortPomImplUtil() {
-
-  }
+  private SortPomImplUtil() {}
 
   public static SortPomImplUtil create() {
     return new SortPomImplUtil();
@@ -60,6 +60,15 @@ public class SortPomImplUtil {
     assertThat(infoLogger.get(1), startsWith("[INFO] Saved backup of "));
     assertThat(
         infoLogger.get(infoLogger.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
+  }
+
+  public List<String> testFilesAndReturnLogs(
+      String inputResourceFileName, String expectedResourceFileName) {
+    setup();
+    testHandler =
+        new TestHandler(inputResourceFileName, expectedResourceFileName, getPluginParameters());
+    testHandler.performSortThatSorted();
+    return testHandler.getInfoLogger();
   }
 
   public void testFilesWithTimestamp(
@@ -166,6 +175,11 @@ public class SortPomImplUtil {
 
   public SortPomImplUtil indentBLankLines() {
     indentBLankLines = true;
+    return this;
+  }
+
+  public SortPomImplUtil indentSchemaLocation() {
+    indentSchemaLocation = true;
     return this;
   }
 
@@ -280,7 +294,7 @@ public class SortPomImplUtil {
         .setFileOutput(createBackupFile, testPomBackupExtension, violationFile, keepTimestamp)
         .setEncoding(encoding)
         .setFormatting(lineSeparator, true, false, keepBlankLines, true)
-        .setIndent(nrOfIndentSpace, indentBLankLines, indentAttribute)
+        .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation, indentAttribute)
         .setSortEntities(
             sortDependencies,
             sortDependencyExclusions,

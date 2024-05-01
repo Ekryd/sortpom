@@ -1,8 +1,5 @@
 package sortpom;
 
-import static sortpom.SortMojo.getProcessedIndentAttribute;
-import static sortpom.SortMojo.warnAboutDeprecatedArguments;
-
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -39,7 +36,6 @@ public class VerifyMojo extends AbstractParentMojo {
   private String violationFilename;
 
   public void setup(SortPomLogger mavenLogger) throws MojoFailureException {
-    warnAboutDeprecatedArguments(mavenLogger, indentSchemaLocation);
     new ExceptionConverter(
             () -> {
               var pluginParameters =
@@ -57,7 +53,8 @@ public class VerifyMojo extends AbstractParentMojo {
                       .setIndent(
                           nrOfIndentSpace,
                           indentBlankLines,
-                          getProcessedIndentAttribute(indentAttribute, indentSchemaLocation))
+                          indentSchemaLocation,
+                          indentAttribute)
                       .setSortOrder(sortOrderFile, predefinedSortOrder)
                       .setSortEntities(
                           sortDependencies,

@@ -42,7 +42,9 @@ public class SortPomImplUtil {
   private String violationFile;
   private boolean createBackupFile = true;
 
-  private SortPomImplUtil() {}
+  private SortPomImplUtil() {
+
+  }
 
   public static SortPomImplUtil create() {
     return new SortPomImplUtil();

@@ -25,6 +25,7 @@ public class PluginParameters {
   public final boolean keepBlankLines;
   public final boolean endWithNewline;
   public final boolean indentBlankLines;
+  public final boolean indentSchemaLocation;
   public final IndentAttribute indentAttribute;
   public final VerifyFailType verifyFailType;
   public final VerifyFailOnType verifyFailOn;
@@ -44,6 +45,7 @@ public class PluginParameters {
       boolean endWithNewline,
       String indentCharacters,
       boolean indentBlankLines,
+      boolean indentSchemaLocation,
       IndentAttribute indentAttribute,
       String predefinedSortOrder,
       String customSortOrderFile,
@@ -79,6 +81,7 @@ public class PluginParameters {
     this.keepBlankLines = keepBlankLines;
     this.endWithNewline = endWithNewline;
     this.indentBlankLines = indentBlankLines;
+    this.indentSchemaLocation = indentSchemaLocation;
     this.indentAttribute = indentAttribute;
     this.verifyFailType = verifyFailType;
     this.verifyFailOn = verifyFailOn;
@@ -101,6 +104,7 @@ public class PluginParameters {
     private LineSeparatorUtil lineSeparatorUtil;
     private String indentCharacters;
     private boolean indentBlankLines;
+    private boolean indentSchemaLocation;
     private IndentAttribute indentAttribute = IndentAttribute.NONE;
     private boolean expandEmptyElements;
     private boolean spaceBeforeCloseEmptyElement;
@@ -164,10 +168,11 @@ public class PluginParameters {
 
     /** Sets indent information that is used when the pom file is sorted */
     public Builder setIndent(
-        final int nrOfIndentSpace, final boolean indentBlankLines, String indentAttribute) {
+        final int nrOfIndentSpace, final boolean indentBlankLines, boolean indentSchemaLocation, String indentAttribute) {
       this.indentCharacters = new IndentCharacters(nrOfIndentSpace).getIndentCharacters();
       this.indentBlankLines = indentBlankLines;
-      this.indentAttribute = IndentAttribute.fromString(indentAttribute);
+      this.indentSchemaLocation = indentSchemaLocation;
+      this.indentAttribute = indentAttribute == null && indentSchemaLocation ? IndentAttribute.SCHEMA_LOCATION : IndentAttribute.fromString(indentAttribute);
       return this;
     }
 
@@ -226,6 +231,7 @@ public class PluginParameters {
           endWithNewline,
           indentCharacters,
           indentBlankLines,
+          indentSchemaLocation,
           indentAttribute,
           predefinedSortOrder,
           customSortOrderFile,

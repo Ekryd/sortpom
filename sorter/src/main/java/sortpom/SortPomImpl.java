@@ -37,27 +37,31 @@ public class SortPomImpl {
   private void warnAboutDeprecatedArguments(PluginParameters pluginParameters) {
     if (pluginParameters.sortDependencies.isDeprecatedValueTrue()) {
       throw new FailureException(
-          "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead.");
+          "The 'false' value in 'sortDependencies' is no longer supported. Please use value 'groupId,artifactId' instead.");
     }
     if (pluginParameters.sortDependencies.isDeprecatedValueFalse()) {
       throw new FailureException(
-          "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead.");
+          "The 'false' value in 'sortDependencies' is no longer supported. Please use empty value '' or omit sortDependencies instead.");
     }
     if (pluginParameters.sortDependencyExclusions.isDeprecatedValueTrue()) {
       throw new FailureException(
-          "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead.");
+          "The 'true' value in 'sortDependencyExclusions' is no longer supported. Please use value 'groupId,artifactId' instead.");
     }
     if (pluginParameters.sortDependencyExclusions.isDeprecatedValueFalse()) {
       throw new FailureException(
-          "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead.");
+          "The 'false' value in 'sortDependencyExclusions' is no longer supported. Please use empty value '' or omit sortDependencyExclusions instead.");
     }
     if (pluginParameters.sortPlugins.isDeprecatedValueTrue()) {
       throw new FailureException(
-          "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead.");
+          "The 'true' value in 'sortPlugins' is no longer supported. Please use value 'groupId,artifactId' instead.");
     }
     if (pluginParameters.sortPlugins.isDeprecatedValueFalse()) {
       throw new FailureException(
-          "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead.");
+          "The 'false' value in 'sortPlugins' is no longer supported. Please use an empty value '' or omit 'sortPlugins' instead.");
+    }
+    if (pluginParameters.indentSchemaLocation) {
+      log.warn(
+          "[DEPRECATED] The parameter 'indentSchemaLocation' is no longer supported. Please use <indentAttribute>schemaLocation</indentAttribute> instead. In the next major version, using 'indentSchemaLocation' will cause an error!");
     }
   }
 

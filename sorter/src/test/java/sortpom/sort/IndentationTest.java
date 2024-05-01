@@ -1,7 +1,14 @@
 package sortpom.sort;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import sortpom.exception.FailureException;
 import sortpom.util.SortPomImplUtil;
 
 class IndentationTest {
@@ -34,4 +41,25 @@ class IndentationTest {
         .indentAttribute("schemaLocation")
         .testFiles("/SortModules_input.xml", expectedFile);
   }
+
+    @Test
+  void deprecatedSortPluginsTrueMessageShouldWork() {
+    Executable testMethod =
+        () ->
+            SortPomImplUtil.create()
+                .customSortOrderFile("custom_1.xml")
+                .sortDependencyExclusions("true")
+                .lineSeparator("\n")
+                .nrOfIndentSpace(4)
+                .in
+                .testFiles("/PluginDefaultName_input.xml", "/PluginDefaultName_expect.xml");
+
+    var thrown = assertThrows(FailureException.class, testMethod);
+
+    assertThat(
+        thrown.getMessage(),
+        is(
+            "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead."));
+  }
+
 }

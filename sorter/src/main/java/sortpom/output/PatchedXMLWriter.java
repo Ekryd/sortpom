@@ -124,6 +124,7 @@ class PatchedXMLWriter extends XMLWriter {
         || (indentAttribute == IndentAttribute.SCHEMA_LOCATION
             && "xsi:schemaLocation".equals(qualifiedName))) {
       writePrintln();
+      indent();
       writeString(format.getIndent());
       writeString(format.getIndent());
     } else {
@@ -145,6 +146,7 @@ class PatchedXMLWriter extends XMLWriter {
   protected void writeNamespace(String prefix, String uri) throws IOException {
     if (indentAttribute == IndentAttribute.ALL) {
       writePrintln();
+      indent();
       writeString(format.getIndent());
       writeString(format.getIndent());
     } else {

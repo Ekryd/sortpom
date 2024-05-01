@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" child.project.url.inherit.append.path="false">
+
+  <scm child.scm.connection.inherit.append.path="false"
+       child.scm.developerConnection.inherit.append.path="false"
+       child.scm.url.inherit.append.path="false">
+    <connection>scm:my-scm:http://domain.org/base</connection>
+    <developerConnection>scm:my-scm:https://domain.org/base/</developerConnection>
+    <url>https://domain.org/base</url>
+  </scm>
+  <distributionManagement>
+    <site child.site.url.inherit.append.path="false">
+      <url/>
+    </site>
+  </distributionManagement>
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.github.ekryd.sortpom.its</groupId>
+  <artifactId>indent-all-attributes</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SortPom Plugin :: ITs :: Indent all xml attributes</name>
+  <description>Test indentation for all xml attributes</description>
+
+  <url>no-url</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.ekryd.sortpom</groupId>
+        <artifactId>sortpom-maven-plugin</artifactId>
+        <version>@pom.version@</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>sort</goal>
+            </goals>
+            <configuration>
+              <expandEmptyElements>false</expandEmptyElements>
+              <nrOfIndentSpace>4</nrOfIndentSpace>
+              <indentBlankLines />
+              <indentAttribute>all</indentAttribute>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

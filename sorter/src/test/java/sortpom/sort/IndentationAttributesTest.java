@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sortpom.sort.XmlFragment.createXmlProjectFragment;
 
+import org.dom4j.tree.BaseElement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -89,42 +90,47 @@ class IndentationAttributesTest {
     xmlOutputGenerator.setup(
         PluginParameters.builder()
             .setEncoding("UTF-8")
-            .setFormatting(lineSeparator, true, true, false, true)
+            .setFormatting(lineSeparator, false, true, false, true)
             .setIndent(indent, false, false, "all")
             .build());
 
     var xmlProjectFragment = createXmlProjectFragment();
-    xmlProjectFragment.getRootElement().element("Gurka").addAttribute("key", "value");
+    var gurka = xmlProjectFragment.getRootElement().element("Gurka");
+    gurka.addAttribute("key", "value");
+    gurka.add(new BaseElement("Banana").addAttribute("peeled", "true"));
     var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
-    var indentChars = getIndentChars(indent);
 
     assertEquals(
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
             + lineSeparator
             + "<project"
             + lineSeparator
-            + indentChars
-            + indentChars
+            + getIndentChars(indent * 2)
             + "xmlns=\"http://maven.apache.org/POM/4.0.0\""
             + lineSeparator
-            + indentChars
-            + indentChars
+            + getIndentChars(indent * 2)
             + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + lineSeparator
-            + indentChars
-            + indentChars
+            + getIndentChars(indent * 2)
             + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
             + lineSeparator
-            + indentChars
+            + getIndentChars(indent)
             + "<Gurka"
             + lineSeparator
-            + indentChars
-            + indentChars
+            + getIndentChars(indent * 3)
             + "xmlns=\"\""
             + lineSeparator
-            + indentChars
-            + indentChars
-            + "key=\"value\"></Gurka>"
+            + getIndentChars(indent * 3)
+            + "key=\"value\">"
+            + lineSeparator
+            + getIndentChars(indent * 2)
+            + "<Banana"
+            + lineSeparator
+            + getIndentChars(indent * 4)
+            + "peeled=\"true\" />"
+            + lineSeparator
+            + getIndentChars(indent)
+            + "</Gurka>"
             + lineSeparator
             + "</project>"
             + lineSeparator,
@@ -156,18 +162,9 @@ class IndentationAttributesTest {
   }
 
   private static String getIndentChars(int indent) {
-    var indentChars = "";
-    switch (indent) {
-      case 1:
-        indentChars = " ";
-        break;
-      case 4:
-        indentChars = "    ";
-        break;
-      case -1:
-        indentChars = "\t";
-        break;
+    if (indent < 0) {
+      return "\t".repeat(-indent);
     }
-    return indentChars;
+    return " ".repeat(indent);
   }
 }

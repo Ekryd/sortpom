@@ -64,7 +64,7 @@ class SortDependenciesTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'true' value in sortPlugins is not supported anymore, please use value 'groupId,artifactId' instead."));
+            "The 'true' value in 'sortPlugins' is no longer supported. Please use value 'groupId,artifactId' instead."));
   }
 
   @Test
@@ -80,7 +80,7 @@ class SortDependenciesTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'false' value in sortPlugins is not supported anymore, please use empty value '' or omit sortPlugins instead."));
+            "The 'false' value in 'sortPlugins' is no longer supported. Please use an empty value '' or omit 'sortPlugins' instead."));
   }
 
   @Test
@@ -97,7 +97,7 @@ class SortDependenciesTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'true' value in sortDependencies is not supported anymore, please use value 'groupId,artifactId' instead."));
+            "The 'true' value in 'sortDependencies' is no longer supported. Please use value 'groupId,artifactId' instead."));
   }
 
   @Test
@@ -113,6 +113,6 @@ class SortDependenciesTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'false' value in sortDependencies is not supported anymore, please use empty value '' or omit sortDependencies instead."));
+            "The 'false' value in 'sortDependencies' is no longer supported. Please use empty value '' or omit sortDependencies instead."));
   }
 }

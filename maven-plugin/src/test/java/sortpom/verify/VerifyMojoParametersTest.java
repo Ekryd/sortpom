@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import org.apache.maven.plugin.MojoFailureException;
@@ -14,6 +15,7 @@ import refutils.ReflectionHelper;
 import sortpom.SortPomImpl;
 import sortpom.SortPomService;
 import sortpom.VerifyMojo;
+import sortpom.logger.SortPomLogger;
 import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.VerifyFailType;
 import sortpom.util.FileUtil;
@@ -191,9 +193,13 @@ class VerifyMojoParametersTest {
   }
 
   @Test
-  void parameterIndentSchemaLocationShouldEndUpInXmlProcessor() {
-    assertParameterMoveFromMojoToRestOfApplicationForBoolean(
-        "indentSchemaLocation", xmlOutputGenerator);
+  void indentSchemaLocationShouldWarnForDeprecation() throws MojoFailureException {
+    var logger = mock(SortPomLogger.class);
+    new ReflectionHelper(verifyMojo).setField("indentSchemaLocation", true);
+    verifyMojo.setup(logger);
+    verify(logger)
+        .warn(
+            "[DEPRECATED] The parameter 'indentSchemaLocation' is no longer supported. Please use <indentAttribute>schemaLocation</indentAttribute> instead. In the next major version, using 'indentSchemaLocation' will cause an error!");
   }
 
   @Test

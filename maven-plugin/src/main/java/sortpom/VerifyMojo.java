@@ -50,7 +50,8 @@ public class VerifyMojo extends AbstractParentMojo {
                           spaceBeforeCloseEmptyElement,
                           keepBlankLines,
                           endWithNewline)
-                      .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation)
+                      .setIndent(
+                          nrOfIndentSpace, indentBlankLines, indentSchemaLocation, indentAttribute)
                       .setSortOrder(sortOrderFile, predefinedSortOrder)
                       .setSortEntities(
                           sortDependencies,

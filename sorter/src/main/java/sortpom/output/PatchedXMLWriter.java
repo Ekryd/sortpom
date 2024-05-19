@@ -12,13 +12,14 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.dom4j.tree.DefaultText;
 import sortpom.content.NewlineText;
+import sortpom.parameter.IndentAttribute;
 
 /** Overriding XMLWriter to be able to handle SortPom formatting options */
 class PatchedXMLWriter extends XMLWriter {
 
   private final OutputFormat format;
   private final boolean indentBlankLines;
-  private final boolean indentSchemaLocation;
+  private final IndentAttribute indentAttribute;
   private final boolean spaceBeforeCloseEmptyElement;
   private final boolean endWithNewline;
 
@@ -27,12 +28,12 @@ class PatchedXMLWriter extends XMLWriter {
       OutputFormat format,
       boolean spaceBeforeCloseEmptyElement,
       boolean indentBlankLines,
-      boolean indentSchemaLocation,
+      IndentAttribute indentAttribute,
       boolean endWithNewline) {
     super(writer, format);
     this.format = format;
     this.indentBlankLines = indentBlankLines;
-    this.indentSchemaLocation = indentSchemaLocation;
+    this.indentAttribute = indentAttribute;
     this.spaceBeforeCloseEmptyElement = spaceBeforeCloseEmptyElement;
     this.endWithNewline = endWithNewline;
   }
@@ -119,8 +120,11 @@ class PatchedXMLWriter extends XMLWriter {
   @Override
   protected void writeAttribute(Attribute attribute) throws IOException {
     var qualifiedName = attribute.getQualifiedName();
-    if (indentSchemaLocation && "xsi:schemaLocation".equals(qualifiedName)) {
+    if (indentAttribute == IndentAttribute.ALL
+        || (indentAttribute == IndentAttribute.SCHEMA_LOCATION
+            && "xsi:schemaLocation".equals(qualifiedName))) {
       writePrintln();
+      indent();
       writeString(format.getIndent());
       writeString(format.getIndent());
     } else {
@@ -136,5 +140,28 @@ class PatchedXMLWriter extends XMLWriter {
 
     writer.write(quote);
     lastOutputNodeType = Node.ATTRIBUTE_NODE;
+  }
+
+  @Override
+  protected void writeNamespace(String prefix, String uri) throws IOException {
+    if (indentAttribute == IndentAttribute.ALL) {
+      writePrintln();
+      indent();
+      writeString(format.getIndent());
+      writeString(format.getIndent());
+    } else {
+      writer.write(" ");
+    }
+
+    if ((prefix != null) && (!prefix.isEmpty())) {
+      writer.write("xmlns:");
+      writer.write(prefix);
+      writer.write("=\"");
+    } else {
+      writer.write("xmlns=\"");
+    }
+
+    writer.write(uri);
+    writer.write("\"");
   }
 }

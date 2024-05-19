@@ -33,7 +33,7 @@ class ExpandEmptyElementTest {
         PluginParameters.builder()
             .setEncoding("UTF-8")
             .setFormatting("\n", expandEmptyElements, spaceBeforeCloseEmptyElement, false, true)
-            .setIndent(2, false, false)
+            .setIndent(2, false, false, null)
             .build());
 
     var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());

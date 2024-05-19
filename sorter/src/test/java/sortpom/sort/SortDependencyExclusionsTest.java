@@ -27,7 +27,7 @@ class SortDependencyExclusionsTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'true' value in sortDependencyExclusions is not supported, please use value 'groupId,artifactId' instead."));
+            "The 'true' value in 'sortDependencyExclusions' is no longer supported. Please use value 'groupId,artifactId' instead."));
   }
 
   @Test
@@ -46,7 +46,7 @@ class SortDependencyExclusionsTest {
     assertThat(
         thrown.getMessage(),
         is(
-            "The 'false' value in sortDependencyExclusions is not supported, please use empty value '' or omit sortDependencyExclusions instead."));
+            "The 'false' value in 'sortDependencyExclusions' is no longer supported. Please use empty value '' or omit sortDependencyExclusions instead."));
   }
 
   @Test

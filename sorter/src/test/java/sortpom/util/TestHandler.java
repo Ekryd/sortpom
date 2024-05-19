@@ -50,6 +50,7 @@ class TestHandler {
     this.encoding = pluginParameters.encoding;
     this.testpom = pluginParameters.pomFile;
     backupFile = new File(testpom.getAbsolutePath() + pluginParameters.backupFileExtension);
+    sortPomImpl.setup(createDummyLog(), pluginParameters);
   }
 
   List<String> getInfoLogger() {
@@ -154,7 +155,6 @@ class TestHandler {
   }
 
   private void performSorting() {
-    sortPomImpl.setup(createDummyLog(), pluginParameters);
     sortPomImpl.sortPom();
   }
 
@@ -222,16 +222,11 @@ class TestHandler {
   }
 
   private void performVerifyWithSort() {
-    var sortPomImpl = new SortPomImpl();
-    sortPomImpl.setup(createDummyLog(), pluginParameters);
-
     sortPomImpl.verifyPom();
   }
 
   private XmlOrderedResult isVerifyOk()
       throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-    sortPomImpl.setup(createDummyLog(), pluginParameters);
-
     var getVerificationResult = SortPomImpl.class.getDeclaredMethod("getVerificationResult");
     getVerificationResult.setAccessible(true);
 

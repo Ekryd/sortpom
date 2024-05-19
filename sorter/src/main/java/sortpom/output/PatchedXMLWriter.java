@@ -116,7 +116,7 @@ class PatchedXMLWriter extends XMLWriter {
     }
   }
 
-  /** Handle indentSchemaLocation option */
+  /** Handle indentAttribute option */
   @Override
   protected void writeAttribute(Attribute attribute) throws IOException {
     var qualifiedName = attribute.getQualifiedName();

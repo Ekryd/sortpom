@@ -55,16 +55,17 @@ The plugin will not change how your Maven project is compiled  ([Exception](http
 
 ## News ##
 Added 
-  * 2024-03-10: Released version 3.4.1. Solves a bug, where whitespace was removed even if xml:space="preserve" was used [#402](/../../issues/402).
+  * 2024-05-19: Released version 4.0.0. **THIS IS A BREAKING CHANGE!** Indentation for attributes are now 2 * indent size [#413](/../../issues/413) and parameter `indentSchemaLocation` has been deprecated in favor of `indentAttribute` [#412](/../../issues/412).
+  * 2024-03-10: Released version 3.4.1. Solves a bug, where whitespace was removed even if `xml:space="preserve"` was used [#402](/../../issues/402).
   * 2024-02-20: Released version 3.4.0. Added parameter for omitting newline at end of file [#399](/../../issues/399).
   * 2023-08-04: Received an [Open Source Licence](https://jb.gg/OpenSourceSupport) for IntelliJ Ultimate. Once again, thank you [JetBrains](http://www.jetbrains.com/idea/)!!
   * 2023-07-24: Released version 3.3.0. Added parameter for quiet output from the plugin [#338](/../../issues/338). Thanks, [gnodet](https://github.com/gnodet) for the PR!
   * 2023-01-29: Released version 3.2.1. Dependency updates. No new functionality
-  * 2022-07-17: Released version 3.2.0. Added parameter sortDependencyManagement where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!
+  * 2022-07-17: Released version 3.2.0. Added parameter `sortDependencyManagement` where dependency management can be sorted independently of dependencies [#210](/../../issues/210). Thanks, [Ssquan](https://github.com/ssquan) for the PR!
   * 2022-05-29: Released version 3.1.3. Fix formatting if text and other content is placed together in a xml tag [#209](/../../issues/209)
   * 2022-05-24: Released version 3.1.2. Fixed two bugs: Whitespace removed from multiple lines of text within XML tags [#206](/../../issues/206); Comments in the root of the xml document was removed during sorting [#205](/../../issues/205)
   * 2022-05-22: Released version 3.1.0. **THIS IS A BREAKING CHANGE!** Dropped support for Java 8. Updated underlying xml framework due to vulnerabilities. Updated other libraries and plugins. 
-  * 2021-12-20: Released version 3.0.1. Fixed bug where ignoreLineSeparators was not respected during the 'verify' goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 
+  * 2021-12-20: Released version 3.0.1. Fixed bug where `ignoreLineSeparators` was not respected during the `verify` goal. Thanks, [Zhanhb](https://github.com/zhanhb) for spotting it! 
   * 2021-04-20: Released version 3.0.0. **THIS IS A BREAKING CHANGE!** The predefined sort order is now according to the recommended pom order (as decided in 2008). Blank lines in the POM are now kept by default. If dependencies are sorted by SCOPE, then imported bom-files will be sorted towards the top. [#93](/../../issues/93) [#105](/../../issues/105)
   * 2021-01-10: Moved build to [CircleCI](https://circleci.com)
   * 2020-02-24: Renewed Open Source Licence for Araxis Merge. Thank you [Araxis](https://www.araxis.com/merge/)!

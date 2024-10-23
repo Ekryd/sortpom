@@ -31,7 +31,7 @@ jobs:
     <<: *shared
   jdk17:
     docker:
-      - image: cimg/openjdk:17.0.12
+      - image: cimg/openjdk:17.0.13
     steps:
       - checkout
       - restore_cache:

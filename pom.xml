@@ -164,7 +164,7 @@
           <!-- Used for Maven integration testing -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-invoker-plugin</artifactId>
-          <version>3.9.0</version>
+          <version>3.9.1</version>
           <configuration>
             <!-- for jacoco to analyze integration test runs, the jar-file has to be in the local repository used by the invoker plugin when running tests -->
             <extraArtifacts>

@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  maven: circleci/maven@2.0.0
+  maven: circleci/maven@2.1.1
 
 shared: &shared
   steps:
@@ -19,7 +19,7 @@ shared: &shared
 jobs:
   jdk11:
     docker:
-      - image: cimg/openjdk:11.0.26
+      - image: cimg/openjdk:11.0.28
     <<: *shared
   jdk20:
     docker:
@@ -39,7 +39,7 @@ jobs:
     <<: *shared
   jdk17:
     docker:
-      - image: cimg/openjdk:17.0.14
+      - image: cimg/openjdk:17.0.16
     steps:
       - checkout
       - restore_cache:

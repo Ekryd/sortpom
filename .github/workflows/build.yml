@@ -4,7 +4,8 @@ on:
   push:
     # Avoid workflow run for _merged_ `dependabot` PRs.
     # They were (hopefully!) already tested in PR-triggered workflow.
-    branches-ignore: "dependabot/**"
+    branches-ignore:
+      - "dependabot/**"
   pull_request:
     paths-ignore:
       - "**.adoc"
@@ -33,7 +34,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
-        version: [11, 17, 21]
+        version: [17, 21]
 
     steps:
       - name: Checkout repository

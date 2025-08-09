@@ -19,6 +19,6 @@ public enum IndentAttribute {
     }
     throw new FailureException(
         String.format(
-            "verifyFail must be either SCHEMA_LOCATION or ALL. Was: %s", indentAttribute));
+            "indentAttribute must be either schemaLocation or all. Was: %s", indentAttribute));
   }
 }

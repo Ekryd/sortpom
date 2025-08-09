@@ -4,12 +4,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sortpom.sort.XmlFragment.createXmlProjectFragment;
 
 import org.dom4j.tree.BaseElement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import sortpom.exception.FailureException;
 import sortpom.output.XmlOutputGenerator;
 import sortpom.parameter.PluginParameters;
 import sortpom.util.SortPomImplUtil;
@@ -159,6 +161,23 @@ class IndentationAttributesTest {
     assertThat(logs.get(1), startsWith("[INFO] Sorting file "));
     assertThat(logs.get(2), startsWith("[INFO] Saved backup of "));
     assertThat(logs.get(logs.size() - 1), startsWith("[INFO] Saved sorted pom file to "));
+  }
+
+  @Test
+  void illegalIndentLocationShouldThrowException() {
+    var sortPomImplUtil = SortPomImplUtil.create();
+    var failureException =
+        assertThrows(
+            FailureException.class,
+            () ->
+                sortPomImplUtil
+                    .indentAttribute("Gurka")
+                    .testFilesAndReturnLogs(
+                        "/SortModules_input.xml", "/SortModules_expectedSchemaIndent1.xml"));
+
+    assertThat(
+        failureException.getMessage(),
+        is("indentAttribute must be either schemaLocation or all. Was: Gurka"));
   }
 
   private static String getIndentChars(int indent) {

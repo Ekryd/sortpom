@@ -19,7 +19,7 @@ shared: &shared
 jobs:
   jdk17:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: cimg/openjdk:21.0.8
     steps:
       - checkout
       - restore_cache:
@@ -36,7 +36,7 @@ jobs:
           key: sortpom-cache--{{ checksum "pom.xml" }}
   jdk21:
     docker:
-      - image: cimg/openjdk:21.0
+      - image: cimg/openjdk:21.0.8
     <<: *shared
   jdk23:
     docker:

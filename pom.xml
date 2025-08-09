@@ -18,7 +18,7 @@
 
   <properties>
     <argLine>-XX:+EnableDynamicAgentLoading</argLine>
-    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.release>11</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.17</slf4j.version>
   </properties>

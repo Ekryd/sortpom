@@ -119,7 +119,7 @@
           <!-- References plugin (not directly used) -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-antrun-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <!-- References plugin (not directly used) -->

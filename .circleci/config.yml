@@ -27,7 +27,7 @@ jobs:
     <<: *shared
   jdk21:
     docker:
-      - image: cimg/openjdk:21.0
+      - image: cimg/openjdk:21.0.9
     <<: *shared
   jdk22:
     docker:

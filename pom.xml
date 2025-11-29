@@ -191,7 +191,7 @@
           <!-- Define versions for standard plugins -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.1</version>
+          <version>3.4.0</version>
         </plugin>
         <plugin>
           <!-- Wrapper plugin is used in the Maven 4 workflow -->

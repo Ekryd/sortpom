@@ -4,7 +4,8 @@ on:
   push:
     # Avoid workflow run for _merged_ `dependabot` PRs.
     # They were (hopefully!) already tested in PR-triggered workflow.
-    branches-ignore: "dependabot/**"
+    branches-ignore:
+      - "dependabot/**"
   pull_request:
     paths-ignore:
       - "**.adoc"
@@ -60,7 +61,7 @@ jobs:
     steps:
       - name: "[dependabot] Fetch metadata"
         id: metadata
-        uses: dependabot/fetch-metadata@v2.4.0
+        uses: dependabot/fetch-metadata@08eff52bf64351f401fb50d4972fa95b9f2c2d1b # v2.4.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 

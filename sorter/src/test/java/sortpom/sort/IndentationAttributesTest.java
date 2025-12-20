@@ -165,15 +165,13 @@ class IndentationAttributesTest {
 
   @Test
   void illegalIndentLocationShouldThrowException() {
-    var sortPomImplUtil = SortPomImplUtil.create();
+    var sortPomImplUtil = SortPomImplUtil.create().indentAttribute("Gurka");
     var failureException =
         assertThrows(
             FailureException.class,
             () ->
-                sortPomImplUtil
-                    .indentAttribute("Gurka")
-                    .testFilesAndReturnLogs(
-                        "/SortModules_input.xml", "/SortModules_expectedSchemaIndent1.xml"));
+                sortPomImplUtil.testFilesAndReturnLogs(
+                    "/SortModules_input.xml", "/SortModules_expectedSchemaIndent1.xml"));
 
     assertThat(
         failureException.getMessage(),

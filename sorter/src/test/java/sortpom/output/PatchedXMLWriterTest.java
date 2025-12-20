@@ -14,19 +14,20 @@ class PatchedXMLWriterTest {
   @Test
   void writeXmlWithDocType() throws Exception {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<!DOCTYPE xml [\n"
-            + "  <!ENTITY copy \"©\">\n"
-            + "  <!ENTITY trade \"™\">\n"
-            + "  <!ENTITY deg \"°\">\n"
-            + "  <!ENTITY gt \"&#62;\">\n"
-            + "  <!ENTITY sup2 \"²\">\n"
-            + "  <!ENTITY frac14 \"¼\">\n"
-            + "  <!ENTITY quot \"&#34;\">\n"
-            + "  <!ENTITY frac12 \"½\">\n"
-            + "  <!ENTITY euro \"€\">\n"
-            + "  <!ENTITY Omega \"Ω\">\n"
-            + "]><root/>";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <!DOCTYPE xml [
+              <!ENTITY copy "©">
+              <!ENTITY trade "™">
+              <!ENTITY deg "°">
+              <!ENTITY gt "&#62;">
+              <!ENTITY sup2 "²">
+              <!ENTITY frac14 "¼">
+              <!ENTITY quot "&#34;">
+              <!ENTITY frac12 "½">
+              <!ENTITY euro "€">
+              <!ENTITY Omega "Ω">
+            ]><root/>""";
 
     var reader = new SAXReader();
     reader.setIncludeInternalDTDDeclarations(true);

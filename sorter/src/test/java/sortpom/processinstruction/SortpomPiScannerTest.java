@@ -30,21 +30,22 @@ class SortpomPiScannerTest {
   @Test
   void scanNoInstructionsShouldWork() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "  <artifactId>sortpom</artifactId>\n"
-            + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
-            + "  <groupId>sortpom</groupId>\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "  <name>SortPom</name>\n"
-            + "  <!-- Egenskaper för projektet -->\n"
-            + "  <properties>\n"
-            + "    <compileSource>1.6</compileSource>\n"
-            + "    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n"
-            + "  </properties>\n"
-            + "  <reporting />\n"
-            + "  <version>1.0.0-SNAPSHOT</version>\n"
-            + "</project>";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+              <artifactId>sortpom</artifactId>
+              <description name="pelle" id="id" other="övrigt">Här använder vi åäö</description>
+              <groupId>sortpom</groupId>
+              <modelVersion>4.0.0</modelVersion>
+              <name>SortPom</name>
+              <!-- Egenskaper för projektet -->
+              <properties>
+                <compileSource>1.6</compileSource>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+              </properties>
+              <reporting />
+              <version>1.0.0-SNAPSHOT</version>
+            </project>""";
     sortpomPiScanner.scan(xml);
 
     assertThat(sortpomPiScanner.isScanError(), is(false));
@@ -54,22 +55,23 @@ class SortpomPiScannerTest {
   @Test
   void correctIgnoreShouldNotReportError() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "  <artifactId>sortpom</artifactId>\n"
-            + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
-            + "  <groupId>sortpom</groupId>\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "  <name>SortPom</name>\n"
-            + "  <!-- Egenskaper för projektet -->\n"
-            + "  <properties>\n"
-            + "    <?sortpom ignore?>"
-            + "<compileSource>1.6</compileSource>\n"
-            + "    <?sortpom resume?><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n"
-            + "  </properties>\n"
-            + "  <reporting />\n"
-            + "  <version>1.0.0-SNAPSHOT</version>\n"
-            + "</project>";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+              <artifactId>sortpom</artifactId>
+              <description name="pelle" id="id" other="övrigt">Här använder vi åäö</description>
+              <groupId>sortpom</groupId>
+              <modelVersion>4.0.0</modelVersion>
+              <name>SortPom</name>
+              <!-- Egenskaper för projektet -->
+              <properties>
+                <?sortpom ignore?>\
+            <compileSource>1.6</compileSource>
+                <?sortpom resume?><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+              </properties>
+              <reporting />
+              <version>1.0.0-SNAPSHOT</version>
+            </project>""";
     sortpomPiScanner.scan(xml);
 
     assertThat(sortpomPiScanner.isScanError(), is(false));
@@ -121,27 +123,28 @@ class SortpomPiScannerTest {
   @Test
   void multipleErrorsShouldBeReportedInLogger() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "  <artifactId>sortpom</artifactId>\n"
-            + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
-            + "  <groupId>sortpom</groupId>\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "  <name>SortPom</name>\n"
-            + "  <!-- Egenskaper för projektet -->\n"
-            + "  <properties>\n"
-            + "    <?sortpom resume?>"
-            + "<compileSource>1.6</compileSource>\n"
-            + "    <?sortpom ignore?>"
-            + "    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n"
-            + "    <?sortpom resume?>"
-            + "  </properties>\n"
-            + "    <?sortpom token='0'?>"
-            + "    <?sortpom gurka?>"
-            + "  <reporting />\n"
-            + "    <?sortpom ignore?>"
-            + "  <version>1.0.0-SNAPSHOT</version>\n"
-            + "</project>";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+              <artifactId>sortpom</artifactId>
+              <description name="pelle" id="id" other="övrigt">Här använder vi åäö</description>
+              <groupId>sortpom</groupId>
+              <modelVersion>4.0.0</modelVersion>
+              <name>SortPom</name>
+              <!-- Egenskaper för projektet -->
+              <properties>
+                <?sortpom resume?>\
+            <compileSource>1.6</compileSource>
+                <?sortpom ignore?>\
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                <?sortpom resume?>\
+              </properties>
+                <?sortpom token='0'?>\
+                <?sortpom gurka?>\
+              <reporting />
+                <?sortpom ignore?>\
+              <version>1.0.0-SNAPSHOT</version>
+            </project>""";
     sortpomPiScanner.scan(xml);
 
     assertThat(sortpomPiScanner.isScanError(), is(true));

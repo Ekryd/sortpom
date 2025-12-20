@@ -27,21 +27,22 @@ class IgnoredSectionsStoreTest {
   @Test
   void replaceNoSectionShouldReturnSameXml() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "  <artifactId>sortpom</artifactId>\n"
-            + "  <description name=\"pelle\" id=\"id\" other=\"övrigt\">Här använder vi åäö</description>\n"
-            + "  <groupId>sortpom</groupId>\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "  <name>SortPom</name>\n"
-            + "  <!-- Egenskaper för projektet -->\n"
-            + "  <properties>\n"
-            + "    <compileSource>1.6</compileSource>\n"
-            + "    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n"
-            + "  </properties>\n"
-            + "  <reporting />\n"
-            + "  <version>1.0.0-SNAPSHOT</version>\n"
-            + "</project>";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+              <artifactId>sortpom</artifactId>
+              <description name="pelle" id="id" other="övrigt">Här använder vi åäö</description>
+              <groupId>sortpom</groupId>
+              <modelVersion>4.0.0</modelVersion>
+              <name>SortPom</name>
+              <!-- Egenskaper för projektet -->
+              <properties>
+                <compileSource>1.6</compileSource>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+              </properties>
+              <reporting />
+              <version>1.0.0-SNAPSHOT</version>
+            </project>""";
     var replaced = ignoredSectionsStore.replaceIgnoredSections(xml);
 
     assertThat(replaced, is(xml));
@@ -73,65 +74,69 @@ class IgnoredSectionsStoreTest {
   @Test
   void replaceMultipleLineXmlShouldCreateManyTokens() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "\n"
-            + "  <!-- Basics -->\n"
-            + "    <groupId>something</groupId>\n"
-            + "  <artifactId>maven-sortpom-sorter</artifactId>\n"
-            + "    <packaging>jar</packaging>\n"
-            + "  <name>SortPom Sorter</name>\n"
-            + "  <description>The sorting functionality</description>\n"
-            + "\n"
-            + "  <dependencies>\n"
-            + "    <dependency>\n"
-            + "      <groupId>org.jdom</groupId>\n"
-            + "      <artifactId>jdom</artifactId>\n"
-            + "      <version>1.1.3</version>\n"
-            + "    </dependency>\n"
-            + "    <dependency>\n"
-            + "      <groupId>junit</groupId>\n"
-            + "      <artifactId>junit</artifactId>\n"
-            + "        <?sortpom ignore?>\n"
-            + "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n"
-            + "        <?sortpom resume?>\n"
-            + "      <scope>test</scope>\n"
-            + "    </dependency>\n"
-            + "    <dependency>\n"
-            + "      <groupId>commons-io</groupId>\n"
-            + "      <artifactId>commons-io</artifactId>\n"
-            + "        <?sortpom ignore?>\n"
-            + "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n"
-            + "        <?sortpom resume?>\n"
-            + "    </dependency>\n"
-            + "\n"
-            + "    <!-- Test dependencies -->\n"
-            + "    <dependency>\n"
-            + "      <groupId>com.google.code.reflection-utils</groupId>\n"
-            + "      <artifactId>reflection-utils</artifactId>\n"
-            + "      <version>0.0.1</version>\n"
-            + "      <scope>test</scope>\n"
-            + "    </dependency>\n"
-            + "  </dependencies>\n"
-            + "\n"
-            + "</project>\n";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+              <modelVersion>4.0.0</modelVersion>
+
+              <!-- Basics -->
+                <groupId>something</groupId>
+              <artifactId>maven-sortpom-sorter</artifactId>
+                <packaging>jar</packaging>
+              <name>SortPom Sorter</name>
+              <description>The sorting functionality</description>
+
+              <dependencies>
+                <dependency>
+                  <groupId>org.jdom</groupId>
+                  <artifactId>jdom</artifactId>
+                  <version>1.1.3</version>
+                </dependency>
+                <dependency>
+                  <groupId>junit</groupId>
+                  <artifactId>junit</artifactId>
+                    <?sortpom ignore?>
+                  <version>4.11</version><!--$NO-MVN-MAN-VER$ -->
+                    <?sortpom resume?>
+                  <scope>test</scope>
+                </dependency>
+                <dependency>
+                  <groupId>commons-io</groupId>
+                  <artifactId>commons-io</artifactId>
+                    <?sortpom ignore?>
+                  <version>2.1</version><!--$NO-MVN-MAN-VER$ -->
+                    <?sortpom resume?>
+                </dependency>
+
+                <!-- Test dependencies -->
+                <dependency>
+                  <groupId>com.google.code.reflection-utils</groupId>
+                  <artifactId>reflection-utils</artifactId>
+                  <version>0.0.1</version>
+                  <scope>test</scope>
+                </dependency>
+              </dependencies>
+
+            </project>
+            """;
     ignoredSectionsStore.replaceIgnoredSections(xml);
 
     assertThat(ignoredSections.size(), is(2));
     assertThat(
         ignoredSections.get(0),
         is(
-            "<?sortpom ignore?>\n"
-                + "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n"
-                + "        <?sortpom resume?>"));
+            """
+                <?sortpom ignore?>
+                      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->
+                        <?sortpom resume?>"""));
     assertThat(
         ignoredSections.get(1),
         is(
-            "<?sortpom ignore?>\n"
-                + "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n"
-                + "        <?sortpom resume?>"));
+            """
+                <?sortpom ignore?>
+                      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->
+                        <?sortpom resume?>"""));
   }
 
   @Test
@@ -163,102 +168,108 @@ class IgnoredSectionsStoreTest {
   @Test
   void revertTokensInMultipleLinesShouldPlaceTextInRightOrder() {
     var xml =
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
-            + "\n"
-            + "  <modelVersion>4.0.0</modelVersion>\n"
-            + "\n"
-            + "  <!-- Basics -->\n"
-            + "  <groupId>something</groupId>\n"
-            + "  <artifactId>maven-sortpom-sorter</artifactId>\n"
-            + "  <packaging>jar</packaging>\n"
-            + "\n"
-            + "  <dependencies>\n"
-            + "    <dependency>\n"
-            + "      <groupId>commons-io</groupId>\n"
-            + "      <artifactId>commons-io</artifactId>\n"
-            + "      <?sortpom token='1'?>\n"
-            + "    </dependency>\n"
-            + "    <dependency>\n"
-            + "      <groupId>org.jdom</groupId>\n"
-            + "      <artifactId>jdom</artifactId>\n"
-            + "      <version>1.1.3</version>\n"
-            + "    </dependency>\n"
-            + "\n"
-            + "    <!-- Test dependencies -->\n"
-            + "    <dependency>\n"
-            + "      <groupId>com.google.code.reflection-utils</groupId>\n"
-            + "      <artifactId>reflection-utils</artifactId>\n"
-            + "      <version>0.0.1</version>\n"
-            + "      <scope>test</scope>\n"
-            + "    </dependency>\n"
-            + "    <dependency>\n"
-            + "      <groupId>junit</groupId>\n"
-            + "      <artifactId>junit</artifactId>\n"
-            + "      <?sortpom token='0'?>\n"
-            + "      <scope>test</scope>\n"
-            + "    </dependency>\n"
-            + "  </dependencies>\n"
-            + "  <name>SortPom Sorter</name>\n"
-            + "  <description>The sorting functionality</description>\n"
-            + "\n"
-            + "</project>\n";
+        """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+              <modelVersion>4.0.0</modelVersion>
+
+              <!-- Basics -->
+              <groupId>something</groupId>
+              <artifactId>maven-sortpom-sorter</artifactId>
+              <packaging>jar</packaging>
+
+              <dependencies>
+                <dependency>
+                  <groupId>commons-io</groupId>
+                  <artifactId>commons-io</artifactId>
+                  <?sortpom token='1'?>
+                </dependency>
+                <dependency>
+                  <groupId>org.jdom</groupId>
+                  <artifactId>jdom</artifactId>
+                  <version>1.1.3</version>
+                </dependency>
+
+                <!-- Test dependencies -->
+                <dependency>
+                  <groupId>com.google.code.reflection-utils</groupId>
+                  <artifactId>reflection-utils</artifactId>
+                  <version>0.0.1</version>
+                  <scope>test</scope>
+                </dependency>
+                <dependency>
+                  <groupId>junit</groupId>
+                  <artifactId>junit</artifactId>
+                  <?sortpom token='0'?>
+                  <scope>test</scope>
+                </dependency>
+              </dependencies>
+              <name>SortPom Sorter</name>
+              <description>The sorting functionality</description>
+
+            </project>
+            """;
     ignoredSections.add(
-        "<?sortpom ignore?>\n"
-            + "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n"
-            + "        <?sortpom resume?>");
+        """
+            <?sortpom ignore?>
+                  <version>4.11</version><!--$NO-MVN-MAN-VER$ -->
+                    <?sortpom resume?>""");
     ignoredSections.add(
-        "<?sortpom ignore?>\n"
-            + "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n"
-            + "        <?sortpom resume?>");
+        """
+            <?sortpom ignore?>
+                  <version>2.1</version><!--$NO-MVN-MAN-VER$ -->
+                    <?sortpom resume?>""");
 
     var replaced = ignoredSectionsStore.revertIgnoredSections(xml);
     assertThat(
         replaced,
         is(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd\">\n"
-                + "\n"
-                + "  <modelVersion>4.0.0</modelVersion>\n"
-                + "\n"
-                + "  <!-- Basics -->\n"
-                + "  <groupId>something</groupId>\n"
-                + "  <artifactId>maven-sortpom-sorter</artifactId>\n"
-                + "  <packaging>jar</packaging>\n"
-                + "\n"
-                + "  <dependencies>\n"
-                + "    <dependency>\n"
-                + "      <groupId>commons-io</groupId>\n"
-                + "      <artifactId>commons-io</artifactId>\n"
-                + "      <?sortpom ignore?>\n"
-                + "      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->\n"
-                + "        <?sortpom resume?>\n"
-                + "    </dependency>\n"
-                + "    <dependency>\n"
-                + "      <groupId>org.jdom</groupId>\n"
-                + "      <artifactId>jdom</artifactId>\n"
-                + "      <version>1.1.3</version>\n"
-                + "    </dependency>\n"
-                + "\n"
-                + "    <!-- Test dependencies -->\n"
-                + "    <dependency>\n"
-                + "      <groupId>com.google.code.reflection-utils</groupId>\n"
-                + "      <artifactId>reflection-utils</artifactId>\n"
-                + "      <version>0.0.1</version>\n"
-                + "      <scope>test</scope>\n"
-                + "    </dependency>\n"
-                + "    <dependency>\n"
-                + "      <groupId>junit</groupId>\n"
-                + "      <artifactId>junit</artifactId>\n"
-                + "      <?sortpom ignore?>\n"
-                + "      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->\n"
-                + "        <?sortpom resume?>\n"
-                + "      <scope>test</scope>\n"
-                + "    </dependency>\n"
-                + "  </dependencies>\n"
-                + "  <name>SortPom Sorter</name>\n"
-                + "  <description>The sorting functionality</description>\n"
-                + "\n"
-                + "</project>\n"));
+            """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+                  <modelVersion>4.0.0</modelVersion>
+
+                  <!-- Basics -->
+                  <groupId>something</groupId>
+                  <artifactId>maven-sortpom-sorter</artifactId>
+                  <packaging>jar</packaging>
+
+                  <dependencies>
+                    <dependency>
+                      <groupId>commons-io</groupId>
+                      <artifactId>commons-io</artifactId>
+                      <?sortpom ignore?>
+                      <version>2.1</version><!--$NO-MVN-MAN-VER$ -->
+                        <?sortpom resume?>
+                    </dependency>
+                    <dependency>
+                      <groupId>org.jdom</groupId>
+                      <artifactId>jdom</artifactId>
+                      <version>1.1.3</version>
+                    </dependency>
+
+                    <!-- Test dependencies -->
+                    <dependency>
+                      <groupId>com.google.code.reflection-utils</groupId>
+                      <artifactId>reflection-utils</artifactId>
+                      <version>0.0.1</version>
+                      <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                      <groupId>junit</groupId>
+                      <artifactId>junit</artifactId>
+                      <?sortpom ignore?>
+                      <version>4.11</version><!--$NO-MVN-MAN-VER$ -->
+                        <?sortpom resume?>
+                      <scope>test</scope>
+                    </dependency>
+                  </dependencies>
+                  <name>SortPom Sorter</name>
+                  <description>The sorting functionality</description>
+
+                </project>
+                """));
   }
 }

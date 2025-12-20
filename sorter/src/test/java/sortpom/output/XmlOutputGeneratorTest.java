@@ -70,8 +70,12 @@ class XmlOutputGeneratorTest {
         sortedXml,
         is(
             equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka xmlns:namespace=\"this is a uri\">\n"
-                    + "<child namespace:attr1=\"value\"></child>\n</Gurka>\n")));
+                """
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <Gurka xmlns:namespace="this is a uri">
+                    <child namespace:attr1="value"></child>
+                    </Gurka>
+                    """)));
   }
 
   @Test
@@ -95,8 +99,12 @@ class XmlOutputGeneratorTest {
         sortedXml,
         is(
             equalTo(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Gurka xmlns:namespace=\"this is a uri\">\n"
-                    + "<child xmlns:namespace=\"another uri\" namespace:attr1=\"value\"></child>\n</Gurka>\n")));
+                """
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <Gurka xmlns:namespace="this is a uri">
+                    <child xmlns:namespace="another uri" namespace:attr1="value"></child>
+                    </Gurka>
+                    """)));
   }
 
   @Test

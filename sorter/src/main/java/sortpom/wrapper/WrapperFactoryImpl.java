@@ -106,18 +106,18 @@ public class WrapperFactoryImpl implements WrapperFactory {
   @SuppressWarnings("unchecked")
   @Override
   public <T extends Node> Wrapper<T> create(T content) {
-    if (content instanceof Element) {
-      return (Wrapper<T>) elementWrapperCreator.createWrapper((Element) content);
+    if (content instanceof Element element) {
+      return (Wrapper<T>) elementWrapperCreator.createWrapper(element);
     }
     if (content instanceof Comment) {
       return new UnsortedWrapper<>(content);
     }
-    if (content instanceof Text) {
-      return (Wrapper<T>) textWrapperCreator.createWrapper((Text) content);
+    if (content instanceof Text text) {
+      return (Wrapper<T>) textWrapperCreator.createWrapper(text);
     }
-    if (content instanceof ProcessingInstruction && "sortpom".equals(content.getName())) {
-      return (Wrapper<T>)
-          new UnsortedWrapper<>(IgnoreSectionToken.from((ProcessingInstruction) content));
+    if (content instanceof ProcessingInstruction processingInstruction
+        && "sortpom".equals(content.getName())) {
+      return (Wrapper<T>) new UnsortedWrapper<>(IgnoreSectionToken.from(processingInstruction));
     }
     return new UnsortedWrapper<>(content);
   }

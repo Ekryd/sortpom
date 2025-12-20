@@ -30,8 +30,8 @@ public class ExclusionSortedWrapper extends SortedWrapper {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    if (wrapper instanceof ExclusionSortedWrapper) {
-      return isBeforeExclusionSortedWrapper((ExclusionSortedWrapper) wrapper);
+    if (wrapper instanceof ExclusionSortedWrapper exclusionSortedWrapper) {
+      return isBeforeExclusionSortedWrapper(exclusionSortedWrapper);
     }
     return super.isBefore(wrapper);
   }

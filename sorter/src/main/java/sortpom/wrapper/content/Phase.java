@@ -5,7 +5,7 @@ import java.util.Optional;
 
 /** Keep track of all Maven standard phases and custom phases */
 interface Phase {
-  String getText();
+  String text();
 
   static int compareTo(Phase o1, Phase o2) {
     if (o1 == null) {
@@ -19,7 +19,7 @@ interface Phase {
     }
     if (o1 instanceof NonStandardPhase) {
       if (o2 instanceof NonStandardPhase) {
-        return o1.getText().compareTo(o2.getText());
+        return o1.text().compareTo(o2.text());
       } else {
         return 1;
       }
@@ -36,16 +36,9 @@ interface Phase {
     return phase.orElse(new NonStandardPhase(name));
   }
 
-  class NonStandardPhase implements Phase {
-    private final String text;
-
+  record NonStandardPhase(String text) implements Phase {
     public NonStandardPhase(String text) {
       this.text = text.toLowerCase();
-    }
-
-    @Override
-    public String getText() {
-      return text;
     }
 
     @Override
@@ -102,7 +95,7 @@ interface Phase {
           .findFirst();
     }
 
-    public String getText() {
+    public String text() {
       return text;
     }
   }

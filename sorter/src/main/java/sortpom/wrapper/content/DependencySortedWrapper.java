@@ -30,8 +30,8 @@ public class DependencySortedWrapper extends SortedWrapper {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    if (wrapper instanceof DependencySortedWrapper) {
-      return isBeforeDependencySortedWrapper((DependencySortedWrapper) wrapper);
+    if (wrapper instanceof DependencySortedWrapper dependencySortedWrapper) {
+      return isBeforeDependencySortedWrapper(dependencySortedWrapper);
     }
     return super.isBefore(wrapper);
   }

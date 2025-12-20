@@ -126,8 +126,7 @@ public class XmlProcessorTestUtil {
             @SuppressWarnings("unchecked")
             @Override
             public <T extends Node> Wrapper<T> create(T content) {
-              if (content instanceof Element) {
-                var element = (Element) content;
+              if (content instanceof Element element) {
                 return (Wrapper<T>) new AlphabeticalSortedWrapper(element);
               }
               return new UnsortedWrapper<>(content);

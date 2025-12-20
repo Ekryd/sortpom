@@ -22,8 +22,8 @@ public class AlphabeticalSortedWrapper implements Wrapper<Element> {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    return wrapper instanceof AlphabeticalSortedWrapper
-        && isBeforeAlphabeticalSortedWrapper((AlphabeticalSortedWrapper) wrapper);
+    return wrapper instanceof AlphabeticalSortedWrapper alphabeticalsortedwrapper
+        && isBeforeAlphabeticalSortedWrapper(alphabeticalsortedwrapper);
   }
 
   private boolean isBeforeAlphabeticalSortedWrapper(AlphabeticalSortedWrapper wrapper) {

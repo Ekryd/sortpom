@@ -42,8 +42,8 @@ public class ExecutionSortedWrapper extends SortedWrapper {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    if (wrapper instanceof ExecutionSortedWrapper) {
-      return isBeforeWrapper((ExecutionSortedWrapper) wrapper);
+    if (wrapper instanceof ExecutionSortedWrapper executionSortedWrapper) {
+      return isBeforeWrapper(executionSortedWrapper);
     }
     return super.isBefore(wrapper);
   }

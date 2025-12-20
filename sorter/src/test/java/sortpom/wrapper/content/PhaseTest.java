@@ -26,14 +26,14 @@ class PhaseTest {
     list.sort(Phase::compareTo);
     assertThat(arr.length, is(8));
     var i = 0;
-    assertThat(arr[i++].getText(), is("test"));
-    assertThat(arr[i++].getText(), is("site"));
-    assertThat(arr[i++].getText(), is(""));
-    assertThat(arr[i++].getText(), is("01"));
-    assertThat(arr[i++].getText(), is("a"));
-    assertThat(arr[i++].getText(), is("b"));
-    assertThat(arr[i++].getText(), is("c"));
-    assertThat(arr[i].getText(), is("clea"));
+    assertThat(arr[i++].text(), is("test"));
+    assertThat(arr[i++].text(), is("site"));
+    assertThat(arr[i++].text(), is(""));
+    assertThat(arr[i++].text(), is("01"));
+    assertThat(arr[i++].text(), is("a"));
+    assertThat(arr[i++].text(), is("b"));
+    assertThat(arr[i++].text(), is("c"));
+    assertThat(arr[i].text(), is("clea"));
   }
 
   @Test

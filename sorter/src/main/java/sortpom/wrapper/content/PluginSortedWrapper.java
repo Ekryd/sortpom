@@ -31,8 +31,8 @@ public class PluginSortedWrapper extends SortedWrapper {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    if (wrapper instanceof PluginSortedWrapper) {
-      return isBeforePluginSortedWrapper((PluginSortedWrapper) wrapper);
+    if (wrapper instanceof PluginSortedWrapper pluginSortedWrapper) {
+      return isBeforePluginSortedWrapper(pluginSortedWrapper);
     }
     return super.isBefore(wrapper);
   }

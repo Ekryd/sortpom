@@ -28,7 +28,8 @@ public class SortedWrapper implements Wrapper<Element> {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    return !(wrapper instanceof SortedWrapper) || isBeforeSortedWrapper((SortedWrapper) wrapper);
+    return !(wrapper instanceof SortedWrapper sortedWrapper)
+        || isBeforeSortedWrapper(sortedWrapper);
   }
 
   private boolean isBeforeSortedWrapper(SortedWrapper wrapper) {

@@ -24,8 +24,8 @@ public class ModuleSortedWrapper extends SortedWrapper {
 
   @Override
   public boolean isBefore(Wrapper<? extends Node> wrapper) {
-    if (wrapper instanceof ModuleSortedWrapper) {
-      return isBeforeAlphabeticalTextSortedWrapper((ModuleSortedWrapper) wrapper);
+    if (wrapper instanceof ModuleSortedWrapper moduleSortedWrapper) {
+      return isBeforeAlphabeticalTextSortedWrapper(moduleSortedWrapper);
     }
     return super.isBefore(wrapper);
   }

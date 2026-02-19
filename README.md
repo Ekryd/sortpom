@@ -46,7 +46,7 @@ Sortpom works best if it is run every time during Maven compilation. [Configure]
 
 If you just want to perform a simple test what the plugin does then open a command prompt in your project home and enter
 ```
-mvn com.github.ekryd.sortpom:sortpom-maven-plugin:3.3.0:sort -Dsort.predefinedSortOrder=custom_1
+mvn com.github.ekryd.sortpom:sortpom-maven-plugin:4.0.0:sort -Dsort.predefinedSortOrder=custom_1
 ```
 
 Detailed example of how the plugin can be configured to run every time you build your project; see [recommended configuration](https://github.com/Ekryd/sortpom/wiki/Recommended-configuration) wiki page

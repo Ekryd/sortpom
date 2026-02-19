@@ -2,7 +2,7 @@
 
 [![Build Status](https://circleci.com/gh/Ekryd/sortpom.svg?style=svg)](https://app.circleci.com/pipelines/github/Ekryd/sortpom)
 [![Coverage Status](https://coveralls.io/repos/github/Ekryd/sortpom/badge.svg?branch=master)](https://coveralls.io/github/Ekryd/sortpom?branch=master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.ekryd.sortpom/sortpom-maven-plugin)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.github.ekryd.sortpom/sortpom-maven-plugin)](https://mvnrepository.com/artifact/com.github.ekryd.sortpom/sortpom-maven-plugin)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.github.ekryd.sortpom%3Asortpom-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.ekryd.sortpom%3Asortpom-parent)
 [![Licence](https://img.shields.io/github/license/Ekryd/sortpom?color=success)](https://github.com/Ekryd/sortpom/blob/master/LICENSE.md)
 [![Known Vulnerabilities](https://snyk.io/test/github/Ekryd/sortpom/badge.svg)](https://snyk.io/test/github/Ekryd/sortpom)
@@ -30,7 +30,7 @@ Sortpom works best if it is run every time during Maven compilation. [Configure]
     <plugin>
       <groupId>com.github.ekryd.sortpom</groupId>
       <artifactId>sortpom-maven-plugin</artifactId>
-      <version>3.4.0</version>
+      <version>4.0.0</version>
       <executions>
         <execution>
           <goals>

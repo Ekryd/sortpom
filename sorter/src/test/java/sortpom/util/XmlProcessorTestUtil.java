@@ -1,8 +1,7 @@
 package sortpom.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -52,7 +51,7 @@ public class XmlProcessorTestUtil {
       var actual = sortXmlAndReturnResult(inputFileName);
       var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
 
-      assertEquals(expected, actual);
+      assertThat(actual, is(expected));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -67,15 +66,15 @@ public class XmlProcessorTestUtil {
   public void testVerifyXmlIsOrdered(String inputFileName) {
     setup(inputFileName);
     xmlProcessor.sortXml();
-    assertTrue(xmlProcessor.isXmlOrdered().isOrdered());
+    assertThat(xmlProcessor.isXmlOrdered().isOrdered(), is(true));
   }
 
   public void testVerifyXmlIsNotOrdered(String inputFileName, String infoMessage) {
     setup(inputFileName);
     xmlProcessor.sortXml();
     var xmlOrdered = xmlProcessor.isXmlOrdered();
-    assertFalse(xmlOrdered.isOrdered());
-    assertEquals(infoMessage, xmlOrdered.getErrorMessage());
+    assertThat(xmlOrdered.isOrdered(), is(false));
+    assertThat(xmlOrdered.getErrorMessage(), is(infoMessage));
   }
 
   private void setup(String inputFileName) {

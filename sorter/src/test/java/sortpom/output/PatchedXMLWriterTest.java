@@ -1,6 +1,7 @@
 package sortpom.output;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -36,6 +37,6 @@ class PatchedXMLWriterTest {
     var writer = new PatchedXMLWriter(wr, new OutputFormat(), false, false, null, false);
     writer.write(reader.read(new StringReader(xml)));
 
-    assertEquals(xml, wr.toString());
+    assertThat(wr.toString(), is(xml));
   }
 }

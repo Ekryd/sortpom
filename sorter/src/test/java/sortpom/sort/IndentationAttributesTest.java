@@ -3,7 +3,6 @@ package sortpom.sort;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static sortpom.sort.XmlFragment.createXmlProjectFragment;
 
@@ -33,21 +32,22 @@ class IndentationAttributesTest {
     var actual = xmlOutputGenerator.getSortedXml(createXmlProjectFragment());
     var indentChars = getIndentChars(indent);
 
-    assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            + lineSeparator
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
-            + lineSeparator
-            + indentChars
-            + indentChars
-            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
-            + lineSeparator
-            + indentChars
-            + "<Gurka xmlns=\"\"></Gurka>"
-            + lineSeparator
-            + "</project>"
-            + lineSeparator,
-        actual);
+    assertThat(
+        actual,
+        is(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + lineSeparator
+                + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+                + lineSeparator
+                + indentChars
+                + indentChars
+                + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+                + lineSeparator
+                + indentChars
+                + "<Gurka xmlns=\"\"></Gurka>"
+                + lineSeparator
+                + "</project>"
+                + lineSeparator));
   }
 
   @ParameterizedTest
@@ -67,21 +67,22 @@ class IndentationAttributesTest {
     var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
     var indentChars = getIndentChars(indent);
 
-    assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            + lineSeparator
-            + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
-            + lineSeparator
-            + indentChars
-            + indentChars
-            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
-            + lineSeparator
-            + indentChars
-            + "<Gurka xmlns=\"\" key=\"value\"></Gurka>"
-            + lineSeparator
-            + "</project>"
-            + lineSeparator,
-        actual);
+    assertThat(
+        actual,
+        is(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + lineSeparator
+                + "<project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+                + lineSeparator
+                + indentChars
+                + indentChars
+                + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+                + lineSeparator
+                + indentChars
+                + "<Gurka xmlns=\"\" key=\"value\"></Gurka>"
+                + lineSeparator
+                + "</project>"
+                + lineSeparator));
   }
 
   @ParameterizedTest
@@ -102,41 +103,42 @@ class IndentationAttributesTest {
     gurka.add(new BaseElement("Banana").addAttribute("peeled", "true"));
     var actual = xmlOutputGenerator.getSortedXml(xmlProjectFragment);
 
-    assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-            + lineSeparator
-            + "<project"
-            + lineSeparator
-            + getIndentChars(indent * 2)
-            + "xmlns=\"http://maven.apache.org/POM/4.0.0\""
-            + lineSeparator
-            + getIndentChars(indent * 2)
-            + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
-            + lineSeparator
-            + getIndentChars(indent * 2)
-            + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
-            + lineSeparator
-            + getIndentChars(indent)
-            + "<Gurka"
-            + lineSeparator
-            + getIndentChars(indent * 3)
-            + "xmlns=\"\""
-            + lineSeparator
-            + getIndentChars(indent * 3)
-            + "key=\"value\">"
-            + lineSeparator
-            + getIndentChars(indent * 2)
-            + "<Banana"
-            + lineSeparator
-            + getIndentChars(indent * 4)
-            + "peeled=\"true\" />"
-            + lineSeparator
-            + getIndentChars(indent)
-            + "</Gurka>"
-            + lineSeparator
-            + "</project>"
-            + lineSeparator,
-        actual);
+    assertThat(
+        actual,
+        is(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + lineSeparator
+                + "<project"
+                + lineSeparator
+                + getIndentChars(indent * 2)
+                + "xmlns=\"http://maven.apache.org/POM/4.0.0\""
+                + lineSeparator
+                + getIndentChars(indent * 2)
+                + "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+                + lineSeparator
+                + getIndentChars(indent * 2)
+                + "xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd\">"
+                + lineSeparator
+                + getIndentChars(indent)
+                + "<Gurka"
+                + lineSeparator
+                + getIndentChars(indent * 3)
+                + "xmlns=\"\""
+                + lineSeparator
+                + getIndentChars(indent * 3)
+                + "key=\"value\">"
+                + lineSeparator
+                + getIndentChars(indent * 2)
+                + "<Banana"
+                + lineSeparator
+                + getIndentChars(indent * 4)
+                + "peeled=\"true\" />"
+                + lineSeparator
+                + getIndentChars(indent)
+                + "</Gurka>"
+                + lineSeparator
+                + "</project>"
+                + lineSeparator));
   }
 
   @Test

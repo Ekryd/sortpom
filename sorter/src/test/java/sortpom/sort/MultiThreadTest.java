@@ -1,6 +1,7 @@
 package sortpom.sort;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ class MultiThreadTest {
   private void assertAllThreadsReturnedTrue(List<Future<Boolean>> futures)
       throws InterruptedException, ExecutionException {
     for (var future : futures) {
-      assertEquals(true, future.get());
+      assertThat(future.get(), is(true));
     }
   }
 

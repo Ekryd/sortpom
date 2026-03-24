@@ -1,7 +1,7 @@
 package sortpom.wrapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import org.dom4j.dom.DOMText;
 import org.dom4j.tree.DefaultText;
@@ -48,20 +48,20 @@ class TextWrapperCreatorTest {
   }
 
   private void assertKeepNewline(String text) {
-    assertEquals(
-        UnsortedWrapper.KEEP_NEWLINE_INSTANCE,
-        textWrapperCreator.blankTextNode(new DefaultText(text)));
+    assertThat(
+        textWrapperCreator.blankTextNode(new DefaultText(text)),
+        is(UnsortedWrapper.KEEP_NEWLINE_INSTANCE));
   }
 
   private void assertNoSpecialNewline(String text) {
-    assertEquals(
-        ThrowAwayNewlineWrapper.THROW_AWAY_NEWLINE_INSTANCE,
-        textWrapperCreator.blankTextNode(new DefaultText(text)));
+    assertThat(
+        textWrapperCreator.blankTextNode(new DefaultText(text)),
+        is(ThrowAwayNewlineWrapper.THROW_AWAY_NEWLINE_INSTANCE));
   }
 
   @Test
   void textNodeWithNullParentShouldNotCrash() {
     var text = new DOMText("Hi!");
-    assertFalse(textWrapperCreator.isElementSpacePreserved(text.getParent()));
+    assertThat(textWrapperCreator.isElementSpacePreserved(text.getParent()), is(false));
   }
 }

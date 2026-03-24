@@ -3,7 +3,6 @@ package sortpom.parameter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -19,21 +18,21 @@ class VerifyFailParameterTest {
   void stopIgnoreCaseValueIsOk() {
     var pluginParameters = PluginParameters.builder().setVerifyFail("sToP", "strict").build();
 
-    assertEquals(VerifyFailType.STOP, pluginParameters.verifyFailType);
+    assertThat(pluginParameters.verifyFailType, is(VerifyFailType.STOP));
   }
 
   @Test
   void warnIgnoreCaseValueIsOk() {
     var pluginParameters = PluginParameters.builder().setVerifyFail("wArN", "strict").build();
 
-    assertEquals(VerifyFailType.WARN, pluginParameters.verifyFailType);
+    assertThat(pluginParameters.verifyFailType, is(VerifyFailType.WARN));
   }
 
   @Test
   void sortIgnoreCaseValueIsOk() {
     var pluginParameters = PluginParameters.builder().setVerifyFail("sOrT", "strict").build();
 
-    assertEquals(VerifyFailType.SORT, pluginParameters.verifyFailType);
+    assertThat(pluginParameters.verifyFailType, is(VerifyFailType.SORT));
   }
 
   @ParameterizedTest

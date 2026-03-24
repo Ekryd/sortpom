@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
@@ -53,7 +52,7 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenSourceFileCannotBeCopiedAnExceptionShouldBeThrown() {
-    assertTrue(pomFileTemp.delete());
+    assertThat(pomFileTemp.delete(), is(true));
 
     var fileUtil = createFileUtil();
 
@@ -73,7 +72,7 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenPomFileCannotBeReadAnExceptionShouldBeThrown() {
-    assertTrue(pomFileTemp.delete());
+    assertThat(pomFileTemp.delete(), is(true));
 
     var fileUtil = createFileUtil();
     new ReflectionHelper(fileUtil).setField("pomFile", pomFileTemp);
@@ -106,7 +105,7 @@ class FileUtilExceptionsTest {
 
   @Test
   void whenPomFileCannotBeSavedAnExceptionShouldBeThrown() {
-    assertTrue(pomFileTemp.setReadOnly());
+    assertThat(pomFileTemp.setReadOnly(), is(true));
 
     var fileUtil = createFileUtil();
 
@@ -118,7 +117,7 @@ class FileUtilExceptionsTest {
         "Unexpected message",
         thrown.getMessage(),
         is(equalTo("Could not save sorted pom file: " + pomFileTemp.getAbsolutePath())));
-    assertTrue(pomFileTemp.setReadable(true));
+    assertThat(pomFileTemp.setReadable(true), is(true));
   }
 
   @Test

@@ -1,6 +1,7 @@
 package sortpom.sort;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 import static sortpom.sort.XmlFragment.createXmlFragment;
 
@@ -37,6 +38,6 @@ class ExpandEmptyElementTest {
             .build());
 
     var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-    assertEquals(expectedValue, actual);
+    assertThat(actual, is(expectedValue));
   }
 }

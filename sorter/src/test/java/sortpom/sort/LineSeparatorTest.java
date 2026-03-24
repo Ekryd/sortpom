@@ -1,6 +1,7 @@
 package sortpom.sort;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static sortpom.sort.XmlFragment.createXmlFragment;
 
 import org.junit.jupiter.api.Test;
@@ -23,9 +24,13 @@ class LineSeparatorTest {
             .build());
 
     var actual = xmlOutputGenerator.getSortedXml(createXmlFragment());
-    assertEquals(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + lineSeparator + "<Gurka />" + lineSeparator,
-        actual);
+    assertThat(
+        actual,
+        is(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + lineSeparator
+                + "<Gurka />"
+                + lineSeparator));
   }
 
   @Test

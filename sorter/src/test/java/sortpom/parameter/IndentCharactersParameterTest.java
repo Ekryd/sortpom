@@ -1,11 +1,10 @@
 package sortpom.parameter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -17,14 +16,14 @@ class IndentCharactersParameterTest {
   void zeroIndentCharactersShouldResultInEmptyIndentString() {
     var pluginParameters = PluginParameters.builder().setIndent(0, true, false, null).build();
 
-    assertEquals("", pluginParameters.indentCharacters);
+    assertThat(pluginParameters.indentCharacters, is(""));
   }
 
   @Test
   void oneIndentCharacterShouldResultInOneSpace() {
     var pluginParameters = PluginParameters.builder().setIndent(1, true, false, null).build();
 
-    assertEquals(" ", pluginParameters.indentCharacters);
+    assertThat(pluginParameters.indentCharacters, is(" "));
   }
 
   @Test
@@ -32,15 +31,15 @@ class IndentCharactersParameterTest {
     var pluginParameters = PluginParameters.builder().setIndent(255, true, false, null).build();
 
     // Test for only space
-    assertTrue(pluginParameters.indentCharacters.matches("^ *$"));
-    assertEquals(255, pluginParameters.indentCharacters.length());
+    assertThat(pluginParameters.indentCharacters, matchesPattern("^ *$"));
+    assertThat(pluginParameters.indentCharacters.length(), is(255));
   }
 
   @Test
   void minusOneIndentCharacterShouldResultInOneTab() {
     var pluginParameters = PluginParameters.builder().setIndent(-1, true, false, null).build();
 
-    assertEquals("\t", pluginParameters.indentCharacters);
+    assertThat(pluginParameters.indentCharacters, is("\t"));
   }
 
   @Test

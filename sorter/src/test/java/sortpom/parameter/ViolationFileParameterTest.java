@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -44,7 +43,7 @@ class ViolationFileParameterTest {
   @Test
   void readOnlyViolationFileShouldReportError() throws Exception {
     var tempFile = File.createTempFile("violation", ".xml", new File("target"));
-    assertTrue(tempFile.setReadOnly());
+    assertThat(tempFile.setReadOnly(), is(true));
 
     Executable testMethod =
         () ->

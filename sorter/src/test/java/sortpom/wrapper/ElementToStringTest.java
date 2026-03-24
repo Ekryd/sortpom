@@ -1,6 +1,7 @@
 package sortpom.wrapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
@@ -18,7 +19,7 @@ class ElementToStringTest {
     try (var fileInputStream =
         new FileInputStream("src/test/resources/Real1_expected_toString.txt")) {
       var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
-      assertEquals(expected, getToStringOnRootElementWrapper());
+      assertThat(getToStringOnRootElementWrapper(), is(expected));
     }
   }
 

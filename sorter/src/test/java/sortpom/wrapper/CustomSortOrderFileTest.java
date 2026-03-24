@@ -1,6 +1,7 @@
 package sortpom.wrapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,7 +20,7 @@ class CustomSortOrderFileTest {
     try (var fileInputStream =
         new FileInputStream("src/test/resources/sortOrderFiles/with_newline_tagsToString.txt")) {
       var expected = new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
-      assertEquals(expected, getToStringOnCustomSortOrderFile());
+      assertThat(getToStringOnCustomSortOrderFile(), is(expected));
     }
   }
 

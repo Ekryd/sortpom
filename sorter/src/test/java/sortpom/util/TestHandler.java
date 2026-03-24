@@ -3,9 +3,6 @@ package sortpom.util;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,8 +64,8 @@ class TestHandler {
     }
     performSorting();
 
-    assertTrue(testpom.exists());
-    assertTrue(backupFile.exists());
+    assertThat(testpom.exists(), is(true));
+    assertThat(backupFile.exists(), is(true));
 
     try (var backupFileInputStream = new FileInputStream(backupFile);
         var originalPomInputStream = new FileInputStream(inputResourceFileName);
@@ -77,12 +74,12 @@ class TestHandler {
       var actualBackup = new String(backupFileInputStream.readAllBytes(), encoding);
       var expectedBackup = new String(originalPomInputStream.readAllBytes(), encoding);
 
-      assertEquals(expectedBackup, actualBackup);
+      assertThat(actualBackup, is(expectedBackup));
 
       var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      assertEquals(expectedSorted, actualSorted);
+      assertThat(actualSorted, is(expectedSorted));
     } catch (IOException e) {
       throw new RuntimeException(e);
     } finally {
@@ -100,16 +97,16 @@ class TestHandler {
     }
     performVerifyWithSort();
 
-    assertTrue(testpom.exists());
+    assertThat(testpom.exists(), is(true));
 
     if (pluginParameters.createBackupFile) {
-      assertTrue(backupFile.exists());
+      assertThat(backupFile.exists(), is(true));
       try (var backupFileInputStream = new FileInputStream(backupFile);
           var originalPomInputStream = new FileInputStream(inputResourceFileName)) {
         var actualBackup = new String(backupFileInputStream.readAllBytes(), encoding);
         var expectedBackup = new String(originalPomInputStream.readAllBytes(), encoding);
 
-        assertEquals(expectedBackup, actualBackup);
+        assertThat(actualBackup, is(expectedBackup));
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
@@ -120,7 +117,7 @@ class TestHandler {
       var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      assertEquals(expectedSorted, actualSorted);
+      assertThat(actualSorted, is(expectedSorted));
     } catch (IOException e) {
       throw new RuntimeException(e);
     } finally {
@@ -138,15 +135,15 @@ class TestHandler {
     }
     performSorting();
 
-    assertTrue(testpom.exists());
-    assertFalse(backupFile.exists(), "No sort expected, backup file exists");
+    assertThat(testpom.exists(), is(true));
+    assertThat("No sort expected, backup file exists", backupFile.exists(), is(false));
 
     try (var actualSortedPomInputStream = new FileInputStream(testpom);
         var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
       var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      assertEquals(expectedSorted, actualSorted);
+      assertThat(actualSorted, is(expectedSorted));
     } catch (IOException e) {
       throw new RuntimeException(e);
     } finally {
@@ -164,7 +161,7 @@ class TestHandler {
       Files.copy(Paths.get(inputResourceFileName), testpom.toPath());
       var verifyOk = isVerifyOk();
 
-      assertTrue(testpom.exists());
+      assertThat(testpom.exists(), is(true));
       return verifyOk;
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -183,15 +180,15 @@ class TestHandler {
     }
     performVerifyWithSort();
 
-    assertTrue(testpom.exists());
-    assertFalse(backupFile.exists());
+    assertThat(testpom.exists(), is(true));
+    assertThat(backupFile.exists(), is(false));
 
     try (var actualSortedPomInputStream = new FileInputStream(testpom);
         var expectedSortedPomInputStream = new FileInputStream(expectedResourceFileName)) {
       var actualSorted = new String(actualSortedPomInputStream.readAllBytes(), encoding);
       var expectedSorted = new String(expectedSortedPomInputStream.readAllBytes(), encoding);
 
-      assertEquals(expectedSorted, actualSorted);
+      assertThat(actualSorted, is(expectedSorted));
     } catch (IOException e) {
       throw new RuntimeException(e);
     } finally {
@@ -235,16 +232,16 @@ class TestHandler {
 
   private void removeOldTemporaryFiles() {
     if (testpom.exists()) {
-      assertTrue(testpom.delete());
+      assertThat(testpom.delete(), is(true));
     }
   }
 
   private void cleanupAfterTest() {
     if (testpom.exists()) {
-      assertTrue(testpom.delete());
+      assertThat(testpom.delete(), is(true));
     }
     if (backupFile.exists()) {
-      assertTrue(backupFile.delete());
+      assertThat(backupFile.delete(), is(true));
     }
   }
 

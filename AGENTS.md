@@ -71,10 +71,10 @@ Never mix Maven plugin concerns (Mojo annotations, `MavenProject`) into the `sor
 **Coverage requirement: 100%.** Every new production code path must have a corresponding test.
 
 ### Test frameworks
-- JUnit 5 (Jupiter) — `@Test`, `@ParameterizedTest`, etc.
+- JUnit 6 (Jupiter) — `@Test`, `@ParameterizedTest`, etc.
 - Mockito 5 — for mocking collaborators
-- Hamcrest 3 — preferred for assertions; use `assertThat(actual, matcher)`
-- JUnit `Assertions` — acceptable for simple equality (`assertEquals`, `assertTrue`, etc.)
+- Hamcrest 3 — use for all assertions: `assertThat(actual, matcher)`
+- JUnit `Assertions` — only for `assertThrows` and `fail` (no Hamcrest equivalent)
 
 ### Test structure
 

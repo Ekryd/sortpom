@@ -1,5 +1,6 @@
 package sortpom.wrapper.content;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,10 @@ public class ChildElementSorter {
   private final LinkedHashMap<String, String> childElementTextMappedBySortedNames =
       new LinkedHashMap<>();
 
+  private final List<String> priorityGroupIds = new ArrayList<>();
+
   public ChildElementSorter(DependencySortOrder dependencySortOrder, List<Element> children) {
+    this.priorityGroupIds.addAll(dependencySortOrder.getPriorityGroupIds());
     var childElementNames = dependencySortOrder.getChildElementNames();
 
     childElementNames.forEach(
@@ -53,7 +57,24 @@ public class ChildElementSorter {
     if ("scope".equalsIgnoreCase(key)) {
       return compareScope(text, otherText);
     }
+    if ("groupId".equalsIgnoreCase(key)) {
+      return compareGroupId(text, otherText);
+    }
     return text.compareToIgnoreCase(otherText);
+  }
+
+  private int compareGroupId(String childElementText, String otherChildElementText) {
+    String groupId = resolveComparableGroupId(childElementText);
+    String otherGroupId = resolveComparableGroupId(otherChildElementText);
+    return groupId.compareToIgnoreCase(otherGroupId);
+  }
+
+  /**
+   * When <code>groupId</code> is in the priority list, adds a prefix to ensure proper sort order.
+   */
+  private String resolveComparableGroupId(String groupId) {
+    int priority = priorityGroupIds.indexOf(groupId);
+    return (priority < 0) ? groupId : "!%02d:%s".formatted(priority, groupId);
   }
 
   private int compareScope(String childElementText, String otherChildElementText) {
@@ -68,10 +89,13 @@ public class ChildElementSorter {
 
   @Override
   public String toString() {
-    return "ChildElementSorter{"
-        + "childElementTexts="
-        + childElementTextMappedBySortedNames.values()
-        + '}';
+    StringBuilder builder = new StringBuilder("ChildElementSorter{");
+    builder.append("childElementTexts=").append(childElementTextMappedBySortedNames.values());
+    if (!priorityGroupIds.isEmpty()) {
+      builder.append(", priorityGroupIds=").append(priorityGroupIds);
+    }
+    builder.append("}");
+    return builder.toString();
   }
 
   private enum Scope {

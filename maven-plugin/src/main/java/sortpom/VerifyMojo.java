@@ -6,7 +6,6 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import sortpom.exception.ExceptionConverter;
 import sortpom.logger.SortPomLogger;
-import sortpom.parameter.PluginParameters;
 
 /**
  * Verifies that the pom.xml is sorted. If the verification fails then the pom.xml is sorted.
@@ -39,29 +38,8 @@ public class VerifyMojo extends AbstractParentMojo {
     new ExceptionConverter(
             () -> {
               var pluginParameters =
-                  PluginParameters.builder()
-                      .setPomFile(pomFile)
-                      .setFileOutput(
-                          createBackupFile, backupFileExtension, violationFilename, keepTimestamp)
-                      .setEncoding(encoding)
-                      .setFormatting(
-                          lineSeparator,
-                          expandEmptyElements,
-                          spaceBeforeCloseEmptyElement,
-                          keepBlankLines,
-                          endWithNewline)
-                      .setIndent(
-                          nrOfIndentSpace, indentBlankLines, indentSchemaLocation, indentAttribute)
-                      .setSortOrder(sortOrderFile, predefinedSortOrder)
-                      .setSortEntities(
-                          sortDependencies,
-                          sortDependencyExclusions,
-                          sortDependencyManagement,
-                          sortPlugins,
-                          sortProperties,
-                          sortModules,
-                          sortExecutions)
-                      .setIgnoreLineSeparators(ignoreLineSeparators)
+                  newPluginParametersBuilder()
+                      .setViolationFilename(violationFilename)
                       .setVerifyFail(verifyFail, verifyFailOn)
                       .build();
 

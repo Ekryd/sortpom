@@ -97,6 +97,17 @@ class SortOrderTest {
   }
 
   @Test
+  void testSortWithDependencySortPrioritizedProjectGroup() {
+    SortPomImplUtil.create()
+        .sortDependencies("groupId,artifactId")
+        .sortPlugins("groupId,artifactId")
+        .prioritizeProjectGroup(true)
+        .projectGroupId("org.codehaus.mojo")
+        .priorityGroups("org.jdom")
+        .testFiles("/SortDep_input_withPriorities.xml", "/SortDep_expected_withPriorities.xml");
+  }
+
+  @Test
   void corruptFileShouldThrowException() {
     Executable testMethod =
         () -> SortPomImplUtil.create().testFiles("/Corrupt_file.xml", "/Corrupt_file.xml");

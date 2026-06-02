@@ -24,6 +24,9 @@ public class SortPomImplUtil {
   private boolean sortModules = false;
   private boolean sortExecutions = false;
   private String predefinedSortOrder = "recommended_2008_06";
+  private String projectGroupId = "";
+  private boolean prioritizeProjectGroup = false;
+  private String priorityGroups = "";
   private String lineSeparator = "\r\n";
   private String testPomFileName = "src/test/resources/testpom.xml";
   private String testPomBackupExtension = ".testExtension";
@@ -233,6 +236,21 @@ public class SortPomImplUtil {
     return this;
   }
 
+  public SortPomImplUtil projectGroupId(String projectGroupId) {
+    this.projectGroupId = projectGroupId;
+    return this;
+  }
+
+  public SortPomImplUtil prioritizeProjectGroup(boolean prioritizeProjectGroup) {
+    this.prioritizeProjectGroup = prioritizeProjectGroup;
+    return this;
+  }
+
+  public SortPomImplUtil priorityGroups(String priorityGroups) {
+    this.priorityGroups = priorityGroups;
+    return this;
+  }
+
   public SortPomImplUtil lineSeparator(String lineSeparator) {
     this.lineSeparator = lineSeparator;
     return this;
@@ -294,6 +312,9 @@ public class SortPomImplUtil {
         .setEncoding(encoding)
         .setFormatting(lineSeparator, true, false, keepBlankLines, true)
         .setIndent(nrOfIndentSpace, indentBLankLines, indentSchemaLocation, indentAttribute)
+        .setProjectGroupId(projectGroupId)
+        .setPrioritizeProjectGroupId(prioritizeProjectGroup)
+        .setPriorityGroupIds(priorityGroups)
         .setSortEntities(
             sortDependencies,
             sortDependencyExclusions,

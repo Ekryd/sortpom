@@ -1,6 +1,7 @@
 package sortpom.parameter;
 
 import java.io.File;
+import java.util.Optional;
 
 /** Contains all parameters that are sent to the plugin */
 public class PluginParameters {
@@ -97,6 +98,7 @@ public class PluginParameters {
   /** Builder for the PluginParameters class */
   public static class Builder {
     private File pomFile;
+    private String projectGroupId;
     private boolean createBackupFile;
     private String backupFileExtension;
     private String violationFilename;
@@ -110,10 +112,12 @@ public class PluginParameters {
     private boolean spaceBeforeCloseEmptyElement;
     private String predefinedSortOrder;
     private String customSortOrderFile;
-    private DependencySortOrder sortDependencies;
-    private DependencySortOrder sortDependencyExclusions;
-    private DependencySortOrder sortDependencyManagement;
-    private DependencySortOrder sortPlugins;
+    private boolean prioritizeProjectGroupId;
+    private String priorityGroupIds;
+    private String sortDependencies;
+    private String sortDependencyExclusions;
+    private String sortDependencyManagement;
+    private String sortPlugins;
     private boolean sortProperties;
     private boolean sortModules;
     private boolean sortExecutions;
@@ -132,6 +136,11 @@ public class PluginParameters {
       return this;
     }
 
+    public Builder setProjectGroupId(String projectGroupId) {
+      this.projectGroupId = projectGroupId;
+      return this;
+    }
+
     /** Sets information regarding backup file */
     public Builder setFileOutput(
         final boolean createBackupFile,
@@ -142,6 +151,11 @@ public class PluginParameters {
       this.backupFileExtension = backupFileExtension;
       this.violationFilename = violationFilename;
       this.keepTimestamp = keepTimestamp;
+      return this;
+    }
+
+    public Builder setViolationFilename(String violationFilename) {
+      this.violationFilename = violationFilename;
       return this;
     }
 
@@ -182,6 +196,16 @@ public class PluginParameters {
       return this;
     }
 
+    public Builder setPrioritizeProjectGroupId(final boolean prioritizeProjectGroupId) {
+      this.prioritizeProjectGroupId = prioritizeProjectGroupId;
+      return this;
+    }
+
+    public Builder setPriorityGroupIds(String priorityGroupIds) {
+      this.priorityGroupIds = priorityGroupIds;
+      return this;
+    }
+
     /** Sets which sort order that should be used when sorting */
     public Builder setSortOrder(
         final String customSortOrderFile, final String predefinedSortOrder) {
@@ -199,10 +223,10 @@ public class PluginParameters {
         final boolean sortProperties,
         final boolean sortModules,
         boolean sortExecutions) {
-      this.sortDependencies = new DependencySortOrder(sortDependencies);
-      this.sortDependencyExclusions = new DependencySortOrder(sortDependencyExclusions);
-      this.sortDependencyManagement = new DependencySortOrder(sortDependencyManagement);
-      this.sortPlugins = new DependencySortOrder(sortPlugins);
+      this.sortDependencies = sortDependencies;
+      this.sortDependencyExclusions = sortDependencyExclusions;
+      this.sortDependencyManagement = sortDependencyManagement;
+      this.sortPlugins = sortPlugins;
       this.sortProperties = sortProperties;
       this.sortModules = sortModules;
       this.sortExecutions = sortExecutions;
@@ -241,10 +265,10 @@ public class PluginParameters {
           indentAttribute,
           predefinedSortOrder,
           customSortOrderFile,
-          sortDependencies,
-          sortDependencyExclusions,
-          sortDependencyManagement,
-          sortPlugins,
+          createDependencySortOrder(sortDependencies),
+          createDependencySortOrder(sortDependencyExclusions),
+          createDependencySortOrder(sortDependencyManagement),
+          createDependencySortOrder(sortPlugins),
           sortProperties,
           sortModules,
           sortExecutions,
@@ -252,6 +276,14 @@ public class PluginParameters {
           verifyFailOn,
           ignoreLineSeparators,
           keepTimestamp);
+    }
+
+    private DependencySortOrder createDependencySortOrder(String childElementNameList) {
+      var priorityGroupIdList = Optional.ofNullable(priorityGroupIds).orElse("");
+      if (prioritizeProjectGroupId && projectGroupId != null) {
+        priorityGroupIdList = projectGroupId + "," + priorityGroupIdList;
+      }
+      return new DependencySortOrder(childElementNameList, priorityGroupIdList);
     }
   }
 }

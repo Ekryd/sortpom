@@ -1,11 +1,14 @@
 package sortpom;
 
 import java.io.File;
+import java.util.Optional;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import sortpom.logger.MavenLogger;
 import sortpom.logger.SortPomLogger;
+import sortpom.parameter.PluginParameters;
 
 /** Common parent for both SortMojo and VerifyMojo */
 abstract class AbstractParentMojo extends AbstractMojo {
@@ -83,6 +86,14 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Parameter(property = "sort.predefinedSortOrder", defaultValue = "recommended_2008_06")
   String predefinedSortOrder;
 
+  /** Whether to add the project group id to the {@link #priorityGroupIds} list. */
+  @Parameter(property = "sort.prioritizeProjectGroupId", defaultValue = "false")
+  boolean prioritizeProjectGroupId;
+
+  /** Comma-separated ordered list of group ids to prioritize in sorting. */
+  @Parameter(property = "sort.priorityGroupIds")
+  String priorityGroupIds;
+
   /** Custom sort order file. */
   @Parameter(property = "sort.sortOrderFile")
   String sortOrderFile;
@@ -146,6 +157,9 @@ abstract class AbstractParentMojo extends AbstractMojo {
   @Parameter(property = "sort.quiet", defaultValue = "false")
   private boolean quiet;
 
+  @Parameter(property = "project", readonly = true, required = true)
+  MavenProject project;
+
   final SortPomImpl sortPomImpl = new SortPomImpl();
 
   /**
@@ -169,4 +183,32 @@ abstract class AbstractParentMojo extends AbstractMojo {
   protected abstract void sortPom() throws MojoFailureException;
 
   protected abstract void setup(SortPomLogger mavenLogger) throws MojoFailureException;
+
+  protected PluginParameters.Builder newPluginParametersBuilder() {
+    String projectGroupId = Optional.ofNullable(project).map(MavenProject::getGroupId).orElse(null);
+    return PluginParameters.builder()
+        .setPomFile(pomFile)
+        .setFileOutput(createBackupFile, backupFileExtension, null, keepTimestamp)
+        .setEncoding(encoding)
+        .setFormatting(
+            lineSeparator,
+            expandEmptyElements,
+            spaceBeforeCloseEmptyElement,
+            keepBlankLines,
+            endWithNewline)
+        .setIndent(nrOfIndentSpace, indentBlankLines, indentSchemaLocation, indentAttribute)
+        .setSortOrder(sortOrderFile, predefinedSortOrder)
+        .setProjectGroupId(projectGroupId)
+        .setPrioritizeProjectGroupId(prioritizeProjectGroupId)
+        .setPriorityGroupIds(priorityGroupIds)
+        .setSortEntities(
+            sortDependencies,
+            sortDependencyExclusions,
+            sortDependencyManagement,
+            sortPlugins,
+            sortProperties,
+            sortModules,
+            sortExecutions)
+        .setIgnoreLineSeparators(ignoreLineSeparators);
+  }
 }

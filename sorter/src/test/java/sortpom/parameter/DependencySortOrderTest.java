@@ -39,4 +39,12 @@ class DependencySortOrderTest {
         new DependencySortOrder("Gurka,Tomat,Melon").toString(),
         is("DependencySortOrder{childElementNames=[Gurka, Tomat, Melon]}"));
   }
+
+  @Test
+  void withPriorityGroupIdsShouldWork() {
+    assertThat(
+        new DependencySortOrder("Gurka", "net.example,org.example").toString(),
+        is(
+            "DependencySortOrder{childElementNames=[Gurka], priorityGroupIds=[net.example, org.example]}"));
+  }
 }

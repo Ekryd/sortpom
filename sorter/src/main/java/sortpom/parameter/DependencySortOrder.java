@@ -1,8 +1,8 @@
 package sortpom.parameter;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * The plugin parameter 'sortDependencies' is parsed by this class to determine if dependencies
@@ -12,8 +12,12 @@ import java.util.Collections;
  * @since 2012-09-14
  */
 public class DependencySortOrder {
+
+  private static final Pattern SPLITTER = Pattern.compile("[;,:]");
+
   private final String childElementNameList;
-  private Collection<String> childElementNames;
+  private final Collection<String> childElementNames;
+  private final List<String> priorityGroupIds;
 
   /**
    * Create an instance of the DependencySortOrder
@@ -21,7 +25,13 @@ public class DependencySortOrder {
    * @param childElementNameList the plugin parameter argument
    */
   public DependencySortOrder(String childElementNameList) {
+    this(childElementNameList, "");
+  }
+
+  public DependencySortOrder(String childElementNameList, String priorityGroupIdList) {
     this.childElementNameList = childElementNameList == null ? "" : childElementNameList;
+    this.childElementNames = split(childElementNameList);
+    this.priorityGroupIds = split(priorityGroupIdList);
   }
 
   /**
@@ -32,18 +42,11 @@ public class DependencySortOrder {
    * @return a list of xml element names
    */
   public Collection<String> getChildElementNames() {
-    if (childElementNames == null) {
-      childElementNames = Collections.unmodifiableList(Arrays.asList(parseChildElementNameList()));
-    }
     return childElementNames;
   }
 
-  private String[] parseChildElementNameList() {
-    var list = childElementNameList.replaceAll("\\s", "");
-    if (list.isEmpty()) {
-      return new String[0];
-    }
-    return list.split("[;,:]");
+  public List<String> getPriorityGroupIds() {
+    return priorityGroupIds;
   }
 
   /** Earlier versions only accepted the values 'true' and 'false' as parameter values */
@@ -63,6 +66,20 @@ public class DependencySortOrder {
 
   @Override
   public String toString() {
-    return "DependencySortOrder{" + "childElementNames=" + getChildElementNames() + '}';
+    StringBuilder builder = new StringBuilder("DependencySortOrder{");
+    builder.append("childElementNames=").append(getChildElementNames());
+    if (!priorityGroupIds.isEmpty()) {
+      builder.append(", priorityGroupIds=").append(priorityGroupIds);
+    }
+    builder.append("}");
+    return builder.toString();
+  }
+
+  private static List<String> split(String list) {
+    return SPLITTER
+        .splitAsStream(list == null ? "" : list)
+        .filter(s -> !s.isBlank())
+        .map(String::trim)
+        .toList();
   }
 }

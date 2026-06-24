@@ -1,3 +1,13 @@
+# Hibernation
+
+Dear SortPom users,
+
+This project is entering hibernation. I do not have any plans to actively add features to the plugin, but if you have any vulnerabilities or major bugs to report, please do so. No, I do not plan to accept pull requests for new features.
+
+I have maintained this project for 17 years, and I no longer feel the same joy working on it. It has become another chore rather than something I enjoy.
+
+You are always free to clone the repository and add the features you need yourself.
+
 # Sortpom Maven Plugin ![Icon](https://raw.githubusercontent.com/Ekryd/sortpom/master/misc/Sortpom.png)
 
 [![Build Status](https://circleci.com/gh/Ekryd/sortpom.svg?style=svg)](https://app.circleci.com/pipelines/github/Ekryd/sortpom)

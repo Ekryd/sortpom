@@ -1,4 +1,14 @@
-## Creating issues
+# Hibernation
+
+Dear SortPom users,
+
+This project is entering hibernation. I do not have any plans to actively add features to the plugin, but if you have any vulnerabilities or major bugs to report, please do so. No, I do not plan to accept pull requests for new features.
+
+I have maintained this project for 17 years, and I no longer feel the same joy working on it. It has become another chore rather than something I enjoy.
+
+You are always free to clone the repository and add the features you need yourself.
+
+## Creating issues (don't do this)
 
 Please add the following information.
   * What do you want to achieve / What is the purpose?
@@ -10,7 +20,7 @@ Please add the following information.
   * What was the expected output?
   * What was the actual output?
   
-### Enhancements issues
+### Enhancements issues (don't do this)
 
 All suggestions are always taken into consideration. 
 
@@ -24,7 +34,7 @@ Some suggestions will be rejected. Common reasons for rejected issues:
 
 The best way to provide a suggestion is to create a pull request
 
-## Creating pull requests
+## Creating pull requests (don't do this)
 
 Yes, please send me pull requests! They are the best! It shows that you are interested in spending your time for a feature, 
 rather than just spending my time.

@@ -18,25 +18,21 @@ shared: &shared
         key: sortpom-cache--{{ checksum "pom.xml" }}
 
 jobs:
-  jdk25:
-    docker:
-      - image: cimg/openjdk:25.0
-    <<: *shared
-  jdk20:
-    docker:
-      - image: cimg/openjdk:20.0
-    <<: *shared
   jdk21:
     docker:
       - image: cimg/openjdk:21.0
     <<: *shared
-  jdk22:
+  jdk25:
     docker:
-      - image: cimg/openjdk:22.0
+      - image: cimg/openjdk:25.0
     <<: *shared
-  jdk23:
+  jdk26:
     docker:
-      - image: cimg/openjdk:23.0
+      - image: cimg/openjdk:26.0
+    <<: *shared
+  jdk27:
+    docker:
+      - image: cimg/openjdk:27.0
     <<: *shared
   jdk17:
     docker:
@@ -61,16 +57,13 @@ workflows:
   work:
     jobs:
       - jdk21
-      - jdk20:
-          requires:
-            - jdk21
-      - jdk22:
-          requires:
-            - jdk21
-      - jdk23:
-          requires:
-            - jdk21
       - jdk25:
+          requires:
+            - jdk21
+      - jdk26:
+          requires:
+            - jdk21
+      - jdk27:
           requires:
             - jdk21
       - jdk17:
@@ -79,9 +72,8 @@ workflows:
               only: # only branches matching the below regex filters will run
                 - master
           requires:
-            - jdk25
-            - jdk20
             - jdk21
-            - jdk22
-            - jdk23
+            - jdk25
+            - jdk26
+            - jdk27
 

@@ -3,9 +3,16 @@
   "extends": [
     "config:base"
   ],
-  "packageRules": [{
-      "matchUpdateTypes": [ "patch", "minor" ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor"],
       "automerge": true,
       "automergeType": "branch"
-  }]
+    },
+    {
+      "description": "JDK images in the CircleCI build matrix are pinned to major.minor and maintained manually",
+      "matchPackageNames": ["cimg/openjdk"],
+      "enabled": false
+    }
+  ]
 }

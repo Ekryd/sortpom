@@ -277,7 +277,8 @@
             <configuration>
               <rules>
                 <requireMavenVersion>
-                  <version>3.6.3</version>
+                  <version>3.10.0</version>
+                  <message>Maven 3.10.0 or later is required (integration tests expect '[ERROR] BUILD FAILURE' log output)</message>
                 </requireMavenVersion>
                 <requireJavaVersion>
                   <version>1.8</version>

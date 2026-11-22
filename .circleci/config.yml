@@ -30,10 +30,6 @@ jobs:
     docker:
       - image: cimg/openjdk:26.0
     <<: *shared
-  jdk27:
-    docker:
-      - image: cimg/openjdk:27.0
-    <<: *shared
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -63,9 +59,6 @@ workflows:
       - jdk26:
           requires:
             - jdk21
-      - jdk27:
-          requires:
-            - jdk21
       - jdk17:
           filters: # using regex filters requires the entire branch to match
             branches:
@@ -75,5 +68,4 @@ workflows:
             - jdk21
             - jdk25
             - jdk26
-            - jdk27
 

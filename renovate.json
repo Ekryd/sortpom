@@ -10,8 +10,9 @@
       "automergeType": "branch"
     },
     {
-      "description": "JDK images in the CircleCI build matrix are pinned to major.minor and maintained manually",
+      "description": "JDK images in the CircleCI build matrix use major.minor tags: allow minor updates only, majors are added manually",
       "matchPackageNames": ["cimg/openjdk"],
+      "matchUpdateTypes": ["major", "patch"],
       "enabled": false
     }
   ]
